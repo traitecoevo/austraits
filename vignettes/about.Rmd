@@ -1,0 +1,34 @@
+---
+title: "usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(austraits.R)
+
+# load data
+
+austraits <- 
+
+```
+
+# Overview
+
+This document describes the AusTraits compilation - a compilatio of plant traits for the Australian Flora. AusTraits harmonises data on `r austraits$traits$trait_name %>% unique() %>% length()` traits from `r austraits$metadata %>% length()` different sources, including field campaigns, published literature, taxonomic monographs, and individual species descriptions. Traits link to ecological strategy variation and vary in scope from physiological measures of performance (e.g. photosynthetic gas exchange, water-use efficiency) to morphological parameters (e.g. leaf size, seed size, maximum height). AusTraits contains curated and harmonised species- and genus-level observations coupled to, where available, contextual information on site properties. 
+
+This document provides information on the structure of AusTraits and corresponds to Version `r austraits$build_info$version` of the dataset. 
+
+
+See here for futhrter info....
+
