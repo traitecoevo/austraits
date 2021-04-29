@@ -18,11 +18,13 @@ Long format data has measurements on different rows and the type of measurement 
 This function manipulates the data into wide format so that each trait in it's own column.
 }
 \examples{
+\dontrun{
 data <- austraits$traits \%>\% 
 filter(dataset_id == "Falster_2003")
 data #long format 
 traits_wide <- trait_pivot_wider(data) 
 traits_wide #wide format
+}
 }
 \author{
 Daniel Falster - daniel.falster@unsw.edu.au
