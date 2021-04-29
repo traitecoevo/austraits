@@ -1,19 +1,19 @@
-#' @title Pivot long format ausTrait data into a wide format
+#' @title Pivot long format ausTraits data into a wide format
 #'
-#' @description trait_pivot_wider "widens" long format data ("tidy data")
-#' Long format data has measurements on different rows, and just a single column which denotes what type of measurement it is.
-#' This function manipulates the data frame into wide format has data so that each trait in it's own column.
+#' @description trait_pivot_wider "widens" long format data ("tidy data").
+#' Long format data has measurements on different rows, and a single column which denotes what type of measurement it is.
+#' This function manipulates the data into wide format so that each trait is in it's own column.
 #' @usage trait_pivot_wider(data)
-#' @param data A data object g 
+#' @param data A data object generated from ausTraits, see example
 #' @return data
 #' @export
 #'
 #' @examples 
 #' data <- austraits$traits %>% 
-#' filter(dataset_id == "Falster_2003")
-#' data #long format 
+#' filter(dataset_id == "Falster_2003") #Filters a specific study
+#' data #data is currently in long format 
 #' traits_wide <- trait_pivot_wider(data) 
-#' traits_wide #wide format
+#' traits_wide #data is not in wide format
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' 
 trait_pivot_wider <- function(data) {
