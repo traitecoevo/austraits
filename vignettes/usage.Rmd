@@ -3,8 +3,10 @@ title: "usage"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{usage}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -60,14 +62,14 @@ austraits$traits %>%
 
 ```{r}
 austraits$traits %>% 
-  filter(grepl("Daviesia", species_name))
+  filter(grepl("Acacia", taxon_name))
 ```
 
 We can select particular columns from the whole or filtered dataset using `select`:
 
 ```{r}
 austraits$traits %>% 
-  select(species_name, observation_id, trait_name, value)
+  select(taxon_name, observation_id, trait_name, value)
 ```
 
 ## Extracting a particular trait or study
