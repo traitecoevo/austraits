@@ -1,5 +1,5 @@
 Package: austraits.R
-Title: What the Package Does (One Line, Title Case)
+Title: Helpful functions to access, summarise and wrangle ausTraits data
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Daniel",
