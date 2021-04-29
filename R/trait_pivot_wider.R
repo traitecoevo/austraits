@@ -4,9 +4,8 @@
 #' Long format data has measurements on different rows and the type of measurement denoted in a single column.
 #' This function manipulates the data into wide format so that each trait in it's own column.
 #' @usage trait_pivot_wider(data)
-#' @param data A data object generated from ausTraits - see example
-#' @return data
-#' @export
+#' @param data A tibble generated from ausTraits - see example
+#' @return list of tibbles in wide format
 #'
 #' @examples 
 #' \dontrun{
@@ -17,16 +16,16 @@
 #' traits_wide #wide format
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
-#' 
+#' @export
 trait_pivot_wider <- function(data) {
   
   vars <- c("value", "unit", "value_type", "replicates")
   ret <- list()
   for(v in vars) {
     ret[[v]] <- data %>% 
-      rename(to_spread = !!v) %>%
-      select(dataset_id, taxon_name, site_name, observation_id, trait_name, to_spread, original_name) %>%
-      pivot_wider(names_from = trait_name, values_from = to_spread)
+      dplyr::rename(to_spread = !!v) %>%
+      dplyr::select(dataset_id, taxon_name, site_name, observation_id, trait_name, to_spread, original_name) %>%
+      tidyr::pivot_wider(names_from = trait_name, values_from = to_spread)
   }
   
   ret

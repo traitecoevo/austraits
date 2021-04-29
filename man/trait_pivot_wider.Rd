@@ -7,10 +7,10 @@
 trait_pivot_wider(data)
 }
 \arguments{
-\item{data}{A data object generated from ausTraits - see example}
+\item{data}{A tibble generated from ausTraits - see example}
 }
 \value{
-data
+list of tibbles in wide format
 }
 \description{
 trait_pivot_wider "widens" long format data ("tidy data")

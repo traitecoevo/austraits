@@ -1,5 +1,5 @@
-data <- austraits$traits 
-dplyr::filter(dataset_id == "Falster_2003")
+data(austraits)
+data <- dplyr::filter(austraits$traits, dataset_id == "Falster_2003")
 
 #Should run smoothly
 expect_silent(traits_spread <- trait_pivot_wider(data))
