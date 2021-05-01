@@ -14,8 +14,9 @@ list of tibbles in wide format
 }
 \description{
 trait_pivot_wider "widens" long format data ("tidy data")
-Long format data has measurements on different rows and the type of measurement denoted in a single column.
-This function manipulates the data into wide format so that each trait in it's own column.
+ausTraits data is organised in a long format where observations are on different rows and the type of observation is denoted by trait name
+This function converts the data into wide format so that each trait in it's own column.
+Note that some studies have multiple rows of data for each observation_id, so
 }
 \examples{
 \dontrun{
