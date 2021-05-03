@@ -12,7 +12,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%",
-  message = FALSE
+  message = FALSE,
+  warning = FALSE
 )
 ```
 
@@ -29,7 +30,7 @@ austraits.R allow users to access, explore and wrangle the austraits database vi
 
 The package is still under development. You can install the development version of austraits.R from [GitHub](https://github.com/) with:
 
-```{r}
+```{r, echo = FALSE}
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits.R")
 ```
