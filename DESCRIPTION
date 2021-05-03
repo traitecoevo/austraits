@@ -1,13 +1,21 @@
 Package: austraits.R
-Title: Helpful functions to access, summarise and wrangle ausTraits data
+Title: Helpful functions to access, summarise and wrangle austraits data
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Daniel",
+Authors@R:
+    c(person(given = "Daniel",
            family = "Falster",
            role = c("aut", "cre"),
            email = "daniel.falster@unsw.edu.au",
-           comment = c(ORCID = "0000-0002-9814-092X"))
-Description: What the package does (one paragraph).
+           comment = c(ORCID = "0000-0002-9814-092X")),
+           person(given = "Fonti",
+           family = "Kar",
+           role = "ctb",
+           email = "f.kar@unsw.edu.au"
+           comment = c(ORCID = "0000-0002-2760-3974")))
+Description: austraits.R is a package for accessing, summarising and wrangling austraits data
+                The package allows users to explore the scope and type of data available, 
+                as well as subset and wrangle relevant specific data for furture research.
+                This package is still under development. See README and vignette('austraits.R') for further information.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en
