@@ -1,8 +1,5 @@
 on:
   push:
-      branches:
-      - master
-      - develop
     paths:
       - '**.Rmd'
 
