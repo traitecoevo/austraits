@@ -25,7 +25,7 @@ trait_pivot_longer <- function(data, definitions) {
   
   id_variables <- c("dataset_id", "taxon_name", "site_name", "observation_id", "trait_name", "value", "unit", "date", "value_type", "replicates", "original_name")
   
-  traits <- names(data$value)[!(names(data$value) %in% id_variables)]
+  traits <- names(.data$value)[!(names(.data$value) %in% id_variables)]
   
   vars <- names(data)
   
@@ -43,9 +43,9 @@ trait_pivot_longer <- function(data, definitions) {
     )
   
   ret <- ret %>% 
-    dplyr::mutate(value = dplyr::na_if(value, y = "NA")) %>%
-    dplyr::filter(!is.na(value)) %>%
-    dplyr::arrange(observation_id, trait_name) %>%
+    dplyr::mutate(value = dplyr::na_if(.data$value, y = "NA")) %>%
+    dplyr::filter(!is.na(.data$value)) %>%
+    dplyr::arrange(.data$observation_id, .data$trait_name) %>%
     dplyr::select(id_variables)
   
   ret
