@@ -1,13 +1,20 @@
 Package: austraits.R
-Title: What the Package Does (One Line, Title Case)
+Title: Helpful functions to access, summarise and wrangle austraits data
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Daniel",
-           family = "Falster",
-           role = c("aut", "cre"),
-           email = "daniel.falster@unsw.edu.au",
-           comment = c(ORCID = "0000-0002-9814-092X"))
-Description: What the package does (one paragraph).
+Authors@R:
+    c(person(given = "Daniel",
+             family = "Falster",
+             role = c("aut", "cre"),
+             email = "daniel.falster@unsw.edu.au",
+             comment = c(ORCID = "0000-0002-9814-092X")),
+      person(given = "Fonti",
+             family = "Kar",
+             role = "ctb",
+             comment = c(ORCID = "0000-0002-2760-3974")))
+Description: austraits.R is a package for accessing, summarising and wrangling austraits data
+                The package allows users to explore the scope and type of data available, 
+                as well as subset and wrangle relevant specific data for furture research.
+                This package is still under development. See README and vignette('austraits.R') for further information.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en
@@ -15,8 +22,17 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
-    R (>= 2.10)
+    R (>= 4.0.0)
+Imports:
+    magrittr,
+    dplyr,
+    tidyr,
+    rlang,
+    rmarkdown,
+    tidyselect
 Suggests: 
     knitr,
-    rmarkdown
+    testthat (>= 3.0.0),
+    markdown
 VignetteBuilder: knitr
+Config/testthat/edition: 3
