@@ -3,10 +3,10 @@
 #' @description trait_pivot_wider "widens" long format data ("tidy data")
 #' ausTraits data is organised in a long format where observations are on different rows and the type of observation is denoted by trait name
 #' This function converts the data into wide format so that each trait in it's own column. 
-#' Note that some studies have multiple rows of data for each observation_id, so 
+#' Note that some studies have multiple rows of data for each observation_id, so this function will create four lists (value, unit, value_type and replicates) while retaining the other columns in its exisiting format
 #' @usage trait_pivot_wider(data)
 #' @param data A tibble generated from ausTraits - see example
-#' @return list of tibbles in wide format
+#' @return list of five tibbles in wide format
 #'
 #' @examples 
 #' \dontrun{
@@ -22,7 +22,7 @@
 
 trait_pivot_wider <- function(data) {
   
-  vars <- c("value", "unit", "value_type", "replicates")
+  vars <- c("value", "unit", "date", "value_type", "replicates")
   ret <- list()
   for(v in vars) {
     ret[[v]] <- data %>% 
