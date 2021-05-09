@@ -4,7 +4,6 @@
 #' This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name
 #' @usage trait_pivot_longer(data)
 #' @param data A tibble in wide format generated from trait_pivot_wider - see example
-#' @param definitions Not needed? 
 #' @return A tibble in long format
 #'
 #' @examples 
@@ -21,11 +20,11 @@
 #' @export
 #' @importFrom rlang .data
 #
-trait_pivot_longer <- function(data, definitions) {
+trait_pivot_longer <- function(data) {
   
   id_variables <- c("dataset_id", "taxon_name", "site_name", "observation_id", "trait_name", "value", "unit", "date", "value_type", "replicates", "original_name")
   
-  traits <- names(.data$value)[!(names(.data$value) %in% id_variables)]
+  traits <- names(data$value)[!(names(data$value) %in% id_variables)]
   
   vars <- names(data)
   
