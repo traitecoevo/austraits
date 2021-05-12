@@ -1,4 +1,4 @@
-Package: austraits.R
+Package: austraits
 Title: Helpful functions to access, summarise and wrangle austraits data
 Version: 0.0.0.9000
 Authors@R:
