@@ -1,5 +1,5 @@
 ---
-title: "austraits_R"
+title: "austraits"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{austraits_R}
@@ -15,5 +15,5 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(austraits.R)
+library(austraits)
 ```

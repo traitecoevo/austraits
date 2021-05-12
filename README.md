@@ -21,17 +21,8 @@ The package is still under development. You can install the development
 version of austraits.R from [GitHub](https://github.com/) with:
 
 ``` r
-#install.packages("remotes")
+install.packages("remotes")
 remotes::install_github("traitecoevo/austraits.R")
-#>      checking for file ‘/private/var/folders/fk/9s3srn850qj90zp4t67zc0fm0000gq/T/RtmpXEHmjK/remotes5266aa991e9/traitecoevo-austraits.R-f17d774/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/fk/9s3srn850qj90zp4t67zc0fm0000gq/T/RtmpXEHmjK/remotes5266aa991e9/traitecoevo-austraits.R-f17d774/DESCRIPTION’
-#>   ─  preparing ‘austraits.R’:
-#>      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
-#>   ─  checking for LF line-endings in source and make files and shell scripts
-#>   ─  checking for empty or unneeded directories
-#>   ─  creating default NAMESPACE file
-#>   ─  building ‘austraits.R_0.0.0.9000.tar.gz’
-#>      
-#> 
 ```
 
 ## Getting started
@@ -66,9 +57,3 @@ summary(austraits$traits)
 #>                     site_min   :  0                                        
 #>                     (Other)    :  0
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/master/examples>.
