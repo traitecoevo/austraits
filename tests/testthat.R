@@ -1,4 +1,4 @@
 library(testthat)
-library(austraits.R)
+library(austraits)
 
 test_check("austraits")
