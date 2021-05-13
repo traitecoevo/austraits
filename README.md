@@ -1,15 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# austraits.R
+# austraits
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/traitecoevo/austraits.R/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits.R/actions)
-[![codecov](https://codecov.io/gh/traitecoevo/austraits.R/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits.R)
+[![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
+[![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 <!-- badges: end -->
 
-austraits.R allow users to access, explore and wrangle the austraits
+austraits allow users to access, explore and wrangle the austraits
 database via R. The package includes several general functions such as
 filtering and pivoting the dataset that we expect will come in handy. In
 our vignette, we have also included some tutorials that uses `tidyverse`
@@ -18,11 +18,11 @@ functions to create more specific output - see vignette(“austraits.R”)
 ## Installation
 
 The package is still under development. You can install the development
-version of austraits.R from [GitHub](https://github.com/) with:
+version of austraits from [GitHub](https://github.com/) with:
 
 ``` r
 install.packages("remotes")
-remotes::install_github("traitecoevo/austraits.R")
+remotes::install_github("traitecoevo/austraits")
 ```
 
 ## Getting started
@@ -30,7 +30,7 @@ remotes::install_github("traitecoevo/austraits.R")
 First load the library and inspect the trait data
 
 ``` r
-library(austraits.R)
+library(austraits)
 summary(austraits$traits)
 #>   dataset_id         taxon_name         site_name         context_name      
 #>  Length:953         Length:953         Length:953         Length:953        

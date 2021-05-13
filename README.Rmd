@@ -28,9 +28,9 @@ austraits allow users to access, explore and wrangle the austraits database via 
 
 ## Installation
 
-The package is still under development. You can install the development version of austraits.R from [GitHub](https://github.com/) with:
+The package is still under development. You can install the development version of austraits from [GitHub](https://github.com/) with:
 
-```{r, eval = FALSE}
+```{r setup, eval = FALSE}
 install.packages("remotes")
 remotes::install_github("traitecoevo/austraits")
 ```
