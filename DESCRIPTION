@@ -29,7 +29,8 @@ Imports:
     tidyr,
     rlang,
     rmarkdown,
-    tidyselect
+    tidyselect,
+    assertthat
 Suggests: 
     knitr,
     testthat (>= 3.0.0),

@@ -2,7 +2,7 @@
 #'
 #' @description Function to subset of all data associated with a particular dataset from austraits
 #' @usage extract_dataset(data, dataset_id), 
-#' @param data - A large list of tibbles build from austraits
+#' @param austraits - A large list of tibbles built from austraits
 #' @param dataset_id - character string that matches a dataset_id in the data
 #' @return A large list of tibbles containing all austraits information for one particular dataset
 #'
@@ -36,16 +36,4 @@ extract_dataset <- function(austraits, dataset_id) {
   assertthat::are_equal(sort(names(austraits)), sort(names(ret)))
   
   ret[names(austraits)]
-}
-
-trait_type  <- function(trait_name, definitions) {
-  extract_list_element(trait_name, definitions$traits$elements, "type")
-}
-
-trait_is_numeric <- function(trait_name, definitions) {
-  trait_type(trait_name, definitions) == "numeric"
-}
-
-trait_is_categorical <- function(trait_name, definitions) {
-  !trait_is_numeric(trait_name, definitions)
 }
