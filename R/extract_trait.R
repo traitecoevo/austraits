@@ -15,8 +15,6 @@
 #' @export
 #' @importFrom rlang .data
 
-trait_names = "leaf_area"
-
 extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   
   ret <- austraits
@@ -59,6 +57,8 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   keys <- dplyr::union(ret$methods$source_primary_key, 
                        ret$methods$source_secondary_key) %>% 
     unique() %>% stats::na.omit() %>% as.character()
+
+  keys <- keys[!keys == ""] #Omit empty strings
   
   ret[["sources"]] <- austraits$sources[keys]
   
