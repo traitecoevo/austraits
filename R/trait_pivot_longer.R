@@ -1,7 +1,8 @@
 #' @title Pivot wide format ausTrait data into a long format
 #'
 #' @description trait_pivot_longer "gathers" wide format data into a "tidy" format
-#' This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name
+#' This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name.
+#' In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
 #' @usage trait_pivot_longer(data)
 #' @param data A tibble in wide format generated from trait_pivot_wider - see example
 #' @return A tibble in long format
@@ -22,7 +23,7 @@
 #
 trait_pivot_longer <- function(data) {
   
-  id_variables <- c("dataset_id", "taxon_name", "site_name", "observation_id", "trait_name", "value", "unit", "date", "value_type", "replicates", "original_name")
+  id_variables <- c("dataset_id", "taxon_name", "site_name", "context_name", "observation_id", "trait_name", "value", "unit", "date", "value_type", "replicates", "original_name")
   
   traits <- names(data$value)[!(names(data$value) %in% id_variables)]
   
