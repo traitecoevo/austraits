@@ -14,7 +14,8 @@ A tibble in long format
 }
 \description{
 trait_pivot_longer "gathers" wide format data into a "tidy" format
-This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name
+This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name.
+In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
 }
 \examples{
 \dontrun{
@@ -24,7 +25,7 @@ data #long format
 traits_wide <- trait_pivot_wider(data) 
 traits_wide #wide format
 
-values_long <- trait_pivot_longer(traits_wide, data$definitions)
+values_long <- trait_pivot_longer(traits_wide)
 }
 }
 \author{

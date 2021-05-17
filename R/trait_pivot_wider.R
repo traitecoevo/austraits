@@ -10,8 +10,7 @@
 #'
 #' @examples 
 #' \dontrun{
-#' data <- austraits$traits %>% 
-#' filter(dataset_id == "Falster_2003")
+#' data <- austraits$traits %>% filter(dataset_id == "Falster_2003")
 #' data #long format 
 #' traits_wide <- trait_pivot_wider(data) 
 #' traits_wide #wide format

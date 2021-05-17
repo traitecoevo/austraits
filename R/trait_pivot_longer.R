@@ -15,7 +15,7 @@
 #' traits_wide <- trait_pivot_wider(data) 
 #' traits_wide #wide format
 #' 
-#' values_long <- trait_pivot_longer(traits_wide, data$definitions)
+#' values_long <- trait_pivot_longer(traits_wide)
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
