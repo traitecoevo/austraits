@@ -4,7 +4,7 @@
 \alias{extract_dataset}
 \title{Extract all data for a particular dataset}
 \usage{
-extract_dataset(data, dataset_id),
+extract_dataset(austraits, dataset_id)
 }
 \arguments{
 \item{austraits}{\itemize{

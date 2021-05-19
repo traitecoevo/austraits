@@ -2,8 +2,8 @@
 #'
 #' @description This function condenses data for studies that have multiple observations for a given trait into a single row. 
 #' This function concatenates multiple values into a single cell
-#' @usage bind_trait_values(austraits$traits)
-#' @param data The trait data frame generated from austraits - see example
+#' @usage bind_trait_values(trait_data)
+#' @param trait_data The trait data frame generated from austraits - see example
 #' @return tibble that is condensed down where multiple observations in value, value_type and replicates are collapsed down and separated by '--' 
 #'
 #' @examples 
@@ -17,7 +17,7 @@
 #' @export
 #' @importFrom rlang .data
 
-bind_trait_values <- function(data) {
+bind_trait_values <- function(trait_data) {
   
   bind_x <- function(x) paste0(x, collapse = "--")
   
@@ -26,18 +26,18 @@ bind_trait_values <- function(data) {
     if(nrow(.data) > 1) {
       return(
         .data %>% 
-          dplyr::mutate(value = bind_x(value),
-                        value_type = bind_x(value_type),
-                        replicates = bind_x(replicates)) %>%
+          dplyr::mutate(value = bind_x(.data$value),
+                        value_type = bind_x(.data$value_type),
+                        replicates = bind_x(.data$replicates)) %>%
           dplyr::filter(dplyr::row_number()==1) 
       )
     }
     .data
   }
   
-  data  %>% 
-    dplyr::group_by(observation_id, trait_name) %>% 
+  trait_data  %>% 
+    dplyr::group_by(.data$observation_id, .data$trait_name) %>% 
     bind_values_worker() %>% 
     dplyr::ungroup() %>% 
-    dplyr::arrange(observation_id, trait_name, value_type)
+    dplyr::arrange(.data$observation_id, .data$trait_name, .data$value_type)
 }

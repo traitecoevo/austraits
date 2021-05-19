@@ -30,7 +30,8 @@ Imports:
     rlang,
     rmarkdown,
     tidyselect,
-    assertthat
+    assertthat,
+    stringr
 Suggests: 
     knitr,
     testthat (>= 3.0.0),

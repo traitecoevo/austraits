@@ -22,13 +22,13 @@ separate_trait_values <- function(data, definitions) {
   
   separate_x <- function(x) strsplit(x, "--")[[1]]
   
-  separate_values_worker <- function(df) {
+  separate_values_worker <- function(.data) {
     
-    df[rep(1, df$n_vals[1]),] %>%
+    .data[rep(1, .data$n_vals[1]),] %>%
       dplyr::mutate(
-        value = separate_x(value[1]),
-        value_type = separate_x(value_type[1]),
-        replicates = separate_x(replicates[1])
+        value = separate_x(.data$value[1]),
+        value_type = separate_x(.data$value_type[1]),
+        replicates = separate_x(.data$replicates[1])
       )
   }
   
@@ -38,19 +38,19 @@ separate_trait_values <- function(data, definitions) {
   
   # separate out those rows requiring no modification
   out_1 <- data %>% 
-    dplyr::filter(n_vals == 1)
+    dplyr::filter(.data$n_vals == 1)
   
   # separate out those rows requiring modification & modify
   out_2 <- data %>% 
-    dplyr::filter(n_vals > 1) %>% 
-    split(paste(.$observation_id, .$trait_name)) %>%    
+    dplyr::filter(.data$n_vals > 1) %>% 
+    split(paste(.data$observation_id, .data$trait_name)) %>%    
     lapply(separate_values_worker) %>% 
     dplyr::bind_rows()
   
   # join it all back together, clean up and sort as in original
   dplyr::bind_rows(out_1, out_2) %>% 
-    dplyr::select(-n_vals) %>% 
-    dplyr::mutate(replicates = clean_NA(replicates),
-                  value_type = factor(clean_NA(value_type), levels = names(definitions$value_type$values))) %>% 
-    dplyr::arrange(observation_id, trait_name, value_type)
+    dplyr::select(-.data$n_vals) %>% 
+    dplyr::mutate(replicates = clean_NA(.data$replicates),
+                  value_type = factor(clean_NA(.data$value_type), levels = names(definitions$value_type$values))) %>% 
+    dplyr::arrange(.data$observation_id, .data$trait_name, .data$value_type)
 }

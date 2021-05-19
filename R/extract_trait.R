@@ -1,15 +1,15 @@
 #' @title Extract data for specific traits
 #'
 #' @description Function to subset of all data associated with a particular dataset from austraits
-#' @usage extract_trait(austraits, trait_names, taxon_names = NULL), 
+#' @usage extract_trait(austraits, trait_names, taxon_names)
 #' @param austraits - A large list of tibbles built from austraits
 #' @param trait_names - character string of trait that will be extracted
-#' @param taxon_names - optional arugument
+#' @param taxon_names - optional argument
 #' @return A large list of tibbles containing all austraits information for one particular dataset
 #'
 #' @examples 
 #' \dontrun{
-#'extract_dataset(austraits, "Falster_2003")
+#'extract_trait(austraits, "wood_density", taxon_name = "Acacia celsa")
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export

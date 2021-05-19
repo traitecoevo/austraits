@@ -11,7 +11,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @importFrom rlang .data
-#' @NoRd
+#' @noRd
 
 clean_NA <- function(x) {
   ifelse(x == "NA", NA_character_, x)

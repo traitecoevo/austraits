@@ -4,7 +4,7 @@
 \alias{extract_trait}
 \title{Extract data for specific traits}
 \usage{
-extract_trait(austraits, trait_names, taxon_names = NULL),
+extract_trait(austraits, trait_names, taxon_names)
 }
 \arguments{
 \item{austraits}{\itemize{
@@ -16,7 +16,7 @@ extract_trait(austraits, trait_names, taxon_names = NULL),
 }}
 
 \item{taxon_names}{\itemize{
-\item optional arugument
+\item optional argument
 }}
 }
 \value{
@@ -27,7 +27,7 @@ Function to subset of all data associated with a particular dataset from austrai
 }
 \examples{
 \dontrun{
-extract_dataset(austraits, "Falster_2003")
+extract_trait(austraits, "wood_density", taxon_name = "Acacia celsa")
 }
 }
 \author{

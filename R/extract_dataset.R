@@ -1,7 +1,7 @@
 #' @title Extract all data for a particular dataset
 #'
 #' @description Function to subset of all data associated with a particular dataset from austraits
-#' @usage extract_dataset(data, dataset_id), 
+#' @usage extract_dataset(austraits, dataset_id)
 #' @param austraits - A large list of tibbles built from austraits
 #' @param dataset_id - character string that matches a dataset_id in the data
 #' @return A large list of tibbles containing all austraits information for one particular dataset
