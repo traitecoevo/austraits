@@ -53,12 +53,10 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
     ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]])
   }
   
-  
-  keys <- dplyr::union(ret$methods$source_primary_key, 
-                       ret$methods$source_secondary_key) %>% 
-    unique() %>% stats::na.omit() %>% as.character()
 
-  keys <- keys[!keys == ""] #Omit empty strings
+  keys <- dplyr::union(ret$methods$source_primary_key, 
+                       ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
+    unique() %>% stats::na.omit() %>% as.character()
   
   ret[["sources"]] <- austraits$sources[keys]
   

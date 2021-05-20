@@ -29,7 +29,11 @@ extract_dataset <- function(austraits, dataset_id) {
   ret[["definitions"]] <- austraits[["definitions"]]
   ret[["build_info"]] <- austraits[["build_info"]]
   
-  keys <- ret$methods %>% dplyr::select(.data$source_primary_key,.data$source_secondary_key) %>% dplyr::na_if("") %>% unlist() %>% stats::na.omit() %>% unique()
+  keys <- dplyr::union(ret$methods$source_primary_key, 
+                       ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
+    unique() %>% stats::na.omit() %>% as.character()
+  
+  ret[["sources"]] <- austraits$sources[keys]
   
   ret[["sources"]] <- austraits[["sources"]][keys]
   
