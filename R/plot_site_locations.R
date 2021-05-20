@@ -1,0 +1,75 @@
+#' Produce site maps 
+#'
+#' @param data 
+#' @param feature grouping/classification categories
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' 
+#' data <- austraits %>% join_all() %>% `[[`("traits") 
+#' 
+#' data %>% plot_site_locations()
+#' 
+#' data <- austraits %>% extract_trait(trait_names = c("leaf_angle", "leaf_area", "specific_leaf_area", "wood_density", "plant_height")) %>% join_all() %>% `[[`("traits")
+#' 
+#' data %>% plot_site_locations("trait_name")
+#' }
+#' @author Daniel Falster - daniel.falster@unsw.edu.au
+#' @export
+plot_site_locations <- function(data, feature="trait_name", size=0.5, alpha = 0.8, xlab = "", ylab=""){
+
+  sites <- 
+    data %>%
+    select(site_name, `latitude (deg)`, `longitude (deg)`, !!feature) %>%
+    drop_na() %>%
+    mutate_at(c("longitude (deg)","latitude (deg)"), as.numeric) %>% 
+    filter(
+      `latitude (deg)` > (-45), `latitude (deg)` < (-9.5),
+      `longitude (deg)` > (110), `longitude (deg)` < (153))
+  
+  site_map <- 
+    ggplot() +
+    # base map
+    geom_raster(data = raster::as.data.frame(australia_map_raster, xy = T), 
+                aes(x = x, y = y,fill = factor(australia))
+    )  +
+    # add data
+    ggpointdensity::geom_pointdensity(
+      data = sites,
+      aes(y = `latitude (deg)`, x = `longitude (deg)`),
+      inherit.aes = FALSE,
+      show.legend = TRUE,
+      adjust = 1,
+      size = size,
+      alpha=alpha
+    ) +
+    viridis::scale_color_viridis(option = "plasma") +
+    theme(
+      legend.justification = c(-0.1, 0),
+      legend.position = c(0.05, 0.05),
+      legend.direction  = "horizontal",
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            panel.background = element_blank(),
+            panel.border = element_rect(colour = "black", fill=NA, size=1),
+            axis.ticks.length = unit(1, "mm"),
+            axis.ticks = element_line(size = 1)
+    ) +
+    scale_fill_grey(
+      name = "",
+      start = 0.8,
+      guide = FALSE,
+      na.value = "white"
+    ) + xlab(xlab) + ylab(ylab)
+  
+  # facet by feature if specified
+  if(!is.na(feature)){
+      site_map <- site_map + facet_wrap(paste("~", feature))
+  }
+  
+  site_map
+}
+
