@@ -31,7 +31,12 @@ Imports:
     rmarkdown,
     tidyselect,
     assertthat,
-    stringr
+    stringr,
+    ggbeeswarm,
+    gridExtra,
+    scales,
+    forcats,
+    ggplot2
 Suggests: 
     knitr,
     testthat (>= 3.0.0),

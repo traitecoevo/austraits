@@ -1,0 +1,138 @@
+#' Plots distribution of trait values by a  grouping variable using
+#' ggbeeswarm package  
+#'
+#' @param austraits 
+#' @param plant_trait_name Name of trait to plot
+#' @param y_axis_category One of `dataset_id`, `family`
+#' @param highlight specify a group to highlight
+#' @param hide_ids add label on y_axis?
+#'
+#' @export
+#'
+#' @examples 
+#' \dontrun{
+#' austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id", "Westoby_2014")
+#' }
+#' @author Daniel Falster - daniel.falster@unsw.edu.au
+#' @export
+#
+plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
+  
+  # Subset data to this trait
+  austraits_trait <- extract_trait(austraits, plant_trait_name)
+  
+  my_shapes = c("_min" = 60, "_mean" = 16, "_max" =62, "unknown" = 18)
+  
+  as_shape <- function(value_type) {
+    p <- rep("unknown", length(value_type))
+    
+    p[grepl("mean", value_type)] <- "_mean" #16
+    p[grepl("min", value_type)] <- "_min" #60
+    p[grepl("max", value_type)] <- "_max" #62
+    factor(p, levels=names(my_shapes))
+  }
+  
+  data <- 
+    austraits_trait$traits %>%
+    mutate(shapes = as_shape(value_type)) %>%
+    left_join(by = "taxon_name",
+      select(austraits_trait$taxa, taxon_name, family))
+  
+  # Define grouping variables and derivatives
+  if(!y_axis_category %in% names(data)){
+    stop("incorrect grouping variable")
+  }
+  
+  # define grouping variable, ordered by group-level by mean values
+  # use log_value where possible
+  if(min(data$value, na.rm=TRUE) > 0 ) {
+    data$value2 <- log10(data$value)
+  } else {
+    data$value2 <- data$value
+  }
+  data$Group = forcats::fct_reorder(data[[y_axis_category]], data$value2, na.rm=TRUE)
+  
+  n_group <- levels(data$Group) %>% length()
+  
+  # set colour to be alternating
+  data$colour = ifelse(data$Group %in% levels(data$Group)[seq(1, n_group, by=2)],
+                       "a", "b")
+  
+  # set colour of group to highlight
+  if(!is.na(highlight) & highlight %in% data$Group) {
+    data <- mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
+  }
+  
+  # Check range on x-axis
+  vals <- austraits_trait$definitions$traits$elements[[plant_trait_name]]$values
+  range <- (vals$maximum/vals$minimum)
+  
+  # Check range on y-axis
+  y.text <- ifelse(n_group > 20, 0.75, 1)
+  heights = c(1, max(1, n_group/7))
+  
+  # Top plot - plain histogram of data
+  p1 <-
+    ggplot(data, aes(x=value)) +
+    geom_histogram(aes(y = ..density..), color="darkgrey", fill="darkgrey", bins=50) +
+    geom_density(color="black") +
+    xlab("") + ylab("All data") +
+    theme_bw()  +
+    theme(legend.position = "none",
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          axis.ticks.y=element_blank(),
+          axis.text=element_blank(),
+          panel.background = element_blank()
+    )
+  # Second plot -- dots by groups, using ggbeeswarm package
+  p2 <-
+    ggplot(data, aes(x = value, y = Group, colour = colour, shape = shapes)) +
+    ggbeeswarm::geom_quasirandom(groupOnX=FALSE) +
+    ylab(paste("By ", y_axis_category)) +
+    # inclusion of custom shapes: for min, mean, unknown
+    # NB: this single line of code makes function about 4-5 slower for some reason
+    scale_shape_manual(values = my_shapes) +
+    theme_bw() +
+    theme(legend.position = "bottom",
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          axis.text.x=element_text(size=rel(1.25)),
+          axis.text.y=element_text(size=rel(y.text))
+    ) +
+    guides(colour=FALSE)
+  
+  if(hide_ids) {
+    p2 <- p2 + theme(axis.text.y = element_blank())
+  }
+  
+  # Define scale on x-axis and transform to log if required
+  if(vals$minimum !=0 & range > 20) {
+    #log transformation
+    p1 <- p1 +
+      scale_x_log10( name="",
+                     breaks = scales::trans_breaks("log10", function(x) 10^x),
+                     labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                     limits=c(vals$minimum, vals$maximum))
+    p2 <- p2 +
+      scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
+                    breaks = scales::trans_breaks("log10", function(x) 10^x),
+                    labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                    limits=c(vals$minimum, vals$maximum))
+  } else {
+    p1 <- p1 + scale_x_continuous(limits=c(vals$minimum, vals$maximum))
+    p2 <- p2 + scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
+      xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
+    
+  }
+  
+  # combine plots
+  # Might be a better way to do this with other packages?
+  
+  f <- function(x) {suppressWarnings(ggplot_gtable(ggplot_build(x)))}
+  p1 <- f(p1)
+  p2 <- f(p2)
+  # Fix width of second plot to be same as bottom using ggplot_table
+  p1$widths[2:3] <- p2$widths[2:3]
+  gridExtra::grid.arrange(p1, p2, nrow=2, widths=c(1), heights=heights)
+}
