@@ -32,7 +32,6 @@ separate_trait_values <- function(data, definitions) {
       )
   }
   
-  
   # record the number of values in each row of data
   data$n_vals <- 1 + stringr::str_count(data$value_type, "--")
   
@@ -43,17 +42,16 @@ separate_trait_values <- function(data, definitions) {
   # separate out those rows requiring modification & modify
   out_2 <- data %>% 
     dplyr::filter(.data$n_vals > 1) %>% 
-    split(paste(.data[["observation_id"]], .data[["trait_name"]])) %>%    
+    dplyr::group_split(stringr::str_c(.data$observation_id, .data$trait_name, sep = " ")) %>%    
     lapply(separate_values_worker) %>% 
     dplyr::bind_rows()
   
   # join it all back together, clean up and sort as in original
   dplyr::bind_rows(out_1, out_2) %>% 
-    dplyr::select(-n_vals) %>% 
-    dplyr::mutate(replicates = clean_NA(replicates),
-                  value_type = factor(
-                    clean_NA(value_type), 
-                    levels = names(definitions$value_type$values))
+    dplyr::select(-.data$n_vals) %>% 
+    dplyr::mutate(replicates = clean_NA(.data$replicates),
+                  value_type = factor(clean_NA(.data$value_type), 
+                    levels = names(definitions$definitions$value_type$values))
     ) %>% 
-    dplyr::arrange(observation_id, trait_name, value_type)
+    dplyr::arrange(.data$observation_id, .data$trait_name, .data$value_type)
 }
