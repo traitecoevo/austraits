@@ -44,14 +44,14 @@ separate_trait_values <- function(data, definitions) {
     dplyr::filter(.data$n_vals > 1) %>% 
     dplyr::group_split(stringr::str_c(.data$observation_id, .data$trait_name, sep = " ")) %>%    
     lapply(separate_values_worker) %>% 
-    dplyr::bind_rows()
+    dplyr::bind_rows() %>% 
+    dplyr::select(.data$dataset_id:.data$n_vals)
   
   # join it all back together, clean up and sort as in original
   dplyr::bind_rows(out_1, out_2) %>% 
     dplyr::select(-.data$n_vals) %>% 
     dplyr::mutate(replicates = clean_NA(.data$replicates),
-                  value_type = factor(clean_NA(.data$value_type), 
-                    levels = names(definitions$definitions$value_type$values))
+                  value_type = factor(clean_NA(.data$value_type), levels = names(definitions$definitions$value_type$values))
     ) %>% 
     dplyr::arrange(.data$observation_id, .data$trait_name, .data$value_type)
 }
