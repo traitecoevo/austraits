@@ -2,7 +2,7 @@
 data(austraits)
 #Filter some data
 data <- dplyr::filter(austraits$traits, dataset_id == "Falster_2003")
-wide_data <- austraits::trait_pivot_wider(data)
+wide_data <- trait_pivot_wider(data)
 
 test_that("function shouldn't complain and throw errors", {
   expect_silent(trait_pivot_wider(data))
