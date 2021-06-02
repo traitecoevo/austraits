@@ -16,30 +16,29 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 ```
-
-# austraits.R
+# austraits
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/traitecoevo/austraits.R/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits.R/actions)
-[![codecov](https://codecov.io/gh/traitecoevo/austraits.R/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits.R)
+[![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
+[![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 <!-- badges: end -->
 
-austraits.R allow users to access, explore and wrangle the austraits database via R. The package includes several general functions such as filtering and pivoting the dataset that we expect will come in handy. In our vignette, we have also included some tutorials that uses `tidyverse` functions to create more specific output - see vignette("austraits.R")
+austraits allow users to access, explore and wrangle the austraits database via R. The package includes several general functions such as filtering and pivoting the dataset that we expect will come in handy. In our vignette, we have also included some tutorials that uses `tidyverse` functions to create more specific output - see vignette("austraits")
 
 ## Installation
 
-The package is still under development. You can install the development version of austraits.R from [GitHub](https://github.com/) with:
+The package is still under development. You can install the development version of austraits from [GitHub](https://github.com/) with:
 
-```{r, echo = FALSE}
+```{r setup, eval = FALSE}
 install.packages("remotes")
-remotes::install_github("traitecoevo/austraits.R")
+remotes::install_github("traitecoevo/austraits")
 ```
 
 ## Getting started
 
 First load the library and inspect the trait data
 ```{r example}
-library(austraits.R)
+library(austraits)
 summary(austraits$traits)
 ```
 
