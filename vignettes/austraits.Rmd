@@ -1,19 +1,30 @@
 ---
 title: "austraits"
-output: rmarkdown::html_vignette
+author: "Fonti Kar, Daniel Falster"
+date: "2-Jun-2021"
+output: 
+  rmarkdown::html_vignette:
+  toc: yes
 vignette: >
-  %\VignetteIndexEntry{austraits_R}
+  %\VignetteIndexEntry{austraits}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+### Getting started
+`austraits` is still under development. To install the current version from github 
+```{r setup, eval = FALSE}
+install.packages("remotes")
+remotes::install_github("traitecoevo/austraits")
+
+#Load the austraits package
 library(austraits)
 ```
