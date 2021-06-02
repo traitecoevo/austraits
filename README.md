@@ -13,7 +13,7 @@ austraits allow users to access, explore and wrangle the austraits
 database via R. The package includes several general functions such as
 filtering and pivoting the dataset that we expect will come in handy. In
 our vignette, we have also included some tutorials that uses `tidyverse`
-functions to create more specific output - see vignette(“austraits.R”)
+functions to create more specific output - see vignette(“austraits”)
 
 ## Installation
 
