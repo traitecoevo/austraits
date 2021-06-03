@@ -34,10 +34,12 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     factor(p, levels=names(my_shapes))
   }
   
+  tax_info  <- austraits_trait$taxa %>% dplyr::select(.data$taxon_name, .data$family)
+  
   data <- 
     austraits_trait$traits %>%
     dplyr::mutate(shapes = as_shape(.data$value_type)) %>%
-    dplyr::left_join(by = "taxon_name", dplyr::select(.data$taxa, .data$taxon_name, .data$family))
+    dplyr::left_join(by = "taxon_name", tax_info)
   
   # Define grouping variables and derivatives
   if(!y_axis_category %in% names(data)){
