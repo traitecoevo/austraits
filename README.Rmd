@@ -43,4 +43,3 @@ library(austraits)
 austraits$traits %>% head()
 ```
 
-
