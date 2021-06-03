@@ -1,4 +1,5 @@
-#' Plots distribution of trait values by a  grouping variable using
+#' @title Trait distribution
+#' @description Plots distribution of trait values by a  grouping variable using
 #' ggbeeswarm package  
 #'
 #' @param austraits 
@@ -34,8 +35,8 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   data <- 
     austraits_trait$traits %>%
-    mutate(shapes = as_shape(value_type)) %>%
-    left_join(by = "taxon_name",
+    dplyr::mutate(shapes = as_shape(value_type)) %>%
+    dplyr::left_join(by = "taxon_name",
       select(austraits_trait$taxa, taxon_name, family))
   
   # Define grouping variables and derivatives
@@ -60,7 +61,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # set colour of group to highlight
   if(!is.na(highlight) & highlight %in% data$Group) {
-    data <- mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
+    data <- dplyr::mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
   }
   
   # Check range on x-axis
@@ -73,12 +74,12 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # Top plot - plain histogram of data
   p1 <-
-    ggplot(data, aes(x=value)) +
-    geom_histogram(aes(y = ..density..), color="darkgrey", fill="darkgrey", bins=50) +
-    geom_density(color="black") +
-    xlab("") + ylab("All data") +
-    theme_bw()  +
-    theme(legend.position = "none",
+    ggplot2::ggplot(data, aes(x=value)) +
+    ggplot2::geom_histogram(aes(y = ..density..), color="darkgrey", fill="darkgrey", bins=50) +
+    ggplot2::geom_density(color="black") +
+    ggplot2::xlab("") + ylab("All data") +
+    ggplot2::theme_bw()  +
+    ggplot2::theme(legend.position = "none",
           panel.grid.minor = element_blank(),
           panel.grid.major = element_blank(),
           axis.ticks.y=element_blank(),
@@ -87,42 +88,42 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     )
   # Second plot -- dots by groups, using ggbeeswarm package
   p2 <-
-    ggplot(data, aes(x = value, y = Group, colour = colour, shape = shapes)) +
+    ggplot2::ggplot(data, aes(x = value, y = Group, colour = colour, shape = shapes)) +
     ggbeeswarm::geom_quasirandom(groupOnX=FALSE) +
-    ylab(paste("By ", y_axis_category)) +
+    ggplot2::ylab(paste("By ", y_axis_category)) +
     # inclusion of custom shapes: for min, mean, unknown
     # NB: this single line of code makes function about 4-5 slower for some reason
-    scale_shape_manual(values = my_shapes) +
-    theme_bw() +
-    theme(legend.position = "bottom",
+    ggplot2::scale_shape_manual(values = my_shapes) +
+    ggplot2::theme_bw() +
+    ggplot2::theme(legend.position = "bottom",
           panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
           axis.text.x=element_text(size=rel(1.25)),
           axis.text.y=element_text(size=rel(y.text))
     ) +
-    guides(colour=FALSE)
+    ggplot2::guides(colour=FALSE)
   
   if(hide_ids) {
-    p2 <- p2 + theme(axis.text.y = element_blank())
+    p2 <- p2 + ggplot2::theme(axis.text.y = element_blank())
   }
   
   # Define scale on x-axis and transform to log if required
   if(vals$minimum !=0 & range > 20) {
     #log transformation
     p1 <- p1 +
-      scale_x_log10( name="",
-                     breaks = scales::trans_breaks("log10", function(x) 10^x),
-                     labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                     limits=c(vals$minimum, vals$maximum))
+      ggplot2::scale_x_log10(name="",
+                             breaks = scales::trans_breaks("log10", function(x) 10^x),
+                             labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                             limits=c(vals$minimum, vals$maximum))
     p2 <- p2 +
-      scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
-                    breaks = scales::trans_breaks("log10", function(x) 10^x),
-                    labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                    limits=c(vals$minimum, vals$maximum))
+      ggplot2::scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
+                             breaks = scales::trans_breaks("log10", function(x) 10^x),
+                             labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                             limits=c(vals$minimum, vals$maximum))
   } else {
-    p1 <- p1 + scale_x_continuous(limits=c(vals$minimum, vals$maximum))
-    p2 <- p2 + scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
-      xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
+    p1 <- p1 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum))
+    p2 <- p2 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
+      ggplot2::xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
     
   }
   
