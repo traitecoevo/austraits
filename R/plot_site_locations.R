@@ -17,7 +17,7 @@
 #' 
 #' data %>% plot_site_locations("trait_name")
 #' }
-#' @author Daniel Falster - daniel.falster@unsw.edu.au
+#' @author Dony Indiarto
 #' @export
 plot_site_locations <- function(data, feature="trait_name", size=0.5, alpha = 0.8, xlab = "", ylab=""){
 
