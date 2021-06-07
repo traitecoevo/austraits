@@ -16,7 +16,7 @@
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 #' @importFrom rlang .data
-#' @importFrom ggplot2 ggplot aes theme theme_bw xlab ylab element_blank element_text scale_x_log10 scale_x_continuous rel
+#' @importFrom ggplot2 ggplot aes geom_histogram geom_density guides theme theme_bw xlab ylab element_blank element_text scale_shape_manual scale_x_log10 scale_x_continuous rel
 #
 plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
   
@@ -76,10 +76,10 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # Top plot - plain histogram of data
   p1 <-
-    ggplot(data, ggplot2::aes(x=.data$value)) +
-    ggplot2::geom_histogram(ggplot2::aes(y = .data$..density..), color="darkgrey", fill="darkgrey", bins=50) +
-    ggplot2::geom_density(color="black") +
-    xlab("") + ggplot2::ylab("All data") +
+    ggplot(data, aes(x=.data$value)) +
+    geom_histogram(aes(y = .data$..density..), color="darkgrey", fill="darkgrey", bins=50) +
+    geom_density(color="black") +
+    xlab("") + ylab("All data") +
     theme_bw()  +
     theme(legend.position = "none",
           panel.grid.minor = element_blank(),
@@ -95,7 +95,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     ylab(paste("By ", y_axis_category)) +
     # inclusion of custom shapes: for min, mean, unknown
     # NB: this single line of code makes function about 4-5 slower for some reason
-    ggplot2::scale_shape_manual(values = my_shapes) +
+    scale_shape_manual(values = my_shapes) +
     theme_bw() +
     theme(legend.position = "bottom",
           panel.grid.major.x = element_blank(),
@@ -103,7 +103,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
           axis.text.x=element_text(size=rel(1.25)),
           axis.text.y=element_text(size=rel(y.text))
     ) +
-    ggplot2::guides(colour=FALSE)
+    guides(colour=FALSE)
   
   if(hide_ids) {
     p2 <- p2 + theme(axis.text.y = element_blank())
