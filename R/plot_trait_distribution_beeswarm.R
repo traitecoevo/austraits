@@ -1,7 +1,7 @@
-#' Plots distribution of trait values by a  grouping variable using
-#' ggbeeswarm package  
+#' @title Trait distribution
+#' @description Plots distribution of trait values by a  grouping variable using ggbeeswarm package  
 #'
-#' @param austraits 
+#' @param austraits austraits data object
 #' @param plant_trait_name Name of trait to plot
 #' @param y_axis_category One of `dataset_id`, `family`
 #' @param highlight specify a group to highlight
@@ -15,6 +15,8 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
+#' @importFrom rlang .data
+#' @importFrom ggplot2 ggplot aes geom_histogram geom_density guides theme theme_bw xlab ylab element_blank element_text scale_shape_manual scale_x_log10 scale_x_continuous rel
 #
 plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
   
@@ -32,11 +34,12 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     factor(p, levels=names(my_shapes))
   }
   
+  tax_info  <- austraits_trait$taxa %>% dplyr::select(.data$taxon_name, .data$family)
+  
   data <- 
     austraits_trait$traits %>%
-    mutate(shapes = as_shape(value_type)) %>%
-    left_join(by = "taxon_name",
-      select(austraits_trait$taxa, taxon_name, family))
+    dplyr::mutate(shapes = as_shape(.data$value_type)) %>%
+    dplyr::left_join(by = "taxon_name", tax_info)
   
   # Define grouping variables and derivatives
   if(!y_axis_category %in% names(data)){
@@ -60,7 +63,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # set colour of group to highlight
   if(!is.na(highlight) & highlight %in% data$Group) {
-    data <- mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
+    data <- dplyr::mutate(data, colour = ifelse(.data$Group %in% highlight, "c", .data$colour))
   }
   
   # Check range on x-axis
@@ -73,21 +76,21 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # Top plot - plain histogram of data
   p1 <-
-    ggplot(data, aes(x=value)) +
-    geom_histogram(aes(y = ..density..), color="darkgrey", fill="darkgrey", bins=50) +
+    ggplot(data, aes(x=.data$value)) +
+    geom_histogram(aes(y = .data$..density..), color="darkgrey", fill="darkgrey", bins=50) +
     geom_density(color="black") +
     xlab("") + ylab("All data") +
     theme_bw()  +
     theme(legend.position = "none",
           panel.grid.minor = element_blank(),
           panel.grid.major = element_blank(),
-          axis.ticks.y=element_blank(),
-          axis.text=element_blank(),
+          axis.ticks.y= element_blank(),
+          axis.text= element_blank(),
           panel.background = element_blank()
     )
   # Second plot -- dots by groups, using ggbeeswarm package
   p2 <-
-    ggplot(data, aes(x = value, y = Group, colour = colour, shape = shapes)) +
+    ggplot(data, ggplot2::aes(x = .data$value, y = .data$Group, colour = .data$colour, shape = .data$shapes)) +
     ggbeeswarm::geom_quasirandom(groupOnX=FALSE) +
     ylab(paste("By ", y_axis_category)) +
     # inclusion of custom shapes: for min, mean, unknown
@@ -110,15 +113,15 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   if(vals$minimum !=0 & range > 20) {
     #log transformation
     p1 <- p1 +
-      scale_x_log10( name="",
-                     breaks = scales::trans_breaks("log10", function(x) 10^x),
-                     labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                     limits=c(vals$minimum, vals$maximum))
+      scale_x_log10(name="",
+                             breaks = scales::trans_breaks("log10", function(x) 10^x),
+                             labels = scales::trans_format("log10", scales::math_format(10^.data$.x)),
+                             limits=c(vals$minimum, vals$maximum))
     p2 <- p2 +
       scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
-                    breaks = scales::trans_breaks("log10", function(x) 10^x),
-                    labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                    limits=c(vals$minimum, vals$maximum))
+                             breaks = scales::trans_breaks("log10", function(x) 10^x),
+                             labels = scales::trans_format("log10", scales::math_format(10^.data$.x)),
+                             limits=c(vals$minimum, vals$maximum))
   } else {
     p1 <- p1 + scale_x_continuous(limits=c(vals$minimum, vals$maximum))
     p2 <- p2 + scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
@@ -129,7 +132,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   # combine plots
   # Might be a better way to do this with other packages?
   
-  f <- function(x) {suppressWarnings(ggplot_gtable(ggplot_build(x)))}
+  f <- function(x) {suppressWarnings(ggplot2::ggplot_gtable(ggplot2::ggplot_build(x)))}
   p1 <- f(p1)
   p2 <- f(p2)
   # Fix width of second plot to be same as bottom using ggplot_table

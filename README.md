@@ -1,3 +1,4 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # austraits
@@ -17,30 +18,41 @@ functions to create more specific output - see vignette(“austraits”)
 ## Installation
 
 The package is still under development. You can install the development
-version of austraits from [GitHub](https://github.com/) with:
+version of austraits from
+[GitHub](https://github.com/traitecoevo/austraits) with:
 
-    install.packages("remotes")
-    remotes::install_github("traitecoevo/austraits")
+``` r
+install.packages("remotes")
+remotes::install_github("traitecoevo/austraits")
+```
 
 ## Getting started
 
 First load the library and inspect the trait data
 
-    library(austraits)
-    summary(austraits$traits)
-    #>   dataset_id         taxon_name         site_name         context_name       observation_id      trait_name       
-    #>  Length:953         Length:953         Length:953         Length:953         Length:953         Length:953        
-    #>  Class :character   Class :character   Class :character   Class :character   Class :character   Class :character  
-    #>  Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-    #>                                                                                                                   
-    #>                                                                                                                   
-    #>                                                                                                                   
-    #>                                                                                                                   
-    #>     value               unit               date                 value_type   replicates        original_name     
-    #>  Length:953         Length:953         Length:953         site_mean  :597   Length:953         Length:953        
-    #>  Class :character   Class :character   Class :character   unknown    :262   Class :character   Class :character  
-    #>  Mode  :character   Mode  :character   Mode  :character   expert_mean: 74   Mode  :character   Mode  :character  
-    #>                                                           site_max   : 20                                        
-    #>                                                           raw_value  :  0                                        
-    #>                                                           site_min   :  0                                        
-    #>                                                           (Other)    :  0
+``` r
+library(austraits)
+
+austraits$traits %>% head()
+#>     dataset_id        taxon_name                                    site_name
+#> 1 Falster_2003 Acacia myrtifolia Ku-ring-gai Chase National Park low nutrient
+#> 2 Falster_2003 Acacia myrtifolia Ku-ring-gai Chase National Park low nutrient
+#> 3 Falster_2003 Acacia myrtifolia Ku-ring-gai Chase National Park low nutrient
+#> 4 Falster_2003 Acacia suaveolens Ku-ring-gai Chase National Park low nutrient
+#> 5 Falster_2003 Acacia suaveolens Ku-ring-gai Chase National Park low nutrient
+#> 6 Falster_2003 Acacia suaveolens Ku-ring-gai Chase National Park low nutrient
+#>   context_name  observation_id        trait_name  value    unit date
+#> 1         <NA> Falster_2003_01        leaf_angle   66.1 degrees <NA>
+#> 2         <NA> Falster_2003_01         leaf_area    319     mm2 <NA>
+#> 3         <NA> Falster_2003_01 leaf_compoundness simple    <NA> <NA>
+#> 4         <NA> Falster_2003_02        leaf_angle   71.7 degrees <NA>
+#> 5         <NA> Falster_2003_02         leaf_area    562     mm2 <NA>
+#> 6         <NA> Falster_2003_02 leaf_compoundness simple    <NA> <NA>
+#>    value_type replicates     original_name
+#> 1   site_mean          3 Acacia myrtifolia
+#> 2   site_mean          3 Acacia myrtifolia
+#> 3 expert_mean       <NA> Acacia myrtifolia
+#> 4   site_mean          3 Acacia suaveolens
+#> 5   site_mean          3 Acacia suaveolens
+#> 6 expert_mean       <NA> Acacia suaveolens
+```

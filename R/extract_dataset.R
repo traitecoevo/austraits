@@ -7,9 +7,7 @@
 #' @return A large list of tibbles containing all austraits information for one particular dataset
 #'
 #' @examples 
-#' \dontrun{
-#'extract_dataset(austraits, "Falster_2003")
-#' }
+#' extract_dataset(austraits, "Falster_2003")
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 #' @importFrom rlang .data

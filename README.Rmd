@@ -27,9 +27,9 @@ austraits allow users to access, explore and wrangle the austraits database via 
 
 ## Installation
 
-The package is still under development. You can install the development version of austraits from [GitHub](https://github.com/) with:
+The package is still under development. You can install the development version of austraits from [GitHub](https://github.com/traitecoevo/austraits) with:
 
-```{r setup, eval = FALSE}
+```{r setup}
 install.packages("remotes")
 remotes::install_github("traitecoevo/austraits")
 ```
@@ -39,8 +39,7 @@ remotes::install_github("traitecoevo/austraits")
 First load the library and inspect the trait data
 ```{r example}
 library(austraits)
-summary(austraits$traits)
+
+austraits$traits %>% head()
 ```
-
-
 

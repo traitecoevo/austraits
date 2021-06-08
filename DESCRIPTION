@@ -33,7 +33,8 @@ Imports:
     gridExtra,
     scales,
     forcats,
-    ggplot2
+    ggplot2,
+    stats
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
