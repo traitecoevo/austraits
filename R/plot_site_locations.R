@@ -29,7 +29,7 @@ plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 
   site_map <- 
     ggplot() +
     # base map
-    geom_raster(data = raster::as.data.frame(australia_map_raster, xy = T), 
+    geom_raster(data = raster::as.data.frame(austraits::australia_map_raster, xy = T), 
                 aes(x = x, y = y,fill = factor(australia))
     )  +
     # add data
