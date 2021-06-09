@@ -1,32 +1,28 @@
-#' Produce site maps 
-#'
-#' @param data 
+#' @title Produce site maps 
+#' @description Plot
+#' @param trait trait dataframe generated from austraits with site details appended. See join_all and examples
 #' @param feature grouping/classification categories
-#'
-#' @return
-#' @export
-#'
-#' @examples
+#' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
+#' @return ggplot of sites
+#' @importFrom ggplot2 ggplot aes geom_raster theme scale_fill_grey xlab ylab facet_wrap
+#' @examples 
 #' \dontrun{
-#' 
 #' data <- austraits %>% join_all() %>% `[[`("traits") 
-#' 
 #' data %>% plot_site_locations()
 #' 
 #' data <- austraits %>% extract_trait(trait_names = c("leaf_angle", "leaf_area", "specific_leaf_area", "wood_density", "plant_height")) %>% join_all() %>% `[[`("traits")
-#' 
 #' data %>% plot_site_locations("trait_name")
 #' }
-#' @author Dony Indiarto
 #' @export
-plot_site_locations <- function(data, feature="trait_name", size=0.5, alpha = 0.8, xlab = "", ylab=""){
+#' @importFrom rlang .data
+plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 0.8, xlab = "", ylab=""){
 
   sites <- 
-    data %>%
-    select(site_name, `latitude (deg)`, `longitude (deg)`, !!feature) %>%
-    drop_na() %>%
-    mutate_at(c("longitude (deg)","latitude (deg)"), as.numeric) %>% 
-    filter(
+    traits %>%
+    dplyr::select(.data$site_name, .data$`latitude (deg)`, .data$`longitude (deg)`, !!feature) %>%
+    tidyr::drop_na() %>%
+    dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
+    dplyr::filter(
       `latitude (deg)` > (-45), `latitude (deg)` < (-9.5),
       `longitude (deg)` > (110), `longitude (deg)` < (153))
   
