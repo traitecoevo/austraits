@@ -10,7 +10,7 @@
 #' data <- austraits %>% join_all() %>% `[[`("traits") 
 #' data %>% plot_site_locations()
 #' 
-#' data <- austraits %>% extract_trait(trait_names = c("leaf_angle", "leaf_area", "specific_leaf_area", "wood_density", "plant_height")) %>% join_all() %>% `[[`("traits")
+#' data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_all() %>% `[[`("traits")
 #' data %>% plot_site_locations("trait_name")
 #' }
 #' @export
@@ -23,8 +23,8 @@ plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 
     tidyr::drop_na() %>%
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
     dplyr::filter(
-      `latitude (deg)` > (-45), `latitude (deg)` < (-9.5),
-      `longitude (deg)` > (110), `longitude (deg)` < (153))
+      .data$`latitude (deg)` > (-45), .data$`latitude (deg)` < (-9.5),
+      .data$`longitude (deg)` > (110), .data$`longitude (deg)` < (153))
   
   site_map <- 
     ggplot() +
