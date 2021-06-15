@@ -16,7 +16,7 @@
 #' }
 #' @export
 #' @importFrom rlang .data
-#' @importFrom ggplot2 ggplot aes geom_raster theme scale_fill_grey xlab ylab facet_wrap element_line element_blank element_rect unit
+#' @importFrom ggplot2 ggplot aes geom_raster theme scale_fill_grey xlab ylab facet_wrap scale_x_continuous scale_fill_continuous
 
 plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 0.8, xlab = "", ylab=""){
   
@@ -44,6 +44,8 @@ plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 
       size = size,
       alpha=alpha
     ) +
+    scale_x_continuous(limits = c(NA, 154)) +
+    scale_fill_continuous(na.value="white") +
     viridis::scale_color_viridis(option = "plasma") +
     theme(
       legend.justification = c(-0.1, 0),
@@ -61,6 +63,6 @@ plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 
   if(!is.na(feature)){
       site_map <- site_map + facet_wrap(paste("~", feature))
   }
-  site_map
+  suppressWarnings(print(site_map))
 }
 
