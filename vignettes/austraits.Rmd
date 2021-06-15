@@ -19,16 +19,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `austraits` package is designed to aid users to access data from AusTraits, a curated plant trait database for the Australian flora. This package contains several core functions to wrangle data for their purposes. We have also included more detailed tutorials to illustrate how to use these functions in greater detail. These are found XXX
+The `austraits` package is designed to aid users to access data from AusTraits, a curated plant trait database for the Australian flora. This package contains several core functions to wrangle data for their purposes. We have also included a tutorial below to illustrate how to use these functions in greater detail. 
 
 ### Getting started
 `austraits` is still under development. To install the current version from github 
 ```{r setup, eval = FALSE}
 install.packages("remotes")
-remotes::install_github("traitecoevo/austraits")
+remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
 #Load the austraits package
 library(austraits)
 ```
 
+### Filter data
+```{r}
+
+```
+
+### Extract data
+```{r}
+
+```
+
+### Join other information
+```{r}
+
+```
+
+### General data visualisations
+```{r}
+
+```
 
