@@ -3,6 +3,9 @@
 \name{plot_trait_distribution_beeswarm}
 \alias{plot_trait_distribution_beeswarm}
 \title{Trait distribution}
+\title{Plots distribution of trait values by a  grouping variable using
+ggbeeswarm package}
+
 \usage{
 plot_trait_distribution_beeswarm(
   austraits,
@@ -13,6 +16,7 @@ plot_trait_distribution_beeswarm(
 )
 }
 \arguments{
+
 \item{austraits}{austraits data object}
 
 \item{plant_trait_name}{Name of trait to plot}
@@ -24,7 +28,9 @@ plot_trait_distribution_beeswarm(
 \item{hide_ids}{add label on y_axis?}
 }
 \description{
+
 Plots distribution of trait values by a  grouping variable using ggbeeswarm package
+
 }
 \examples{
 \dontrun{

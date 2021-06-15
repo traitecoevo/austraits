@@ -19,7 +19,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
-    R (>= 4.0.0)
+    R (>= 4.0.0),
+    RefManageR
 Imports:
     magrittr,
     dplyr,
