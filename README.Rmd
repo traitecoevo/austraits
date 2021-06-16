@@ -32,7 +32,7 @@ library(dplyr)
 
 The package is not on CRAN yet and is still under active development. You can install the development version of austraits from [GitHub](https://github.com/traitecoevo/austraits) with:
 
-```{r setup}
+```{r setup, echo = FALSE}
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
