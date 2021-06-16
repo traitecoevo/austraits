@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 
-library(austraits)
 library(stringr)
 library(dplyr)
 ```

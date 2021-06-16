@@ -2,6 +2,10 @@
 #' @description Plot location where trait data was collected from
 #' @param traits trait dataframe generated from austraits with site details appended. See join_all and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type
+#' @param size size of points
+#' @param alpha transperancy of points 0 - 1, smaller the number, the more transparent
+#' @param xlab x axis label for each plot (Longitude)
+#' @param ylab y axis label for each plot (Latitude)
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
 #' @examples 

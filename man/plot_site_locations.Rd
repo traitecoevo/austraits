@@ -17,6 +17,14 @@ plot_site_locations(
 \item{traits}{trait dataframe generated from austraits with site details appended. See join_all and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type}
+
+\item{size}{size of points}
+
+\item{alpha}{transperancy of points 0 - 1, smaller the number, the more transparent}
+
+\item{xlab}{x axis label for each plot (Longitude)}
+
+\item{ylab}{y axis label for each plot (Latitude)}
 }
 \value{
 ggplot of sites
