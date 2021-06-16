@@ -55,7 +55,7 @@ falster_studies <- extract_dataset(austraits, falster_ids)
 ```
 
 ### Extracting by trait
-```{r}
+```{r extract, warning = FALSE}
 # Extract one particular trait and assigning it to an object
 sla_data <- extract_trait(austraits, "specific_leaf_area")
 
