@@ -97,7 +97,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     # NB: this single line of code makes function about 4-5 slower for some reason
     scale_shape_manual(values = my_shapes) +
     theme_bw() +
-    theme(legend.position = "bottom",
+    theme(legend.position = "none",
           panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
           axis.text.x=element_text(size=rel(1.25)),

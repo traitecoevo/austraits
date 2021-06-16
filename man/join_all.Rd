@@ -6,7 +6,7 @@
 \alias{join_methods}
 \alias{join_sites}
 \alias{join_contexts}
-\title{Join all study details into main \code{traits} dataset}
+\title{Join study details into main \code{traits} dataset}
 \usage{
 join_all(austraits)
 

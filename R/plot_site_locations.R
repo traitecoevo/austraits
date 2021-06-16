@@ -1,14 +1,14 @@
 #' @title Produce site maps 
-#' @description Plot
-#' @param trait trait dataframe generated from austraits with site details appended. See join_all and examples
-#' @param feature grouping/classification categories
+#' @description Plot location where trait data was collected from
+#' @param traits trait dataframe generated from austraits with site details appended. See join_all and examples
+#' @param feature grouping/classification categories e.g trait_name, collection_type
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
 #' @examples 
 #' \dontrun{
 #' #All traits from a given study
 #' data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_all() 
-#' data$traits %>% plot_site_locations()
+#' data$traits %>% plot_site_locations("trait_name")
 #' 
 #' #Single trait
 #' data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_all() 

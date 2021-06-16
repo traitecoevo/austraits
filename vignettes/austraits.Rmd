@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 )
 
 library(dplyr)
+library(stringr)
 library(austraits)
 ```
 
@@ -36,7 +37,7 @@ remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 library(austraits)
 ```
 
-### Meta-data
+### Meta-data for traits
 ```{r}
 # List of all traits
 austraits$definitions$traits$elements %>% names() %>% head() ; austraits$definitions$traits$elements %>% names() %>% tail() 
@@ -53,13 +54,12 @@ AusTraits contains 446 plant traits. In most cases, users would like to extract 
 ```{r}
 # Filtering one particular study and assigning it to an object
 zanne_09 <- extract_dataset(austraits, "Zanne_2009") #Extract from austraits
-class(zanne_09) 
 names(zanne_09) # The function extracts all the other tables and elements
 
 # Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object
 ( dataset_ids <- austraits$methods$dataset_id %>% unique() ) #All possible dataset_ids 
 
-( falster_ids <- dataset_ids[grep("Falster", dataset_ids)] )  # Extracting dataset_ids with lead author "Falster" 
+( falster_ids <- dataset_ids[str_which(dataset_ids, "Falster")] )  # Extracting dataset_ids with lead author "Falster" 
 
 falster_studies <- extract_dataset(austraits, falster_ids) # Extract from austraits
 falster_studies$traits$dataset_id %>% unique() 
@@ -69,25 +69,58 @@ falster_studies$traits$dataset_id %>% unique()
 ```{r}
 # Filtering one particular trait and assigning it to an object
 sla_data <- extract_trait(austraits, "specific_leaf_area") #Extract from austraits
+sla_data$traits$trait_name %>% unique()
 
 # Filtering all leaf associated data and assigning it to an object
 ( traits <- austraits$traits$trait_name %>% unique() ) #All possible traits 
 
-( leaf_traits <- traits[grep("leaf", traits)] )  # Extracting data where "leaf" occurs in the trait_name
+( leaf_traits <- traits[str_which(traits, "leaf")] )  # Extracting data where "leaf" occurs in the trait_name
 
 leaf_data <- extract_trait(austraits, leaf_traits) # Extract from austraits
 leaf_data$traits$trait_name %>% unique() 
 ```
 
-## Join data from other tables and elements
-Now that we have some extracted data
+### Pivotting wide to long format
 
 ```{r}
 
 ```
 
-### General data visualisations
-```{r}
+## Join data from other tables and elements
+Once users have extracted the data they want, they may want to merge in other study details into the main traits dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
 
+```{r}
+# Join taxonomic information 
+(leaf_data %>% join_taxonomy)$traits
+
+# Join methodological information 
+(leaf_data %>% join_methods)$traits
+
+# Join site based information 
+(leaf_data %>% join_sites)$traits
+
+# Join context information 
+(leaf_data %>% join_contexts)$traits
+
+# Alternatively users can join *all* information 
+(leaf_data %>% join_all)$traits
+```
+
+## Visualising data by site
+
+`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append  latitude and longtitude information into the trait dataframe before plotting
+
+```{r}
+leaf_data <- leaf_data %>% join_sites
+leaf_data$traits %>% plot_site_locations()
+```
+
+## Visualising data distribution and variance
+
+`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specific whether to create seperate beeswarm plots at the level of taxonomic family or for each `dataset_id`
+
+```{r}
+leaf_data %>% plot_trait_distribution_beeswarm("leaf_area", "family")
+leaf_data %>% plot_trait_distribution_beeswarm("leaf_area", "dataset_id")
 ```
 
