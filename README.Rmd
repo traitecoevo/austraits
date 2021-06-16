@@ -36,7 +36,7 @@ The package is not on CRAN yet and is still under active development. You can in
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
-library(austraits)
+library(austraits) 
 ```
 
 ## How to use
