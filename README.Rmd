@@ -32,9 +32,8 @@ library(dplyr)
 
 The package is not on CRAN yet and is still under active development. You can install the development version of austraits from [GitHub](https://github.com/traitecoevo/austraits) with:
 
-```{r setup, echo = FALSE}
-install.packages("remotes")
-
+```{r setup}
+#install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
 library(austraits)
@@ -53,8 +52,6 @@ dataset_ids <- austraits$methods$dataset_id %>% unique() #All possible dataset_i
 falster_ids <- dataset_ids[str_which(dataset_ids, "Falster")]  # Extracting dataset_ids with lead author "Falster" 
 
 falster_studies <- extract_dataset(austraits, falster_ids)
-
-trait_pivot_wider(falster_studies$traits)
 ```
 
 ### Extracting by trait
