@@ -1,7 +1,19 @@
 #Pull in data
-data(austraits)
 
-#Extract a dataset
+data_versions <- list()
+
+data[["lite"]] <- load_austraits()
+
+path <- "ignore/austraits-3.0.0.rds"
+if(file.exists(path)) {
+  data[["3.0.0"]] <- load_austraits(path)
+}
+
+for(v in names(data)) {
+  
+  austraits <- data[[v]]
+
+  #Extract a dataset
 dataset_id <- c("Falster_2003")
 subset <- extract_dataset(austraits, dataset_id = dataset_id)
 
@@ -27,3 +39,4 @@ test_that("extraction of dataset was successful", {
   expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name))  
 })
 
+}

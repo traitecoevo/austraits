@@ -37,6 +37,13 @@ remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 library(austraits)
 ```
 
+### Load the data
+
+```{r}
+austraits <- load_austraits()
+```
+
+
 ### Meta-data for traits
 ```{r}
 # List of all traits
