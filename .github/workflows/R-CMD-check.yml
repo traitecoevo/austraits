@@ -3,9 +3,9 @@
 on:
   push:
     branches:
-      - main
       - master
       - develop
+      - tests
   pull_request:
     branches:
       - main
