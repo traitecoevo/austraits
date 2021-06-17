@@ -9,84 +9,88 @@ austraits
 [![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 <!-- badges: end -->
 
-austraits allow users to access, explore and wrangle the austraits
-database via R. The package includes several general functions such as
-filtering and pivoting the dataset that we expect will come in handy. In
-our vignette, we have also included some tutorials that uses `tidyverse`
-functions to create more specific output - see vignette(“austraits”)
+`austraits` allow users to access, explore and wrangle data from the
+AusTraits database in `R`. This package includes several functions such
+as filtering and pivoting the dataset that we expect will come in handy.
+In our vignette, we have also included some tutorials that uses our
+functions as well as `tidyverse` functions to create more data outputs
+and summaries - see browseVignettes(“austraits”)
 
-Installation
-------------
+### Installation
 
-The package is still under development. You can install the development
-version of austraits from
+The package is not on CRAN yet and is still under active development.
+You can install the development version of austraits from
 [GitHub](https://github.com/traitecoevo/austraits) with:
 
-    install.packages("remotes")
-    #> 
-    #> The downloaded binary packages are in
-    #>  /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKSh2jt/downloaded_packages
-    remotes::install_github("traitecoevo/austraits")
+    #> gtable       (NA -> 0.3.0) [CRAN]
     #> colorspace   (NA -> 2.0-1) [CRAN]
     #> viridisLite  (NA -> 0.4.0) [CRAN]
     #> RColorBrewer (NA -> 1.1-2) [CRAN]
-    #> R6           (NA -> 2.5.0) [CRAN]
     #> munsell      (NA -> 0.5.0) [CRAN]
-    #> lifecycle    (NA -> 1.0.0) [CRAN]
     #> labeling     (NA -> 0.4.2) [CRAN]
     #> farver       (NA -> 2.1.0) [CRAN]
-    #> utf8         (NA -> 1.2.1) [CRAN]
-    #> crayon       (NA -> 1.4.1) [CRAN]
-    #> cli          (NA -> 2.5.0) [CRAN]
-    #> vctrs        (NA -> 0.3.8) [CRAN]
-    #> pkgconfig    (NA -> 2.0.3) [CRAN]
-    #> pillar       (NA -> 1.6.1) [CRAN]
-    #> fansi        (NA -> 0.5.0) [CRAN]
-    #> ellipsis     (NA -> 0.3.2) [CRAN]
     #> withr        (NA -> 2.4.2) [CRAN]
-    #> tibble       (NA -> 3.1.2) [CRAN]
     #> scales       (NA -> 1.1.1) [CRAN]
     #> isoband      (NA -> 0.2.4) [CRAN]
-    #> gtable       (NA -> 0.3.0) [CRAN]
-    #> purrr        (NA -> 0.3.4) [CRAN]
-    #> tidyselect   (NA -> 1.1.1) [CRAN]
-    #> generics     (NA -> 0.1.0) [CRAN]
+    #> gridExtra    (NA -> 2.3  ) [CRAN]
+    #> ggplot2      (NA -> 3.3.4) [CRAN]
     #> vipor        (NA -> 0.4.5) [CRAN]
     #> beeswarm     (NA -> 0.4.0) [CRAN]
-    #> ggplot2      (NA -> 3.3.3) [CRAN]
     #> cpp11        (NA -> 0.2.7) [CRAN]
-    #> dplyr        (NA -> 1.0.6) [CRAN]
+    #> viridis      (NA -> 0.6.1) [CRAN]
+    #> ggpointde... (NA -> 0.1.0) [CRAN]
     #> forcats      (NA -> 0.5.1) [CRAN]
-    #> gridExtra    (NA -> 2.3  ) [CRAN]
     #> ggbeeswarm   (NA -> 0.6.0) [CRAN]
     #> assertthat   (NA -> 0.2.1) [CRAN]
     #> tidyr        (NA -> 1.1.3) [CRAN]
     #> 
+    #>   There is a binary version available but the source version is later:
+    #>         binary source needs_compilation
+    #> ggplot2  3.3.3  3.3.4             FALSE
+    #> 
+    #> 
     #> The downloaded binary packages are in
-    #>  /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpKSh2jt/downloaded_packages
-    #> * checking for file ‘/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/RtmpKSh2jt/remotes11064884cc28/traitecoevo-austraits-1ef1d74/DESCRIPTION’ ... OK
+    #>  /var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//Rtmp27jri2/downloaded_packages
+    #> * checking for file ‘/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmp27jri2/remotes84c12e1f0c3/traitecoevo-austraits-bf72bc4/DESCRIPTION’ ... OK
     #> * preparing ‘austraits’:
     #> * checking DESCRIPTION meta-information ... OK
+    #> * installing the package to build vignettes
+    #> * creating vignettes ... OK
     #> * checking for LF line-endings in source and make files and shell scripts
     #> * checking for empty or unneeded directories
     #> * building ‘austraits_0.0.0.9000.tar.gz’
 
-Getting started
----------------
+How to use
+----------
 
-First load the library and inspect the trait data
+### Extracting by study
 
-    library(austraits)
+    #Extract a single study
+    zanne_09 <- extract_dataset(austraits, "Zanne_2009") 
 
-    austraits$traits %>% head()
-    #> # A tibble: 6 x 12
-    #>   dataset_id  taxon_name site_name  context_name observation_id trait_name value
-    #>   <chr>       <chr>      <chr>      <chr>        <chr>          <chr>      <chr>
-    #> 1 Falster_20… Acacia my… Ku-ring-g… <NA>         Falster_2003_… leaf_angle 66.1 
-    #> 2 Falster_20… Acacia my… Ku-ring-g… <NA>         Falster_2003_… leaf_area  319  
-    #> 3 Falster_20… Acacia my… Ku-ring-g… <NA>         Falster_2003_… leaf_comp… simp…
-    #> 4 Falster_20… Acacia su… Ku-ring-g… <NA>         Falster_2003_… leaf_angle 71.7 
-    #> 5 Falster_20… Acacia su… Ku-ring-g… <NA>         Falster_2003_… leaf_area  562  
-    #> 6 Falster_20… Acacia su… Ku-ring-g… <NA>         Falster_2003_… leaf_comp… simp…
-    #> # … with 5 more variables: unit <chr>, date <chr>, value_type <fct>,
-    #> #   replicates <chr>, original_name <chr>
+    #Extract multiple studies
+    # Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object
+    dataset_ids <- austraits$methods$dataset_id %>% unique() #All possible dataset_ids 
+    falster_ids <- dataset_ids[str_which(dataset_ids, "Falster")]  # Extracting dataset_ids with lead author "Falster" 
+
+    falster_studies <- extract_dataset(austraits, falster_ids)
+
+### Extracting by trait
+
+    # Extract one particular trait and assigning it to an object
+    sla_data <- extract_trait(austraits, "specific_leaf_area")
+
+    # Extracting all leaf associated data and assigning it to an object
+    traits <- austraits$traits$trait_name %>% unique()  #All possible traits 
+    leaf_traits <- traits[str_which(traits, "leaf")] # Extracting data where "leaf" occurs in the trait_name
+
+    leaf_data <- extract_trait(austraits, leaf_traits) 
+
+### Pivoting between long/wide
+
+### Joining site information and plotting site information
+
+    # Join site based information 
+    (austraits %>% join_sites)$traits %>% plot_site_locations()
+
+<img src="man/figures/README-site-1.png" width="100%" />
