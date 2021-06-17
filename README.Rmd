@@ -32,14 +32,13 @@ library(dplyr)
 
 The package is not on CRAN yet and is still under active development. You can install the development version of austraits from [GitHub](https://github.com/traitecoevo/austraits) with:
 
-```{r setup, echo = FALSE}
+```{r setup, include = FALSE}
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
 library(austraits) 
 ```
 
-## How to use
 
 ### Extracting by study
 ```{r extract_study}
@@ -68,7 +67,7 @@ leaf_data <- extract_trait(austraits, leaf_traits)
 
 ### Pivoting between long/wide
 
-```{r pivot}
+```{r pivot, include = FALSE}
 
 ```
 
