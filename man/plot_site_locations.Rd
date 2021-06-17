@@ -14,21 +14,29 @@ plot_site_locations(
 )
 }
 \arguments{
-\item{feature}{grouping/classification categories}
+\item{traits}{trait dataframe generated from austraits with site details appended. See join_all and examples}
 
-\item{trait}{trait dataframe generated from austraits with site details appended. See join_all and examples}
+\item{feature}{grouping/classification categories e.g trait_name, collection_type}
+
+\item{size}{size of points}
+
+\item{alpha}{transperancy of points 0 - 1, smaller the number, the more transparent}
+
+\item{xlab}{x axis label for each plot (Longitude)}
+
+\item{ylab}{y axis label for each plot (Latitude)}
 }
 \value{
 ggplot of sites
 }
 \description{
-Plot
+Plot location where trait data was collected from
 }
 \examples{
 \dontrun{
 #All traits from a given study
 data <- austraits \%>\% extract_dataset(dataset_id = "Falster_2003") \%>\% join_all() 
-data$traits \%>\% plot_site_locations()
+data$traits \%>\% plot_site_locations("trait_name")
 
 #Single trait
 data <- austraits \%>\% extract_trait(trait_names = c("plant_height")) \%>\% join_all() 
