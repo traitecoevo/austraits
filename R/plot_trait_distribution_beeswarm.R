@@ -114,14 +114,14 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     #log transformation
     p1 <- p1 +
       scale_x_log10(name="",
-                             breaks = scales::trans_breaks("log10", function(x) 10^x),
-                             labels = scales::trans_format("log10", scales::math_format(10^.data$.x)),
-                             limits=c(vals$minimum, vals$maximum))
+                    breaks = scales::breaks_log(),
+                    labels = scales::label_math(format = "log10"),
+                    limits=c(vals$minimum, vals$maximum))
     p2 <- p2 +
       scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
-                             breaks = scales::trans_breaks("log10", function(x) 10^x),
-                             labels = scales::trans_format("log10", scales::math_format(10^.data$.x)),
-                             limits=c(vals$minimum, vals$maximum))
+                    breaks = scales::breaks_log(),
+                    labels = scales::label_math(format = "log10"),
+                    limits=c(vals$minimum, vals$maximum))
   } else {
     p1 <- p1 + scale_x_continuous(limits=c(vals$minimum, vals$maximum))
     p2 <- p2 + scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
