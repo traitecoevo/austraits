@@ -37,7 +37,9 @@ Imports:
     ggplot2,
     stats,
     ggpointdensity, 
-    viridis
+    viridis,
+    kableExtra,
+    readr
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
