@@ -39,7 +39,6 @@ remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 library(austraits) 
 ```
 
-
 ### Extracting by study
 ```{r extract_study}
 #Extract a single study
@@ -67,8 +66,9 @@ leaf_data <- extract_trait(austraits, leaf_traits)
 
 ### Pivoting between long/wide
 
-```{r pivot, include = FALSE}
-
+```{r pivot, eval = FALSE}
+trait_wide <- austraits$traits %>% trait_pivot_wider()
+trait_long <- trait_wide %>% trait_pivot_longer()
 ```
 
 ### Joining site information and plotting site information
