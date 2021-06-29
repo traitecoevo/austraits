@@ -6,3 +6,16 @@ home:
 
 template:
   bootswatch: cerulean
+  
+reference:
+- title: Wrangling AusTraits
+  desc: Functions to extract, pivot and join data
+- contents:
+  - starts_with("extract")
+  - starts_with("trait_pivot")
+  - join_all
+  - ends_with("trait_values")
+- title: Quick data visualisations
+  desc: Plot site or variance distributions
+- contents:
+  - starts_with("plot")
