@@ -7,7 +7,7 @@ wide_data <- trait_pivot_wider(data)
 test_that("function shouldn't complain and throw errors", {
   expect_silent(trait_pivot_wider(data))
   #This test is producing messages in R CMD check but not when tested interactively
-  #expect_silent(trait_pivot_longer(wide_data)) 
+  expect_silent(trait_pivot_longer(wide_data)) 
 })
 
 test_that("functions should throw error when provided wrong input", {
@@ -27,7 +27,7 @@ test_that("before and after pivots match", {
   #Checking if widened data has the same length as variables that we are spreading
   expect_equal(length(wide_data), length(c("value", "unit", "date", "value_type", "replicates"))) 
   #Checking number of columns of widened data matches the number of ID columns + number of traits
-  expect_equal(ncol(trait_pivot_wider(data)[[1]]),  (ncol(data %>% dplyr::select(-c(trait_name, value))) + (unique(data$trait_name) %>% length())) )
+  expect_equal(ncol(trait_pivot_wider(data)[[1]]),  (data %>% dplyr::select(-c(trait_name, value, unit, date, value_type, replicates)) %>% ncol()) + (unique(data$trait_name) %>% length()) )
   #Checking number of rows in long format is a multiple of each wide formatted dataframe
   expect_equal(nrow(data), (data %>% dplyr::filter(trait_name == "leaf_area") %>% nrow()) * (unique(data$trait_name) %>% length()))
   #Checking the number of columns matches original data after pivoting wide and then back to long again
