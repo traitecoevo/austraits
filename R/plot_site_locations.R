@@ -42,8 +42,7 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
       inherit.aes = FALSE,
       show.legend = TRUE,
       adjust = 1,
-      size = 0.5,
-      alpha= 0.8
+      ...
     ) +
     scale_x_continuous(limits = c(NA, 154)) +
     scale_fill_continuous(na.value="white") +
