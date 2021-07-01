@@ -40,3 +40,4 @@ vignettes/*.pdf
 inst/doc
 /doc/
 /Meta/
+ignore/

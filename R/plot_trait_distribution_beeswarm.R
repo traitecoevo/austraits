@@ -102,8 +102,8 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
           panel.grid.minor.x = element_blank(),
           axis.text.x=element_text(size=rel(1.25)),
           axis.text.y=element_text(size=rel(y.text))
-    ) +
-    guides(colour=FALSE)
+    ) #+
+    #guides(colour=FALSE)
   
   if(hide_ids) {
     p2 <- p2 + theme(axis.text.y = element_blank())
