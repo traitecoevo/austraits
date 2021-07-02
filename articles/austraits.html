@@ -88,7 +88,7 @@
       <h1 data-toc-skip>austraits</h1>
                         <h4 class="author">Fonti Kar, Daniel Falster</h4>
             
-            <h4 class="date">2021-07-01</h4>
+            <h4 class="date">2021-07-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/master/vignettes/austraits.Rmd"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="hidden name"><code>austraits.Rmd</code></div>
@@ -113,6 +113,12 @@
 <a href="#meta-data-for-austraits" class="anchor"></a>Meta-data for austraits</h3>
 <p>Definitions for the various tables and traits are found under Articles</p>
 </div>
+<div id="load-the-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#load-the-data" class="anchor"></a>Load the data</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
 </div>
 <div id="extracting-data" class="section level2">
 <h2 class="hasAnchor">
@@ -121,7 +127,7 @@
 <div id="extracting-by-study" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extracting-by-study" class="anchor"></a>Extracting by study</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filtering one particular study and assigning it to an object</span>
 <span class="va">zanne_09</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"Zanne_2009"</span><span class="op">)</span> <span class="co">#Extract from austraits</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">zanne_09</span><span class="op">)</span> <span class="co"># The function extracts all the other tables and elements</span></code></pre></div>
@@ -129,14 +135,14 @@
 #&gt;  [4] "methods"           "excluded_data"     "taxonomic_updates"
 #&gt;  [7] "taxa"              "definitions"       "contributors"     
 #&gt; [10] "sources"           "build_info"</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object</span>
 <span class="op">(</span> <span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">methods</span><span class="op">$</span><span class="va">dataset_id</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="co">#All possible dataset_ids </span></code></pre></div>
 <pre><code>#&gt; [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2" "Zanne_2009"</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span> <span class="va">falster_ids</span> <span class="op">&lt;-</span> <span class="va">dataset_ids</span><span class="op">[</span><span class="fu">str_which</span><span class="op">(</span><span class="va">dataset_ids</span>, <span class="st">"Falster"</span><span class="op">)</span><span class="op">]</span> <span class="op">)</span>  <span class="co"># Extracting dataset_ids with lead author "Falster" </span></code></pre></div>
 <pre><code>#&gt; [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2"</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">falster_studies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">falster_ids</span><span class="op">)</span> <span class="co"># Extract from austraits</span>
 <span class="va">falster_studies</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">dataset_id</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <pre><code>#&gt; [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2"</code></pre>
@@ -144,23 +150,23 @@
 <div id="extracting-by-trait" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extracting-by-trait" class="anchor"></a>Extracting by trait</h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filtering one particular trait and assigning it to an object</span>
 <span class="va">sla_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"specific_leaf_area"</span><span class="op">)</span> <span class="co">#Extract from austraits</span>
 <span class="va">sla_data</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">trait_name</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [1] "specific_leaf_area"</code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Filtering all leaf associated data and assigning it to an object</span>
 <span class="op">(</span> <span class="va">traits</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">trait_name</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op">)</span> <span class="co">#All possible traits </span></code></pre></div>
 <pre><code>#&gt;  [1] "leaf_angle"           "leaf_area"            "leaf_compoundness"   
 #&gt;  [4] "branch_mass_fraction" "huber_value"          "leaf_N_per_dry_mass" 
 #&gt;  [7] "seed_mass"            "specific_leaf_area"   "wood_density"        
 #&gt; [10] "fire_response"        "plant_height"</code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="op">(</span> <span class="va">leaf_traits</span> <span class="op">&lt;-</span> <span class="va">traits</span><span class="op">[</span><span class="fu">str_which</span><span class="op">(</span><span class="va">traits</span>, <span class="st">"leaf"</span><span class="op">)</span><span class="op">]</span> <span class="op">)</span>  <span class="co"># Extracting data where "leaf" occurs in the trait_name</span></code></pre></div>
 <pre><code>#&gt; [1] "leaf_angle"          "leaf_area"           "leaf_compoundness"  
 #&gt; [4] "leaf_N_per_dry_mass" "specific_leaf_area"</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">leaf_traits</span><span class="op">)</span> <span class="co"># Extract from austraits</span>
 <span class="va">leaf_data</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">trait_name</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <pre><code>#&gt; [1] "leaf_angle"          "leaf_area"           "leaf_compoundness"  
@@ -169,7 +175,7 @@
 <div id="pivotting-wide-to-long-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pivotting-wide-to-long-format" class="anchor"></a>Pivotting wide to long format</h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_data</span><span class="op">$</span><span class="va">traits</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; $value
 #&gt; # A tibble: 306 x 11
@@ -266,7 +272,7 @@
 <h2 class="hasAnchor">
 <a href="#join-data-from-other-tables-and-elements" class="anchor"></a>Join data from other tables and elements</h2>
 <p>Once users have extracted the data they want, they may want to merge in other study details into the main traits dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the <code>join_</code> functions come in. There are five <code>join_</code> functions in total, each designed to append specific information from other tables and elements in the <code>austraits</code> object. Their suffixes refer to the type of information that is joined, e.g. <code>join_taxonomy</code> appends taxonomic information to the <code>traits</code> dataframe. See <code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join taxonomic information </span>
 <span class="op">(</span><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 306 x 16
@@ -285,7 +291,7 @@
 #&gt; # … with 296 more rows, and 9 more variables: unit &lt;chr&gt;, date &lt;chr&gt;,
 #&gt; #   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, family &lt;chr&gt;,
 #&gt; #   genus &lt;chr&gt;, taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join methodological information </span>
 <span class="op">(</span><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 306 x 16
@@ -304,7 +310,7 @@
 #&gt; # … with 296 more rows, and 9 more variables: unit &lt;chr&gt;, date &lt;chr&gt;,
 #&gt; #   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, methods &lt;chr&gt;,
 #&gt; #   year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join site based information </span>
 <span class="op">(</span><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 306 x 14
@@ -323,7 +329,7 @@
 #&gt; # … with 296 more rows, and 7 more variables: unit &lt;chr&gt;, date &lt;chr&gt;,
 #&gt; #   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,
 #&gt; #   latitude (deg) &lt;chr&gt;, longitude (deg) &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join context information </span>
 <span class="op">(</span><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="va">join_contexts</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 306 x 12
@@ -341,7 +347,7 @@
 #&gt; 10 Falster_2… Banksia m… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle   53.1
 #&gt; # … with 296 more rows, and 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;,
 #&gt; #   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Alternatively users can join *all* information </span>
 <span class="op">(</span><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="va">join_all</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 306 x 22
@@ -367,7 +373,7 @@
 <h2 class="hasAnchor">
 <a href="#visualising-data-by-site" class="anchor"></a>Visualising data by site</h2>
 <p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longtitude information into the trait dataframe before plotting</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_data</span> <span class="op">&lt;-</span> <span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="va">join_sites</span>
 <span class="va">leaf_data</span><span class="op">$</span><span class="va">traits</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="austraits_files/figure-html/site_plot-1.png" width="700"></p>
@@ -376,10 +382,10 @@
 <h2 class="hasAnchor">
 <a href="#visualising-data-distribution-and-variance" class="anchor"></a>Visualising data distribution and variance</h2>
 <p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm">beeswarm plots</a> for specific traits to help users visualise the variance of the data. Users can specific whether to create seperate beeswarm plots at the level of taxonomic family or for each <code>dataset_id</code></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"leaf_area"</span>, <span class="st">"family"</span><span class="op">)</span></code></pre></div>
 <p><img src="austraits_files/figure-html/beeswarm-1.png" width="700"></p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"leaf_area"</span>, <span class="st">"dataset_id"</span><span class="op">)</span></code></pre></div>
 <p><img src="austraits_files/figure-html/beeswarm-2.png" width="700"></p>
 </div>
