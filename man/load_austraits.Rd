@@ -4,21 +4,20 @@
 \alias{load_austraits}
 \title{Load AusTraits}
 \usage{
-load_austraits(path = NA)
+load_austraits(path)
 }
 \arguments{
-\item{path}{file path to where downloaded AusTraits .rds file is found}
+\item{path}{file path to where downloaded AusTraits .rds file is found, if empty function will create an 'austraits' directory in your data folder}
 }
 \value{
 AusTraits data
 }
 \description{
-Read in AusTraits .rds file into R, if filepath not specified, it reads in the lite version used for testing
+Downloads AusTraits version 2.1.0 and reads into R
 }
 \examples{
 \dontrun{
-austraits <- load_austraits() #loads Lite version for testing
-austraits <- load_austraits("data/austraits-2.1.0.rds")
+austraits_lite <- load_austraits_lite() #loads Lite version for testing
+austraits <- load_austraits("data/austraits/austraits-2.1.0.rds")
 }
-
 }

@@ -37,7 +37,8 @@ Imports:
     ggplot2,
     stats,
     ggpointdensity, 
-    viridis
+    viridis,
+    jsonlite
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
