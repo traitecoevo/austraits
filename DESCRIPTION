@@ -39,9 +39,8 @@ Imports:
     ggpointdensity, 
     viridis,
     kableExtra,
-    readr
+    readr,
     jsonlite
-
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
