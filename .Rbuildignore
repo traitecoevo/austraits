@@ -10,6 +10,4 @@
 ^docs$
 ^pkgdown$
 ^ignore
-=======
-^ignore/
->>>>>>> load_data
+

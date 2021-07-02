@@ -45,8 +45,5 @@ doc/*.html
 inst/doc
 /doc/
 /Meta/
-<<<<<<< HEAD
-docs
-=======
 ignore/
->>>>>>> load_data
+

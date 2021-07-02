@@ -38,12 +38,10 @@ Imports:
     stats,
     ggpointdensity, 
     viridis,
-<<<<<<< HEAD
     kableExtra,
     readr
-=======
     jsonlite
->>>>>>> load_data
+
 Suggests: 
     knitr,
     testthat (>= 3.0.0),

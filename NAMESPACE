@@ -9,15 +9,12 @@ export(join_contexts)
 export(join_methods)
 export(join_sites)
 export(join_taxonomy)
-<<<<<<< HEAD
 export(list1_to_df)
 export(my_kable_styling_html)
 export(my_kable_styling_markdown)
 export(my_kable_styling_pdf)
-=======
 export(load_austraits)
 export(load_austraits_lite)
->>>>>>> load_data
 export(plot_site_locations)
 export(plot_trait_distribution_beeswarm)
 export(separate_trait_values)
