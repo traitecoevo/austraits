@@ -3,7 +3,6 @@ on:
     branches:
       - master
       - develop
-      - tests
   pull_request:
     branches:
       - main
