@@ -40,6 +40,12 @@ library(austraits)
 ### Meta-data for austraits
 Definitions for the various tables and traits are found under Articles
 
+### Load the data
+
+```{r, load_data, eval = FALSE}
+austraits <- load_austraits()
+```
+
 ## Extracting data
 AusTraits contains 446 plant traits. In most cases, users would like to extract a subset of the dataset for their own research purposes. `extract_dataset`extracts a particular study, whereas `extract_trait`subsets by certain traits. Note that the other tables and elements of the austraits data are extracted too, not just the main trait table. See `?extract_dataset` and `?extract_trait` for more details
 

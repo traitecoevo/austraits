@@ -5,7 +5,11 @@
 ^README\.Rmd$
 ^doc$
 ^Meta$
+<<<<<<< HEAD
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^ignore
+=======
+^ignore/
+>>>>>>> load_data
