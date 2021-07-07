@@ -11,6 +11,7 @@ reference:
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
+  - load_austraits
   - starts_with("extract")
   - starts_with("trait_pivot")
   - join_all

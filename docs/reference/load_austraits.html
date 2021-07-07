@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Separate bounded trait values — separate_trait_values • austraits</title>
+<title>Load AusTraits — load_austraits • austraits</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Separate bounded trait values — separate_trait_values" />
-<meta property="og:description" content="This function reverts the action of bind_trait_values.
-This function separates values that were concatenated so that studies that have multiple observations for a given trait will have seperate row for each observation." />
+<meta property="og:title" content="Load AusTraits — load_austraits" />
+<meta property="og:description" content="Downloads AusTraits version 2.1.0 and reads into R" />
 
 
 
@@ -127,45 +126,34 @@ This function separates values that were concatenated so that studies that have 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Separate bounded trait values</h1>
-    <small class="dont-index">Source: <a href='https://github.com/traitecoevo/austraits/blob/master/R/seperate_trait_values.R'><code>R/seperate_trait_values.R</code></a></small>
-    <div class="hidden name"><code>separate_trait_values.Rd</code></div>
+    <h1>Load AusTraits</h1>
+    <small class="dont-index">Source: <a href='https://github.com/traitecoevo/austraits/blob/master/R/load_austraits.R'><code>R/load_austraits.R</code></a></small>
+    <div class="hidden name"><code>load_austraits.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function reverts the action of bind_trait_values.
-This function separates values that were concatenated so that studies that have multiple observations for a given trait will have seperate row for each observation.</p>
+    <p>Downloads AusTraits version 2.1.0 and reads into R</p>
     </div>
 
-    <pre class="usage"><span class='fu'>separate_trait_values</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>definitions</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>load_austraits</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>The trait data frame generated from austraits - see example</p></td>
-    </tr>
-    <tr>
-      <th>definitions</th>
-      <td><p>The austraits definitions data frame</p></td>
+      <th>path</th>
+      <td><p>file path to where downloaded AusTraits .rds file is found, if empty function will create an 'austraits' directory in your data folder</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>trait tibble</p>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Daniel Falster - daniel.falster@unsw.edu.au</p>
+    <p>AusTraits data</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>traits</span> <span class='op'>&lt;-</span> <span class='va'>austraits</span><span class='op'>$</span><span class='va'>traits</span> <span class='op'>%&gt;%</span> 
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>dataset_id</span> <span class='op'>==</span> <span class='st'>"Falster_2005_1"</span><span class='op'>)</span>
-<span class='va'>traits</span>
-<span class='va'>traits_bind</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bind_trait_values.html'>bind_trait_values</a></span><span class='op'>(</span><span class='va'>traits</span><span class='op'>)</span>
-<span class='fu'>separate_trait_values</span><span class='op'>(</span><span class='va'>traits_bind</span><span class='op'>)</span>
+<span class='va'>austraits_lite</span> <span class='op'>&lt;-</span> <span class='fu'><a href='join_all.html'>load_austraits_lite</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'>#loads Lite version for testing</span>
+<span class='va'>austraits</span> <span class='op'>&lt;-</span> <span class='fu'>load_austraits</span><span class='op'>(</span><span class='st'>"data/austraits/austraits-2.1.0.rds"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
