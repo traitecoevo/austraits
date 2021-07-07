@@ -8,7 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -35,7 +34,20 @@ if(knitr::is_html_output()) {
   
 ```
 
+This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 
+Note that the information provided below is based on the information provided within the file `definitions.yml`. 
+
+
+As an on-going collaborative community resource we would appreciate your contribution on any of. 
+
+- **Reporting Errors**: If you notice a possible error in AusTraits, please get in contact.
+ <!-- [post an issue on GitHub](https://github.com/traitecoevo/austraits.build/issues). -->
+- **Refining documentation:** We welcome additions and edits that make using the existing data or adding new data easier for the community.
+- **Contributing new data**: We gladly accept new data contributions to AusTraits. For full instructions on preparing data for inclusion in AusTraits, , please get in contact.
+<!-- please got to https://github.com/traitecoevo/austraits.build.  -->
+
 ```{r, echo=FALSE, results='hide', message=FALSE}
+austraits <- load_austraits()
 definitions <- austraits$definitions
 ```
 
@@ -134,7 +146,7 @@ AusTraits does not include intra-individual observations. When multiple measurem
 
 ## Taxonomy {#taxonomic}
 
-Version `r desc::desc_get_field("Version")` of AusTraits contains records for `r austraits$traits$species_name %>% unique() %>% length()` different species. We have attempted to align species names with known taxonomic units, focussing primarily on the [`The Plant List` (TPL)](http://www.theplantlist.org/) -- a global working list of all known plant species. In addition we have tried to align these names with the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). The `APNI_ID` can also be used to access relevant records for the species in the [`Atlas of Living Australia`](https://bie.ala.org.au/) (ALA).
+Version `r desc::desc_get_field("Version")` of AusTraits contains records for `r austraits$traits$taxon_name %>% unique() %>% length()` different species. We have attempted to align species names with known taxonomic units, focussing primarily on the [`The Plant List` (TPL)](http://www.theplantlist.org/) -- a global working list of all known plant species. In addition we have tried to align these names with the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). The `APNI_ID` can also be used to access relevant records for the species in the [`Atlas of Living Australia`](https://bie.ala.org.au/) (ALA).
 
 Links to species records in these systems can be accessed via the relevant IDs as in these examples. 
 
@@ -150,32 +162,3 @@ For each dataset in the compilation there is the option to list primary and seco
 
 1. Within the table [methods](#methods), where we provide a formatted version of each.
 2. In the element [sources](#sources), where we provided bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the [methods]{#methods}. 
-
-## Trait definitions
-
-Allowable traits and values are defined in the definitions file. Each trait is 
-labelled as either `numeric` or `categorical`. A full list of trait definitions used in AusTraits version `r desc::desc_get_field("Version")`, as defined in the file configuration files [`config/definitions.yml`](https://github.com/traitecoevo/austraits.build/blob/master/config/definitions.yml)), is as follows
-
-```{r, results="asis"}
-for(trait in names(definitions$traits$elements)) {
-  elements <- definitions$traits$elements[[trait]]
-  
-#  data_trait <- austraits$traits %>% filter(trait_name == trait)
-  
-  c( sprintf("## %s\n\n", trait), 
-     sprintf("- label: %s", elements$label ), 
-     sprintf("- description: %s", elements$description ), 
-     #sprintf("- number of records: %s", data_trait %>% nrow() ), 
-     #sprintf("- number of studies: %s", data_trait %>% pull(dataset_id) %>% unique() %>% length() ), 
-     sprintf("- type: %s%s", elements$type,   
-             ifelse(elements$type == "numeric", sprintf("\n- units: %s", elements$units), "")), 
-     ifelse(elements$type == "numeric", 
-             sprintf("- allowable range: %s - %s %s", elements$values$minimum,elements$values$maximum, elements$units), 
-             sprintf("- allowable values:\n%s\n", paste0("    - *",elements$values %>% names(), "*: ", elements$values %>% unlist(), collapse="\n"))
-                     ), 
-     "") %>% 
-    writeLines()
-}
-```
-
-

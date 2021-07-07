@@ -1,8 +1,8 @@
 ---
-title: "Data dictionary"
+title: "Trait definitions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Data dictionary}
+  %\VignetteIndexEntry{Trait definitions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 --- 
@@ -29,128 +29,9 @@ library(knitr)
 library(kableExtra)
 #source(here::here("scripts", "release_functions.R"))
 
+austraits<- load_austraits()
 definitions <- austraits$definitions
 ```
-
-This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 
-Note that the information provided below is based on the information provided within the file `definitions.yml`. 
-
-
-As an on-going collaborative community resource we would appreciate your contribution on any of. 
-
-- **Reporting Errors**: If you notice a possible error in AusTraits, please get in contact.
- <!-- [post an issue on GitHub](https://github.com/traitecoevo/austraits.build/issues). -->
-- **Refining documentation:** We welcome additions and edits that make using the existing data or adding new data easier for the community.
-- **Contributing new data**: We gladly accept new data contributions to AusTraits. For full instructions on preparing data for inclusion in AusTraits, , please get in contact.
-<!-- please got to https://github.com/traitecoevo/austraits.build.  -->
-
-# Elements of AusTraits
-
-The compiled AusTraits database has the following main components:
-
-```
-austraits
-├── traits
-├── sites
-├── contexts
-├── methods
-├── excluded_data
-├── taxa
-├── taxonomic_updates
-├── definitions
-├── contributors
-└── build_info
-```
-
-These elements include all the data and contextual information submitted with each contributed datasets. Each component is the above table is defined as follows:
-
-```{r}
-print_defintions_element <- function(elements) {
-  if(elements$type == "character") {
-    sprintf("**Content:** %s\n", elements$value) %>% 
-      writeLines()
-  }
-  
-  if(elements$type == "table") {
-    
-    sprintf("**Content:** \n") %>% 
-      writeLines()
-
-    elements$elements %>% 
-      austraits:::list1_to_df() %>%
-      austraits:::my_kable_styling_html() %>% 
-      writeLines()
-  }
-}
-
-for(v in names(austraits)) {
-  elements <- austraits$definitions$austraits$elements[[v]]
-  
-  sprintf("## %s {#%s}\n\n**Description:** %s\n", v, v, elements$description) %>% 
-    writeLines()
-  
-  elements %>%
-    print_defintions_element()
-
-  writeLines(c(""))
-}
-```
-
-# Observation IDs
-
-Each trait measurement has an associated `observation_id`. Observation IDs bind together related measurements within a dataset. For example, if multiple traits were collected on the same individual, the `observation_id` allows us to gather these together. For floras, which report a species averages, the `observation_id` is determined via the species name. Importantly, the `observation_id` allows translation between long  (e.g. with variables `trait_name` and `value`) and wide (e.g. with traits as columns) formats.
-
-Generally, `observation_id` has the format `dataset_id_XX` where `XX` is a unique number within each dataset.
-
-For datasets that arrive in wide format we assume each row has a unique `observation_id`. 
-
-For datasets that arrive in long format, the `observation_id` is assigned based on a specified grouping variable. This variable can be specified in the `metadata.yml` file under the section `variable_match`. If missing, `observation_id` is assigned based on `taxon_name`. 
-
-# Values and Value types {#value_types}
-
-Each record in the table of [trait data](#traits) has an associated `value` and `value_type`. Traits are either `numeric` or `categorical`.
-
-For traits with numerical values, the recorded value has been converted into standardised units and we have check that the value can be converted into a number and lies within the allowable range. 
-
-For categorical variables, we only include records that are defined in the definitions (see [trait definitions below](#traits)). Moreover, we use a format whereby
-
-- we use `_` for multi-word terms, e.g. `semi_deciduous`
-- use a space for situations where there are two possible values for that trait, e.g. `annual biennial` for something which is either annual or biennial 
-
-Each trait measurement also an associated `value_type`, which gives ``r austraits$definitions$value_type$description``. Possible value_types are:
-
-```{r value_type}
-austraits$definitions$value_type$values %>% 
-  austraits:::list1_to_df()  %>% 
-  austraits:::my_kable_styling_html() %>% 
-  writeLines()
-```
-
-# Species taxonomy {#taxonomy}
-
-Within AusTraits there are records for `r austraits$traits$taxon_name %>% unique() %>% length()` different species. A full list of all known species is available in the table `taxonomy` (see details above).
-
-We have attempted to align species names with known taxonomic units, focussing primarily on the [`The Plant List` (TPL)](http://www.theplantlist.org/) -- a global working list of all known plant species. In addition we have tried to align these names with the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). The `APNI_ID` can also be used to access relevant records for the species in the [`Atlas of Living Australia`](https://bie.ala.org.au/) (ALA).
-
-Links to species records in these systems can be accessed via the relevant IDs as in these examples. 
-
-- The Plant List: [http://www.theplantlist.org/tpl1.1/record/kew-450649](http://www.theplantlist.org/tpl1.1/record/kew-450649) where `kew-450649` is the `TPL_ID`
-- Australian Plant Census: [https://biodiversity.org.au/nsl/services/node/apc/2908862](https://biodiversity.org.au/nsl/services/node/apc/2908862) where `2908862` is the `APC_ID`
-- Australian Plant Names Index: [http://id.biodiversity.org.au/node/apni/2899106](http://id.biodiversity.org.au/node/apni/2899106
-) where `2899106` is the `APNI_ID`
-- Atlas of Living Australia: [https://bie.ala.org.au/species/http://id.biodiversity.org.au/node/apni/2899106](https://bie.ala.org.au/species/http://id.biodiversity.org.au/node/apni/2899106) where `2899106` is the `APNI_ID`.
-
-# Data sources
-
-For each dataset in the compilation there is the option to list a primary and secondary citation. The primary citation `r austraits$definitions$metadata$elements$source$values$primary` while the secondary citation is `r austraits$definitions$metadata$elements$source$values$secondary`. these references are included in two places:
-
-1. Within the table [methods](#methods), where we provide a formatted version of each.
-2. In the element [sources](#sources), where we provided bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the [methods]{#methods}. 
-
-As noted above under [citations](#citations), anyone using the compilation is expected to cite primary sources. 
-
-
-# Trait definitions {#trait_defs}
 
 Below is the standard definition for each trait in AusTraits (drawn from the the file `definitions.yml`). As described above in the section on [Value types](#value_types), traits are labelled as either `numeric` or `categorical`.
 
