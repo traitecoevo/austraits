@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
 library(stringr)
 library(dplyr)
 ```
-# austraits
+
+# austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
