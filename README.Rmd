@@ -19,14 +19,13 @@ knitr::opts_chunk$set(
 library(stringr)
 library(dplyr)
 
-#sticker("inst/figures/austraits_logo.png", package="AusTraits",
-# +         p_size=24,
-# +         p_y = 1.45,
-# +         p_color = "gray40",
-# +         s_x=0.92, s_y=.72, s_width=.6,
-# +         h_fill = "ghostwhite",
-# +         h_color = "chartreuse4",
-# +         filename="inst/figures/hexlogo.png")
+# hexSticker::sticker("inst/figures/austraits_logo.png",
+#                     package="austraits",
+#                     p_size=24, p_y = 1.45, p_color = "gray40",
+#                     s_x=0.92, s_y=.72, s_width=.6,
+#                     h_color = "chartreuse4",
+#                     h_fill = "white",
+#                     filename="inst/figures/hexlogo.png")
 ```
 
 # austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120" />
