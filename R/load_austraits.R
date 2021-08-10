@@ -1,27 +1,48 @@
 #' Load AusTraits
-#' @description Downloads AusTraits version 2.1.0 and reads into R
+#' @description Downloads AusTraits version 3.0.2 and reads into R
 #' @usage load_austraits(path)
-#' @param path file path to where downloaded AusTraits .rds file is found, if empty function will create an 'austraits' directory in your data folder
-#' @return AusTraits data
+#' @param path file path to where download data. By default set to "data/austraits"
+#' @param link link to Zenodo record to download
+#' @param update should files be downloaded anew?
+#' @return AusTraits data object
 #' @export
 #' @examples
 #' \dontrun{
 #' austraits_lite <- load_austraits_lite() #loads Lite version for testing
-#' austraits <- load_austraits("data/austraits/austraits-2.1.0.rds")
+#' austraits <- load_austraits()
 #' }
 
 
-load_austraits <- function(path = "data/austraits/austraits-2.1.0.rds") { 
-  if(!file.exists(path)) {
+load_austraits <- function(path = "data/austraits", link = "https://zenodo.org/api/records/5112001", update = FALSE) {
+  
+  
+  file_json <- file.path(path, "austraits.json")
+  
+  if(!file.exists(file_json) | update ) {
     
-    #Get url for version 2.1.0 of austraits
-    x <- jsonlite::fromJSON("https://zenodo.org/api/records/4316550")
+    #Get url for latest version
+    x <- httr::GET(link) %>% httr::content(as = "text")
+    
+    message("Downlaoding AusTraits to '", path,"'")
+    
+    # Save json
+    writeLines(x, file_json)
+    
+    # Retrieve data
+    x <- jsonlite::fromJSON(file_json)
+  
     url <- x$files$links$download[1]
-    filename <- basename(x$files$filename[1])
+    file_path <- file.path(path, basename(x$files$filename[1]))
     
-    download_austraits(url, filename)
+    download_austraits(url, file_path)
   }
-  data <- readRDS(path) #Load rds
+  
+  # Retrieve data
+  x <- jsonlite::fromJSON(file_json)
+  file_path <- file.path(path, basename(x$files$filename[1]))
+  
+  message("Loading data from '", file_path,"'")
+  data <- readRDS(file_path) 
 
   data
 }
