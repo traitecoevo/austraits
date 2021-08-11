@@ -7,15 +7,15 @@
 #' @examples
 #' \dontrun{
 #' austraits_lite <- load_austraits_lite() #loads Lite version for testing
-#' austraits <- load_austraits("data/austraits/austraits-2.1.0.rds")
+#' austraits <- load_austraits("data/austraits/austraits-3.0.2.rds")
 #' }
 
 
-load_austraits <- function(path = "data/austraits/austraits-2.1.0.rds") { 
+load_austraits <- function(path = "data/austraits/austraits-3.0.2.rds") { 
   if(!file.exists(path)) {
     
     #Get url for version 2.1.0 of austraits
-    x <- jsonlite::fromJSON("https://zenodo.org/api/records/4316550")
+    x <- jsonlite::fromJSON("https://zenodo.org/api/records/5112001")
     url <- x$files$links$download[1]
     filename <- basename(x$files$filename[1])
     
@@ -55,7 +55,7 @@ download_austraits <- function(url, filename) {
 #' Load small subset of austraits 
 #' @description Load lite version of austraits for demo and testing purposes
 #' @return
-#' @rdname join_all
+#' @rdname load_austraits
 #' @export
 load_austraits_lite <- function(){
   data <- austraits::austraits #lite version

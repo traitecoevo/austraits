@@ -2,22 +2,29 @@
 % Please edit documentation in R/load_austraits.R
 \name{load_austraits}
 \alias{load_austraits}
+\alias{load_austraits_lite}
 \title{Load AusTraits}
 \usage{
 load_austraits(path)
+
+load_austraits_lite()
 }
 \arguments{
 \item{path}{file path to where downloaded AusTraits .rds file is found, if empty function will create an 'austraits' directory in your data folder}
 }
 \value{
 AusTraits data
+
+
 }
 \description{
 Downloads AusTraits version 2.1.0 and reads into R
+
+Load lite version of austraits for demo and testing purposes
 }
 \examples{
 \dontrun{
 austraits_lite <- load_austraits_lite() #loads Lite version for testing
-austraits <- load_austraits("data/austraits/austraits-2.1.0.rds")
+austraits <- load_austraits("data/austraits/austraits-3.0.2.rds")
 }
 }

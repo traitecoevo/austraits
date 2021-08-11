@@ -45,7 +45,8 @@ Imports:
     viridis,
     kableExtra,
     readr,
-    jsonlite
+    jsonlite,
+    utils
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
