@@ -1,4 +1,9 @@
 ---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+loadl---
 title: Structure of AusTraits data compilation
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -46,8 +51,8 @@ As an on-going collaborative community resource we would appreciate your contrib
 - **Contributing new data**: We gladly accept new data contributions to AusTraits. For full instructions on preparing data for inclusion in AusTraits, , please get in contact.
 <!-- please got to https://github.com/traitecoevo/austraits.build.  -->
 
-```{r, echo=FALSE, results='hide', message=FALSE}
-austraits <- load_austraits()
+```{r, echo=FALSE, results='hide', include=FALSE}
+austraits <- load_austraits(path = "inst/extdata/austraits")
 definitions <- austraits$definitions
 ```
 

@@ -5,26 +5,30 @@
 \alias{load_austraits_lite}
 \title{Load AusTraits}
 \usage{
-load_austraits(path)
+load_austraits(path, link, update)
 
 load_austraits_lite()
 }
 \arguments{
-\item{path}{file path to where downloaded AusTraits .rds file is found, if empty function will create an 'austraits' directory in your data folder}
+\item{path}{file path to where download data. By default set to "data/austraits"}
+
+\item{link}{link to Zenodo record to download}
+
+\item{update}{should files be downloaded anew?}
 }
 \value{
-AusTraits data
+AusTraits data object
 
 
 }
 \description{
-Downloads AusTraits version 2.1.0 and reads into R
+Downloads AusTraits version 3.0.2 and reads into R
 
 Load lite version of austraits for demo and testing purposes
 }
 \examples{
 \dontrun{
 austraits_lite <- load_austraits_lite() #loads Lite version for testing
-austraits <- load_austraits("data/austraits/austraits-3.0.2.rds")
+austraits <- load_austraits()
 }
 }

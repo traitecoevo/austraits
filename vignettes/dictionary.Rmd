@@ -29,7 +29,7 @@ library(knitr)
 library(kableExtra)
 #source(here::here("scripts", "release_functions.R"))
 
-austraits<- load_austraits()
+austraits<- load_austraits_lite()
 definitions <- austraits$definitions
 ```
 
