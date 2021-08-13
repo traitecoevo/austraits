@@ -102,11 +102,24 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
           panel.grid.minor.x = element_blank(),
           axis.text.x=element_text(size=rel(1.25)),
           axis.text.y=element_text(size=rel(y.text))
-    ) +
-    guides(colour=FALSE)
+    ) #+
+   # guides(colour=FALSE)
+
   
   if(hide_ids) {
     p2 <- p2 + theme(axis.text.y = element_blank())
+  }
+  
+  #Sourced from https://gist.github.com/bbolker/5ba6a37d64b06a176e320b2b696b6733
+  scientific_10 <- function(x,suppress_ones=TRUE) {
+    s <- scales::scientific_format()(x)
+    ## substitute for exact zeros
+    s[s=="0e+00"] <- "0"
+    ## regex: [+]?  = "zero or one occurrences of '+'"
+    s2 <- gsub("e[+]?", " %*% 10^", s )
+    ## suppress 1 x
+    if (suppress_ones) s2 <- gsub("1 %\\*% +","",s2)
+    parse(text=s2)
   }
   
   # Define scale on x-axis and transform to log if required
@@ -114,14 +127,14 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     #log transformation
     p1 <- p1 +
       scale_x_log10(name="",
-                             breaks = scales::trans_breaks("log10", function(x) 10^x),
-                             labels = scales::trans_format("log10", scales::math_format(10^.data$.x)),
-                             limits=c(vals$minimum, vals$maximum))
+                    breaks = scales::breaks_log(),
+                    labels = scientific_10,
+                    limits=c(vals$minimum, vals$maximum))
     p2 <- p2 +
       scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
-                             breaks = scales::trans_breaks("log10", function(x) 10^x),
-                             labels = scales::trans_format("log10", scales::math_format(10^.data$.x)),
-                             limits=c(vals$minimum, vals$maximum))
+                    breaks = scales::breaks_log(),
+                    labels = scientific_10,
+                    limits=c(vals$minimum, vals$maximum))
   } else {
     p1 <- p1 + scale_x_continuous(limits=c(vals$minimum, vals$maximum))
     p2 <- p2 + scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +

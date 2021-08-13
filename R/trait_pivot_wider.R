@@ -26,9 +26,14 @@ trait_pivot_wider <- function(data) {
   for(v in vars) {
     ret[[v]] <- data %>% 
       dplyr::rename(to_spread = !!v) %>%
-      dplyr::select(.data$dataset_id, .data$taxon_name, .data$site_name, .data$context_name, .data$observation_id, .data$trait_name, .data$to_spread, .data$original_name) %>%
-      tidyr::pivot_wider(names_from = .data$trait_name, values_from = .data$to_spread)
+      dplyr::mutate(unique_id = paste(.data$dataset_id, dplyr::row_number(), sep = "_")) %>% 
+      #dplyr::select(.data$dataset_id:.data$unique_id) %>% #select all the cols
+      dplyr::select(.data$dataset_id, .data$taxon_name, .data$site_name, .data$context_name, .data$observation_id, .data$trait_name, .data$to_spread, .data$original_name, .data$unique_id) %>% 
+      tidyr::pivot_wider(names_from = .data$trait_name, values_from = .data$to_spread) %>% 
+      dplyr::select(-.data$unique_id)
   }
   
   ret
 }
+
+

@@ -2,10 +2,7 @@
 #' @description Plot location where trait data was collected from
 #' @param traits trait dataframe generated from austraits with site details appended. See join_all and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type
-#' @param size size of points
-#' @param alpha transperancy of points 0 - 1, smaller the number, the more transparent
-#' @param xlab x axis label for each plot (Longitude)
-#' @param ylab y axis label for each plot (Latitude)
+#' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
 #' @examples 
@@ -22,7 +19,7 @@
 #' @importFrom rlang .data
 #' @importFrom ggplot2 ggplot aes geom_raster theme scale_fill_grey xlab ylab facet_wrap scale_x_continuous scale_fill_continuous
 
-plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 0.8, xlab = "", ylab=""){
+plot_site_locations <- function(traits, feature="trait_name", ...){
   
   #Create site data
   sites <- 
@@ -45,8 +42,7 @@ plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 
       inherit.aes = FALSE,
       show.legend = TRUE,
       adjust = 1,
-      size = size,
-      alpha=alpha
+      ...
     ) +
     scale_x_continuous(limits = c(NA, 154)) +
     scale_fill_continuous(na.value="white") +
@@ -61,7 +57,7 @@ plot_site_locations <- function(traits, feature="trait_name", size=0.5, alpha = 
             panel.border = ggplot2::element_rect(colour = "black", fill=NA, size=1),
             axis.ticks.length = ggplot2::unit(1, "mm"),
             axis.ticks = ggplot2::element_line(size = 1)
-    )  + xlab(xlab) + ylab(ylab)
+    )  + xlab("") + ylab("")
   
   # facet by feature if specified - default
   if(!is.na(feature)){

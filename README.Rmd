@@ -18,8 +18,17 @@ knitr::opts_chunk$set(
 
 library(stringr)
 library(dplyr)
+
+# hexSticker::sticker("inst/figures/austraits_logo.png",
+#                     package="austraits",
+#                     p_size=24, p_y = 1.45, p_color = "gray40",
+#                     s_x=0.92, s_y=.72, s_width=.6,
+#                     h_color = "chartreuse4",
+#                     h_fill = "white",
+#                     filename="inst/figures/hexlogo.png")
 ```
-# austraits
+
+# austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
@@ -38,8 +47,6 @@ remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
 library(austraits) 
 ```
-
-## How to use
 
 ### Extracting by study
 ```{r extract_study}
@@ -68,8 +75,9 @@ leaf_data <- extract_trait(austraits, leaf_traits)
 
 ### Pivoting between long/wide
 
-```{r pivot}
-
+```{r pivot, eval = TRUE}
+leaf_wide <- leaf_data$traits %>% trait_pivot_wider()
+leaf_long <- leaf_wide %>% trait_pivot_longer()
 ```
 
 ### Joining site information and plotting site information

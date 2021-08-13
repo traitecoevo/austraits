@@ -24,6 +24,11 @@
 vignettes/*.html
 vignettes/*.pdf
 
+# produced docs
+doc/*.R
+doc/*.Rmd
+doc/*.html
+
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
 
@@ -40,3 +45,8 @@ vignettes/*.pdf
 inst/doc
 /doc/
 /Meta/
+ignore/
+
+data/austraits/
+
+

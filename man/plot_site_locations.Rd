@@ -4,27 +4,14 @@
 \alias{plot_site_locations}
 \title{Produce site maps}
 \usage{
-plot_site_locations(
-  traits,
-  feature = "trait_name",
-  size = 0.5,
-  alpha = 0.8,
-  xlab = "",
-  ylab = ""
-)
+plot_site_locations(traits, feature = "trait_name", ...)
 }
 \arguments{
 \item{traits}{trait dataframe generated from austraits with site details appended. See join_all and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type}
 
-\item{size}{size of points}
-
-\item{alpha}{transperancy of points 0 - 1, smaller the number, the more transparent}
-
-\item{xlab}{x axis label for each plot (Longitude)}
-
-\item{ylab}{y axis label for each plot (Latitude)}
+\item{...}{arguments passed to ggplot()}
 }
 \value{
 ggplot of sites

@@ -7,7 +7,7 @@ wide_data <- trait_pivot_wider(data)
 test_that("function shouldn't complain and throw errors", {
   expect_silent(trait_pivot_wider(data))
   #This test is producing messages in R CMD check but not when tested interactively
-  #expect_silent(trait_pivot_longer(wide_data)) 
+  expect_silent(trait_pivot_longer(wide_data)) 
 })
 
 test_that("functions should throw error when provided wrong input", {

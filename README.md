@@ -1,7 +1,7 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-austraits
-=========
+# austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -22,42 +22,52 @@ The package is not on CRAN yet and is still under active development.
 You can install the development version of austraits from
 [GitHub](https://github.com/traitecoevo/austraits) with:
 
-    #install.packages("remotes")
-    remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
+``` r
+#install.packages("remotes")
+remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
-    library(austraits) 
-
-How to use
-----------
+library(austraits) 
+```
 
 ### Extracting by study
 
-    #Extract a single study
-    zanne_09 <- extract_dataset(austraits, "Zanne_2009") 
+``` r
+#Extract a single study
+zanne_09 <- extract_dataset(austraits, "Zanne_2009") 
 
-    #Extract multiple studies
-    # Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object
-    dataset_ids <- austraits$methods$dataset_id %>% unique() #All possible dataset_ids 
-    falster_ids <- dataset_ids[str_which(dataset_ids, "Falster")]  # Extracting dataset_ids with lead author "Falster" 
+#Extract multiple studies
+# Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object
+dataset_ids <- austraits$methods$dataset_id %>% unique() #All possible dataset_ids 
+falster_ids <- dataset_ids[str_which(dataset_ids, "Falster")]  # Extracting dataset_ids with lead author "Falster" 
 
-    falster_studies <- extract_dataset(austraits, falster_ids)
+falster_studies <- extract_dataset(austraits, falster_ids)
+```
 
 ### Extracting by trait
 
-    # Extract one particular trait and assigning it to an object
-    sla_data <- extract_trait(austraits, "specific_leaf_area")
+``` r
+# Extract one particular trait and assigning it to an object
+sla_data <- extract_trait(austraits, "specific_leaf_area")
 
-    # Extracting all leaf associated data and assigning it to an object
-    traits <- austraits$traits$trait_name %>% unique()  #All possible traits 
-    leaf_traits <- traits[str_which(traits, "leaf")] # Extracting data where "leaf" occurs in the trait_name
+# Extracting all leaf associated data and assigning it to an object
+traits <- austraits$traits$trait_name %>% unique()  #All possible traits 
+leaf_traits <- traits[str_which(traits, "leaf")] # Extracting data where "leaf" occurs in the trait_name
 
-    leaf_data <- extract_trait(austraits, leaf_traits) 
+leaf_data <- extract_trait(austraits, leaf_traits) 
+```
 
 ### Pivoting between long/wide
 
+``` r
+leaf_wide <- leaf_data$traits %>% trait_pivot_wider()
+leaf_long <- leaf_wide %>% trait_pivot_longer()
+```
+
 ### Joining site information and plotting site information
 
-    # Join site based information 
-    (austraits %>% join_sites)$traits %>% plot_site_locations()
+``` r
+# Join site based information 
+(austraits %>% join_sites)$traits %>% plot_site_locations()
+```
 
 <img src="man/figures/README-site-1.png" width="100%" />

@@ -15,4 +15,5 @@
 #'   \item{sources}{citation information for each study, tibble}
 #'   \item{build_info}{A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info, tibble}
 #' }
+#' @import RefManageR
 "austraits"

@@ -1,0 +1,64 @@
+---
+title: "Trait definitions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Trait definitions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+--- 
+
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE, results="hide"}
+# knitr defaults
+knitr::opts_chunk$set(echo=FALSE, cache=FALSE, results='asis', message=FALSE, warning=FALSE)
+
+# default for table format
+options(knitr.table.format = "html")
+
+# Guidelines for writing report code
+# - use tidyverse style and format: http://htmlpreview.github.io/?https://github.com/nicercode/2018_BEES_regression/blob/master/tidyverse.html
+# - use kableExtra for styling: https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+# - use knitr chunk options: https://rmarkdown.rstudio.com/lesson-3.html
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results="hide"}
+library(dplyr)
+library(austraits)
+library(knitr)
+library(kableExtra)
+#source(here::here("scripts", "release_functions.R"))
+
+austraits<- load_austraits_lite()
+definitions <- austraits$definitions
+```
+
+Below is the standard definition for each trait in AusTraits (drawn from the the file `definitions.yml`). As described above in the section on [Value types](#value_types), traits are labelled as either `numeric` or `categorical`.
+
+
+```{r, traits}
+for(trait in names(austraits$definitions$traits$elements)) {
+  elements <- austraits$definitions$traits$elements[[trait]]
+  
+  data_trait <- austraits$traits %>% filter(trait_name == trait)
+  
+  c( sprintf("## %s\n\n", trait), sprintf("- label: %s", elements$label ), sprintf("- description: %s", elements$description ), sprintf("- number of records: %s", data_trait %>% nrow() ), sprintf("- number of studies: %s", data_trait %>% pull(dataset_id) %>% unique() %>% length() ), sprintf("- type: %s%s", elements$type,   ifelse(elements$type == "numeric",        sprintf("\n- units: %s", elements$units), "")), ifelse(elements$type == "numeric",        sprintf("- allowable range: %s - %s %s", elements$values$minimum,         elements$values$maximum, elements$units),      sprintf("- allowable values:\n%s\n",                paste0("    - *",elements$values %>% names(), "*: ", elements$values %>% unlist(), collapse="\n"))), ""
+  ) %>% writeLines()
+}
+```
+
+# Orginal sources
+
+The current version of AusTraits includes data from the following primary sources:
+
+```{r, results="asis", echo=FALSE}
+austraits$methods$source_primary_citation %>% unique() %>% sprintf("- %s", .) %>% writeLines()
+```
+
+and secondary sources below: 
+
+```{r}
+austraits$methods$source_secondary_citation %>% unique() %>% sprintf("- %s", .) %>% writeLines()
+```
+ 
+ 
