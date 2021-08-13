@@ -37,8 +37,7 @@ if(knitr::is_html_output()) {
   my_kable_styling <- austraits::my_kable_styling_pdf
 }
 
-austraits <- austraits:::austraits_3.0.2
-definitions <- austraits$definitions
+
 ```
 
 This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 
@@ -52,6 +51,12 @@ As an on-going collaborative community resource we would appreciate your contrib
 - **Refining documentation:** We welcome additions and edits that make using the existing data or adding new data easier for the community.
 - **Contributing new data**: We gladly accept new data contributions to AusTraits. For full instructions on preparing data for inclusion in AusTraits, , please get in contact.
 <!-- please got to https://github.com/traitecoevo/austraits.build.  -->
+
+```{r, include = FALSE, results = "hide"}
+austraits <- load_austraits(path = "ignore/data/austraits")
+definitions <- austraits$definitions
+```
+
 
 AusTraits is essentially a series of linked components, which cross link against each other::
 
