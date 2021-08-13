@@ -52,12 +52,6 @@ As an on-going collaborative community resource we would appreciate your contrib
 - **Contributing new data**: We gladly accept new data contributions to AusTraits. For full instructions on preparing data for inclusion in AusTraits, , please get in contact.
 <!-- please got to https://github.com/traitecoevo/austraits.build.  -->
 
-```{r, include = FALSE, results = "hide"}
-austraits <- load_austraits(path = "ignore/data/austraits")
-definitions <- austraits$definitions
-```
-
-
 AusTraits is essentially a series of linked components, which cross link against each other::
 
 ```
@@ -153,15 +147,13 @@ AusTraits does not include intra-individual observations. When multiple measurem
 
 ## Taxonomy {#taxonomic}
 
-Version `r desc::desc_get_field("Version")` of AusTraits contains records for `r austraits$traits$taxon_name %>% unique() %>% length()` different species. We have attempted to align species names with known taxonomic units, focussing primarily on the [`The Plant List` (TPL)](http://www.theplantlist.org/) -- a global working list of all known plant species. In addition we have tried to align these names with the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). The `APNI_ID` can also be used to access relevant records for the species in the [`Atlas of Living Australia`](https://bie.ala.org.au/) (ALA).
+Version `r desc::desc_get_field("Version")` of AusTraits contains records for `r austraits$traits$species_name %>% unique() %>% length()` different taxa. We have attempted to align species names with known taxonomic units in the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and/or the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). 
 
-Links to species records in these systems can be accessed via the relevant IDs as in these examples. 
+The table `taxa` lists all taxa in the database, including additional infomration about the taxa (see Table above). 
 
-- The Plant List: [http://www.theplantlist.org/tpl1.1/record/kew-450649](http://www.theplantlist.org/tpl1.1/record/kew-450649) where `kew-450649` is the `TPL_ID`
-- Australian Plant Census: [https://biodiversity.org.au/nsl/services/node/apc/2908862](https://biodiversity.org.au/nsl/services/node/apc/2908862) where `2908862` is the `APC_ID`
-- Australian Plant Names Index: [http://id.biodiversity.org.au/node/apni/2899106](http://id.biodiversity.org.au/node/apni/2899106
-) where `2899106` is the `APNI_ID`
-- Atlas of Living Australia: [https://bie.ala.org.au/species/http://id.biodiversity.org.au/node/apni/2899106](https://bie.ala.org.au/species/http://id.biodiversity.org.au/node/apni/2899106) where `2899106` is the `APNI_ID`.
+The `traits` table reports both the original and the updated taxon name alongside each trait record.
+
+The table `taxanomic_updates` provdies details on all taxonomic names changes implemented in aligning with APC and APNI.
 
 ## Sources
 
