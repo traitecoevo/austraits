@@ -59,8 +59,8 @@ leaf_data <- extract_trait(austraits, leaf_traits)
 ### Pivoting between long/wide
 
 ``` r
-trait_wide <- austraits$traits %>% trait_pivot_wider()
-trait_long <- trait_wide %>% trait_pivot_longer()
+leaf_wide <- leaf_data$traits %>% trait_pivot_wider()
+leaf_long <- leaf_wide %>% trait_pivot_longer()
 ```
 
 ### Joining site information and plotting site information
