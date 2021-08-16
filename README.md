@@ -26,6 +26,7 @@ You can install the development version of austraits from
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
+
 library(austraits) 
 ```
 
@@ -34,6 +35,8 @@ library(austraits)
 ``` r
 #Load austraits
 austraits <- load_austraits()
+
+library(austraits) 
 ```
 
 ### Extracting by study

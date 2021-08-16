@@ -48,6 +48,7 @@ remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 library(austraits) 
 ```
 
+<<<<<<< HEAD
 ### Load most recent version of austraits
 
 ```{r, load, eval = FALSE}
@@ -55,6 +56,8 @@ library(austraits)
 austraits <- load_austraits()
 ```
 
+=======
+>>>>>>> 9982e2578c651f2c19c942ac83c4c9ed574a2f5d
 ### Extracting by study
 ```{r extract_study}
 #Extract a single study
