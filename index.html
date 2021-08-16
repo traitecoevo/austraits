@@ -101,10 +101,17 @@
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </code></pre></div>
 </div>
+<div id="load-most-recent-version-of-austraits" class="section level3">
+<h3 class="hasAnchor">
+<a href="#load-most-recent-version-of-austraits" class="anchor"></a>Load most recent version of austraits</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Load austraits</span>
+<span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_austraits.html">load_austraits</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
 <div id="extracting-by-study" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extracting-by-study" class="anchor"></a>Extracting by study</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Extract a single study</span>
 <span class="va">zanne_09</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"Zanne_2009"</span><span class="op">)</span> 
 
@@ -118,7 +125,7 @@
 <div id="extracting-by-trait" class="section level3">
 <h3 class="hasAnchor">
 <a href="#extracting-by-trait" class="anchor"></a>Extracting by trait</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Extract one particular trait and assigning it to an object</span>
 <span class="va">sla_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"specific_leaf_area"</span><span class="op">)</span>
 
@@ -131,14 +138,14 @@
 <div id="pivoting-between-longwide" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pivoting-between-longwide" class="anchor"></a>Pivoting between long/wide</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_wide</span> <span class="op">&lt;-</span> <span class="va">leaf_data</span><span class="op">$</span><span class="va">traits</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">leaf_long</span> <span class="op">&lt;-</span> <span class="va">leaf_wide</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/trait_pivot_longer.html">trait_pivot_longer</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="joining-site-information-and-plotting-site-information" class="section level3">
 <h3 class="hasAnchor">
 <a href="#joining-site-information-and-plotting-site-information" class="anchor"></a>Joining site information and plotting site information</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join site based information </span>
 <span class="op">(</span><span class="va">austraits</span> <span class="op">%&gt;%</span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-site-1.png" width="100%"></p>
