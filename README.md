@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
-[![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
+[![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 <!-- badges: end -->
 
 `austraits` allow users to access, explore and wrangle data from the
@@ -26,7 +26,6 @@ You can install the development version of austraits from
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
-
 library(austraits) 
 ```
 
@@ -35,8 +34,6 @@ library(austraits)
 ``` r
 #Load austraits
 austraits <- load_austraits()
-
-library(austraits) 
 ```
 
 ### Extracting by study
