@@ -32,7 +32,7 @@ library(dplyr)
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
-[![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/develop/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
+[![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 <!-- badges: end -->
 
 `austraits` allow users to access, explore and wrangle data from the AusTraits database in `R`. This package includes several functions such as filtering and pivoting the dataset that we expect will come in handy. In our vignette, we have also included some tutorials that uses our functions as well as `tidyverse` functions to create more data outputs and summaries - see browseVignettes("austraits")
@@ -48,7 +48,6 @@ remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 library(austraits) 
 ```
 
-<<<<<<< HEAD
 ### Load most recent version of austraits
 
 ```{r, load, eval = FALSE}
@@ -56,8 +55,6 @@ library(austraits)
 austraits <- load_austraits()
 ```
 
-=======
->>>>>>> 9982e2578c651f2c19c942ac83c4c9ed574a2f5d
 ### Extracting by study
 ```{r extract_study}
 #Extract a single study
