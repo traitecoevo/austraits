@@ -45,9 +45,19 @@ load_austraits <- function(path = "data/austraits", link = "https://zenodo.org/a
   
   message("Loading data from '", file_path,"'")
   data <- readRDS(file_path) 
+  #data$build_info <- NULL #Get rids of build info
+  attr(data, "class") <- "austraits"
   
   data
+  
+  
 }
+
+print.austraits <- function(austraits){
+  message(paste("AusTraits version", austraits$build_info$version))
+  #"The austraits object has XX dataframes arranged as a list or similar, see here <link>" 
+}
+
 
 download_austraits <- function(url, filename, path) {
   #Download latest build
