@@ -47,7 +47,8 @@ Imports:
     readr,
     jsonlite,
     utils,
-    httr
+    httr,
+    raster
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
