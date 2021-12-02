@@ -61,7 +61,8 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
             panel.border = ggplot2::element_rect(colour = "black", fill=NA, size=1),
             axis.ticks.length = ggplot2::unit(1, "mm"),
             axis.ticks = ggplot2::element_line(size = 1)
-    )  + xlab("") + ylab("")
+    )  + xlab("") + ylab("") + 
+    ggplot2::coord_fixed()
   
   # facet by feature if specified - default
   if(!is.na(feature)){
