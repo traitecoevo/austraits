@@ -1,0 +1,14 @@
+citHeader("To cite austraits in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "AusTraits, a curated plant trait database for the Australian flora",
+  author   ="Daniel Falster, Rachael Gallagher, Elizabeth Wenk et al.",
+  journal  = "Scientific Data",
+  year     = "2021",
+  volume   = "8",
+  number   = "1",
+  pages    = "254 - 274",
+  url      = "https://doi.org/10.1038/s41597-021-01006-6",
+  textVersion = paste("Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated plant trait database for the Australian flora. Sci Data 8, 254 (2021). https://doi.org/10.1038/s41597-021-01006-6")
+)
