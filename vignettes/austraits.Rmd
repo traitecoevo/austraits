@@ -25,42 +25,48 @@ library(stringr)
 library(austraits)
 ```
 
-The `austraits` package is designed to aid users to access data from AusTraits, a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. 
+The `austraits` package is designed to aid users to access data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. 
 
 ## Getting started
-`austraits` is still under development. To install the current version from github 
+`austraits` is still under development. To install the current version from GitHub 
 
 ```{r setup, eval = FALSE}
-install.packages("remotes")
+#install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 
 # Load the austraits package
 library(austraits)
 ```
 
-### Meta-data for austraits
+### Loading AusTraits database
 
-Definitions for the various tables and traits are found under Articles.
-
-### Load the data
+By default, `load_austraits` will download `austraits` to `data/austraits` and will reload it from this  location in the future. You can also specify where you want to download austraits by providing your own file path.
 
 ```{r, load_data, eval = FALSE}
-austraits <- load_austraits()
+austraits <- load_austraits("data/")
 ```
 
-Note the `austraits` object is a list with a bunch of elements:
+Note the `austraits` object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
 
 ```{r}
+class(austraits)
+
+# The names of the different lists in `austraits`
 names(austraits)
+
+# The structure of the `traits` table only
+str(austraits$traits)
 ```
 
 ## Extracting data
 
-AusTraits contains `r length(unique(austraits$traits$trait_name))` plant traits. In most cases, users would like to extract a subset of the dataset for their own research purposes. `extract_dataset`extracts a particular study, whereas `extract_trait`subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See `?extract_dataset` and `?extract_trait` for more details
+AusTraits contains `r length(unique(austraits$traits$trait_name))` plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
+
+In most cases, users would like to extract a subset of `austraits` for their own research purposes.`extract_dataset` subsets a particular study, whereas `extract_trait`subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See `?extract_dataset` and `?extract_trait` for more details
 
 ### Extracting by study
 
-Filtering one particular study and assigning it to an object
+Filtering **one particular study** and assigning it to an object
 
 ```{r, extract_study}
 data_zanne_09 <- extract_dataset(austraits, "Zanne_2009")
@@ -68,20 +74,23 @@ data_zanne_09 <- extract_dataset(austraits, "Zanne_2009")
 data_zanne_09$traits
 ```
 
-Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object
+Filtering **multiple studies by two different lead authors**  and assigning it to an object
 
 ```{r, extract_studies}
 data_falster_studies <- extract_dataset(austraits, 
-                                        dataset_id = c("Falster_2003","Falster_2005_1"))
+                                        dataset_id = c("Falster_2003","Zanne_2009"))
 
 data_falster_studies$traits
 ```
 
-Identify all studies with an id that includes "Falster"
+Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
 
 ```{r, extract_Falster_studies}
+# First, we need to identify all studies with an id that includes "Falster"
+
 ( dataset_ids <- austraits$methods$dataset_id %>% unique() %>% subset(., grepl("Falster",.))) 
 
+# Then we extract
 data_falster_studies <- extract_dataset(austraits, dataset_ids)
 
 data_falster_studies$traits
@@ -89,7 +98,7 @@ data_falster_studies$traits
 
 ### Extracting by trait
 
-Filtering one particular trait and assigning it to an object
+Filtering **one particular trait** and assigning it to an object
 
 ```{r, extract_trait}
 data_wood_dens <- extract_trait(austraits, "wood_density")
@@ -97,7 +106,8 @@ data_wood_dens <- extract_trait(austraits, "wood_density")
 data_wood_dens$traits
 ```
 
-Filtering all traits with leaf in the name
+Filtering **all traits with leaf in the trait name** and assigning it to an object
+
 ```{r}
 ( leaf_traits <- austraits$traits$trait_name %>% unique() %>% subset(., grepl("leaf",.))) 
 
