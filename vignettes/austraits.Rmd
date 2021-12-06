@@ -100,6 +100,20 @@ data_falster_studies <- extract_dataset(austraits, dataset_ids)
 data_falster_studies$traits
 ```
 
+### Extracting by taxonomic level
+
+```{r extract_taxa}
+# By family 
+proteaceae <- extract_taxa(austraits, family = "Proteaceae")
+# Checking that only taxa in Proteaceae have been extracted
+proteaceae$taxa$family %>% unique()
+
+# By genus 
+acacia <- extract_taxa(austraits, genus = "Acacia")
+# Checking that only taxa in Acacia have been extracted
+acacia$traits$taxon_name %>% unique()
+```
+
 ### Extracting by trait
 
 Filtering **one particular trait** and assigning it to an object
