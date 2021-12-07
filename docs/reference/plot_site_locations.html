@@ -101,7 +101,7 @@
       <a href="../articles/dictionary.html">Trait definitions</a>
     </li>
     <li>
-      <a href="../articles/structure.html">Structure of AusTraits data compilation</a>
+      <a href="../articles/structure.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
@@ -162,16 +162,16 @@
     <p>Dony Indiarto - d.indiarto@student.unsw.edu.au</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>#All traits from a given study</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='extract_dataset.html'>extract_dataset</a></span><span class='op'>(</span>dataset_id <span class='op'>=</span> <span class='st'>"Falster_2003"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='join_all.html'>join_all</a></span><span class='op'>(</span><span class='op'>)</span> 
-<span class='va'>data</span><span class='op'>$</span><span class='va'>traits</span> <span class='op'>%&gt;%</span> <span class='fu'>plot_site_locations</span><span class='op'>(</span><span class='st'>"trait_name"</span><span class='op'>)</span>
-
-<span class='co'>#Single trait</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='extract_trait.html'>extract_trait</a></span><span class='op'>(</span>trait_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"plant_height"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='join_all.html'>join_all</a></span><span class='op'>(</span><span class='op'>)</span> 
-<span class='va'>data</span><span class='op'>$</span><span class='va'>traits</span> <span class='op'>%&gt;%</span> <span class='fu'>plot_site_locations</span><span class='op'>(</span><span class='st'>"trait_name"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'>#All traits from a given study</span></span>
+<span class='r-in'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'><a href='extract_dataset.html'>extract_dataset</a></span><span class='op'>(</span>dataset_id <span class='op'>=</span> <span class='st'>"Falster_2003"</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'><a href='join_all.html'>join_all</a></span><span class='op'>(</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='va'>data</span><span class='op'>$</span><span class='va'>traits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'>plot_site_locations</span><span class='op'>(</span><span class='st'>"trait_name"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Single trait</span></span>
+<span class='r-in'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'><a href='extract_trait.html'>extract_trait</a></span><span class='op'>(</span>trait_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"plant_height"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'><a href='join_all.html'>join_all</a></span><span class='op'>(</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='va'>data</span><span class='op'>$</span><span class='va'>traits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='fu'>plot_site_locations</span><span class='op'>(</span><span class='st'>"trait_name"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

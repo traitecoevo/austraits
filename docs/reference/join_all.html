@@ -40,8 +40,7 @@
 
 
 <meta property="og:title" content="Join study details into main traits dataset — join_all" />
-<meta property="og:description" content="Function to append all study information (method, site, taxonomic, context) variables into trait database
-Load lite version of austraits for demo and testing purposes" />
+<meta property="og:description" content="Function to append all study information (method, site, taxonomic, context) variables into trait database" />
 
 
 
@@ -102,7 +101,7 @@ Load lite version of austraits for demo and testing purposes" />
       <a href="../articles/dictionary.html">Trait definitions</a>
     </li>
     <li>
-      <a href="../articles/structure.html">Structure of AusTraits data compilation</a>
+      <a href="../articles/structure.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
@@ -128,13 +127,12 @@ Load lite version of austraits for demo and testing purposes" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Join study details into main <code>traits</code> dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/traitecoevo/austraits/blob/master/R/join_all.R'><code>R/join_all.R</code></a>, <a href='https://github.com/traitecoevo/austraits/blob/master/R/load_austraits.R'><code>R/load_austraits.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/traitecoevo/austraits/blob/master/R/join_all.R'><code>R/join_all.R</code></a></small>
     <div class="hidden name"><code>join_all.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Function to append all study information (method, site, taxonomic, context) variables into trait database</p>
-<p>Load lite version of austraits for demo and testing purposes</p>
     </div>
 
     <pre class="usage"><span class='fu'>join_all</span><span class='op'>(</span><span class='va'>austraits</span><span class='op'>)</span>
@@ -154,9 +152,7 @@ Load lite version of austraits for demo and testing purposes" />
 <span class='fu'>join_contexts</span><span class='op'>(</span>
   <span class='va'>austraits</span>,
   vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dataset_id"</span>, <span class='st'>"context_name"</span>, <span class='st'>"context_property"</span>, <span class='st'>"value"</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>load_austraits_lite</span><span class='op'>(</span><span class='op'>)</span></pre>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,32 +170,30 @@ Load lite version of austraits for demo and testing purposes" />
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>austraits list object, but with additional variables appended to <code>traits</code> dataframe</p>
-
-
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Daniel Falster - daniel.falster@unsw.edu.au</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>austraits</span><span class='op'>$</span><span class='va'>traits</span>
-
-<span class='co'>#Append sites data</span>
-<span class='op'>(</span><span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='va'>join_sites</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span>
-
-<span class='co'>#Append contexts</span>
-<span class='op'>(</span><span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='va'>join_contexts</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span>
-
-<span class='co'># Append methods</span>
-<span class='op'>(</span><span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='va'>join_methods</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span>
-
-<span class='co'>#Append taxonomic details</span>
-<span class='op'>(</span><span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='va'>join_taxonomy</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span>
-
-<span class='co'>#Append all information</span>
-<span class='op'>(</span><span class='va'>austraits</span> <span class='op'>%&gt;%</span> <span class='va'>join_all</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>austraits</span><span class='op'>$</span><span class='va'>traits</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Append sites data</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='va'>join_sites</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Append contexts</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='va'>join_contexts</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Append methods</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='va'>join_methods</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Append taxonomic details</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='va'>join_taxonomy</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>#Append all information</span></span>
+<span class='r-in'><span class='op'>(</span><span class='va'>austraits</span> <span class='op'><a href='%>%.html'>%&gt;%</a></span> <span class='va'>join_all</span><span class='op'>)</span><span class='op'>$</span><span class='va'>traits</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

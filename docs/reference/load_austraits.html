@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Load AusTraits — load_austraits" />
-<meta property="og:description" content="Downloads AusTraits version 2.1.0 and reads into R" />
+<meta property="og:description" content="Downloads AusTraits version 3.0.2 and reads into R
+Load lite version of austraits for demo and testing purposes" />
 
 
 
@@ -101,7 +102,7 @@
       <a href="../articles/dictionary.html">Trait definitions</a>
     </li>
     <li>
-      <a href="../articles/structure.html">Structure of AusTraits data compilation</a>
+      <a href="../articles/structure.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
@@ -132,30 +133,43 @@
     </div>
 
     <div class="ref-description">
-    <p>Downloads AusTraits version 2.1.0 and reads into R</p>
+    <p>Downloads AusTraits version 3.0.2 and reads into R</p>
+<p>Load lite version of austraits for demo and testing purposes</p>
     </div>
 
-    <pre class="usage"><span class='fu'>load_austraits</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>load_austraits</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>link</span>, <span class='va'>update</span><span class='op'>)</span>
+
+<span class='fu'>load_austraits_lite</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p>file path to where downloaded AusTraits .rds file is found, if empty function will create an 'austraits' directory in your data folder</p></td>
+      <td><p>file path to where download data. By default set to "data/austraits"</p></td>
+    </tr>
+    <tr>
+      <th>link</th>
+      <td><p>link to Zenodo record to download</p></td>
+    </tr>
+    <tr>
+      <th>update</th>
+      <td><p>should files be downloaded anew?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>AusTraits data</p>
+    <p>AusTraits data object</p>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>austraits_lite</span> <span class='op'>&lt;-</span> <span class='fu'><a href='join_all.html'>load_austraits_lite</a></span><span class='op'>(</span><span class='op'>)</span> <span class='co'>#loads Lite version for testing</span>
-<span class='va'>austraits</span> <span class='op'>&lt;-</span> <span class='fu'>load_austraits</span><span class='op'>(</span><span class='st'>"data/austraits/austraits-2.1.0.rds"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>austraits_lite</span> <span class='op'>&lt;-</span> <span class='fu'>load_austraits_lite</span><span class='op'>(</span><span class='op'>)</span> <span class='co'>#loads Lite version for testing</span></span>
+<span class='r-in'><span class='va'>austraits</span> <span class='op'>&lt;-</span> <span class='fu'>load_austraits</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
