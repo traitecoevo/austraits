@@ -75,7 +75,7 @@ Filtering **one particular study** and assigning it to an object
 ```{r, extract_study}
 data_zanne_09 <- extract_dataset(austraits, "Zanne_2009")
 
-data_zanne_09$traits
+data_zanne_09$traits %>% head()
 ```
 
 Filtering **multiple studies by two different lead authors**  and assigning it to an object
@@ -83,8 +83,8 @@ Filtering **multiple studies by two different lead authors**  and assigning it t
 ```{r, extract_studies}
 data_falster_studies <- extract_dataset(austraits, 
                                         dataset_id = c("Falster_2003","Zanne_2009"))
-
-data_falster_studies$traits
+ 
+data_falster_studies$traits %>% head()
 ```
 
 Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
@@ -97,7 +97,7 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 # Then we extract
 data_falster_studies <- extract_dataset(austraits, dataset_ids)
 
-data_falster_studies$traits
+data_falster_studies$traits %>% head()
 ```
 
 ### Extracting by taxonomic level
@@ -121,7 +121,7 @@ Filtering **one particular trait** and assigning it to an object
 ```{r, extract_trait}
 data_wood_dens <- extract_trait(austraits, "wood_density")
 
-data_wood_dens$traits
+data_wood_dens$traits %>% head()
 ```
 
 Filtering **all traits with leaf in the trait name** and assigning it to an object
@@ -131,36 +131,37 @@ Filtering **all traits with leaf in the trait name** and assigning it to an obje
 
 data_leaf <- extract_trait(austraits, leaf_traits) # Extract from austraits
 
-data_leaf$traits
+data_leaf$traits %>% head()
 ```
-
 
 ## Join data from other tables and elements
 
-Once users have extracted the data they want, they may want to merge in other study details into the main traits dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
+Once users have extracted the data they want, they may want to merge in other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
+
+There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
 
 ```{r, join_}
 # Join taxonomic information 
-(data_leaf %>% join_taxonomy)$traits
+(data_leaf %>% join_taxonomy)$traits %>% head()
 
 # Join methodological information 
-(data_leaf %>% join_methods)$traits
+(data_leaf %>% join_methods)$traits %>% head()
 
 # Join site based information 
-(data_leaf %>% join_sites)$traits
+(data_leaf %>% join_sites)$traits %>% head()
 
 # Join context information 
-(data_leaf %>% join_contexts)$traits
+(data_leaf %>% join_contexts)$traits %>% head()
 
 # Alternatively users can join *all* information 
-(data_leaf %>% join_all)$traits
+(data_leaf %>% join_all)$traits %>% head()
 ```
 
 ## Visualising data by site
 
-`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append  latitude and longtitude information into the trait dataframe before plotting
+`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
 
-```{r, site_plot}
+```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
 data_wood_dens <- data_wood_dens %>% join_sites
 data_wood_dens$traits %>% plot_site_locations()
 ```
@@ -169,12 +170,12 @@ data_wood_dens$traits %>% plot_site_locations()
 
 `plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specific whether to create seperate beeswarm plots at the level of taxonomic family or for each `dataset_id`
 
-```{r, beeswarm}
+```{r, beeswarm, fig.align = "center", fig.width=6, fig.height=7}
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 ```
 
-### Pivotting from long to wide  format
+### Pivotting from long to wide format
 
 The table of traits in AusTraits comes in long format, where data for all traits are in two columns called `trait_name` and `value`. You can convert to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`.
 
