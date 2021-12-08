@@ -21,9 +21,6 @@ A large list of tibbles containing all austraits information for one particular 
 \description{
 Function to subset of all data associated with a particular dataset from austraits
 }
-\examples{
-extract_dataset(austraits, "Falster_2003")
-}
 \author{
 Daniel Falster - daniel.falster@unsw.edu.au
 }

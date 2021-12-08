@@ -1,10 +1,4 @@
 ---
-title: "Structure of AusTraits"
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
-loadl---
 title: Structure of AusTraits data compilation
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -38,7 +32,7 @@ if(knitr::is_html_output()) {
   my_kable_styling <- austraits::my_kable_styling_pdf
 }
 
-
+austraits <- load_austraits("ignore/data/austraits")
 ```
 
 This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 

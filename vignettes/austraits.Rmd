@@ -23,6 +23,8 @@ knitr::opts_chunk$set(
 library(dplyr)
 library(stringr)
 library(austraits)
+
+austraits <- load_austraits("ignore/data/austraits")
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}

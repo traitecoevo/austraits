@@ -1,5 +1,5 @@
 #Pull in data
-data(austraits)
+austraits <- load_austraits_lite()
 #Filter some data
 data <- dplyr::filter(austraits$traits, dataset_id == "Falster_2003")
 wide_data <- trait_pivot_wider(data)
