@@ -88,5 +88,5 @@ download_austraits <- function(url, filename, path) {
 #' @rdname load_austraits
 #' @export
 load_austraits_lite <- function(){
-  data <- austraits::austraits #lite version
+  data <- austraits:::austraits #lite version
 }

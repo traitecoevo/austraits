@@ -3,9 +3,9 @@
 
 devtools::load_all()
 
-austraits_all <- readRDS("../austraits.build/export/data/austraits_3.0.0.rds")
+austraits_all <- load_austraits("ignore/data/austraits/")
 dataset_id <- c("Falster_2003", "Falster_2005_1", "Falster_2005_2", "Zanne_2009")
 
 austraits <- extract_dataset(austraits_all, dataset_id)
 
-usethis::use_data(austraits, overwrite = TRUE)
+usethis::use_data(austraits, internal = TRUE, overwrite = TRUE)
