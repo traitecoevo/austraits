@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120" />
+# austraits <img src="man/figures/hexlogo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -52,21 +52,23 @@ Please consider citing `austraits`, we would super appreciate it!
 ``` r
 citation("austraits")
 #> 
-#> To cite package 'austraits' in publications use:
+#> To cite austraits in publications use:
 #> 
-#>   Daniel Falster, Fonti Kar and Dony Indiarto (2021). austraits:
-#>   Helpful functions to access, summarise and wrangle austraits data. R
-#>   package version 0.0.0.9000. https://traitecoevo.github.io/austraits/
+#>   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated
+#>   plant trait database for the Australian flora. Sci Data 8, 254
+#>   (2021). https://doi.org/10.1038/s41597-021-01006-6
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
-#>   @Manual{,
-#>     title = {austraits: Helpful functions to access, summarise and wrangle austraits
-#> data},
-#>     author = {Daniel Falster and Fonti Kar and Dony Indiarto},
+#>   @Article{,
+#>     title = {AusTraits, a curated plant trait database for the Australian flora},
+#>     author = {Daniel Falster and Rachael Gallagher and Elizabeth Wenk et al.},
+#>     journal = {Scientific Data},
 #>     year = {2021},
-#>     note = {R package version 0.0.0.9000},
-#>     url = {https://traitecoevo.github.io/austraits/},
+#>     volume = {8},
+#>     number = {1},
+#>     pages = {254 - 274},
+#>     url = {https://doi.org/10.1038/s41597-021-01006-6},
 #>   }
 ```
 

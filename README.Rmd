@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 
+library(austraits) 
 library(stringr)
 library(dplyr)
 
@@ -29,7 +30,7 @@ library(dplyr)
 ```
 
 
-# austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120" />
+# austraits <img src="man/figures/hexlogo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg)](https://github.com/traitecoevo/austraits/actions)
@@ -44,7 +45,7 @@ library(dplyr)
 
 The package is not on CRAN yet and is still under active development. You can install the stable version of `austraits` from [GitHub](https://github.com/traitecoevo/austraits):
 
-```{r setup, results = 'hide'}
+```{r setup, results = 'hide', eval = FALSE}
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
 

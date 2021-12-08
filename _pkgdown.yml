@@ -40,7 +40,7 @@ navbar:
       text: Function Index
       href: reference/index.html
     intro:
-      text: Get started
+      text: Tutorial
       href: articles/austraits.html
     github:
       icon: fab fa-github fa-lg
@@ -51,3 +51,4 @@ navbar:
     traits:
       text: Trait definitions
       href: articles/dictionary.html
+      
