@@ -47,6 +47,9 @@ navbar:
     traits:
       text: Trait definitions
       href: articles/dictionary.html
+    news:
+      text: What's new?
+      href: news/index.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/traitecoevo/austraits/

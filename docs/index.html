@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
@@ -55,25 +57,13 @@
 <li>
   <a href="reference/index.html">Function Index</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/dictionary.html">Trait definitions</a>
-    </li>
-    <li>
-      <a href="articles/structure.html">Structure of AusTraits</a>
-    </li>
-  </ul>
+  <a href="news/index.html">What's new?</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/traitecoevo/austraits/">
+  <a href="https://github.com/traitecoevo/austraits/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -90,36 +80,35 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="austraits-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#austraits-" class="anchor"></a>austraits <img src="reference/figures/hexlogo.png" align="right" alt="" width="120">
+<div class="section level1">
+<div class="page-header"><h1 id="austraits-">austraits <img src="reference/figures/hexlogo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#austraits-"></a>
 </h1></div>
 <!-- badges: start -->
 
 <p><code>austraits</code> allow users to access, explore and wrangle data from the AusTraits database in <code>R</code>. This package includes several functions such as filtering and pivoting the dataset that we expect will come in handy.</p>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h3>
-<p>The package is not on CRAN yet and is still under active development. You can install the stable version of <code>austraits</code> from <a href="https://github.com/traitecoevo/austraits">GitHub</a>:</p>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>The package is not on CRAN yet and is still under active development. You can install the stable version of <code>austraits</code> from <a href="https://github.com/traitecoevo/austraits" class="external-link">GitHub</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </code></pre></div>
 </div>
-<div id="take-a-good-look-at-our-vignettes-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#take-a-good-look-at-our-vignettes-" class="anchor"></a>Take a good look at our vignettes! 👀</h3>
+<div class="section level3">
+<h3 id="take-a-good-look-at-our-vignettes-">Take a good look at our vignettes! 👀<a class="anchor" aria-label="anchor" href="#take-a-good-look-at-our-vignettes-"></a>
+</h3>
 <p>In our website, we have also included information about the <a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure of the database</a>, <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions of the traits</a> and some <a href="https://traitecoevo.github.io/austraits/articles/austraits.html">tutorials</a> that uses our functions as well as some <code>tidyverse</code> functions to create some commonly used data output formats. We highly recommend starting here before jumping into the database!</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="show-us-some-support-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#show-us-some-support-" class="anchor"></a>Show us some support 💚</h3>
+<div class="section level3">
+<h3 id="show-us-some-support-">Show us some support 💚<a class="anchor" aria-label="anchor" href="#show-us-some-support-"></a>
+</h3>
 <p>Please consider citing <code>austraits</code>, we would super appreciate it!</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite austraits in publications use:</span>
 <span class="co">#&gt; </span>
@@ -140,9 +129,9 @@
 <span class="co">#&gt;     url = {https://doi.org/10.1038/s41597-021-01006-6},</span>
 <span class="co">#&gt;   }</span></code></pre></div>
 </div>
-<div id="find-a-bug-" class="section level3">
-<h3 class="hasAnchor">
-<a href="#find-a-bug-" class="anchor"></a>Find a bug? 🐛</h3>
+<div class="section level3">
+<h3 id="find-a-bug-">Find a bug? 🐛<a class="anchor" aria-label="anchor" href="#find-a-bug-"></a>
+</h3>
 <p>Thank you for finding it! Head over to the GitHub Issues tab and let us know about it! We will try to get to it as soon as we can!</p>
 </div>
 </div>
@@ -150,56 +139,61 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/traitecoevo/austraits/">https://​github.com/​traitecoevo/​austraits/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/traitecoevo/austraits/issues">https://​github.com/​traitecoevo/​austraits/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
-</ul>
-</div>
-<div class="citation">
-<h2>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html">Citing austraits</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Daniel Falster <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9814-092X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Fonti Kar <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2760-3974" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Dony Indiarto <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9546-8201" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/traitecoevo/austraits/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/traitecoevo/austraits/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/traitecoevo/austraits/actions"><img src="https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/traitecoevo/austraits"><img src="https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44" alt="codecov"></a></li>
-<li><a href="https://doi.org/10.1038/s41597-021-01006-6"><img src="https://img.shields.io/badge/doi-10.1038/s41597--021--01006--6-blue.svg"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg"></a></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing austraits</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Daniel Falster <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9814-092X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Fonti Kar <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2760-3974" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Dony Indiarto <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9546-8201" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/traitecoevo/austraits/actions" class="external-link"><img src="https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/traitecoevo/austraits" class="external-link"><img src="https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44" alt="codecov"></a></li>
+<li><a href="https://doi.org/10.1038/s41597-021-01006-6" class="external-link"><img src="https://img.shields.io/badge/doi-10.1038/s41597--021--01006--6-blue.svg"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Daniel Falster, Fonti Kar, Dony Indiarto.</p>
+  <p></p>
+<p>Developed by Daniel Falster, Fonti Kar, Dony Indiarto.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -207,6 +201,8 @@
 
   
 
+
+  
 
   </body>
 </html>

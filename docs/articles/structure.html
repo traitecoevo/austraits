@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
@@ -55,25 +57,13 @@
 <li>
   <a href="../reference/index.html">Function Index</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/dictionary.html">Trait definitions</a>
-    </li>
-    <li>
-      <a href="../articles/structure.html">Structure of AusTraits</a>
-    </li>
-  </ul>
+  <a href="../news/index.html">What's new?</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/traitecoevo/austraits/">
+  <a href="https://github.com/traitecoevo/austraits/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -88,13 +78,13 @@
 
       
 
-      </header><script src="structure_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Structure of AusTraits</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/master/vignettes/structure.Rmd"><code>vignettes/structure.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/structure.Rmd" class="external-link"><code>vignettes/structure.Rmd</code></a></small>
       <div class="hidden name"><code>structure.Rmd</code></div>
 
     </div>
@@ -126,16 +116,16 @@
 ├── sources
 └── build_info</code></pre>
 <p>These include all the data and contextual information submitted with each contributed dataset. It is essential that users of AusTraits data are confident the data have the meaning they expect it to and were collected using methods they trust. As such, each dataset within Austraits must include descriptions of the study, sites, and methods used as well as the data itself.</p>
-<div id="components" class="section level2">
-<h2 class="hasAnchor">
-<a href="#components" class="anchor"></a>Components</h2>
+<div class="section level2">
+<h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
+</h2>
 <p>The core components are defined as follows.</p>
-<div id="traits" class="section level3">
-<h3 class="hasAnchor">
-<a href="#traits" class="anchor"></a>traits</h3>
+<div class="section level3">
+<h3 id="traits">traits<a class="anchor" aria-label="anchor" href="#traits"></a>
+</h3>
 <p><strong>Description:</strong> A table containing measurements of plant traits.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -244,12 +234,12 @@ Name given to taxon in the original data supplied by the authors
 </tbody>
 </table>
 </div>
-<div id="sites" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sites" class="anchor"></a>sites</h3>
+<div class="section level3">
+<h3 id="sites">sites<a class="anchor" aria-label="anchor" href="#sites"></a>
+</h3>
 <p><strong>Description:</strong> A table containing observations of site characteristics associated with information in <code>traits</code>. Cross referencing between the two dataframes is possible using combinations of the variables <code>dataset_id</code>, <code>site_name</code>.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -294,12 +284,12 @@ Measured value.
 </tbody>
 </table>
 </div>
-<div id="contexts" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contexts" class="anchor"></a>contexts</h3>
+<div class="section level3">
+<h3 id="contexts">contexts<a class="anchor" aria-label="anchor" href="#contexts"></a>
+</h3>
 <p><strong>Description:</strong> A table containing observations of contextual characteristics associated with information in <code>traits</code>. Cross referencing between the two dataframes is possible using combinations of the variables <code>dataset_id</code>, <code>context_name</code>.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -344,12 +334,12 @@ Measured value.
 </tbody>
 </table>
 </div>
-<div id="methods" class="section level3">
-<h3 class="hasAnchor">
-<a href="#methods" class="anchor"></a>methods</h3>
+<div class="section level3">
+<h3 id="methods">methods<a class="anchor" aria-label="anchor" href="#methods"></a>
+</h3>
 <p><strong>Description:</strong> A table containing details on methods with which data were collected, including time frame and source.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -466,17 +456,17 @@ Citation key for secondary source in <code>sources</code>. The key is typically 
 </tbody>
 </table>
 </div>
-<div id="excluded_data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#excluded_data" class="anchor"></a>excluded_data</h3>
+<div class="section level3">
+<h3 id="excluded_data">excluded_data<a class="anchor" aria-label="anchor" href="#excluded_data"></a>
+</h3>
 <p><strong>Description:</strong> A table of data that did not pass quality test and so were excluded from the master dataset.</p>
 </div>
-<div id="taxonomic_updates" class="section level3">
-<h3 class="hasAnchor">
-<a href="#taxonomic_updates" class="anchor"></a>taxonomic_updates</h3>
+<div class="section level3">
+<h3 id="taxonomic_updates">taxonomic_updates<a class="anchor" aria-label="anchor" href="#taxonomic_updates"></a>
+</h3>
 <p><strong>Description:</strong> A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -553,12 +543,12 @@ Currently accepted name of taxon in the Australian Plant Census or, for unplaced
 </tbody>
 </table>
 </div>
-<div id="taxa" class="section level3">
-<h3 class="hasAnchor">
-<a href="#taxa" class="anchor"></a>taxa</h3>
+<div class="section level3">
+<h3 id="taxa">taxa<a class="anchor" aria-label="anchor" href="#taxa"></a>
+</h3>
 <p><strong>Description:</strong> A table containing details on taxa associated with information in <code>traits</code>. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -651,17 +641,17 @@ Source of taxonomic information.
 </tbody>
 </table>
 </div>
-<div id="definitions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#definitions" class="anchor"></a>definitions</h3>
+<div class="section level3">
+<h3 id="definitions">definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
+</h3>
 <p><strong>Description:</strong> A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.</p>
 </div>
-<div id="contributors" class="section level3">
-<h3 class="hasAnchor">
-<a href="#contributors" class="anchor"></a>contributors</h3>
+<div class="section level3">
+<h3 id="contributors">contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
+</h3>
 <p><strong>Description:</strong> A table of people contributing to each study.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -706,42 +696,42 @@ Their role in the study
 </tbody>
 </table>
 </div>
-<div id="sources" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sources" class="anchor"></a>sources</h3>
+<div class="section level3">
+<h3 id="sources">sources<a class="anchor" aria-label="anchor" href="#sources"></a>
+</h3>
 <p><strong>Description:</strong> Bibtex entries for all primary and secondary sources in the compilation.</p>
 </div>
-<div id="build_info" class="section level3">
-<h3 class="hasAnchor">
-<a href="#build_info" class="anchor"></a>build_info</h3>
+<div class="section level3">
+<h3 id="build_info">build_info<a class="anchor" aria-label="anchor" href="#build_info"></a>
+</h3>
 <p><strong>Description:</strong> A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.</p>
 </div>
 </div>
-<div id="dataset-ids" class="section level2">
-<h2 class="hasAnchor">
-<a href="#dataset-ids" class="anchor"></a>Dataset IDs</h2>
+<div class="section level2">
+<h2 id="dataset-ids">Dataset IDs<a class="anchor" aria-label="anchor" href="#dataset-ids"></a>
+</h2>
 <p>The core organising unit behind AusTraits is the <code>dataset_id</code>. Records are organisation as coming from a particular study, defined by the <code>dataset_id</code>. Our preferred format for <code>dataset_id</code> is surname of the first author of any corresponding publication, followed by the year, as <code>surname_year</code>. E.g. <code>Falster_2005</code>. Wherever there are multiple studies with the same id, we add a suffix <code>_2</code>, <code>_3</code> etc. E.g.<code>Falster_2005</code>, <code>Falster_2005_2</code>.</p>
 </div>
-<div id="observation-ids" class="section level2">
-<h2 class="hasAnchor">
-<a href="#observation-ids" class="anchor"></a>Observation IDs</h2>
+<div class="section level2">
+<h2 id="observation-ids">Observation IDs<a class="anchor" aria-label="anchor" href="#observation-ids"></a>
+</h2>
 <p>As well as a <code>dataset_id</code>, each trait measurement has an associated <code>observation_id</code>. Observation IDs bind together related measurements within any dataset, and thereby allow transformation between long (e.g. with variables <code>trait_name</code> and <code>value</code>) and wide (e.g. with traits as columns) formats.</p>
 <p>Generally, <code>observation_id</code> has the format <code>dataset_id_XX</code> where <code>XX</code> is a unique number within each dataset. For example, if multiple traits were collected on the same individual, the <code>observation_id</code> allows us to gather these together. For floras, which report a species averages, the <code>observation_id</code> is assigned at the species level.</p>
 <p>For datasets that arrive in wide format we assume each row has a unique <code>observation_id</code>. For datasets that arrive in long format, the <code>observation_id</code> is assigned based on a specified grouping variable. This variable can be specified in the <code>metadata.yml</code> file under the section <code>variable_match</code>. If missing, <code>observation_id</code> is assigned based on <code>species_name</code>.</p>
 </div>
-<div id="site-names" class="section level2">
-<h2 class="hasAnchor">
-<a href="#site-names" class="anchor"></a>Site names</h2>
+<div class="section level2">
+<h2 id="site-names">Site names<a class="anchor" aria-label="anchor" href="#site-names"></a>
+</h2>
 <p>As well as <code>dataset_id</code> and <code>observation_id</code>, where appropriate, trait values are associated with a <code>site_name</code>. Unique combinations of <code>dataset_id</code> and <code>site_name</code> can be used to cross-match against the sites table, which provide further details on the site sampled.</p>
 </div>
-<div id="context-names" class="section level2">
-<h2 class="hasAnchor">
-<a href="#context-names" class="anchor"></a>Context names</h2>
+<div class="section level2">
+<h2 id="context-names">Context names<a class="anchor" aria-label="anchor" href="#context-names"></a>
+</h2>
 <p>As well as <code>dataset_id</code>, <code>observation_id</code>, and <code>site_name</code>, where appropriate, trait values are associated with a <code>context_name</code>. Unique combinations of <code>dataset_id</code> and <code>context_name</code> can be used to cross-match against the context table, which provide further details on the context sampled.</p>
 </div>
-<div id="value_types" class="section level2">
-<h2 class="hasAnchor">
-<a href="#value_types" class="anchor"></a>Values and Value types</h2>
+<div class="section level2">
+<h2 id="value_types">Values and Value types<a class="anchor" aria-label="anchor" href="#value_types"></a>
+</h2>
 <p>Each record in the table of trait data has an associated <code>value</code> and <code>value_type</code>.</p>
 <p>Traits are either <code>numeric</code> or <code>categorical</code>. For traits with numerical values, the recorded value has been converted into standardised units and we have check that the value can be converted into a number and lies within the allowable range. For categorical variables, we only include records that are defined in the definitions. Moreover, we use a format whereby</p>
 <ul>
@@ -750,7 +740,7 @@ Their role in the study
 <li>use a space for situations where there are two possible values for that trait, e.g. <code>annual biennial</code> for something which is either annual or biennial</li>
 </ul>
 <p>Each trait measurement also an associated <code>value_type</code>, which gives <code>A categorical variable describing the type of trait value recorded.</code>. Possible values are:</p>
-<table class="table table table-striped table-hover table-condensed table-responsive">
+<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -900,17 +890,17 @@ Value type is not currently known
 </table>
 <p>AusTraits does not include intra-individual observations. When multiple measurements per individual are submitted to AusTraits, we take the mean of the values and record the value_type as <code>individual_mean</code>.</p>
 </div>
-<div id="taxonomic" class="section level2">
-<h2 class="hasAnchor">
-<a href="#taxonomic" class="anchor"></a>Taxonomy</h2>
-<p>Version 0.0.0.9000 of AusTraits contains records for 0 different taxa. We have attempted to align species names with known taxonomic units in the <a href="https://biodiversity.org.au/nsl/services/apc"><code>Australian Plant Census</code> (APC)</a> and/or the <a href="https://biodiversity.org.au/nsl/services/APNI"><code>Australian Plant Names Index</code> (APNI)</a>.</p>
+<div class="section level2">
+<h2 id="taxonomic">Taxonomy<a class="anchor" aria-label="anchor" href="#taxonomic"></a>
+</h2>
+<p>Version 0.0.0.9000 of AusTraits contains records for 0 different taxa. We have attempted to align species names with known taxonomic units in the <a href="https://biodiversity.org.au/nsl/services/apc" class="external-link"><code>Australian Plant Census</code> (APC)</a> and/or the <a href="https://biodiversity.org.au/nsl/services/APNI" class="external-link"><code>Australian Plant Names Index</code> (APNI)</a>.</p>
 <p>The table <code>taxa</code> lists all taxa in the database, including additional infomration about the taxa (see Table above).</p>
 <p>The <code>traits</code> table reports both the original and the updated taxon name alongside each trait record.</p>
 <p>The table <code>taxanomic_updates</code> provdies details on all taxonomic names changes implemented in aligning with APC and APNI.</p>
 </div>
-<div id="sources-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sources-1" class="anchor"></a>Sources</h2>
+<div class="section level2">
+<h2 id="sources-1">Sources<a class="anchor" aria-label="anchor" href="#sources-1"></a>
+</h2>
 <p>For each dataset in the compilation there is the option to list primary and secondary citations. The primary citation The original study in which data were collected. while the secondary citation is A subsequent study where data were compiled or re-analysed and then made available.. These references are included in two places:</p>
 <ol style="list-style-type: decimal">
 <li>Within the table <a href="#methods">methods</a>, where we provide a formatted version of each.</li>
@@ -930,11 +920,13 @@ Value type is not currently known
 
 
       <footer><div class="copyright">
-  <p>Developed by Daniel Falster, Fonti Kar, Dony Indiarto.</p>
+  <p></p>
+<p>Developed by Daniel Falster, Fonti Kar, Dony Indiarto.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -942,6 +934,8 @@ Value type is not currently known
 
   
 
+
+  
 
   </body>
 </html>
