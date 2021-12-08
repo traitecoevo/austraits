@@ -20,3 +20,34 @@ reference:
   desc: Plot site or variance distributions
 - contents:
   - starts_with("plot")
+  
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - structure
+    - traits
+    - reference
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+    reference:
+      text: Function Index
+      href: reference/index.html
+    intro:
+      text: Get started
+      href: articles/austraits.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/traitecoevo/austraits/
+    structure:
+      text: Structure of AusTraits
+      href: articles/structure.html
+    traits:
+      text: Trait definitions
+      href: articles/dictionary.html
