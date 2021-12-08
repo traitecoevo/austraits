@@ -15,7 +15,7 @@
 AusTraits database in `R`. This package includes several functions such
 as filtering and pivoting the dataset that we expect will come in handy.
 
-### Getting started
+### Installation
 
 The package is not on CRAN yet and is still under active development.
 You can install the stable version of `austraits` from
@@ -74,5 +74,5 @@ citation("austraits")
 
 ### Find a bug? 🐛
 
-Thank you for finding it! Head over to the `Issues` tab and let us know
-about it! We will try to get to it as soon as we can!
+Thank you for finding it! Head over to the GitHub Issues tab and let us
+know about it! We will try to get to it as soon as we can!

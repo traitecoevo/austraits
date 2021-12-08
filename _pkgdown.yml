@@ -29,7 +29,6 @@ navbar:
     - structure
     - traits
     - reference
-    - tutorials
     - news
     right: github
   components:
@@ -42,13 +41,14 @@ navbar:
     intro:
       text: Tutorial
       href: articles/austraits.html
-    github:
-      icon: fab fa-github fa-lg
-      href: https://github.com/traitecoevo/austraits/
     structure:
       text: Structure of AusTraits
       href: articles/structure.html
     traits:
       text: Trait definitions
       href: articles/dictionary.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/traitecoevo/austraits/
+ 
       
