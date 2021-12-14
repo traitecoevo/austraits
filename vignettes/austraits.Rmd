@@ -24,7 +24,7 @@ library(dplyr)
 library(stringr)
 library(austraits)
 
-austraits <- load_austraits("ignore/data/austraits")
+austraits <- load_austraits("../ignore/data/austraits")
 ```
 
 The `austraits` package is designed to aid users to access data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. 
@@ -59,6 +59,8 @@ names(austraits)
 # The structure of the `traits` table only
 str(austraits$traits)
 ```
+
+
 
 ## Extracting data
 

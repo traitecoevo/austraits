@@ -55,7 +55,7 @@ load_austraits <- function(path = "data/austraits", link = "https://zenodo.org/a
 
 print.austraits <- function(austraits){
   message(paste("AusTraits version", austraits$build_info$version))
-  #"The austraits object has XX dataframes arranged as a list or similar, see here <link>" 
+  #"The austraits object has 11 dataframes arranged as a list, see here: https://traitecoevo.github.io/austraits/articles/structure.html" 
 }
 
 
@@ -90,3 +90,16 @@ download_austraits <- function(url, filename, path) {
 load_austraits_lite <- function(){
   data <- austraits:::austraits #lite version
 }
+
+
+
+
+# doi = XXX, version = XXX
+# check of versions/dois has been downloaded (zen4r)
+# if no, download th version table (csv?)
+# if yes, is requested doi/version in table? 
+# if no, download table again, abort("WRONG VERSION)
+# if yes, proceed
+# check if desired version is downloaded 
+# if yes, load it!
+# if no, update link 

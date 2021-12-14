@@ -27,7 +27,6 @@ Depends:
     R (>= 4.0.0),
     RefManageR
 Imports:
-    magrittr,
     dplyr,
     tidyr,
     rlang,
@@ -35,24 +34,26 @@ Imports:
     tidyselect,
     assertthat,
     stringr,
-    ggbeeswarm,
-    gridExtra,
-    scales,
-    forcats,
-    ggplot2,
     stats,
-    ggpointdensity, 
-    viridis,
-    kableExtra,
     readr,
     jsonlite,
     utils,
     httr,
-    raster
+    raster,
+    janitor,
+    ggplot2,
+    magrittr
 Suggests: 
     knitr,
     testthat (>= 3.0.0),
-    markdown
+    markdown,
+    ggpointdensity, 
+    ggbeeswarm,
+    gridExtra,
+    scales,
+    forcats,
+    viridis,
+    kableExtra
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://traitecoevo.github.io/austraits/
