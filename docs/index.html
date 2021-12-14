@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/austraits.html">Get started</a>
 </li>
@@ -60,14 +56,14 @@
       <a href="articles/dictionary.html">Trait definitions</a>
     </li>
     <li>
-      <a href="articles/structure.html">Structure of AusTraits data compilation</a>
+      <a href="articles/structure.html">UNKNOWN TITLE</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/traitecoevo/austraits/">
+  <a href="https://github.com/traitecoevo/austraits/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -84,62 +80,69 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="austraits" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#austraits" class="anchor"></a>austraits</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="austraits-">austraits <img src="inst/figures/hexlogo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#austraits-"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p><code>austraits</code> allow users to access, explore and wrangle data from the AusTraits database in <code>R</code>. This package includes several functions such as filtering and pivoting the dataset that we expect will come in handy. In our vignette, we have also included some tutorials that uses our functions as well as <code>tidyverse</code> functions to create more data outputs and summaries - see browseVignettes(“austraits”)</p>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h3>
-<p>The package is not on CRAN yet and is still under active development. You can install the development version of austraits from <a href="https://github.com/traitecoevo/austraits">GitHub</a> with:</p>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>The package is not on CRAN yet and is still under active development. You can install the development version of austraits from <a href="https://github.com/traitecoevo/austraits" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </code></pre></div>
 </div>
-<div id="extracting-by-study" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extracting-by-study" class="anchor"></a>Extracting by study</h3>
+<div class="section level3">
+<h3 id="load-most-recent-version-of-austraits">Load most recent version of austraits<a class="anchor" aria-label="anchor" href="#load-most-recent-version-of-austraits"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Load austraits</span>
+<span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_austraits.html">load_austraits</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="extracting-by-study">Extracting by study<a class="anchor" aria-label="anchor" href="#extracting-by-study"></a>
+</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Extract a single study</span>
 <span class="va">zanne_09</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"Zanne_2009"</span><span class="op">)</span> 
 
 <span class="co">#Extract multiple studies</span>
 <span class="co"># Filtering multiple studies by same lead author (e.g. Falster) and assigning it to an object</span>
-<span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">methods</span><span class="op">$</span><span class="va">dataset_id</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#All possible dataset_ids </span>
+<span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">methods</span><span class="op">$</span><span class="va">dataset_id</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#All possible dataset_ids </span>
 <span class="va">falster_ids</span> <span class="op">&lt;-</span> <span class="va">dataset_ids</span><span class="op">[</span><span class="fu">str_which</span><span class="op">(</span><span class="va">dataset_ids</span>, <span class="st">"Falster"</span><span class="op">)</span><span class="op">]</span>  <span class="co"># Extracting dataset_ids with lead author "Falster" </span>
 
 <span class="va">falster_studies</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">falster_ids</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="extracting-by-trait" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extracting-by-trait" class="anchor"></a>Extracting by trait</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="section level3">
+<h3 id="extracting-by-trait">Extracting by trait<a class="anchor" aria-label="anchor" href="#extracting-by-trait"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Extract one particular trait and assigning it to an object</span>
 <span class="va">sla_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"specific_leaf_area"</span><span class="op">)</span>
 
 <span class="co"># Extracting all leaf associated data and assigning it to an object</span>
-<span class="va">traits</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">trait_name</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">#All possible traits </span>
+<span class="va">traits</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">trait_name</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span>  <span class="co">#All possible traits </span>
 <span class="va">leaf_traits</span> <span class="op">&lt;-</span> <span class="va">traits</span><span class="op">[</span><span class="fu">str_which</span><span class="op">(</span><span class="va">traits</span>, <span class="st">"leaf"</span><span class="op">)</span><span class="op">]</span> <span class="co"># Extracting data where "leaf" occurs in the trait_name</span>
 
 <span class="va">leaf_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">leaf_traits</span><span class="op">)</span> </code></pre></div>
 </div>
-<div id="pivoting-between-longwide" class="section level3">
-<h3 class="hasAnchor">
-<a href="#pivoting-between-longwide" class="anchor"></a>Pivoting between long/wide</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">trait_wide</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">traits</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">trait_long</span> <span class="op">&lt;-</span> <span class="va">trait_wide</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/trait_pivot_longer.html">trait_pivot_longer</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="joining-site-information-and-plotting-site-information" class="section level3">
-<h3 class="hasAnchor">
-<a href="#joining-site-information-and-plotting-site-information" class="anchor"></a>Joining site information and plotting site information</h3>
+<div class="section level3">
+<h3 id="pivoting-between-longwide">Pivoting between long/wide<a class="anchor" aria-label="anchor" href="#pivoting-between-longwide"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">leaf_wide</span> <span class="op">&lt;-</span> <span class="va">leaf_data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">leaf_long</span> <span class="op">&lt;-</span> <span class="va">leaf_wide</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/trait_pivot_longer.html">trait_pivot_longer</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="joining-site-information-and-plotting-site-information">Joining site information and plotting site information<a class="anchor" aria-label="anchor" href="#joining-site-information-and-plotting-site-information"></a>
+</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join site based information </span>
-<span class="op">(</span><span class="va">austraits</span> <span class="op">%&gt;%</span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="op">(</span><span class="va">austraits</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-site-1.png" width="100%"></p>
 </div>
 </div>
@@ -147,48 +150,59 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/traitecoevo/austraits/">https://​github.com/​traitecoevo/​austraits/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/traitecoevo/austraits/issues">https://​github.com/​traitecoevo/​austraits/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Daniel Falster <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9814-092X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Fonti Kar <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2760-3974" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Dony Indiarto <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9546-8201" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/traitecoevo/austraits/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/traitecoevo/austraits/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/traitecoevo/austraits/actions"><img src="https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/traitecoevo/austraits"><img src="https://codecov.io/gh/traitecoevo/austraits/branch/develop/graph/badge.svg?token=JT1M0AMZ44" alt="codecov"></a></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing austraits</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Daniel Falster <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-9814-092X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Fonti Kar <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2760-3974" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Dony Indiarto <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-9546-8201" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/traitecoevo/austraits/actions" class="external-link"><img src="https://github.com/traitecoevo/austraits/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/traitecoevo/austraits" class="external-link"><img src="https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44" alt="codecov"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Daniel Falster, Fonti Kar, Dony Indiarto.</p>
+  <p></p>
+<p>Developed by Daniel Falster, Fonti Kar, Dony Indiarto.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -196,6 +210,8 @@
 
   
 
+
+  
 
   </body>
 </html>

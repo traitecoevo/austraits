@@ -1,12 +1,12 @@
 pandoc: 2.14.0.1
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   austraits: austraits.html
   dictionary: dictionary.html
   structure: structure.html
-last_built: 2021-07-07T02:07Z
+last_built: 2021-12-14T00:21Z
 urls:
-  reference: https://traitecoevo.github.io/austraits//reference
-  article: https://traitecoevo.github.io/austraits//articles
+  reference: https://traitecoevo.github.io/austraits/reference
+  article: https://traitecoevo.github.io/austraits/articles
 
