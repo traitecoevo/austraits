@@ -9,7 +9,7 @@
 #' @examples
 #' \dontrun{
 #' extract_dataset(austraits, "Falster_2003")
-#` }`
+#' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 #' @importFrom rlang .data
