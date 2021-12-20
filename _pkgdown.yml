@@ -12,7 +12,9 @@ reference:
   desc: Functions to extract, pivot and join data
 - contents:
   - load_austraits
+  - print_austraits
   - starts_with("extract")
+  - summarise_trait_means
   - starts_with("trait_pivot")
   - join_all
   - ends_with("trait_values")
@@ -36,7 +38,7 @@ navbar:
       icon: fas fa-home fa-lg
       href: index.html
     reference:
-      text: Function Index
+      text: Function glossary
       href: reference/index.html
     intro:
       text: Tutorial
@@ -53,5 +55,3 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/traitecoevo/austraits/
- 
-      

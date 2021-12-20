@@ -80,6 +80,12 @@ citation("austraits")
 #>   }
 ```
 
+### Behind the scenes 🛠
+
+Check out
+[austraits.build](http://traitecoevo.github.io/austraits.build/), if you
+are interested in how AusTraits the database is managed and created
+
 ### Find a bug? 🐛
 
 Thank you for finding it! Head over to the GitHub Issues tab and let us

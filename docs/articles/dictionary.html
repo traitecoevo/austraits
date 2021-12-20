@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@
   <a href="../articles/dictionary.html">Trait definitions</a>
 </li>
 <li>
-  <a href="../reference/index.html">Function Index</a>
+  <a href="../reference/index.html">Function glossary</a>
 </li>
 <li>
   <a href="../news/index.html">What's new?</a>
@@ -1295,6 +1295,8 @@
 <em>flying</em>: flying birds and bats</li>
 <li>
 <em>flying_foxes</em>: flying foxes</li>
+<li>
+<em>invertebrate</em>: invertebrate</li>
 <li>
 <em>mammals</em>: mammals</li>
 <li>
@@ -3042,15 +3044,15 @@
 <li>allowable values:
 <ul>
 <li>
-<em>not_applicable</em>: Taxa is not typically confronted with beng inundated and its response is unknown</li>
+<em>not_applicable</em>: Taxa is not typically confronted with beng inundated and its response is unknown.</li>
 <li>
-<em>&lt;1_month</em>: Taxa able to tolerate being inundated for less than 1 month</li>
+<em>&lt;1_month</em>: Taxa able to tolerate being inundated for less than 1 month.</li>
 <li>
-<em>1-6_months</em>: Taxa able to tolerate being inundated for 1-6 months</li>
+<em>1-6_months</em>: Taxa able to tolerate being inundated for 1-6 months.</li>
 <li>
-<em>&gt;6_months</em>: Taxa able to toleratebeing inundated for more than 6 months</li>
+<em>&gt;6_months</em>: Taxa able to tolerate being inundated for more than 6 months.</li>
 <li>
-<em>aquatic</em>: Taxa truly aquatic and able to be permanantly inundated</li>
+<em>aquatic</em>: Taxa truly aquatic and able to be permanantly inundated.</li>
 </ul>
 </li>
 </ul>
@@ -3123,6 +3125,19 @@
 <li>type: numeric</li>
 <li>units: mm2</li>
 <li>allowable range: 0.1 - 1e+07 mm2</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="leaflet_area">leaflet_area<a class="anchor" aria-label="anchor" href="#leaflet_area"></a>
+</h2>
+<ul>
+<li>label: Leaf area</li>
+<li>description: Area of the surface of a single leaflet</li>
+<li>number of records: 0</li>
+<li>number of studies: 0</li>
+<li>type: numeric</li>
+<li>units: mm2</li>
+<li>allowable range: 0.1 - 1e+06 mm2</li>
 </ul>
 </div>
 <div class="section level2">
@@ -3562,7 +3577,20 @@
 <li>number of studies: 0</li>
 <li>type: numeric</li>
 <li>units: mg</li>
-<li>allowable range: 0.05 - 15000 mg</li>
+<li>allowable range: 0.01 - 15000 mg</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="leaflet_dry_mass">leaflet_dry_mass<a class="anchor" aria-label="anchor" href="#leaflet_dry_mass"></a>
+</h2>
+<ul>
+<li>label: Dry mass of a single leaflet</li>
+<li>description: Dry mass of a single leaflet</li>
+<li>number of records: 0</li>
+<li>number of studies: 0</li>
+<li>type: numeric</li>
+<li>units: mg</li>
+<li>allowable range: 0.005 - 15000 mg</li>
 </ul>
 </div>
 <div class="section level2">
@@ -5455,7 +5483,7 @@
 <li>
 <em>abiotic</em>: Pollination occurs through wind, water, or collision of free-floating particles</li>
 <li>
-<em>animal</em>: Generic cath-all for any form of animal pollination</li>
+<em>animal</em>: Generic catch-all for any form of animal pollination; change to biotic</li>
 <li>
 <em>bat</em>: Bat-pollinated</li>
 <li>
@@ -5619,6 +5647,32 @@
 <em>20-40</em>: Plants reach reproductive maturity between ages 20-40</li>
 </ul>
 </li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="reproductive_maturity_numeric">reproductive_maturity_numeric<a class="anchor" aria-label="anchor" href="#reproductive_maturity_numeric"></a>
+</h2>
+<ul>
+<li>label: Age of plants at reproductive maturity</li>
+<li>description: Age of plants at reproductive maturity, numeric</li>
+<li>number of records: 0</li>
+<li>number of studies: 0</li>
+<li>type: numeric</li>
+<li>units: years</li>
+<li>allowable range: 0.1 - 100 years</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="reproductive_maturity_secondary">reproductive_maturity_secondary<a class="anchor" aria-label="anchor" href="#reproductive_maturity_secondary"></a>
+</h2>
+<ul>
+<li>label: Years required to reach secondary reproductive maturity following disturbance (fire)</li>
+<li>description: Number of years post-distiurbance required for species that survive the disturbance to resprout and re-reach reproductive maturity. This trait is most commonly used for species that resprout following fire</li>
+<li>number of records: 0</li>
+<li>number of studies: 0</li>
+<li>type: numeric</li>
+<li>units: years</li>
+<li>allowable range: 0.1 - 100 years</li>
 </ul>
 </div>
 <div class="section level2">
@@ -6579,7 +6633,7 @@
 <li>
 <em>serotiny_moderate</em>: Plant displays a moderate level of serotiny</li>
 <li>
-<em>serotiny_high</em>: Plant displays a moderate level of serotiny</li>
+<em>serotiny_high</em>: Plant displays a high level of serotiny</li>
 </ul>
 </li>
 </ul>
@@ -8137,12 +8191,12 @@
 <li>D. S. Falster and M. Westoby. “Leaf size and angle vary widely across species: what consequences for light interception?”. <em>New Phytologist</em> 158.3 (2003), pp. 509-525. doi: <a href="https://doi.org/10.1046%2Fj.1469-8137.2003.00765.x" class="external-link">10.1046/j.1469-8137.2003.00765.x</a>.</li>
 <li>D. S. Falster and M. Westoby. “Alternative height strategies among 45 dicot rain forest species from tropical Queensland, Australia”. <em>Journal of Ecology</em> 93 (2005), pp. 521-535. doi: <a href="https://doi.org/10.1111%2Fj.0022-0477.2005.00992.x" class="external-link">10.1111/j.0022-0477.2005.00992.x</a>.</li>
 <li>D. S. Falster and M. Westoby. “Tradeoffs between height growth rate, stem persistence and maximum height among plant species in a post-fire succession”. <em>Oikos</em> 111 (2005), pp. 57-66. doi: <a href="https://doi.org/10.1111%2Fj.0030-1299.2005.13383.x" class="external-link">10.1111/j.0030-1299.2005.13383.x</a>.</li>
-<li>A. E. Zanne, G. Lopez-Gonzalez, D. A. Coomes, J. Ilic, S. Jansen, S. L. Lewis, R. B. Miller, N. G. Swenson, M. C. Wiemann, and J. Chave. <em>Data from: Towards a worldwide wood economics spectrum</em>. 2009. doi: <a href="https://doi.org/10.5061%2Fdryad.234" class="external-link">10.5061/dryad.234</a>.</li>
+<li>A. E. Zanne, G. Lopez-Gonzalez, D. A. Coomes, J. Ilic, S. Jansen, S. L. Lewis, R. B. Miller, N. G. Swenson, M. C. Wiemann, and J. Chave. “Data from: Towards a worldwide wood economics spectrum”. <em>Dryad Digital Repository</em> (2009). doi: <a href="https://doi.org/10.5061%2Fdryad.234" class="external-link">10.5061/dryad.234</a>.</li>
 </ul>
 <p>and secondary sources below:</p>
 <ul>
 <li>NA</li>
-<li>E. Bolza. <em>Properties and uses of 175 timber species from Papua New Guinea and West Irian</em>. Victoria (Australia) CSIRO, Div. of Building Research, 1975; CAB International. <em>Forestry Compendium</em>. 2009. url: <a href="http://www.cabi.org/fc/" class="external-link">http://www.cabi.org/fc/</a>; J. Chave, D. Coomes, S. Jansen, S. L. Lewis, N. G. Swenson, and A. E. Zanne. “Towards a worldwide wood economics spectrum”. <em>Ecology Letters</em> 12 (2009), pp. 351-366. doi: <a href="https://doi.org/10.1111%2Fj.1461-0248.2009.01285.x" class="external-link">10.1111/j.1461-0248.2009.01285.x</a>; M. Chudnoff. <em>Tropical timbers of the world</em>. US Department of Agriculture, Forest Service, 1984, p. 472. ISBN: 3935638825; The French agricultural research &amp; international cooperation organization (CIRAD). <em>Wood density data</em>. 2009. url: <a href="http://www.cirad.fr/" class="external-link">http://www.cirad.fr/</a>; H. E. Desch and J. M. Dinwoodie. <em>Timber structure, properties, conversion and use</em>. Palgrave Macmillan, 1996. ISBN: 156022861X; J. H. Flynn and C. D. Holder. <em>A guide to useful woods of the world</em>. 2nd. Forest Products Society, 2001. ISBN: 1892529157; L. Hong, R. Lemmens, S. Prawirohatmodjo, I. Soerianegara, M. Sosef, and W. W. (Editors). <em>Plant resources of south east Asia: Timber trees</em>. Springer-Verlag Berlin and Heidelberg GmbH &amp; Co. KG, 1999, p. World biodiversity Database CD rom series. ISBN: 9783540147732; World Agroforestry Centre (ICRAF). <em>The wood density database</em>. 2009. url: <a href="www.worldagroforestry.org/output/wood-density-database">www.worldagroforestry.org/output/wood-density-database</a>; E. Meier. <em>The wood database</em>. 2007. url: <a href="http://www.wood-database.com/" class="external-link">http://www.wood-database.com/</a>; Oxford Forestry Institute. <em>Prospect: The wood database</em>. 2009. url: <a href="http://dps.plants.ox.ac.uk/ofi/prospect/index.htm" class="external-link">http://dps.plants.ox.ac.uk/ofi/prospect/index.htm</a>; O. D. Seng. <em>Specific gravity of Indonesian Woods and its significance for practical use</em>. Tech. rep. FPRDC Forestry Department, Bogor, Indonesia, 1951.</li>
+<li>E. Bolza. <em>Properties and uses of 175 timber species from Papua New Guinea and West Irian</em>. Victoria (Australia) CSIRO, Div. of Building Research, 1975; CAB International. <em>Forestry Compendium</em>. 2009. url: <a href="http://www.cabi.org/fc/" class="external-link">http://www.cabi.org/fc/</a>; J. Chave, D. Coomes, S. Jansen, S. L. Lewis, N. G. Swenson, and A. E. Zanne. “Towards a worldwide wood economics spectrum”. <em>Ecology Letters</em> 12 (2009), pp. 351-366. doi: <a href="https://doi.org/10.1111%2Fj.1461-0248.2009.01285.x" class="external-link">10.1111/j.1461-0248.2009.01285.x</a>; M. Chudnoff. <em>Tropical timbers of the world</em>. US Department of Agriculture, Forest Service, 1984, p. 472. ISBN: 3935638825; The French agricultural research &amp; international cooperation organization (CIRAD). <em>Wood density data</em>. 2009. url: <a href="http://www.cirad.fr/" class="external-link">http://www.cirad.fr/</a>; H. E. Desch and J. M. Dinwoodie. <em>Timber structure, properties, conversion and use</em>. Palgrave Macmillan, 1996. ISBN: 156022861X; J. H. Flynn and C. D. Holder. <em>A guide to useful woods of the world</em>. 2nd. Forest Products Society, 2001. ISBN: 1892529157; L. Hong, R. Lemmens, S. Prawirohatmodjo, I. Soerianegara, M. Sosef, and W. W. (Editors). <em>Plant resources of south east Asia: Timber trees</em>. Springer-Verlag Berlin and Heidelberg GmbH &amp; Co. KG, 1999, p. World biodiversity Database CD rom series. ISBN: 9783540147732; World Agroforestry Centre (ICRAF). <em>The wood density database</em>. 2009. url: <a href="http://www.worldagroforestry.org/output/wood-density-database" class="external-link">http://www.worldagroforestry.org/output/wood-density-database</a>; E. Meier. <em>The wood database</em>. 2007. url: <a href="http://www.wood-database.com/" class="external-link">http://www.wood-database.com/</a>; Oxford Forestry Institute. <em>Prospect: The wood database</em>. 2009. url: <a href="http://dps.plants.ox.ac.uk/ofi/prospect/index.htm" class="external-link">http://dps.plants.ox.ac.uk/ofi/prospect/index.htm</a>; O. D. Seng. <em>Specific gravity of Indonesian Woods and its significance for practical use</em>. Tech. rep. FPRDC Forestry Department, Bogor, Indonesia, 1951.</li>
 </ul>
 </div>
   </div>
