@@ -24,17 +24,31 @@ print_austraits <- function(austraits, var){
 #' @rdname print_austraits
          
 print_austraits_traits <-function(austraits, var) {
-  
-  
+
   ret <- 
     austraits[["traits"]] %>% 
     dplyr::pull({{var}}) %>% 
     sort() %>% 
     janitor::tabyl() 
   
+  # Fix first column name
   names(ret)[1] <- var
   
-  ret
+  # Renaming
+  ret <- ret %>% dplyr::mutate(n_records = n,
+                               n = NULL,
+                               percent_total = signif(percent, 3),
+                               percent = NULL)
+  # Summary statistics
+  sum_stats <- austraits[["traits"]] %>% 
+    dplyr::group_by(trait_name) %>% 
+    dplyr::summarise(n_dataset = length(unique(dataset_id)),
+                     n_taxa = length(unique(taxon_name))) 
+  
+  
+  ret <- dplyr::left_join(ret, sum_stats, by = "trait_name")
+  
+  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total)
 }
 
 #' @rdname print_austraits
