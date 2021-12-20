@@ -1,6 +1,6 @@
+austraits <- load_austraits_lite()
+
 test_that("Function output is correct", {
-  austraits <- load_austraits_lite()
-  
   target <- austraits$traits %>% 
     dplyr::group_by(trait_name, observation_id) %>% 
     dplyr::summarise(dplyr::n()) %>% 
@@ -26,3 +26,17 @@ test_that("Function output is correct", {
   expect_equal( summarise_trait_means(austraits$traits) %>% nrow(), ( nrow(original) +  nrow(target)) ) 
   
 })
+
+test_that("Function throws error", {
+  expect_error(summarise_trait_means(austraits))
+  expect_error(summarise_trait_means(austraits$sites))
+  expect_error(summarise_trait_means(austraits$taxa))
+})
+
+test_that("Function doesn't complain", {
+  expect_silent(summarise_trait_means(austraits$traits))
+  expect_visible(summarise_trait_means(austraits$traits))
+  expect_named(summarise_trait_means(austraits$traits))
+  expect_type(summarise_trait_means(austraits$traits), "list")
+})
+
