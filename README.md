@@ -15,6 +15,14 @@
 AusTraits database in `R`. This package includes several functions such
 as filtering and pivoting the dataset that we expect will come in handy.
 
+**For R users**, access and manipulation of the data is assisted with
+the `austraits` package
+
+**For Python or other users**, the [Zenodo
+download](https://zenodo.org/record/5112001#collapseTwo) includes a .zip
+file containing all the data in plain text (.csv files) and associated
+meta-data
+
 ### Installation
 
 The package is not on CRAN yet and is still under active development.
