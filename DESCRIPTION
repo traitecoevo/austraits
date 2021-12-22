@@ -30,6 +30,7 @@ Imports:
     dplyr,
     tidyr,
     rlang,
+    purrr,
     rmarkdown,
     tidyselect,
     assertthat,
