@@ -1,3 +1,16 @@
+#' Load AusTraits database into R console
+#'
+#' @param version character string - version number of database
+#' @param path file path to where AusTraits will be downloaded
+#' @param update if TRUE, AusTraits version will be redownloaded
+#'
+#' @return a large list containing AusTraits data tables
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' austraits <- load_austraits_4()
+#' }
 
 
 load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits", update){
@@ -9,7 +22,7 @@ load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits",
   file_json <- file.path(path, "austraits.json")
   
   # Does the .json exist?
-  if(! file.exists(file_json) | update = TRUE){
+  if(! file.exists(file_json) | update == TRUE){
     # Retrieve the .json
     res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
                                simplifyVector = T)
@@ -30,7 +43,11 @@ load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits",
   data
 }
 
-# Function for .rds AusTraits
+#' Function for loading .rds AusTraits files
+#'
+#' @param version character string - version number of database
+#' @param json_path file path to austraits.json
+#' @param path file path to where AusTraits will be downloaded
 
 dload_rds <- function(version, json_path, path){
   # Load the json
@@ -53,6 +70,17 @@ dload_rds <- function(version, json_path, path){
   message("Loading data from '", file_path,"'")
   data <- readRDS(file_path) 
 }
+
+
+dload_zip <- function(){
+  
+}
+
+#' Function for loading .rds AusTraits files
+#'
+#' @param url url of download via Zenodo API
+#' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
+#' @param path file path to where AusTraits will be downloaded
 
 download_austraits <- function(url, filename, path) {
   #Download latest build
@@ -80,6 +108,20 @@ download_austraits <- function(url, filename, path) {
 }
 
 
-# ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
-#                      version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-#                      doi = res$hits$hits$metadata$doi) 
+print_versions <- function(){
+  message("Retrieving all versions of AusTraits...")
+  
+  res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
+                             simplifyVector = T)
+  # Create a table
+  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
+                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
+                       doi = res$hits$hits$metadata$doi)
+  
+  # Order by numeric version
+  ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
+  
+  # Add in the v again
+  ret %>% dplyr::mutate(version = paste0("v", version))
+}
+
