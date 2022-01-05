@@ -13,7 +13,7 @@
 #' }
 
 
-load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits", update){
+load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits", update = FALSE){
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -34,7 +34,10 @@ load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits",
   data <- switch(version,
          v3.0.2 = dload_rds(version, file_json, path),
          v3.0.1 = dload_rds(version, file_json, path),
-         v3.0.0 = dload_rds(version, file_json, path))
+         v3.0.0 = dload_rds(version, file_json, path),
+         v2.1.0 = dload_rds(version, file_json, path),
+         v2.0.0 = dload_rds(version, file_json, path),
+         v0.9.1 = dload_rds(version, file_json, path))
   
 
   # Assign class
@@ -66,9 +69,11 @@ dload_rds <- function(version, json_path, path){
   # Downloading 
   download_austraits(url, file_path, path = path)
   
+  if(length(list.files(path = path, pattern = "\\.rds$")) > 0){
   # Loading the .rds
   message("Loading data from '", file_path,"'")
   data <- readRDS(file_path) 
+  }
 }
 
 
