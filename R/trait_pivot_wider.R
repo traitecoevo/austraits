@@ -21,6 +21,16 @@
 
 trait_pivot_wider <- function(data){
   
+  check_obs <- data %>% 
+    dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
+    dplyr::summarise(dplyr::n()) %>% 
+    dplyr::filter(`dplyr::n()` > 1) %>%
+    dplyr::select(.data$trait_name, .data$observation_id)
+  
+  if(nrow(check_obs) >1){
+    rlang::abort("There are multiple data points for the same observation - try summarise_trait_means() before widening!")
+  }
+  
   vars <- c("value", "unit", "date", "value_type", "replicates")
   
   ret  <- purrr::map(vars, piv_wide, data = data)

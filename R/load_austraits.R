@@ -8,7 +8,6 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' austraits_lite <- load_austraits_lite() #loads Lite version for testing
 #' austraits <- load_austraits()
 #' }
 
@@ -80,26 +79,3 @@ download_austraits <- function(url, filename, path) {
     stop('Could not download the file' )
   }
 }
-
-
-#' Load small subset of austraits 
-#' @description Load lite version of austraits for demo and testing purposes
-#' @return
-#' @rdname load_austraits
-#' @export
-load_austraits_lite <- function(){
-  data <- austraits:::austraits #lite version
-}
-
-
-
-
-# doi = XXX, version = XXX
-# check of versions/dois has been downloaded (zen4r)
-# if no, download th version table (csv?)
-# if yes, is requested doi/version in table? 
-# if no, download table again, abort("WRONG VERSION)
-# if yes, proceed
-# check if desired version is downloaded 
-# if yes, load it!
-# if no, update link 
