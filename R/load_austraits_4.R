@@ -127,16 +127,16 @@ print_versions <- function(path, update = TRUE){
     # Retrieve the .json
     res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
                                simplifyVector = T)
+    
+    message("Retrieving all versions of AusTraits...")
+    
     # Save it
     jsonlite::write_json(res, file_json)
   }
   
   # Load the json
-  res <- jsonlite::fromJSON(json_path) 
+  res <- jsonlite::fromJSON(file_json) 
   
-  message("Retrieving all versions of AusTraits...")
-  
-
   # Create a table
   ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
                        version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
