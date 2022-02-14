@@ -14,7 +14,7 @@
 #' }
 
 
-load_austraits_4 <- function(version, doi , path = "ignore/data/austraits", update = FALSE){
+load_austraits_4 <- function(version = NULL, doi = NULL , path = "ignore/data/austraits", update = FALSE){
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -49,6 +49,11 @@ load_austraits_4 <- function(version, doi , path = "ignore/data/austraits", upda
   # If only doi is provided, match it with its version number
   if(missing(version) & ! missing(doi)){
     version <- ret[which(ret$doi == doi),"version"] %>% as.character()
+  }
+  
+  # If only version is provided, match it with its doi (so it doesn't throw errors below)
+  if(! missing(version) & missing(doi)){
+    doi <- ret[which(ret$version == version),"doi"] %>% as.character()
   }
                         
   # Check if version/doi is available
@@ -150,8 +155,7 @@ print_versions <- function(path, update = TRUE){
   # Order by numeric version
   ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
   
-  # Add in the v again
-  ret %>% dplyr::mutate(version = paste0("v", version))
+  ret
 
 }
 
