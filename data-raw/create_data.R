@@ -3,7 +3,7 @@
 
 devtools::load_all()
 
-austraits_all <- load_austraits("ignore/data/austraits/")
+austraits_all <- load_austraits(path = "ignore/data/austraits/")
 dataset_id <- c("Falster_2003", "Falster_2005_1", "Falster_2005_2", "Zanne_2009")
 
 austraits_lite <- extract_dataset(austraits_all, dataset_id)

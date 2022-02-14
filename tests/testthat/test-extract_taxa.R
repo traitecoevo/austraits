@@ -1,5 +1,7 @@
 library(stringr)
 
+austraits <- austraits_lite
+
 test_that("Error triggered", {
   expect_error(austraits %>% extract_taxa(family = "Proteaceae", genus = "Acacia"))
   expect_error(austraits %>% extract_taxa())

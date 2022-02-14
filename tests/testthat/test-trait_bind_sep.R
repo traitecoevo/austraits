@@ -1,5 +1,5 @@
 #Pull in data
-austraits <- load_austraits_lite()
+austraits <- austraits_lite
 
 #Extract a dataset
 dataset_id <- c("Falster_2005_2")

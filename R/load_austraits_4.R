@@ -2,7 +2,7 @@
 #'
 #' @param version character string - version number of database
 #' @param path file path to where AusTraits will be downloaded
-#' @param update if TRUE, AusTraits version will be redownloaded
+#' @param update if TRUE, AusTraits versions json will be redownloaded
 #'
 #' @return a large list containing AusTraits data tables
 #' @export
@@ -13,7 +13,7 @@
 #' }
 
 
-load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits", update = FALSE){
+load_austraits_4 <- function(version = "3.0.2", doi = "10.5281/zenodo.5112001", path = "ignore/data/austraits", update = FALSE){
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -30,56 +30,54 @@ load_austraits_4 <- function(version = "v3.0.2", path = "ignore/data/austraits",
     jsonlite::write_json(res, file_json)
   }
 
-  #Retrieve and load the version
-  data <- switch(version,
-         v3.0.2 = dload_rds(version, file_json, path),
-         v3.0.1 = dload_rds(version, file_json, path),
-         v3.0.0 = dload_rds(version, file_json, path),
-         v2.1.0 = dload_rds(version, file_json, path),
-         v2.0.0 = dload_rds(version, file_json, path),
-         v0.9.1 = dload_rds(version, file_json, path))
-  
-
-  # Assign class
-  attr(data, "class") <- "austraits"
-  
-  data
-}
-
-#' Function for loading .rds AusTraits files
-#'
-#' @param version character string - version number of database
-#' @param json_path file path to austraits.json
-#' @param path file path to where AusTraits will be downloaded
-
-dload_rds <- function(version, json_path, path){
   # Load the json
   res <- jsonlite::fromJSON(json_path) 
   
   # Name the files list
   names(res$hits$hits$files) <- res$hits$hits$metadata$version
   
-  # Getting specific version
-  target <- res$hits$hits$files[[version]]
+  # Version table
+  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
+                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
+                       doi = res$hits$hits$metadata$doi) %>% 
+    dplyr::filter(! version < 1)
   
-  # Setting up the pars
-  url <- target$links$self[1]
-  file_path <- file.path(path, target$key[1])
+  # Order by numeric version
+  ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
+                        
+  # Check if version/doi is available
+  if(! version %in% ret$version | ! doi %in% ret$doi){
+    rlang::abort("Requested version/doi is incorrect! Try print_versions()")
+  }
   
-  # Downloading 
-  download_austraits(url, file_path, path = path)
+  # If only doi is provided, match it with its version number
+  if(is.null(version) & !is.null(doi)){
+    version <- ret[which(ret$doi == doi),"version"]
+  }
   
-  if(length(list.files(path = path, pattern = "\\.rds$")) > 0){
+  #Check if version/doi is download, if not download
+  if(! file.exist(paste0(path,"austraits-",version,".rds")) ){
+    # Getting specific version
+    target <- res$hits$hits$files[[version]]
+    
+    # Setting up the pars
+    url <- target$links$self[1]
+    file_path <- file.path(path, target$key[1])
+    
+    # Downloading file
+    download_austraits(url, file_path, path = path)
+  }
+  
   # Loading the .rds
   message("Loading data from '", file_path,"'")
   data <- readRDS(file_path) 
-  }
-}
-
-
-dload_zip <- function(){
   
+  # Assign class
+  attr(data, "class") <- "austraits"
+  
+  data
 }
+
 
 #' Function for loading .rds AusTraits files
 #'
@@ -112,21 +110,44 @@ download_austraits <- function(url, filename, path) {
   }
 }
 
+#' Print out AusTraits versions
+#'
+#' @param path A file path, if AusTraits was previously downloaded direct to that folder
+#' @param update Would you like the versions json be updated in case of new releases?
+#'
+#' @return A tibble containing version numbers and doi which can be used in load_austraits()
+#' @export
 
-print_versions <- function(){
+print_versions <- function(path, update = TRUE){
+  
+  file_json <- file.path(path, "austraits.json")
+  
+  # Does the .json exist in specificied path?
+  if(! file.exists(file_json) | update == TRUE){
+    # Retrieve the .json
+    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
+                               simplifyVector = T)
+    # Save it
+    jsonlite::write_json(res, file_json)
+  }
+  
+  # Load the json
+  res <- jsonlite::fromJSON(json_path) 
+  
   message("Retrieving all versions of AusTraits...")
   
-  res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
-                             simplifyVector = T)
+
   # Create a table
   ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
                        version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-                       doi = res$hits$hits$metadata$doi)
+                       doi = res$hits$hits$metadata$doi) %>% 
+    dplyr::filter(! version < 1)
   
   # Order by numeric version
   ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
   
   # Add in the v again
   ret %>% dplyr::mutate(version = paste0("v", version))
+
 }
 

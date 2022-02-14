@@ -1,4 +1,4 @@
-austraits <- load_austraits_lite()
+austraits <- austraits_lite
 
 test_that("Function output is correct", {
   target <- austraits$traits %>% 

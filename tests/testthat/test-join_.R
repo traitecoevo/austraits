@@ -1,3 +1,5 @@
+austraits <- austraits_lite
+
 test_that("functions should work without warnings", {
   expect_silent(join_sites(austraits))
   expect_silent(join_methods(austraits))
