@@ -2,33 +2,32 @@
 % Please edit documentation in R/load_austraits.R
 \name{load_austraits}
 \alias{load_austraits}
-\alias{load_austraits_lite}
-\title{Load AusTraits}
+\title{Load AusTraits database into R console}
 \usage{
-load_austraits(path, link, update)
-
-load_austraits_lite()
+load_austraits(
+  version = NULL,
+  doi = NULL,
+  path = "data/austraits",
+  update = FALSE
+)
 }
 \arguments{
-\item{path}{file path to where download data. By default set to "data/austraits"}
+\item{version}{character string - version number of database}
 
-\item{link}{link to Zenodo record to download}
+\item{doi}{character string - doi of particular version}
 
-\item{update}{should files be downloaded anew?}
+\item{path}{file path to where AusTraits will be downloaded}
+
+\item{update}{if TRUE, AusTraits versions .json will be re-downloaded}
 }
 \value{
-AusTraits data object
-
-
+a large list containing AusTraits data tables
 }
 \description{
-Downloads AusTraits version 3.0.2 and reads into R
-
-Load lite version of austraits for demo and testing purposes
+Load AusTraits database into R console
 }
 \examples{
 \dontrun{
-austraits_lite <- load_austraits_lite() #loads Lite version for testing
-austraits <- load_austraits()
+austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 }
 }

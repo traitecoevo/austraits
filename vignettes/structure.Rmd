@@ -32,7 +32,7 @@ if(knitr::is_html_output()) {
   my_kable_styling <- austraits::my_kable_styling_pdf
 }
 
-austraits <- load_austraits("ignore/data/austraits")
+austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits", update = TRUE)
 ```
 
 This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 

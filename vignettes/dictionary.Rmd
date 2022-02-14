@@ -3,8 +3,10 @@ title: "Trait definitions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Trait definitions}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 --- 
 
 
@@ -29,7 +31,7 @@ library(knitr)
 library(kableExtra)
 #source(here::here("scripts", "release_functions.R"))
 
-austraits<- load_austraits_lite()
+austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits", update = TRUE)
 definitions <- austraits$definitions
 ```
 

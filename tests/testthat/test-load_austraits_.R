@@ -1,10 +1,15 @@
-# test_that("Function created directory", {
-#   austraits <- load_austraits()
-#   expect_true(file.exists("data/austraits"))
-# })
+path = "ignore/data/austraits"
+austraits <- load_austraits(version = "3.0.2", path = path, update = FALSE)
 
-# test_that("Load lite is working", {
-#   austraits <- austraits_lite
-#   expect_equal(class(austraits_mini), class(austraits))
-#   expect_named(austraits, names(austraits_mini))
-# })
+test_that("Function is working", {
+  expect_visible(austraits)
+  expect_named(austraits)
+  expect_type(austraits, "list")
+  expect_length(austraits, 11)
+})
+
+test_that("Throws errors", {
+  expect_error(load_austrait())
+  })
+
+

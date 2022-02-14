@@ -3,7 +3,7 @@
 #' @param version character string - version number of database
 #' @param doi character string - doi of particular version 
 #' @param path file path to where AusTraits will be downloaded
-#' @param update if TRUE, AusTraits versions json will be redownloaded
+#' @param update if TRUE, AusTraits versions .json will be re-downloaded
 #'
 #' @return a large list containing AusTraits data tables
 #' @export
@@ -14,7 +14,7 @@
 #' }
 
 
-load_austraits_4 <- function(version = NULL, doi = NULL , path = "ignore/data/austraits", update = FALSE){
+load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", update = FALSE){
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -64,15 +64,15 @@ load_austraits_4 <- function(version = NULL, doi = NULL , path = "ignore/data/au
   # Add in prefix of v
   version_name <- paste0("v", version)
   
+  # Getting specific version
+  target <- res$hits$hits$files[[version_name]]
+  
+  # Setting up the pars
+  url <- target$links$self[1]
+  file_path <- file.path(path, target$key[1])
+  
   #Check if version/doi is download, if not download
-  if(! file.exists(paste0(path,"austraits-",version,".rds")) ){
-    # Getting specific version
-    target <- res$hits$hits$files[[version_name]]
-    
-    # Setting up the pars
-    url <- target$links$self[1]
-    file_path <- file.path(path, target$key[1])
-    
+  if(! file.exists(file_path)){
     # Downloading file
     download_austraits(url, file_path, path = path)
   }

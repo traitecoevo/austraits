@@ -24,7 +24,7 @@ library(dplyr)
 library(stringr)
 library(austraits)
 
-austraits <- load_austraits("../ignore/data/austraits")
+austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits", update = TRUE)
 ```
 
 The `austraits` package is designed to aid users to access data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. 
@@ -45,7 +45,7 @@ library(austraits)
 By default, `load_austraits` will download `austraits` to `data/austraits` and will reload it from this  location in the future. You can also specify where you want to download austraits by providing your own file path.
 
 ```{r, load_data, eval = FALSE}
-austraits <- load_austraits("data/")
+austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 ```
 
 Note the `austraits` object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
@@ -59,8 +59,6 @@ names(austraits)
 # The structure of the `traits` table only
 str(austraits$traits)
 ```
-
-
 
 ## Extracting data
 
@@ -111,7 +109,7 @@ proteaceae$taxa$family %>% unique()
 # By genus 
 acacia <- extract_taxa(austraits, genus = "Acacia")
 # Checking that only taxa in Acacia have been extracted
-acacia$traits$taxon_name %>% unique()
+acacia$traits$taxon_name %>% unique() %>% head()
 ```
 
 ### Extracting by trait
@@ -180,7 +178,9 @@ austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 The table of traits in AusTraits comes in long format, where data for all traits are in two columns called `trait_name` and `value`. You can convert to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`.
 
 ```{r, pivot}
-data_wide <- data_falster_studies$traits %>% trait_pivot_wider()
+data_wide <- data_falster_studies$traits %>%
+  summarise_trait_means() %>% 
+  trait_pivot_wider()
 ```
 
 The returned object is a list with several parts:
