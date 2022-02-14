@@ -1,6 +1,7 @@
 #' Load AusTraits database into R console
 #'
 #' @param version character string - version number of database
+#' @param doi character string - doi of particular version 
 #' @param path file path to where AusTraits will be downloaded
 #' @param update if TRUE, AusTraits versions json will be redownloaded
 #'
@@ -13,7 +14,7 @@
 #' }
 
 
-load_austraits_4 <- function(version = "3.0.2", doi = "10.5281/zenodo.5112001", path = "ignore/data/austraits", update = FALSE){
+load_austraits_4 <- function(version, doi , path = "ignore/data/austraits", update = FALSE){
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -31,7 +32,7 @@ load_austraits_4 <- function(version = "3.0.2", doi = "10.5281/zenodo.5112001", 
   }
 
   # Load the json
-  res <- jsonlite::fromJSON(json_path) 
+  res <- jsonlite::fromJSON(file_json) 
   
   # Name the files list
   names(res$hits$hits$files) <- res$hits$hits$metadata$version
@@ -40,25 +41,28 @@ load_austraits_4 <- function(version = "3.0.2", doi = "10.5281/zenodo.5112001", 
   ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
                        version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
                        doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1)
+    dplyr::filter(! version < 1) # Exclude any versions prior to 1.0.0
   
   # Order by numeric version
   ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
+  
+  # If only doi is provided, match it with its version number
+  if(missing(version) & ! missing(doi)){
+    version <- ret[which(ret$doi == doi),"version"] %>% as.character()
+  }
                         
   # Check if version/doi is available
   if(! version %in% ret$version | ! doi %in% ret$doi){
     rlang::abort("Requested version/doi is incorrect! Try print_versions()")
   }
   
-  # If only doi is provided, match it with its version number
-  if(is.null(version) & !is.null(doi)){
-    version <- ret[which(ret$doi == doi),"version"]
-  }
+  # Add in prefix of v
+  version_name <- paste0("v", version)
   
   #Check if version/doi is download, if not download
-  if(! file.exist(paste0(path,"austraits-",version,".rds")) ){
+  if(! file.exists(paste0(path,"austraits-",version,".rds")) ){
     # Getting specific version
-    target <- res$hits$hits$files[[version]]
+    target <- res$hits$hits$files[[version_name]]
     
     # Setting up the pars
     url <- target$links$self[1]
