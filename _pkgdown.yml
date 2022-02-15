@@ -8,13 +8,18 @@ template:
   bootswatch: cerulean
   
 reference:
+- Accessing AusTraits
+- contents:
+  - load_austraits
+  - print_versions
+  - print_austraits
+  - lookup_trait
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
-  - load_austraits
-  - print_austraits
   - starts_with("extract")
   - summarise_trait_means
+  - bind_trait_values
   - starts_with("trait_pivot")
   - join_all
   - ends_with("trait_values")
