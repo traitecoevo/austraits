@@ -58,16 +58,14 @@ print_austraits_taxa <-function(austraits, var) {
   #Join taxonomic info
   austraits <- austraits %>% join_taxonomy()
   
-  group_var <- rlang::enquo(var)
-  
   # Create table
   ret <- austraits[["traits"]] %>% 
-    dplyr::pull(!!group_var) %>% 
+    dplyr::pull(var) %>% 
     sort() %>% 
     janitor::tabyl() 
   
   # Fix first column name
-  suppressWarnings(names(ret)[1] <- rlang::as_label(group_var)
+  suppressWarnings(names(ret)[1] <- var
   )
   
   # Renaming
@@ -75,14 +73,17 @@ print_austraits_taxa <-function(austraits, var) {
                                n = NULL,
                                percent_total = signif(.data$percent, 3),
                                percent = NULL)
-  
+
+
   # Summary statistics
   sum_stats <- austraits[["traits"]] %>% 
-    dplyr::group_by(!!group_var) %>% 
+    dplyr::group_by(!!var) %>% 
     dplyr::summarise(n_dataset = length(unique(.data$dataset_id)),
-                     n_taxa = length(unique(.data$taxon_name))) 
+                     n_taxa = length(unique(.data$taxon_name)))
   
-  ret <- dplyr::left_join(ret, sum_stats, by = rlang::as_label(group_var))
+  names(sum_stats)[1] <- sum_stats[1,1]
+  
+  ret <- dplyr::left_join(ret, sum_stats, by = var)
   
   # Organise
   ret %>% dplyr::select(1, dplyr::starts_with("n_"), .data$percent_total)
