@@ -13,6 +13,11 @@
 #' @importFrom rlang .data
 
 print_austraits <- function(austraits, var){
+  
+  if(!var %in% c("trait_name", "family", "genus")){
+    stop(paste0("Print summary for ", var, " has not been implemented! see ?print_austraits()"))
+  }
+  
   switch(var,
          trait_name = print_austraits_traits(austraits, var),
          genus =  print_austraits_taxa(austraits, var),

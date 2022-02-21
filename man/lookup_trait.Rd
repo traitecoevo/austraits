@@ -19,6 +19,6 @@ Look up a particular trait term
 }
 \examples{
 \dontrun{
-austraits \%>\% lookup_trait(leaf) \%>\% extract_trait(austraits, .)
+austraits \%>\% lookup_trait("leaf") \%>\% extract_trait(austraits, .)
 }
 }

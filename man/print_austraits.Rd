@@ -15,7 +15,7 @@ print_austraits_taxa(austraits, var)
 \arguments{
 \item{austraits}{A large list of tibbles built from austraits}
 
-\item{var}{variable you use wish to see summary of}
+\item{var}{variable you use wish to see summary of (trait_name, genus, family)}
 }
 \value{
 dataframe of unique levels of variable with counts and percentage
@@ -26,6 +26,6 @@ Summarise counts for a particular variable of interest
 \examples{
 \dontrun{
 print_austraits(austraits, "trait_name")
-print_austraits(austraits, family)
+print_austraits(austraits, "family")
 }
 }
