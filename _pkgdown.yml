@@ -11,6 +11,7 @@ reference:
 - title: Accessing AusTraits
 - contents:
   - load_austraits
+  - download_austraits
   - print_versions
   - print_austraits
   - lookup_trait
