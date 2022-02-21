@@ -84,7 +84,7 @@
       <h1 data-toc-skip>austraits</h1>
                         <h4 data-toc-skip class="author">Fonti Kar, Daniel Falster</h4>
             
-            <h4 data-toc-skip class="date">2022-02-14</h4>
+            <h4 data-toc-skip class="date">2022-02-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/austraits.Rmd" class="external-link"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="hidden name"><code>austraits.Rmd</code></div>
@@ -469,8 +469,8 @@
 </h2>
 <p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longitude information into the trait dataframe before plotting</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span>
-<span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_all.html">join_sites</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></code></pre></div>
 <p><img src="austraits_files/figure-html/site_plot-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">

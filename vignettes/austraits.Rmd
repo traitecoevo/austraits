@@ -24,7 +24,7 @@ library(dplyr)
 library(stringr)
 library(austraits)
 
-austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits", update = TRUE)
+austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
 ```
 
 The `austraits` package is designed to aid users to access data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. 
@@ -160,8 +160,8 @@ There are five `join_` functions in total, each designed to append specific info
 `plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
 
 ```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
-data_wood_dens <- data_wood_dens %>% join_sites
-data_wood_dens$traits %>% plot_site_locations()
+data_wood_dens <- data_wood_dens %>% join_sites()
+plot_site_locations(data_wood_dens$traits)
 ```
 
 ## Visualising data distribution and variance
