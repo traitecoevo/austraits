@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
       </span>
     </div>
 
@@ -38,7 +38,7 @@
   <a href="../articles/dictionary.html">Trait definitions</a>
 </li>
 <li>
-  <a href="../reference/index.html">Function Index</a>
+  <a href="../reference/index.html">Function glossary</a>
 </li>
 <li>
   <a href="../news/index.html">What's new?</a>
@@ -62,14 +62,34 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
+          <h2 id="accessing-austraits">Accessing AusTraits <a href="#accessing-austraits" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="load_austraits.html">load_austraits()</a></code> </p>
+        </td>
+        <td><p>Load AusTraits database into R console</p></td>
+      </tr><tr><td>
+          <p><code><a href="download_austraits.html">download_austraits()</a></code> </p>
+        </td>
+        <td><p>Function for loading .rds AusTraits files</p></td>
+      </tr><tr><td>
+          <p><code><a href="print_versions.html">print_versions()</a></code> </p>
+        </td>
+        <td><p>Print out AusTraits versions</p></td>
+      </tr><tr><td>
+          <p><code><a href="print_austraits.html">print_austraits()</a></code> <code><a href="print_austraits.html">print_austraits_traits()</a></code> <code><a href="print_austraits.html">print_austraits_taxa()</a></code> </p>
+        </td>
+        <td><p>Summarise counts for a particular variable of interest</p></td>
+      </tr><tr><td>
+          <p><code><a href="lookup_trait.html">lookup_trait()</a></code> </p>
+        </td>
+        <td><p>Look up a particular trait term</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="wrangling-austraits">Wrangling AusTraits <a href="#wrangling-austraits" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions to extract, pivot and join data</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="load_austraits.html">load_austraits()</a></code> <code><a href="load_austraits.html">load_austraits_lite()</a></code> </p>
-        </td>
-        <td><p>Load AusTraits</p></td>
-      </tr><tr><td>
           <p><code><a href="extract_dataset.html">extract_dataset()</a></code> </p>
         </td>
         <td><p>Extract all data for a particular dataset</p></td>
@@ -82,6 +102,14 @@
         </td>
         <td><p>Extract data for specific traits</p></td>
       </tr><tr><td>
+          <p><code><a href="summarise_trait_means.html">summarise_trait_means()</a></code> </p>
+        </td>
+        <td><p>Compute mean trait values for studies that have multiple observations for a given trait</p></td>
+      </tr><tr><td>
+          <p><code><a href="bind_trait_values.html">bind_trait_values()</a></code> </p>
+        </td>
+        <td><p>Bind trait values</p></td>
+      </tr><tr><td>
           <p><code><a href="trait_pivot_longer.html">trait_pivot_longer()</a></code> </p>
         </td>
         <td><p>Pivot wide format ausTrait data into a long format</p></td>
@@ -93,10 +121,6 @@
           <p><code><a href="join_all.html">join_all()</a></code> <code><a href="join_all.html">join_taxonomy()</a></code> <code><a href="join_all.html">join_methods()</a></code> <code><a href="join_all.html">join_sites()</a></code> <code><a href="join_all.html">join_contexts()</a></code> </p>
         </td>
         <td><p>Join study details into main <code>traits</code> dataset</p></td>
-      </tr><tr><td>
-          <p><code><a href="bind_trait_values.html">bind_trait_values()</a></code> </p>
-        </td>
-        <td><p>Bind trait values</p></td>
       </tr><tr><td>
           <p><code><a href="separate_trait_values.html">separate_trait_values()</a></code> </p>
         </td>
@@ -126,7 +150,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

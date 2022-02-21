@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0.9000</span>
       </span>
     </div>
 
@@ -55,7 +55,7 @@
   <a href="../articles/dictionary.html">Trait definitions</a>
 </li>
 <li>
-  <a href="../reference/index.html">Function Index</a>
+  <a href="../reference/index.html">Function glossary</a>
 </li>
 <li>
   <a href="../news/index.html">What's new?</a>
@@ -78,13 +78,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="austraits_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>austraits</h1>
                         <h4 data-toc-skip class="author">Fonti Kar, Daniel Falster</h4>
             
-            <h4 data-toc-skip class="date">2021-12-08</h4>
+            <h4 data-toc-skip class="date">2022-02-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/austraits.Rmd" class="external-link"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="hidden name"><code>austraits.Rmd</code></div>
@@ -109,7 +109,7 @@
 </h3>
 <p>By default, <code>load_austraits</code> will download <code>austraits</code> to <code>data/austraits</code> and will reload it from this location in the future. You can also specify where you want to download austraits by providing your own file path.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span><span class="st">"data/"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.0.2"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></code></pre></div>
 <p>Note the <code>austraits</code> object is a very <em>long</em> list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this <a href="https://www.tutorialspoint.com/r/r_lists.htm" class="external-link">tutorial</a>. To learn more about the structure of <code>austraits</code>, check out the <a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure of the database</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">austraits</span><span class="op">)</span></code></pre></div>
@@ -216,1411 +216,10 @@
 <code class="sourceCode R"><span class="co"># By genus </span>
 <span class="va">acacia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_taxa.html">extract_taxa</a></span><span class="op">(</span><span class="va">austraits</span>, genus <span class="op">=</span> <span class="st">"Acacia"</span><span class="op">)</span>
 <span class="co"># Checking that only taxa in Acacia have been extracted</span>
-<span class="va">acacia</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">taxon_name</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt;    [1] "Acacia abbreviata"                                                  </span>
-<span class="co">#&gt;    [2] "Acacia acinacea"                                                    </span>
-<span class="co">#&gt;    [3] "Acacia acuminata"                                                   </span>
-<span class="co">#&gt;    [4] "Acacia adoxa var. adoxa"                                            </span>
-<span class="co">#&gt;    [5] "Acacia adsurgens"                                                   </span>
-<span class="co">#&gt;    [6] "Acacia adunca"                                                      </span>
-<span class="co">#&gt;    [7] "Acacia alata var. biglandulosa"                                     </span>
-<span class="co">#&gt;    [8] "Acacia alcockii"                                                    </span>
-<span class="co">#&gt;    [9] "Acacia alleniana"                                                   </span>
-<span class="co">#&gt;   [10] "Acacia anceps"                                                      </span>
-<span class="co">#&gt;   [11] "Acacia ancistrocarpa"                                               </span>
-<span class="co">#&gt;   [12] "Acacia aneura"                                                      </span>
-<span class="co">#&gt;   [13] "Acacia aneura var. major"                                           </span>
-<span class="co">#&gt;   [14] "Acacia incurvaneura"                                                </span>
-<span class="co">#&gt;   [15] "Acacia aphylla"                                                     </span>
-<span class="co">#&gt;   [16] "Acacia aptaneura"                                                   </span>
-<span class="co">#&gt;   [17] "Acacia araneosa"                                                    </span>
-<span class="co">#&gt;   [18] "Acacia argyrophylla"                                                </span>
-<span class="co">#&gt;   [19] "Acacia aureocrinita"                                                </span>
-<span class="co">#&gt;   [20] "Acacia ausfeldii"                                                   </span>
-<span class="co">#&gt;   [21] "Acacia barattensis"                                                 </span>
-<span class="co">#&gt;   [22] "Acacia beckleri"                                                    </span>
-<span class="co">#&gt;   [23] "Acacia betchei"                                                     </span>
-<span class="co">#&gt;   [24] "Acacia binervata"                                                   </span>
-<span class="co">#&gt;   [25] "Acacia blayana"                                                     </span>
-<span class="co">#&gt;   [26] "Acacia brachybotrya"                                                </span>
-<span class="co">#&gt;   [27] "Acacia brachystachya"                                               </span>
-<span class="co">#&gt;   [28] "Acacia bracteolata"                                                 </span>
-<span class="co">#&gt;   [29] "Acacia brunioides subsp. brunioides"                                </span>
-<span class="co">#&gt;   [30] "Acacia bulgaensis"                                                  </span>
-<span class="co">#&gt;   [31] "Acacia buxifolia subsp. buxifolia"                                  </span>
-<span class="co">#&gt;   [32] "Acacia bynoeana"                                                    </span>
-<span class="co">#&gt;   [33] "Acacia caesiella"                                                   </span>
-<span class="co">#&gt;   [34] "Acacia calamifolia"                                                 </span>
-<span class="co">#&gt;   [35] "Acacia cangaiensis"                                                 </span>
-<span class="co">#&gt;   [36] "Acacia cardiophylla"                                                </span>
-<span class="co">#&gt;   [37] "Acacia cheelii"                                                     </span>
-<span class="co">#&gt;   [38] "Acacia chinchillensis"                                              </span>
-<span class="co">#&gt;   [39] "Acacia chrysotricha"                                                </span>
-<span class="co">#&gt;   [40] "Acacia cognata"                                                     </span>
-<span class="co">#&gt;   [41] "Acacia colletioides"                                                </span>
-<span class="co">#&gt;   [42] "Acacia complanata"                                                  </span>
-<span class="co">#&gt;   [43] "Acacia consobrina"                                                  </span>
-<span class="co">#&gt;   [44] "Acacia costiniana"                                                  </span>
-<span class="co">#&gt;   [45] "Acacia cultriformis"                                                </span>
-<span class="co">#&gt;   [46] "Acacia cupularis"                                                   </span>
-<span class="co">#&gt;   [47] "Acacia cyclops"                                                     </span>
-<span class="co">#&gt;   [48] "Acacia dangarensis"                                                 </span>
-<span class="co">#&gt;   [49] "Acacia dawsonii"                                                    </span>
-<span class="co">#&gt;   [50] "Acacia dealbata"                                                    </span>
-<span class="co">#&gt;   [51] "Acacia decurrens"                                                   </span>
-<span class="co">#&gt;   [52] "Acacia dempsteri"                                                   </span>
-<span class="co">#&gt;   [53] "Acacia denticulosa"                                                 </span>
-<span class="co">#&gt;   [54] "Acacia dictyocarpa"                                                 </span>
-<span class="co">#&gt;   [55] "Acacia difformis"                                                   </span>
-<span class="co">#&gt;   [56] "Acacia doratoxylon"                                                 </span>
-<span class="co">#&gt;   [57] "Acacia enterocarpa"                                                 </span>
-<span class="co">#&gt;   [58] "Acacia ephedroides"                                                 </span>
-<span class="co">#&gt;   [59] "Acacia eremophiloides"                                              </span>
-<span class="co">#&gt;   [60] "Acacia euthycarpa subsp. euthycarpa"                                </span>
-<span class="co">#&gt;   [61] "Acacia falcata"                                                     </span>
-<span class="co">#&gt;   [62] "Acacia fasciculifera"                                               </span>
-<span class="co">#&gt;   [63] "Acacia fauntleroyi"                                                 </span>
-<span class="co">#&gt;   [64] "Acacia fimbriata"                                                   </span>
-<span class="co">#&gt;   [65] "Acacia floribunda"                                                  </span>
-<span class="co">#&gt;   [66] "Acacia fragilis"                                                    </span>
-<span class="co">#&gt;   [67] "Acacia frigescens"                                                  </span>
-<span class="co">#&gt;   [68] "Acacia fulva"                                                       </span>
-<span class="co">#&gt;   [69] "Acacia genistifolia"                                                </span>
-<span class="co">#&gt;   [70] "Acacia georginae"                                                   </span>
-<span class="co">#&gt;   [71] "Acacia gillii"                                                      </span>
-<span class="co">#&gt;   [72] "Acacia gladiiformis"                                                </span>
-<span class="co">#&gt;   [73] "Acacia gordonii"                                                    </span>
-<span class="co">#&gt;   [74] "Acacia granitica"                                                   </span>
-<span class="co">#&gt;   [75] "Acacia gunnii"                                                      </span>
-<span class="co">#&gt;   [76] "Acacia hakeoides"                                                   </span>
-<span class="co">#&gt;   [77] "Acacia halliana"                                                    </span>
-<span class="co">#&gt;   [78] "Acacia harveyi"                                                     </span>
-<span class="co">#&gt;   [79] "Acacia hilliana"                                                    </span>
-<span class="co">#&gt;   [80] "Acacia homalophylla"                                                </span>
-<span class="co">#&gt;   [81] "Acacia ingramii"                                                    </span>
-<span class="co">#&gt;   [82] "Acacia jibberdingensis"                                             </span>
-<span class="co">#&gt;   [83] "Acacia kempeana"                                                    </span>
-<span class="co">#&gt;   [84] "Acacia lasiocarpa var. lasiocarpa"                                  </span>
-<span class="co">#&gt;   [85] "Acacia leiophylla"                                                  </span>
-<span class="co">#&gt;   [86] "Acacia leprosa"                                                     </span>
-<span class="co">#&gt;   [87] "Acacia ligulata"                                                    </span>
-<span class="co">#&gt;   [88] "Acacia lineata"                                                     </span>
-<span class="co">#&gt;   [89] "Acacia linifolia"                                                   </span>
-<span class="co">#&gt;   [90] "Acacia littorea"                                                    </span>
-<span class="co">#&gt;   [91] "Acacia loderi"                                                      </span>
-<span class="co">#&gt;   [92] "Acacia longifolia subsp. sophorae"                                  </span>
-<span class="co">#&gt;   [93] "Acacia lucasii"                                                     </span>
-<span class="co">#&gt;   [94] "Acacia lunata"                                                      </span>
-<span class="co">#&gt;   [95] "Acacia lycopodiifolia"                                              </span>
-<span class="co">#&gt;   [96] "Acacia mangium"                                                     </span>
-<span class="co">#&gt;   [97] "Acacia mearnsii"                                                    </span>
-<span class="co">#&gt;   [98] "Acacia megalantha"                                                  </span>
-<span class="co">#&gt;   [99] "Acacia meisneri"                                                    </span>
-<span class="co">#&gt;  [100] "Acacia melanoxylon"                                                 </span>
-<span class="co">#&gt;  [101] "Acacia melleodora"                                                  </span>
-<span class="co">#&gt;  [102] "Acacia menzelii"                                                    </span>
-<span class="co">#&gt;  [103] "Acacia merrallii"                                                   </span>
-<span class="co">#&gt;  [104] "Acacia minutifolia"                                                 </span>
-<span class="co">#&gt;  [105] "Acacia minyura"                                                     </span>
-<span class="co">#&gt;  [106] "Acacia mitchellii"                                                  </span>
-<span class="co">#&gt;  [107] "Acacia mollifolia"                                                  </span>
-<span class="co">#&gt;  [108] "Acacia muelleriana"                                                 </span>
-<span class="co">#&gt;  [109] "Acacia myrtifolia"                                                  </span>
-<span class="co">#&gt;  [110] "Acacia nematophylla"                                                </span>
-<span class="co">#&gt;  [111] "Acacia neriifolia"                                                  </span>
-<span class="co">#&gt;  [112] "Acacia notabilis"                                                   </span>
-<span class="co">#&gt;  [113] "Acacia nyssophylla"                                                 </span>
-<span class="co">#&gt;  [114] "Acacia obtusata"                                                    </span>
-<span class="co">#&gt;  [115] "Acacia orthocarpa"                                                  </span>
-<span class="co">#&gt;  [116] "Acacia oswaldii"                                                    </span>
-<span class="co">#&gt;  [117] "Acacia oxyclada"                                                    </span>
-<span class="co">#&gt;  [118] "Acacia palustris"                                                   </span>
-<span class="co">#&gt;  [119] "Acacia paradoxa"                                                    </span>
-<span class="co">#&gt;  [120] "Acacia parramattensis"                                              </span>
-<span class="co">#&gt;  [121] "Acacia pendula"                                                     </span>
-<span class="co">#&gt;  [122] "Acacia peuce"                                                       </span>
-<span class="co">#&gt;  [123] "Acacia phlebophylla"                                                </span>
-<span class="co">#&gt;  [124] "Acacia piligera"                                                    </span>
-<span class="co">#&gt;  [125] "Acacia platycarpa"                                                  </span>
-<span class="co">#&gt;  [126] "Acacia pravifolia"                                                  </span>
-<span class="co">#&gt;  [127] "Acacia pravissima"                                                  </span>
-<span class="co">#&gt;  [128] "Acacia pruinocarpa"                                                 </span>
-<span class="co">#&gt;  [129] "Acacia pubescens"                                                   </span>
-<span class="co">#&gt;  [130] "Acacia pulchella var. pulchella"                                    </span>
-<span class="co">#&gt;  [131] "Acacia pycnostachya"                                                </span>
-<span class="co">#&gt;  [132] "Acacia rhetinocarpa"                                                </span>
-<span class="co">#&gt;  [133] "Acacia rhodophloia"                                                 </span>
-<span class="co">#&gt;  [134] "Acacia rossei"                                                      </span>
-<span class="co">#&gt;  [135] "Acacia rubida"                                                      </span>
-<span class="co">#&gt;  [136] "Acacia salicina"                                                    </span>
-<span class="co">#&gt;  [137] "Acacia saligna"                                                     </span>
-<span class="co">#&gt;  [138] "Acacia siculiformis"                                                </span>
-<span class="co">#&gt;  [139] "Acacia equisetifolia"                                               </span>
-<span class="co">#&gt;  [140] "Acacia spinescens"                                                  </span>
-<span class="co">#&gt;  [141] "Acacia storyi"                                                      </span>
-<span class="co">#&gt;  [142] "Acacia suaveolens"                                                  </span>
-<span class="co">#&gt;  [143] "Acacia subcaerulea"                                                 </span>
-<span class="co">#&gt;  [144] "Acacia subulata"                                                    </span>
-<span class="co">#&gt;  [145] "Acacia terminalis"                                                  </span>
-<span class="co">#&gt;  [146] "Acacia terminalis subsp. Bright yellow flower (M.Tindale NSW248078)"</span>
-<span class="co">#&gt;  [147] "Acacia tetragonophylla"                                             </span>
-<span class="co">#&gt;  [148] "Acacia trachyphloia"                                                </span>
-<span class="co">#&gt;  [149] "Acacia triptera"                                                    </span>
-<span class="co">#&gt;  [150] "Acacia triquetra"                                                   </span>
-<span class="co">#&gt;  [151] "Acacia ulicifolia"                                                  </span>
-<span class="co">#&gt;  [152] "Acacia uncinata"                                                    </span>
-<span class="co">#&gt;  [153] "Acacia venulosa"                                                    </span>
-<span class="co">#&gt;  [154] "Acacia victoriae"                                                   </span>
-<span class="co">#&gt;  [155] "Acacia willdenowiana"                                               </span>
-<span class="co">#&gt;  [156] "Acacia buxifolia"                                                   </span>
-<span class="co">#&gt;  [157] "Acacia penninervis"                                                 </span>
-<span class="co">#&gt;  [158] "Acacia verniciflua"                                                 </span>
-<span class="co">#&gt;  [159] "Acacia hemiteles"                                                   </span>
-<span class="co">#&gt;  [160] "Acacia dictyophleba"                                                </span>
-<span class="co">#&gt;  [161] "Acacia decora"                                                      </span>
-<span class="co">#&gt;  [162] "Acacia linearifolia"                                                </span>
-<span class="co">#&gt;  [163] "Acacia pycnantha"                                                   </span>
-<span class="co">#&gt;  [164] "Acacia acanthoclada subsp. acanthoclada"                            </span>
-<span class="co">#&gt;  [165] "Acacia aculeatissima"                                               </span>
-<span class="co">#&gt;  [166] "Acacia alpina"                                                      </span>
-<span class="co">#&gt;  [167] "Acacia baileyana"                                                   </span>
-<span class="co">#&gt;  [168] "Acacia caerulescens"                                                </span>
-<span class="co">#&gt;  [169] "Acacia daviesii"                                                    </span>
-<span class="co">#&gt;  [170] "Acacia deanei subsp. deanei"                                        </span>
-<span class="co">#&gt;  [171] "Acacia deanei subsp. paucijuga"                                     </span>
-<span class="co">#&gt;  [172] "Acacia elata"                                                       </span>
-<span class="co">#&gt;  [173] "Acacia euthycarpa"                                                  </span>
-<span class="co">#&gt;  [174] "Acacia falciformis"                                                 </span>
-<span class="co">#&gt;  [175] "Acacia glandulicarpa"                                               </span>
-<span class="co">#&gt;  [176] "Acacia havilandiorum"                                               </span>
-<span class="co">#&gt;  [177] "Acacia implexa"                                                     </span>
-<span class="co">#&gt;  [178] "Acacia leprosa var. uninervia"                                      </span>
-<span class="co">#&gt;  [179] "Acacia longifolia"                                                  </span>
-<span class="co">#&gt;  [180] "Acacia longifolia subsp. longifolia"                                </span>
-<span class="co">#&gt;  [181] "Acacia montana"                                                     </span>
-<span class="co">#&gt;  [182] "Acacia nanopravissima"                                              </span>
-<span class="co">#&gt;  [183] "Acacia obliquinervia"                                               </span>
-<span class="co">#&gt;  [184] "Acacia obtusifolia"                                                 </span>
-<span class="co">#&gt;  [185] "Acacia oxycedrus"                                                   </span>
-<span class="co">#&gt;  [186] "Acacia phasmoides"                                                  </span>
-<span class="co">#&gt;  [187] "Acacia podalyriifolia"                                              </span>
-<span class="co">#&gt;  [188] "Acacia retinodes"                                                   </span>
-<span class="co">#&gt;  [189] "Acacia rigens"                                                      </span>
-<span class="co">#&gt;  [190] "Acacia sclerophylla"                                                </span>
-<span class="co">#&gt;  [191] "Acacia silvestris"                                                  </span>
-<span class="co">#&gt;  [192] "Acacia sporadica"                                                   </span>
-<span class="co">#&gt;  [193] "Acacia stricta"                                                     </span>
-<span class="co">#&gt;  [194] "Acacia subporosa"                                                   </span>
-<span class="co">#&gt;  [195] "Acacia verticillata"                                                </span>
-<span class="co">#&gt;  [196] "Acacia verticillata subsp. verticillata"                            </span>
-<span class="co">#&gt;  [197] "Acacia wilhelmiana"                                                 </span>
-<span class="co">#&gt;  [198] "Acacia williamsonii"                                                </span>
-<span class="co">#&gt;  [199] "Acacia abrupta"                                                     </span>
-<span class="co">#&gt;  [200] "Acacia acanthaster"                                                 </span>
-<span class="co">#&gt;  [201] "Acacia acanthoclada"                                                </span>
-<span class="co">#&gt;  [202] "Acacia acellerata"                                                  </span>
-<span class="co">#&gt;  [203] "Acacia aciphylla"                                                   </span>
-<span class="co">#&gt;  [204] "Acacia acoma"                                                       </span>
-<span class="co">#&gt;  [205] "Acacia acradenia"                                                   </span>
-<span class="co">#&gt;  [206] "Acacia acrionastes"                                                 </span>
-<span class="co">#&gt;  [207] "Acacia acuaria"                                                     </span>
-<span class="co">#&gt;  [208] "Acacia aculeiformis"                                                </span>
-<span class="co">#&gt;  [209] "Acacia acutata"                                                     </span>
-<span class="co">#&gt;  [210] "Acacia adenogonia"                                                  </span>
-<span class="co">#&gt;  [211] "Acacia adinophylla"                                                 </span>
-<span class="co">#&gt;  [212] "Acacia adnata"                                                      </span>
-<span class="co">#&gt;  [213] "Acacia adoxa"                                                       </span>
-<span class="co">#&gt;  [214] "Acacia aemula"                                                      </span>
-<span class="co">#&gt;  [215] "Acacia aestivalis"                                                  </span>
-<span class="co">#&gt;  [216] "Acacia alata"                                                       </span>
-<span class="co">#&gt;  [217] "Acacia alexandri"                                                   </span>
-<span class="co">#&gt;  [218] "Acacia amanda"                                                      </span>
-<span class="co">#&gt;  [219] "Acacia amblygona"                                                   </span>
-<span class="co">#&gt;  [220] "Acacia amblyophylla"                                                </span>
-<span class="co">#&gt;  [221] "Acacia amentifera"                                                  </span>
-<span class="co">#&gt;  [222] "Acacia ammobia"                                                     </span>
-<span class="co">#&gt;  [223] "Acacia ammophila"                                                   </span>
-<span class="co">#&gt;  [224] "Acacia amoena"                                                      </span>
-<span class="co">#&gt;  [225] "Acacia ampliata"                                                    </span>
-<span class="co">#&gt;  [226] "Acacia ampliceps"                                                   </span>
-<span class="co">#&gt;  [227] "Acacia amputata"                                                    </span>
-<span class="co">#&gt;  [228] "Acacia amyctica"                                                    </span>
-<span class="co">#&gt;  [229] "Acacia anarthros"                                                   </span>
-<span class="co">#&gt;  [230] "Acacia anasilla"                                                    </span>
-<span class="co">#&gt;  [231] "Acacia anastema"                                                    </span>
-<span class="co">#&gt;  [232] "Acacia anaticeps"                                                   </span>
-<span class="co">#&gt;  [233] "Acacia ancistrophylla"                                              </span>
-<span class="co">#&gt;  [234] "Acacia andrewsii"                                                   </span>
-<span class="co">#&gt;  [235] "Acacia anfractuosa"                                                 </span>
-<span class="co">#&gt;  [236] "Acacia angusta"                                                     </span>
-<span class="co">#&gt;  [237] "Acacia anomala"                                                     </span>
-<span class="co">#&gt;  [238] "Acacia anthochaera"                                                 </span>
-<span class="co">#&gt;  [239] "Acacia aphanoclada"                                                 </span>
-<span class="co">#&gt;  [240] "Acacia applanata"                                                   </span>
-<span class="co">#&gt;  [241] "Acacia aprepta"                                                     </span>
-<span class="co">#&gt;  [242] "Acacia aprica"                                                      </span>
-<span class="co">#&gt;  [243] "Acacia arafurica"                                                   </span>
-<span class="co">#&gt;  [244] "Acacia arbiana"                                                     </span>
-<span class="co">#&gt;  [245] "Acacia arcuatilis"                                                  </span>
-<span class="co">#&gt;  [246] "Acacia argutifolia"                                                 </span>
-<span class="co">#&gt;  [247] "Acacia argyraea"                                                    </span>
-<span class="co">#&gt;  [248] "Acacia argyrodendron"                                               </span>
-<span class="co">#&gt;  [249] "Acacia argyrotricha"                                                </span>
-<span class="co">#&gt;  [250] "Acacia arida"                                                       </span>
-<span class="co">#&gt;  [251] "Acacia aristulata"                                                  </span>
-<span class="co">#&gt;  [252] "Acacia armillata"                                                   </span>
-<span class="co">#&gt;  [253] "Acacia armitii"                                                     </span>
-<span class="co">#&gt;  [254] "Acacia arrecta"                                                     </span>
-<span class="co">#&gt;  [255] "Acacia ascendens"                                                   </span>
-<span class="co">#&gt;  [256] "Acacia asepala"                                                     </span>
-<span class="co">#&gt;  [257] "Acacia ashbyae"                                                     </span>
-<span class="co">#&gt;  [258] "Acacia asparagoides"                                                </span>
-<span class="co">#&gt;  [259] "Acacia aspera"                                                      </span>
-<span class="co">#&gt;  [260] "Acacia asperulacea"                                                 </span>
-<span class="co">#&gt;  [261] "Acacia assimilis"                                                   </span>
-<span class="co">#&gt;  [262] "Acacia ataxiphylla"                                                 </span>
-<span class="co">#&gt;  [263] "Acacia atkinsiana"                                                  </span>
-<span class="co">#&gt;  [264] "Acacia atopa"                                                       </span>
-<span class="co">#&gt;  [265] "Acacia attenuata"                                                   </span>
-<span class="co">#&gt;  [266] "Acacia aulacocarpa"                                                 </span>
-<span class="co">#&gt;  [267] "Acacia aulacophylla"                                                </span>
-<span class="co">#&gt;  [268] "Acacia auratiflora"                                                 </span>
-<span class="co">#&gt;  [269] "Acacia auricoma"                                                    </span>
-<span class="co">#&gt;  [270] "Acacia auriculiformis"                                              </span>
-<span class="co">#&gt;  [271] "Acacia auripila"                                                    </span>
-<span class="co">#&gt;  [272] "Acacia auronitens"                                                  </span>
-<span class="co">#&gt;  [273] "Acacia awestoniana"                                                 </span>
-<span class="co">#&gt;  [274] "Acacia axillaris"                                                   </span>
-<span class="co">#&gt;  [275] "Acacia ayersiana"                                                   </span>
-<span class="co">#&gt;  [276] "Acacia baeuerlenii"                                                 </span>
-<span class="co">#&gt;  [277] "Acacia bakeri"                                                      </span>
-<span class="co">#&gt;  [278] "Acacia balsamea"                                                    </span>
-<span class="co">#&gt;  [279] "Acacia bancroftiorum"                                               </span>
-<span class="co">#&gt;  [280] "Acacia barbinervis"                                                 </span>
-<span class="co">#&gt;  [281] "Acacia barringtonensis"                                             </span>
-<span class="co">#&gt;  [282] "Acacia basedowii"                                                   </span>
-<span class="co">#&gt;  [283] "Acacia baueri"                                                      </span>
-<span class="co">#&gt;  [284] "Acacia baxteri"                                                     </span>
-<span class="co">#&gt;  [285] "Acacia beauverdiana"                                                </span>
-<span class="co">#&gt;  [286] "Acacia benthamii"                                                   </span>
-<span class="co">#&gt;  [287] "Acacia bidentata"                                                   </span>
-<span class="co">#&gt;  [288] "Acacia bifaria"                                                     </span>
-<span class="co">#&gt;  [289] "Acacia biflora"                                                     </span>
-<span class="co">#&gt;  [290] "Acacia binata"                                                      </span>
-<span class="co">#&gt;  [291] "Acacia binervia"                                                    </span>
-<span class="co">#&gt;  [292] "Acacia bivenosa"                                                    </span>
-<span class="co">#&gt;  [293] "Acacia blakei"                                                      </span>
-<span class="co">#&gt;  [294] "Acacia blakelyi"                                                    </span>
-<span class="co">#&gt;  [295] "Acacia blaxellii"                                                   </span>
-<span class="co">#&gt;  [296] "Acacia boormanii"                                                   </span>
-<span class="co">#&gt;  [297] "Acacia botrydion"                                                   </span>
-<span class="co">#&gt;  [298] "Acacia neobrachycarpa"                                              </span>
-<span class="co">#&gt;  [299] "Acacia brachyclada"                                                 </span>
-<span class="co">#&gt;  [300] "Acacia brachyphylla"                                                </span>
-<span class="co">#&gt;  [301] "Acacia brachypoda"                                                  </span>
-<span class="co">#&gt;  [302] "Acacia brassii"                                                     </span>
-<span class="co">#&gt;  [303] "Acacia brockii"                                                     </span>
-<span class="co">#&gt;  [304] "Acacia browniana"                                                   </span>
-<span class="co">#&gt;  [305] "Acacia brownii"                                                     </span>
-<span class="co">#&gt;  [306] "Acacia brumalis"                                                    </span>
-<span class="co">#&gt;  [307] "Acacia brunioides"                                                  </span>
-<span class="co">#&gt;  [308] "Acacia burbidgeae"                                                  </span>
-<span class="co">#&gt;  [309] "Acacia burrowii"                                                    </span>
-<span class="co">#&gt;  [310] "Acacia caesariata"                                                  </span>
-<span class="co">#&gt;  [311] "Acacia calantha"                                                    </span>
-<span class="co">#&gt;  [312] "Acacia calcarata"                                                   </span>
-<span class="co">#&gt;  [313] "Acacia calcicola"                                                   </span>
-<span class="co">#&gt;  [314] "Acacia calyculata"                                                  </span>
-<span class="co">#&gt;  [315] "Acacia cambagei"                                                    </span>
-<span class="co">#&gt;  [316] "Acacia camptoclada"                                                 </span>
-<span class="co">#&gt;  [317] "Acacia campylophylla"                                               </span>
-<span class="co">#&gt;  [318] "Acacia cana"                                                        </span>
-<span class="co">#&gt;  [319] "Acacia capillaris"                                                  </span>
-<span class="co">#&gt;  [320] "Acacia carens"                                                      </span>
-<span class="co">#&gt;  [321] "Acacia carneorum"                                                   </span>
-<span class="co">#&gt;  [322] "Acacia carnosula"                                                   </span>
-<span class="co">#&gt;  [323] "Acacia caroleae"                                                    </span>
-<span class="co">#&gt;  [324] "Acacia cassicula"                                                   </span>
-<span class="co">#&gt;  [325] "Acacia cataractae"                                                  </span>
-<span class="co">#&gt;  [326] "Acacia catenulata"                                                  </span>
-<span class="co">#&gt;  [327] "Acacia cavealis"                                                    </span>
-<span class="co">#&gt;  [328] "Acacia cedroides"                                                   </span>
-<span class="co">#&gt;  [329] "Acacia celastrifolia"                                               </span>
-<span class="co">#&gt;  [330] "Acacia cerastes"                                                    </span>
-<span class="co">#&gt;  [331] "Acacia chalkeri"                                                    </span>
-<span class="co">#&gt;  [332] "Acacia chamaeleon"                                                  </span>
-<span class="co">#&gt;  [333] "Acacia chapmanii"                                                   </span>
-<span class="co">#&gt;  [334] "Acacia chartacea"                                                   </span>
-<span class="co">#&gt;  [335] "Acacia chippendalei"                                                </span>
-<span class="co">#&gt;  [336] "Acacia chisholmii"                                                  </span>
-<span class="co">#&gt;  [337] "Acacia chrysella"                                                   </span>
-<span class="co">#&gt;  [338] "Acacia chrysocephala"                                               </span>
-<span class="co">#&gt;  [339] "Acacia chrysochaeta"                                                </span>
-<span class="co">#&gt;  [340] "Acacia chrysopoda"                                                  </span>
-<span class="co">#&gt;  [341] "Acacia cincinnata"                                                  </span>
-<span class="co">#&gt;  [342] "Acacia citrinoviridis"                                              </span>
-<span class="co">#&gt;  [343] "Acacia clandullensis"                                               </span>
-<span class="co">#&gt;  [344] "Acacia clelandii"                                                   </span>
-<span class="co">#&gt;  [345] "Acacia clunies-rossiae"                                             </span>
-<span class="co">#&gt;  [346] "Acacia clydonophora"                                                </span>
-<span class="co">#&gt;  [347] "Acacia cochlearis"                                                  </span>
-<span class="co">#&gt;  [348] "Acacia cochlocarpa"                                                 </span>
-<span class="co">#&gt;  [349] "Acacia colei"                                                       </span>
-<span class="co">#&gt;  [350] "Acacia comans"                                                      </span>
-<span class="co">#&gt;  [351] "Acacia concolorans"                                                 </span>
-<span class="co">#&gt;  [352] "Acacia concurrens"                                                  </span>
-<span class="co">#&gt;  [353] "Acacia conferta"                                                    </span>
-<span class="co">#&gt;  [354] "Acacia confluens"                                                   </span>
-<span class="co">#&gt;  [355] "Acacia congesta"                                                    </span>
-<span class="co">#&gt;  [356] "Acacia conjunctifolia"                                              </span>
-<span class="co">#&gt;  [357] "Acacia conniana"                                                    </span>
-<span class="co">#&gt;  [358] "Acacia consanguinea"                                                </span>
-<span class="co">#&gt;  [359] "Acacia conspersa"                                                   </span>
-<span class="co">#&gt;  [360] "Acacia constablei"                                                  </span>
-<span class="co">#&gt;  [361] "Acacia continua"                                                    </span>
-<span class="co">#&gt;  [362] "Acacia convallium"                                                  </span>
-<span class="co">#&gt;  [363] "Acacia coolgardiensis"                                              </span>
-<span class="co">#&gt;  [364] "Acacia coriacea"                                                    </span>
-<span class="co">#&gt;  [365] "Acacia costata"                                                     </span>
-<span class="co">#&gt;  [366] "Acacia courtii"                                                     </span>
-<span class="co">#&gt;  [367] "Acacia covenyi"                                                     </span>
-<span class="co">#&gt;  [368] "Acacia cowaniana"                                                   </span>
-<span class="co">#&gt;  [369] "Acacia cowleana"                                                    </span>
-<span class="co">#&gt;  [370] "Acacia cracentis"                                                   </span>
-<span class="co">#&gt;  [371] "Acacia craspedocarpa"                                               </span>
-<span class="co">#&gt;  [372] "Acacia crassa"                                                      </span>
-<span class="co">#&gt;  [373] "Acacia crassicarpa"                                                 </span>
-<span class="co">#&gt;  [374] "Acacia crassistipula"                                               </span>
-<span class="co">#&gt;  [375] "Acacia crassiuscula"                                                </span>
-<span class="co">#&gt;  [376] "Acacia crassuloides"                                                </span>
-<span class="co">#&gt;  [377] "Acacia cremiflora"                                                  </span>
-<span class="co">#&gt;  [378] "Acacia crenulata"                                                   </span>
-<span class="co">#&gt;  [379] "Acacia cretacea"                                                    </span>
-<span class="co">#&gt;  [380] "Acacia cretata"                                                     </span>
-<span class="co">#&gt;  [381] "Acacia crispula"                                                    </span>
-<span class="co">#&gt;  [382] "Acacia crombiei"                                                    </span>
-<span class="co">#&gt;  [383] "Acacia cummingiana"                                                 </span>
-<span class="co">#&gt;  [384] "Acacia cuneifolia"                                                  </span>
-<span class="co">#&gt;  [385] "Acacia curranii"                                                    </span>
-<span class="co">#&gt;  [386] "Acacia curvata"                                                     </span>
-<span class="co">#&gt;  [387] "Acacia julifera subsp. curvinervia"                                 </span>
-<span class="co">#&gt;  [388] "Acacia cuspidifolia"                                                </span>
-<span class="co">#&gt;  [389] "Acacia cuthbertsonii"                                               </span>
-<span class="co">#&gt;  [390] "Acacia cylindrica"                                                  </span>
-<span class="co">#&gt;  [391] "Acacia cyperophylla"                                                </span>
-<span class="co">#&gt;  [392] "Acacia dacrydioides"                                                </span>
-<span class="co">#&gt;  [393] "Acacia dallachiana"                                                 </span>
-<span class="co">#&gt;  [394] "Acacia daviesioides"                                                </span>
-<span class="co">#&gt;  [395] "Acacia daweana"                                                     </span>
-<span class="co">#&gt;  [396] "Acacia deanei"                                                      </span>
-<span class="co">#&gt;  [397] "Acacia debilis"                                                     </span>
-<span class="co">#&gt;  [398] "Acacia declinata"                                                   </span>
-<span class="co">#&gt;  [399] "Acacia deficiens"                                                   </span>
-<span class="co">#&gt;  [400] "Acacia deflexa"                                                     </span>
-<span class="co">#&gt;  [401] "Acacia delibrata"                                                   </span>
-<span class="co">#&gt;  [402] "Acacia delicatula"                                                  </span>
-<span class="co">#&gt;  [403] "Acacia delphina"                                                    </span>
-<span class="co">#&gt;  [404] "Acacia deltoidea"                                                   </span>
-<span class="co">#&gt;  [405] "Acacia demissa"                                                     </span>
-<span class="co">#&gt;  [406] "Acacia densiflora"                                                  </span>
-<span class="co">#&gt;  [407] "Acacia dentifera"                                                   </span>
-<span class="co">#&gt;  [408] "Acacia depressa"                                                    </span>
-<span class="co">#&gt;  [409] "Acacia dermatophylla"                                               </span>
-<span class="co">#&gt;  [410] "Acacia desertorum"                                                  </span>
-<span class="co">#&gt;  [411] "Acacia desmondii"                                                   </span>
-<span class="co">#&gt;  [412] "Acacia deuteroneura"                                                </span>
-<span class="co">#&gt;  [413] "Acacia diaphana"                                                    </span>
-<span class="co">#&gt;  [414] "Acacia diaphyllodinea"                                              </span>
-<span class="co">#&gt;  [415] "Acacia dictyoneura"                                                 </span>
-<span class="co">#&gt;  [416] "Acacia didyma"                                                      </span>
-<span class="co">#&gt;  [417] "Acacia dielsii"                                                     </span>
-<span class="co">#&gt;  [418] "Acacia dietrichiana"                                                </span>
-<span class="co">#&gt;  [419] "Acacia difficilis"                                                  </span>
-<span class="co">#&gt;  [420] "Acacia dilatata"                                                    </span>
-<span class="co">#&gt;  [421] "Acacia dimidiata"                                                   </span>
-<span class="co">#&gt;  [422] "Acacia diminuta"                                                    </span>
-<span class="co">#&gt;  [423] "Acacia dissona"                                                     </span>
-<span class="co">#&gt;  [424] "Acacia distans"                                                     </span>
-<span class="co">#&gt;  [425] "Acacia disticha"                                                    </span>
-<span class="co">#&gt;  [426] "Acacia divergens"                                                   </span>
-<span class="co">#&gt;  [427] "Acacia dodonaeifolia"                                               </span>
-<span class="co">#&gt;  [428] "Acacia dolichophylla"                                               </span>
-<span class="co">#&gt;  [429] "Acacia donaldsonii"                                                 </span>
-<span class="co">#&gt;  [430] "Acacia dorothea"                                                    </span>
-<span class="co">#&gt;  [431] "Acacia dorsenna"                                                    </span>
-<span class="co">#&gt;  [432] "Acacia drepanocarpa"                                                </span>
-<span class="co">#&gt;  [433] "Acacia drepanophylla"                                               </span>
-<span class="co">#&gt;  [434] "Acacia drewiana"                                                    </span>
-<span class="co">#&gt;  [435] "Acacia drummondii"                                                  </span>
-<span class="co">#&gt;  [436] "Acacia dunnii"                                                      </span>
-<span class="co">#&gt;  [437] "Acacia dura"                                                        </span>
-<span class="co">#&gt;  [438] "Acacia durabilis"                                                   </span>
-<span class="co">#&gt;  [439] "Acacia duriuscula"                                                  </span>
-<span class="co">#&gt;  [440] "Acacia echinula"                                                    </span>
-<span class="co">#&gt;  [441] "Acacia echinuliflora"                                               </span>
-<span class="co">#&gt;  [442] "Acacia effusa"                                                      </span>
-<span class="co">#&gt;  [443] "Acacia elachantha"                                                  </span>
-<span class="co">#&gt;  [444] "Acacia elongata"                                                    </span>
-<span class="co">#&gt;  [445] "Acacia empelioclada"                                                </span>
-<span class="co">#&gt;  [446] "Acacia enervia"                                                     </span>
-<span class="co">#&gt;  [447] "Acacia ensifolia"                                                   </span>
-<span class="co">#&gt;  [448] "Acacia epacantha"                                                   </span>
-<span class="co">#&gt;  [449] "Acacia epedunculata"                                                </span>
-<span class="co">#&gt;  [450] "Acacia eremaea"                                                     </span>
-<span class="co">#&gt;  [451] "Acacia eremophila"                                                  </span>
-<span class="co">#&gt;  [452] "Acacia ericifolia"                                                  </span>
-<span class="co">#&gt;  [453] "Acacia ericksoniae"                                                 </span>
-<span class="co">#&gt;  [454] "Acacia erinacea"                                                    </span>
-<span class="co">#&gt;  [455] "Acacia erioclada"                                                   </span>
-<span class="co">#&gt;  [456] "Acacia eriopoda"                                                    </span>
-<span class="co">#&gt;  [457] "Acacia errabunda"                                                   </span>
-<span class="co">#&gt;  [458] "Acacia estrophiolata"                                               </span>
-<span class="co">#&gt;  [459] "Acacia euthyphylla"                                                 </span>
-<span class="co">#&gt;  [460] "Acacia evenulosa"                                                   </span>
-<span class="co">#&gt;  [461] "Acacia everistii"                                                   </span>
-<span class="co">#&gt;  [462] "Acacia excelsa"                                                     </span>
-<span class="co">#&gt;  [463] "Acacia excentrica"                                                  </span>
-<span class="co">#&gt;  [464] "Acacia exigua"                                                      </span>
-<span class="co">#&gt;  [465] "Acacia exocarpoides"                                                </span>
-<span class="co">#&gt;  [466] "Acacia extensa"                                                     </span>
-<span class="co">#&gt;  [467] "Acacia fagonioides"                                                 </span>
-<span class="co">#&gt;  [468] "Acacia farinosa"                                                    </span>
-<span class="co">#&gt;  [469] "Acacia ferocior"                                                    </span>
-<span class="co">#&gt;  [470] "Acacia filamentosa"                                                 </span>
-<span class="co">#&gt;  [471] "Acacia filicifolia"                                                 </span>
-<span class="co">#&gt;  [472] "Acacia filifolia"                                                   </span>
-<span class="co">#&gt;  [473] "Acacia filipes"                                                     </span>
-<span class="co">#&gt;  [474] "Acacia flabellifolia"                                               </span>
-<span class="co">#&gt;  [475] "Acacia flagelliformis"                                              </span>
-<span class="co">#&gt;  [476] "Acacia flavescens"                                                  </span>
-<span class="co">#&gt;  [477] "Acacia flavipila"                                                   </span>
-<span class="co">#&gt;  [478] "Acacia fleckeri"                                                    </span>
-<span class="co">#&gt;  [479] "Acacia flexifolia"                                                  </span>
-<span class="co">#&gt;  [480] "Acacia flocktoniae"                                                 </span>
-<span class="co">#&gt;  [481] "Acacia floydii"                                                     </span>
-<span class="co">#&gt;  [482] "Acacia formidabilis"                                                </span>
-<span class="co">#&gt;  [483] "Acacia forrestiana"                                                 </span>
-<span class="co">#&gt;  [484] "Acacia forsythii"                                                   </span>
-<span class="co">#&gt;  [485] "Acacia froggattii"                                                  </span>
-<span class="co">#&gt;  [486] "Acacia galeata"                                                     </span>
-<span class="co">#&gt;  [487] "Acacia galioides"                                                   </span>
-<span class="co">#&gt;  [488] "Acacia gardneri"                                                    </span>
-<span class="co">#&gt;  [489] "Acacia gelasina"                                                    </span>
-<span class="co">#&gt;  [490] "Acacia gemina"                                                      </span>
-<span class="co">#&gt;  [491] "Acacia georgensis"                                                  </span>
-<span class="co">#&gt;  [492] "Acacia gibbosa"                                                     </span>
-<span class="co">#&gt;  [493] "Acacia gilbertii"                                                   </span>
-<span class="co">#&gt;  [494] "Acacia gilesiana"                                                   </span>
-<span class="co">#&gt;  [495] "Acacia gittinsii"                                                   </span>
-<span class="co">#&gt;  [496] "Acacia glaucissima"                                                 </span>
-<span class="co">#&gt;  [497] "Acacia glaucocaesia"                                                </span>
-<span class="co">#&gt;  [498] "Acacia glaucocarpa"                                                 </span>
-<span class="co">#&gt;  [499] "Acacia glaucoptera"                                                 </span>
-<span class="co">#&gt;  [500] "Acacia gloeotricha"                                                 </span>
-<span class="co">#&gt;  [501] "Acacia glutinosissima"                                              </span>
-<span class="co">#&gt;  [502] "Acacia gnidium"                                                     </span>
-<span class="co">#&gt;  [503] "Acacia gonocarpa"                                                   </span>
-<span class="co">#&gt;  [504] "Acacia gonoclada"                                                   </span>
-<span class="co">#&gt;  [505] "Acacia gonophylla"                                                  </span>
-<span class="co">#&gt;  [506] "Acacia gracilenta"                                                  </span>
-<span class="co">#&gt;  [507] "Acacia gracilifolia"                                                </span>
-<span class="co">#&gt;  [508] "Acacia minniritchi"                                                 </span>
-<span class="co">#&gt;  [509] "Acacia grandifolia"                                                 </span>
-<span class="co">#&gt;  [510] "Acacia graniticola"                                                 </span>
-<span class="co">#&gt;  [511] "Acacia grasbyi"                                                     </span>
-<span class="co">#&gt;  [512] "Acacia gregorii"                                                    </span>
-<span class="co">#&gt;  [513] "Acacia grisea"                                                      </span>
-<span class="co">#&gt;  [514] "Acacia guinetii"                                                    </span>
-<span class="co">#&gt;  [515] "Acacia guymeri"                                                     </span>
-<span class="co">#&gt;  [516] "Acacia hadrophylla"                                                 </span>
-<span class="co">#&gt;  [517] "Acacia hamersleyensis"                                              </span>
-<span class="co">#&gt;  [518] "Acacia hamiltoniana"                                                </span>
-<span class="co">#&gt;  [519] "Acacia hammondii"                                                   </span>
-<span class="co">#&gt;  [520] "Acacia handonis"                                                    </span>
-<span class="co">#&gt;  [521] "Acacia harpophylla"                                                 </span>
-<span class="co">#&gt;  [522] "Acacia hastulata"                                                   </span>
-<span class="co">#&gt;  [523] "Acacia helicophylla"                                                </span>
-<span class="co">#&gt;  [524] "Acacia helmsiana"                                                   </span>
-<span class="co">#&gt;  [525] "Acacia hemignosta"                                                  </span>
-<span class="co">#&gt;  [526] "Acacia hemsleyi"                                                    </span>
-<span class="co">#&gt;  [527] "Acacia heterochroa"                                                 </span>
-<span class="co">#&gt;  [528] "Acacia heteroclita"                                                 </span>
-<span class="co">#&gt;  [529] "Acacia heteroneura"                                                 </span>
-<span class="co">#&gt;  [530] "Acacia hexaneura"                                                   </span>
-<span class="co">#&gt;  [531] "Acacia hippuroides"                                                 </span>
-<span class="co">#&gt;  [532] "Acacia hispidula"                                                   </span>
-<span class="co">#&gt;  [533] "Acacia hockingsii"                                                  </span>
-<span class="co">#&gt;  [534] "Acacia holosericea"                                                 </span>
-<span class="co">#&gt;  [535] "Acacia holotricha"                                                  </span>
-<span class="co">#&gt;  [536] "Acacia homaloclada"                                                 </span>
-<span class="co">#&gt;  [537] "Acacia horridula"                                                   </span>
-<span class="co">#&gt;  [538] "Acacia howittii"                                                    </span>
-<span class="co">#&gt;  [539] "Acacia hubbardiana"                                                 </span>
-<span class="co">#&gt;  [540] "Acacia huegelii"                                                    </span>
-<span class="co">#&gt;  [541] "Acacia humifusa"                                                    </span>
-<span class="co">#&gt;  [542] "Acacia hyaloneura"                                                  </span>
-<span class="co">#&gt;  [543] "Acacia hylonoma"                                                    </span>
-<span class="co">#&gt;  [544] "Acacia hypermeces"                                                  </span>
-<span class="co">#&gt;  [545] "Acacia hystrix"                                                     </span>
-<span class="co">#&gt;  [546] "Acacia idiomorpha"                                                  </span>
-<span class="co">#&gt;  [547] "Acacia imbricata"                                                   </span>
-<span class="co">#&gt;  [548] "Acacia imitans"                                                     </span>
-<span class="co">#&gt;  [549] "Acacia imparilis"                                                   </span>
-<span class="co">#&gt;  [550] "Acacia improcera"                                                   </span>
-<span class="co">#&gt;  [551] "Acacia inaequilatera"                                               </span>
-<span class="co">#&gt;  [552] "Acacia inaequiloba"                                                 </span>
-<span class="co">#&gt;  [553] "Acacia inamabilis"                                                  </span>
-<span class="co">#&gt;  [554] "Acacia incanicarpa"                                                 </span>
-<span class="co">#&gt;  [555] "Acacia inceana"                                                     </span>
-<span class="co">#&gt;  [556] "Acacia incongesta"                                                  </span>
-<span class="co">#&gt;  [557] "Acacia incrassata"                                                  </span>
-<span class="co">#&gt;  [558] "Acacia incurva"                                                     </span>
-<span class="co">#&gt;  [559] "Acacia ingrata"                                                     </span>
-<span class="co">#&gt;  [560] "Acacia inophloia"                                                   </span>
-<span class="co">#&gt;  [561] "Acacia inops"                                                       </span>
-<span class="co">#&gt;  [562] "Acacia insolita"                                                    </span>
-<span class="co">#&gt;  [563] "Acacia intorta"                                                     </span>
-<span class="co">#&gt;  [564] "Acacia intricata"                                                   </span>
-<span class="co">#&gt;  [565] "Acacia irrorata"                                                    </span>
-<span class="co">#&gt;  [566] "Acacia islana"                                                      </span>
-<span class="co">#&gt;  [567] "Acacia isoneura"                                                    </span>
-<span class="co">#&gt;  [568] "Acacia iteaphylla"                                                  </span>
-<span class="co">#&gt;  [569] "Acacia ixiophylla"                                                  </span>
-<span class="co">#&gt;  [570] "Acacia ixodes"                                                      </span>
-<span class="co">#&gt;  [571] "Acacia jackesiana"                                                  </span>
-<span class="co">#&gt;  [572] "Acacia jacksonioides"                                               </span>
-<span class="co">#&gt;  [573] "Acacia jamesiana"                                                   </span>
-<span class="co">#&gt;  [574] "Acacia jasperensis"                                                 </span>
-<span class="co">#&gt;  [575] "Acacia jennerae"                                                    </span>
-<span class="co">#&gt;  [576] "Acacia jensenii"                                                    </span>
-<span class="co">#&gt;  [577] "Acacia johannis"                                                    </span>
-<span class="co">#&gt;  [578] "Acacia johnsonii"                                                   </span>
-<span class="co">#&gt;  [579] "Acacia jonesii"                                                     </span>
-<span class="co">#&gt;  [580] "Acacia jucunda"                                                     </span>
-<span class="co">#&gt;  [581] "Acacia julifera"                                                    </span>
-<span class="co">#&gt;  [582] "Acacia juncifolia"                                                  </span>
-<span class="co">#&gt;  [583] "Acacia kalgoorliensis"                                              </span>
-<span class="co">#&gt;  [584] "Acacia kelleri"                                                     </span>
-<span class="co">#&gt;  [585] "Acacia kenneallyi"                                                  </span>
-<span class="co">#&gt;  [586] "Acacia kerryana"                                                    </span>
-<span class="co">#&gt;  [587] "Acacia kettlewelliae"                                               </span>
-<span class="co">#&gt;  [588] "Acacia kimberleyensis"                                              </span>
-<span class="co">#&gt;  [589] "Acacia kingiana"                                                    </span>
-<span class="co">#&gt;  [590] "Acacia kochii"                                                      </span>
-<span class="co">#&gt;  [591] "Acacia kybeanensis"                                                 </span>
-<span class="co">#&gt;  [592] "Acacia kydrensis"                                                   </span>
-<span class="co">#&gt;  [593] "Acacia laccata"                                                     </span>
-<span class="co">#&gt;  [594] "Acacia lacertensis"                                                 </span>
-<span class="co">#&gt;  [595] "Acacia lachnophylla"                                                </span>
-<span class="co">#&gt;  [596] "Acacia lanceolata"                                                  </span>
-<span class="co">#&gt;  [597] "Acacia lanei"                                                       </span>
-<span class="co">#&gt;  [598] "Acacia lanigera"                                                    </span>
-<span class="co">#&gt;  [599] "Acacia lanuginophylla"                                              </span>
-<span class="co">#&gt;  [600] "Acacia laricina"                                                    </span>
-<span class="co">#&gt;  [601] "Acacia lasiocalyx"                                                  </span>
-<span class="co">#&gt;  [602] "Acacia lasiocarpa"                                                  </span>
-<span class="co">#&gt;  [603] "Acacia lateriticola"                                                </span>
-<span class="co">#&gt;  [604] "Acacia latescens"                                                   </span>
-<span class="co">#&gt;  [605] "Acacia latifolia"                                                   </span>
-<span class="co">#&gt;  [606] "Acacia latipes"                                                     </span>
-<span class="co">#&gt;  [607] "Acacia latisepala"                                                  </span>
-<span class="co">#&gt;  [608] "Acacia latzii"                                                      </span>
-<span class="co">#&gt;  [609] "Acacia lazaridis"                                                   </span>
-<span class="co">#&gt;  [610] "Acacia legnota"                                                     </span>
-<span class="co">#&gt;  [611] "Acacia leichhardtii"                                                </span>
-<span class="co">#&gt;  [612] "Acacia leiocalyx"                                                   </span>
-<span class="co">#&gt;  [613] "Acacia leioderma"                                                   </span>
-<span class="co">#&gt;  [614] "Acacia lentiginea"                                                  </span>
-<span class="co">#&gt;  [615] "Acacia leptalea"                                                    </span>
-<span class="co">#&gt;  [616] "Acacia leptocarpa"                                                  </span>
-<span class="co">#&gt;  [617] "Acacia leptoclada"                                                  </span>
-<span class="co">#&gt;  [618] "Acacia leptoloba"                                                   </span>
-<span class="co">#&gt;  [619] "Acacia leptoneura"                                                  </span>
-<span class="co">#&gt;  [620] "Acacia leptopetala"                                                 </span>
-<span class="co">#&gt;  [621] "Acacia leptophleba"                                                 </span>
-<span class="co">#&gt;  [622] "Acacia leptospermoides"                                             </span>
-<span class="co">#&gt;  [623] "Acacia leptostachya"                                                </span>
-<span class="co">#&gt;  [624] "Acacia leucoclada"                                                  </span>
-<span class="co">#&gt;  [625] "Acacia leucolobia"                                                  </span>
-<span class="co">#&gt;  [626] "Acacia levata"                                                      </span>
-<span class="co">#&gt;  [627] "Acacia ligustrina"                                                  </span>
-<span class="co">#&gt;  [628] "Acacia limbata"                                                     </span>
-<span class="co">#&gt;  [629] "Acacia linarioides"                                                 </span>
-<span class="co">#&gt;  [630] "Acacia lineolata"                                                   </span>
-<span class="co">#&gt;  [631] "Acacia lirellata"                                                   </span>
-<span class="co">#&gt;  [632] "Acacia lobulata"                                                    </span>
-<span class="co">#&gt;  [633] "Acacia longipedunculata"                                            </span>
-<span class="co">#&gt;  [634] "Acacia longiphyllodinea"                                            </span>
-<span class="co">#&gt;  [635] "Acacia longispicata"                                                </span>
-<span class="co">#&gt;  [636] "Acacia longispinea"                                                 </span>
-<span class="co">#&gt;  [637] "Acacia longissima"                                                  </span>
-<span class="co">#&gt;  [638] "Acacia loroloba"                                                    </span>
-<span class="co">#&gt;  [639] "Acacia loxophylla"                                                  </span>
-<span class="co">#&gt;  [640] "Acacia lullfitziorum"                                               </span>
-<span class="co">#&gt;  [641] "Acacia luteola"                                                     </span>
-<span class="co">#&gt;  [642] "Acacia lysiphloia"                                                  </span>
-<span class="co">#&gt;  [643] "Acacia mabellae"                                                    </span>
-<span class="co">#&gt;  [644] "Acacia macdonnellensis"                                             </span>
-<span class="co">#&gt;  [645] "Acacia mackeyana"                                                   </span>
-<span class="co">#&gt;  [646] "Acacia macnuttiana"                                                 </span>
-<span class="co">#&gt;  [647] "Acacia maconochieana"                                               </span>
-<span class="co">#&gt;  [648] "Acacia macradenia"                                                  </span>
-<span class="co">#&gt;  [649] "Acacia maidenii"                                                    </span>
-<span class="co">#&gt;  [650] "Acacia maitlandii"                                                  </span>
-<span class="co">#&gt;  [651] "Acacia malloclada"                                                  </span>
-<span class="co">#&gt;  [652] "Acacia manipularis"                                                 </span>
-<span class="co">#&gt;  [653] "Acacia maranoensis"                                                 </span>
-<span class="co">#&gt;  [654] "Acacia marramamba"                                                  </span>
-<span class="co">#&gt;  [655] "Acacia masliniana"                                                  </span>
-<span class="co">#&gt;  [656] "Acacia matthewii"                                                   </span>
-<span class="co">#&gt;  [657] "Acacia maxwellii"                                                   </span>
-<span class="co">#&gt;  [658] "Acacia megacephala"                                                 </span>
-<span class="co">#&gt;  [659] "Acacia meiantha"                                                    </span>
-<span class="co">#&gt;  [660] "Acacia meiosperma"                                                  </span>
-<span class="co">#&gt;  [661] "Acacia melvillei"                                                   </span>
-<span class="co">#&gt;  [662] "Acacia merinthophora"                                               </span>
-<span class="co">#&gt;  [663] "Acacia merrickiae"                                                  </span>
-<span class="co">#&gt;  [664] "Acacia microbotrya"                                                 </span>
-<span class="co">#&gt;  [665] "Acacia microcalyx"                                                  </span>
-<span class="co">#&gt;  [666] "Acacia microcarpa"                                                  </span>
-<span class="co">#&gt;  [667] "Acacia microcybe"                                                   </span>
-<span class="co">#&gt;  [668] "Acacia microneura"                                                  </span>
-<span class="co">#&gt;  [669] "Acacia microsperma"                                                 </span>
-<span class="co">#&gt;  [670] "Acacia mimica"                                                      </span>
-<span class="co">#&gt;  [671] "Acacia mimula"                                                      </span>
-<span class="co">#&gt;  [672] "Acacia mitodes"                                                     </span>
-<span class="co">#&gt;  [673] "Acacia moirii"                                                      </span>
-<span class="co">#&gt;  [674] "Acacia monticola"                                                   </span>
-<span class="co">#&gt;  [675] "Acacia mooreana"                                                    </span>
-<span class="co">#&gt;  [676] "Acacia mountfordiae"                                                </span>
-<span class="co">#&gt;  [677] "Acacia mucronata"                                                   </span>
-<span class="co">#&gt;  [678] "Acacia multisiliqua"                                                </span>
-<span class="co">#&gt;  [679] "Acacia multispicata"                                                </span>
-<span class="co">#&gt;  [680] "Acacia multistipulosa"                                              </span>
-<span class="co">#&gt;  [681] "Acacia murrayana"                                                   </span>
-<span class="co">#&gt;  [682] "Acacia mutabilis"                                                   </span>
-<span class="co">#&gt;  [683] "Acacia nanodealbata"                                                </span>
-<span class="co">#&gt;  [684] "Acacia nervosa"                                                     </span>
-<span class="co">#&gt;  [685] "Acacia nesophila"                                                   </span>
-<span class="co">#&gt;  [686] "Acacia neurocarpa"                                                  </span>
-<span class="co">#&gt;  [687] "Acacia neurophylla"                                                 </span>
-<span class="co">#&gt;  [688] "Acacia newbeyi"                                                     </span>
-<span class="co">#&gt;  [689] "Acacia nigricans"                                                   </span>
-<span class="co">#&gt;  [690] "Acacia nigripilosa"                                                 </span>
-<span class="co">#&gt;  [691] "Acacia nitidula"                                                    </span>
-<span class="co">#&gt;  [692] "Acacia nivea"                                                       </span>
-<span class="co">#&gt;  [693] "Acacia nodiflora"                                                   </span>
-<span class="co">#&gt;  [694] "Acacia nuperrima"                                                   </span>
-<span class="co">#&gt;  [695] "Acacia obesa"                                                       </span>
-<span class="co">#&gt;  [696] "Acacia obovata"                                                     </span>
-<span class="co">#&gt;  [697] "Acacia obtecta"                                                     </span>
-<span class="co">#&gt;  [698] "Acacia octonervia"                                                  </span>
-<span class="co">#&gt;  [699] "Acacia oldfieldii"                                                  </span>
-<span class="co">#&gt;  [700] "Acacia olgana"                                                      </span>
-<span class="co">#&gt;  [701] "Acacia oligoneura"                                                  </span>
-<span class="co">#&gt;  [702] "Acacia olsenii"                                                     </span>
-<span class="co">#&gt;  [703] "Acacia ommatosperma"                                                </span>
-<span class="co">#&gt;  [704] "Acacia oncinocarpa"                                                 </span>
-<span class="co">#&gt;  [705] "Acacia oncinophylla"                                                </span>
-<span class="co">#&gt;  [706] "Acacia ophiolithica"                                                </span>
-<span class="co">#&gt;  [707] "Acacia oraria"                                                      </span>
-<span class="co">#&gt;  [708] "Acacia orbifolia"                                                   </span>
-<span class="co">#&gt;  [709] "Acacia orites"                                                      </span>
-<span class="co">#&gt;  [710] "Acacia orthotricha"                                                 </span>
-<span class="co">#&gt;  [711] "Acacia oshanesii"                                                   </span>
-<span class="co">#&gt;  [712] "Acacia pachyacra"                                                   </span>
-<span class="co">#&gt;  [713] "Acacia pachycarpa"                                                  </span>
-<span class="co">#&gt;  [714] "Acacia pachyphylla"                                                 </span>
-<span class="co">#&gt;  [715] "Acacia pachypoda"                                                   </span>
-<span class="co">#&gt;  [716] "Acacia papulosa"                                                    </span>
-<span class="co">#&gt;  [717] "Acacia papyrocarpa"                                                 </span>
-<span class="co">#&gt;  [718] "Acacia paraneura"                                                   </span>
-<span class="co">#&gt;  [719] "Acacia parvipinnula"                                                </span>
-<span class="co">#&gt;  [720] "Acacia pataczekii"                                                  </span>
-<span class="co">#&gt;  [721] "Acacia patagiata"                                                   </span>
-<span class="co">#&gt;  [722] "Acacia paula"                                                       </span>
-<span class="co">#&gt;  [723] "Acacia pedleyi"                                                     </span>
-<span class="co">#&gt;  [724] "Acacia pellita"                                                     </span>
-<span class="co">#&gt;  [725] "Acacia pelophila"                                                   </span>
-<span class="co">#&gt;  [726] "Acacia pentadenia"                                                  </span>
-<span class="co">#&gt;  [727] "Acacia perryi"                                                      </span>
-<span class="co">#&gt;  [728] "Acacia petraea"                                                     </span>
-<span class="co">#&gt;  [729] "Acacia phaeocalyx"                                                  </span>
-<span class="co">#&gt;  [730] "Acacia pharangites"                                                 </span>
-<span class="co">#&gt;  [731] "Acacia phlebocarpa"                                                 </span>
-<span class="co">#&gt;  [732] "Acacia phlebopetala"                                                </span>
-<span class="co">#&gt;  [733] "Acacia pickardii"                                                   </span>
-<span class="co">#&gt;  [734] "Acacia pilligaensis"                                                </span>
-<span class="co">#&gt;  [735] "Acacia pinguiculosa"                                                </span>
-<span class="co">#&gt;  [736] "Acacia pinguifolia"                                                 </span>
-<span class="co">#&gt;  [737] "Acacia plautella"                                                   </span>
-<span class="co">#&gt;  [738] "Acacia plectocarpa"                                                 </span>
-<span class="co">#&gt;  [739] "Acacia plicata"                                                     </span>
-<span class="co">#&gt;  [740] "Acacia polifolia"                                                   </span>
-<span class="co">#&gt;  [741] "Acacia poliochroa"                                                  </span>
-<span class="co">#&gt;  [742] "Acacia polyadenia"                                                  </span>
-<span class="co">#&gt;  [743] "Acacia polybotrya"                                                  </span>
-<span class="co">#&gt;  [744] "Acacia polystachya"                                                 </span>
-<span class="co">#&gt;  [745] "Acacia porcata"                                                     </span>
-<span class="co">#&gt;  [746] "Acacia praelongata"                                                 </span>
-<span class="co">#&gt;  [747] "Acacia praemorsa"                                                   </span>
-<span class="co">#&gt;  [748] "Acacia praetermissa"                                                </span>
-<span class="co">#&gt;  [749] "Acacia prainii"                                                     </span>
-<span class="co">#&gt;  [750] "Acacia preissiana"                                                  </span>
-<span class="co">#&gt;  [751] "Acacia prismifolia"                                                 </span>
-<span class="co">#&gt;  [752] "Acacia pritzeliana"                                                 </span>
-<span class="co">#&gt;  [753] "Acacia producta"                                                    </span>
-<span class="co">#&gt;  [754] "Acacia profusa"                                                     </span>
-<span class="co">#&gt;  [755] "Acacia proiantha"                                                   </span>
-<span class="co">#&gt;  [756] "Acacia prominens"                                                   </span>
-<span class="co">#&gt;  [757] "Acacia pruinosa"                                                    </span>
-<span class="co">#&gt;  [758] "Acacia pterocaulon"                                                 </span>
-<span class="co">#&gt;  [759] "Acacia ptychoclada"                                                 </span>
-<span class="co">#&gt;  [760] "Acacia ptychophylla"                                                </span>
-<span class="co">#&gt;  [761] "Acacia pubicosta"                                                   </span>
-<span class="co">#&gt;  [762] "Acacia pubifolia"                                                   </span>
-<span class="co">#&gt;  [763] "Acacia pubirhachis"                                                 </span>
-<span class="co">#&gt;  [764] "Acacia pulchella"                                                   </span>
-<span class="co">#&gt;  [765] "Acacia pulviniformis"                                               </span>
-<span class="co">#&gt;  [766] "Acacia puncticulata"                                                </span>
-<span class="co">#&gt;  [767] "Acacia purpureopetala"                                              </span>
-<span class="co">#&gt;  [768] "Acacia pusilla"                                                     </span>
-<span class="co">#&gt;  [769] "Acacia pustula"                                                     </span>
-<span class="co">#&gt;  [770] "Acacia pycnocephala"                                                </span>
-<span class="co">#&gt;  [771] "Acacia pygmaea"                                                     </span>
-<span class="co">#&gt;  [772] "Acacia pyrifolia"                                                   </span>
-<span class="co">#&gt;  [773] "Acacia quadrilateralis"                                             </span>
-<span class="co">#&gt;  [774] "Acacia quadrimarginea"                                              </span>
-<span class="co">#&gt;  [775] "Acacia quadrisulcata"                                               </span>
-<span class="co">#&gt;  [776] "Acacia quinquenervia"                                               </span>
-<span class="co">#&gt;  [777] "Acacia quornensis"                                                  </span>
-<span class="co">#&gt;  [778] "Acacia racospermoides"                                              </span>
-<span class="co">#&gt;  [779] "Acacia ramiflora"                                                   </span>
-<span class="co">#&gt;  [780] "Acacia ramulosa"                                                    </span>
-<span class="co">#&gt;  [781] "Acacia recurvata"                                                   </span>
-<span class="co">#&gt;  [782] "Acacia redolens"                                                    </span>
-<span class="co">#&gt;  [783] "Acacia rendlei"                                                     </span>
-<span class="co">#&gt;  [784] "Acacia repanda"                                                     </span>
-<span class="co">#&gt;  [785] "Acacia repens"                                                      </span>
-<span class="co">#&gt;  [786] "Acacia resinicostata"                                               </span>
-<span class="co">#&gt;  [787] "Acacia resinimarginea"                                              </span>
-<span class="co">#&gt;  [788] "Acacia resinistipulea"                                              </span>
-<span class="co">#&gt;  [789] "Acacia resinosa"                                                    </span>
-<span class="co">#&gt;  [790] "Acacia restiacea"                                                   </span>
-<span class="co">#&gt;  [791] "Acacia retinervis"                                                  </span>
-<span class="co">#&gt;  [792] "Acacia retivenea"                                                   </span>
-<span class="co">#&gt;  [793] "Acacia retrorsa"                                                    </span>
-<span class="co">#&gt;  [794] "Acacia rhamphophylla"                                               </span>
-<span class="co">#&gt;  [795] "Acacia rhigiophylla"                                                </span>
-<span class="co">#&gt;  [796] "Acacia rhodoxylon"                                                  </span>
-<span class="co">#&gt;  [797] "Acacia riceana"                                                     </span>
-<span class="co">#&gt;  [798] "Acacia richardsii"                                                  </span>
-<span class="co">#&gt;  [799] "Acacia ridleyana"                                                   </span>
-<span class="co">#&gt;  [800] "Acacia rigescens"                                                   </span>
-<span class="co">#&gt;  [801] "Acacia neorigida"                                                   </span>
-<span class="co">#&gt;  [802] "Acacia rivalis"                                                     </span>
-<span class="co">#&gt;  [803] "Acacia robiniae"                                                    </span>
-<span class="co">#&gt;  [804] "Acacia rostellata"                                                  </span>
-<span class="co">#&gt;  [805] "Acacia rostellifera"                                                </span>
-<span class="co">#&gt;  [806] "Acacia rothii"                                                      </span>
-<span class="co">#&gt;  [807] "Acacia roycei"                                                      </span>
-<span class="co">#&gt;  [808] "Acacia rupicola"                                                    </span>
-<span class="co">#&gt;  [809] "Acacia ruppii"                                                      </span>
-<span class="co">#&gt;  [810] "Acacia ryaniana"                                                    </span>
-<span class="co">#&gt;  [811] "Acacia sabulosa"                                                    </span>
-<span class="co">#&gt;  [812] "Acacia saliciformis"                                                </span>
-<span class="co">#&gt;  [813] "Acacia saxatilis"                                                   </span>
-<span class="co">#&gt;  [814] "Acacia saxicola"                                                    </span>
-<span class="co">#&gt;  [815] "Acacia scalena"                                                     </span>
-<span class="co">#&gt;  [816] "Acacia scalpelliformis"                                             </span>
-<span class="co">#&gt;  [817] "Acacia schinoides"                                                  </span>
-<span class="co">#&gt;  [818] "Acacia sciophanes"                                                  </span>
-<span class="co">#&gt;  [819] "Acacia scirpifolia"                                                 </span>
-<span class="co">#&gt;  [820] "Acacia scleroclada"                                                 </span>
-<span class="co">#&gt;  [821] "Acacia sclerosperma"                                                </span>
-<span class="co">#&gt;  [822] "Acacia scopulorum"                                                  </span>
-<span class="co">#&gt;  [823] "Acacia sedifolia"                                                   </span>
-<span class="co">#&gt;  [824] "Acacia semicircinalis"                                              </span>
-<span class="co">#&gt;  [825] "Acacia semilunata"                                                  </span>
-<span class="co">#&gt;  [826] "Acacia semirigida"                                                  </span>
-<span class="co">#&gt;  [827] "Acacia semitrullata"                                                </span>
-<span class="co">#&gt;  [828] "Acacia sericata"                                                    </span>
-<span class="co">#&gt;  [829] "Acacia sericocarpa"                                                 </span>
-<span class="co">#&gt;  [830] "Acacia sericoflora"                                                 </span>
-<span class="co">#&gt;  [831] "Acacia sertiformis"                                                 </span>
-<span class="co">#&gt;  [832] "Acacia sessilis"                                                    </span>
-<span class="co">#&gt;  [833] "Acacia sessilispica"                                                </span>
-<span class="co">#&gt;  [834] "Acacia setulifera"                                                  </span>
-<span class="co">#&gt;  [835] "Acacia shirleyi"                                                    </span>
-<span class="co">#&gt;  [836] "Acacia shuttleworthii"                                              </span>
-<span class="co">#&gt;  [837] "Acacia sibilans"                                                    </span>
-<span class="co">#&gt;  [838] "Acacia sibina"                                                      </span>
-<span class="co">#&gt;  [839] "Acacia signata"                                                     </span>
-<span class="co">#&gt;  [840] "Acacia simsii"                                                      </span>
-<span class="co">#&gt;  [841] "Acacia simulans"                                                    </span>
-<span class="co">#&gt;  [842] "Acacia singula"                                                     </span>
-<span class="co">#&gt;  [843] "Acacia smeringa"                                                    </span>
-<span class="co">#&gt;  [844] "Acacia solenota"                                                    </span>
-<span class="co">#&gt;  [845] "Acacia sorophylla"                                                  </span>
-<span class="co">#&gt;  [846] "Acacia spania"                                                      </span>
-<span class="co">#&gt;  [847] "Acacia sparsiflora"                                                 </span>
-<span class="co">#&gt;  [848] "Acacia spathulifolia"                                               </span>
-<span class="co">#&gt;  [849] "Acacia speckii"                                                     </span>
-<span class="co">#&gt;  [850] "Acacia spectabilis"                                                 </span>
-<span class="co">#&gt;  [851] "Acacia sphacelata"                                                  </span>
-<span class="co">#&gt;  [852] "Acacia sphaerostachya"                                              </span>
-<span class="co">#&gt;  [853] "Acacia sphenophylla"                                                </span>
-<span class="co">#&gt;  [854] "Acacia spilleriana"                                                 </span>
-<span class="co">#&gt;  [855] "Acacia spinosissima"                                                </span>
-<span class="co">#&gt;  [856] "Acacia spondylophylla"                                              </span>
-<span class="co">#&gt;  [857] "Acacia spongolitica"                                                </span>
-<span class="co">#&gt;  [858] "Acacia squamata"                                                    </span>
-<span class="co">#&gt;  [859] "Acacia startii"                                                     </span>
-<span class="co">#&gt;  [860] "Acacia steedmanii"                                                  </span>
-<span class="co">#&gt;  [861] "Acacia stellaticeps"                                                </span>
-<span class="co">#&gt;  [862] "Acacia stenophylla"                                                 </span>
-<span class="co">#&gt;  [863] "Acacia stenoptera"                                                  </span>
-<span class="co">#&gt;  [864] "Acacia stereophylla"                                                </span>
-<span class="co">#&gt;  [865] "Acacia stigmatophylla"                                              </span>
-<span class="co">#&gt;  [866] "Acacia stipuligera"                                                 </span>
-<span class="co">#&gt;  [867] "Acacia stipulosa"                                                   </span>
-<span class="co">#&gt;  [868] "Acacia striatifolia"                                                </span>
-<span class="co">#&gt;  [869] "Acacia strongylophylla"                                             </span>
-<span class="co">#&gt;  [870] "Acacia subflexuosa"                                                 </span>
-<span class="co">#&gt;  [871] "Acacia sublanata"                                                   </span>
-<span class="co">#&gt;  [872] "Acacia subracemosa"                                                 </span>
-<span class="co">#&gt;  [873] "Acacia subrigida"                                                   </span>
-<span class="co">#&gt;  [874] "Acacia subsessilis"                                                 </span>
-<span class="co">#&gt;  [875] "Acacia subternata"                                                  </span>
-<span class="co">#&gt;  [876] "Acacia subtessarogona"                                              </span>
-<span class="co">#&gt;  [877] "Acacia subtilinervis"                                               </span>
-<span class="co">#&gt;  [878] "Acacia sulcata"                                                     </span>
-<span class="co">#&gt;  [879] "Acacia symonii"                                                     </span>
-<span class="co">#&gt;  [880] "Acacia synchronicia"                                                </span>
-<span class="co">#&gt;  [881] "Acacia tarculensis"                                                 </span>
-<span class="co">#&gt;  [882] "Acacia tayloriana"                                                  </span>
-<span class="co">#&gt;  [883] "Acacia telmica"                                                     </span>
-<span class="co">#&gt;  [884] "Acacia tenuinervis"                                                 </span>
-<span class="co">#&gt;  [885] "Acacia tenuior"                                                     </span>
-<span class="co">#&gt;  [886] "Acacia tenuispica"                                                  </span>
-<span class="co">#&gt;  [887] "Acacia tenuissima"                                                  </span>
-<span class="co">#&gt;  [888] "Acacia tephrina"                                                    </span>
-<span class="co">#&gt;  [889] "Acacia teretifolia"                                                 </span>
-<span class="co">#&gt;  [890] "Acacia tessellata"                                                  </span>
-<span class="co">#&gt;  [891] "Acacia tetanophylla"                                                </span>
-<span class="co">#&gt;  [892] "Acacia tetragonocarpa"                                              </span>
-<span class="co">#&gt;  [893] "Acacia tetraneura"                                                  </span>
-<span class="co">#&gt;  [894] "Acacia tetraptera"                                                  </span>
-<span class="co">#&gt;  [895] "Acacia thomsonii"                                                   </span>
-<span class="co">#&gt;  [896] "Acacia tolmerensis"                                                 </span>
-<span class="co">#&gt;  [897] "Acacia torticarpa"                                                  </span>
-<span class="co">#&gt;  [898] "Acacia torulosa"                                                    </span>
-<span class="co">#&gt;  [899] "Acacia trachycarpa"                                                 </span>
-<span class="co">#&gt;  [900] "Acacia translucens"                                                 </span>
-<span class="co">#&gt;  [901] "Acacia tratmaniana"                                                 </span>
-<span class="co">#&gt;  [902] "Acacia trigonophylla"                                               </span>
-<span class="co">#&gt;  [903] "Acacia trinalis"                                                    </span>
-<span class="co">#&gt;  [904] "Acacia trinervata"                                                  </span>
-<span class="co">#&gt;  [905] "Acacia trineura"                                                    </span>
-<span class="co">#&gt;  [906] "Acacia triptycha"                                                   </span>
-<span class="co">#&gt;  [907] "Acacia tropica"                                                     </span>
-<span class="co">#&gt;  [908] "Acacia truculenta"                                                  </span>
-<span class="co">#&gt;  [909] "Acacia trulliformis"                                                </span>
-<span class="co">#&gt;  [910] "Acacia truncata"                                                    </span>
-<span class="co">#&gt;  [911] "Acacia tuberculata"                                                 </span>
-<span class="co">#&gt;  [912] "Acacia tumida"                                                      </span>
-<span class="co">#&gt;  [913] "Acacia tysonii"                                                     </span>
-<span class="co">#&gt;  [914] "Acacia ulicina"                                                     </span>
-<span class="co">#&gt;  [915] "Acacia uliginosa"                                                   </span>
-<span class="co">#&gt;  [916] "Acacia umbellata"                                                   </span>
-<span class="co">#&gt;  [917] "Acacia uncifera"                                                    </span>
-<span class="co">#&gt;  [918] "Acacia uncinella"                                                   </span>
-<span class="co">#&gt;  [919] "Acacia undoolyana"                                                  </span>
-<span class="co">#&gt;  [920] "Acacia undosa"                                                      </span>
-<span class="co">#&gt;  [921] "Acacia undulifolia"                                                 </span>
-<span class="co">#&gt;  [922] "Acacia unguicula"                                                   </span>
-<span class="co">#&gt;  [923] "Acacia unifissilis"                                                 </span>
-<span class="co">#&gt;  [924] "Acacia urophylla"                                                   </span>
-<span class="co">#&gt;  [925] "Acacia validinervia"                                                </span>
-<span class="co">#&gt;  [926] "Acacia varia"                                                       </span>
-<span class="co">#&gt;  [927] "Acacia vassalii"                                                    </span>
-<span class="co">#&gt;  [928] "Acacia veronica"                                                    </span>
-<span class="co">#&gt;  [929] "Acacia verriculum"                                                  </span>
-<span class="co">#&gt;  [930] "Acacia vestita"                                                     </span>
-<span class="co">#&gt;  [931] "Acacia vincentii"                                                   </span>
-<span class="co">#&gt;  [932] "Acacia viscidula"                                                   </span>
-<span class="co">#&gt;  [933] "Acacia viscifolia"                                                  </span>
-<span class="co">#&gt;  [934] "Acacia vittata"                                                     </span>
-<span class="co">#&gt;  [935] "Acacia volubilis"                                                   </span>
-<span class="co">#&gt;  [936] "Acacia wanyu"                                                       </span>
-<span class="co">#&gt;  [937] "Acacia wardellii"                                                   </span>
-<span class="co">#&gt;  [938] "Acacia warramaba"                                                   </span>
-<span class="co">#&gt;  [939] "Acacia wattsiana"                                                   </span>
-<span class="co">#&gt;  [940] "Acacia websteri"                                                    </span>
-<span class="co">#&gt;  [941] "Acacia whibleyana"                                                  </span>
-<span class="co">#&gt;  [942] "Acacia whitei"                                                      </span>
-<span class="co">#&gt;  [943] "Acacia wickhamii"                                                   </span>
-<span class="co">#&gt;  [944] "Acacia wilcoxii"                                                    </span>
-<span class="co">#&gt;  [945] "Acacia wilsonii"                                                    </span>
-<span class="co">#&gt;  [946] "Acacia wiseana"                                                     </span>
-<span class="co">#&gt;  [947] "Acacia xanthina"                                                    </span>
-<span class="co">#&gt;  [948] "Acacia xanthocarpa"                                                 </span>
-<span class="co">#&gt;  [949] "Acacia xerophila"                                                   </span>
-<span class="co">#&gt;  [950] "Acacia xiphophylla"                                                 </span>
-<span class="co">#&gt;  [951] "Acacia yirrkallensis"                                               </span>
-<span class="co">#&gt;  [952] "Acacia yorkrakinensis"                                              </span>
-<span class="co">#&gt;  [953] "Acacia zatrichota"                                                  </span>
-<span class="co">#&gt;  [954] "Acacia assimilis subsp. atroviridis"                                </span>
-<span class="co">#&gt;  [955] "Acacia beadleana"                                                   </span>
-<span class="co">#&gt;  [956] "Acacia burkittii"                                                   </span>
-<span class="co">#&gt;  [957] "Acacia colei var. colei"                                            </span>
-<span class="co">#&gt;  [958] "Acacia crassa subsp. crassa"                                        </span>
-<span class="co">#&gt;  [959] "Acacia dealbata subsp. dealbata"                                    </span>
-<span class="co">#&gt;  [960] "Acacia disparrima subsp. disparrima"                                </span>
-<span class="co">#&gt;  [961] "Acacia drewiana subsp. minor"                                       </span>
-<span class="co">#&gt;  [962] "Acacia sp. [Acacia eborensis]"                                      </span>
-<span class="co">#&gt;  [963] "Acacia enervia subsp. enervia"                                      </span>
-<span class="co">#&gt;  [964] "Acacia enervia subsp. explicata"                                    </span>
-<span class="co">#&gt;  [965] "Acacia irrorata subsp. irrorata"                                    </span>
-<span class="co">#&gt;  [966] "Acacia irrorata x parvipinnula"                                     </span>
-<span class="co">#&gt;  [967] "Acacia lamprocarpa"                                                 </span>
-<span class="co">#&gt;  [968] "Acacia laricina var. crassifolia"                                   </span>
-<span class="co">#&gt;  [969] "Acacia lasiocarpa var. bracteolata"                                 </span>
-<span class="co">#&gt;  [970] "Acacia leiocalyx subsp. herveyensis"                                </span>
-<span class="co">#&gt;  [971] "Acacia leptospermoides subsp. leptospermoides"                      </span>
-<span class="co">#&gt;  [972] "Acacia macdonnellensis subsp. macdonnellensis"                      </span>
-<span class="co">#&gt;  [973] "Acacia moirii subsp. recurvistipula"                                </span>
-<span class="co">#&gt;  [974] "Acacia mucronata subsp. longifolia"                                 </span>
-<span class="co">#&gt;  [975] "Acacia mutabilis subsp. mutabilis"                                  </span>
-<span class="co">#&gt;  [976] "Acacia sp. New England (J.B.Williams 97011)"                        </span>
-<span class="co">#&gt;  [977] "Acacia pedina"                                                      </span>
-<span class="co">#&gt;  [978] "Acacia ramulosa var. ramulosa"                                      </span>
-<span class="co">#&gt;  [979] "Acacia retivenea subsp. retivenea"                                  </span>
-<span class="co">#&gt;  [980] "Acacia sericophylla"                                                </span>
-<span class="co">#&gt;  [981] "Acacia sibirica"                                                    </span>
-<span class="co">#&gt;  [982] "Acacia sp."                                                         </span>
-<span class="co">#&gt;  [983] "Acacia sphacelata subsp. recurva"                                   </span>
-<span class="co">#&gt;  [984] "Acacia spirorbis subsp. solandri"                                   </span>
-<span class="co">#&gt;  [985] "Acacia terminalis subsp. Glabrous form (M.Hancock 94)"              </span>
-<span class="co">#&gt;  [986] "Acacia terminalis subsp. Eastern Sydney (G.P.Phillips 126)"         </span>
-<span class="co">#&gt;  [987] "Acacia torringtonensis"                                             </span>
-<span class="co">#&gt;  [988] "Acacia victoriae subsp. arida"                                      </span>
-<span class="co">#&gt;  [989] "Acacia williamsiana"                                                </span>
-<span class="co">#&gt;  [990] "Acacia celsa"                                                       </span>
-<span class="co">#&gt;  [991] "Acacia disparrima subsp. calidestris"                               </span>
-<span class="co">#&gt;  [992] "Acacia midgleyi"                                                    </span>
-<span class="co">#&gt;  [993] "Acacia spirorbis"                                                   </span>
-<span class="co">#&gt;  [994] "Acacia pulchella var. glaberrima"                                   </span>
-<span class="co">#&gt;  [995] "Acacia mariae"                                                      </span>
-<span class="co">#&gt;  [996] "Acacia sp. [Acacia cheelii or Acacia melanoxylon]"                  </span>
-<span class="co">#&gt;  [997] "Acacia sp. [Acacia brownii or Acacia ulicifolia]"                   </span>
-<span class="co">#&gt;  [998] "Acacia aemula subsp. muricata"                                      </span>
-<span class="co">#&gt;  [999] "Acacia alata var. alata"                                            </span>
-<span class="co">#&gt; [1000] "Acacia alata var. platyptera"                                       </span>
-<span class="co">#&gt; [1001] "Acacia ancistrophylla var. perarcuata"                              </span>
-<span class="co">#&gt; [1002] "Acacia aspera subsp. parviceps"                                     </span>
-<span class="co">#&gt; [1003] "Acacia ataxiphylla subsp. magna"                                    </span>
-<span class="co">#&gt; [1004] "Acacia barrettiorum"                                                </span>
-<span class="co">#&gt; [1005] "Acacia baueri subsp. aspera"                                        </span>
-<span class="co">#&gt; [1006] "Acacia beckleri subsp. beckleri"                                    </span>
-<span class="co">#&gt; [1007] "Acacia blakei subsp. diphylla"                                      </span>
-<span class="co">#&gt; [1008] "Acacia browniana var. browniana"                                    </span>
-<span class="co">#&gt; [1009] "Acacia burrana"                                                     </span>
-<span class="co">#&gt; [1010] "Acacia chapmanii subsp. australis"                                  </span>
-<span class="co">#&gt; [1011] "Acacia chapmanii subsp. chapmanii"                                  </span>
-<span class="co">#&gt; [1012] "Acacia cochlocarpa subsp. cochlocarpa"                              </span>
-<span class="co">#&gt; [1013] "Acacia cochlocarpa subsp. velutinosa"                               </span>
-<span class="co">#&gt; [1014] "Acacia cockertoniana"                                               </span>
-<span class="co">#&gt; [1015] "Acacia congesta subsp. congesta"                                    </span>
-<span class="co">#&gt; [1016] "Acacia congesta subsp. wonganensis"                                 </span>
-<span class="co">#&gt; [1017] "Acacia coriacea subsp. coriacea"                                    </span>
-<span class="co">#&gt; [1018] "Acacia cuthbertsonii subsp. cuthbertsonii"                          </span>
-<span class="co">#&gt; [1019] "Acacia cyperophylla var. cyperophylla"                              </span>
-<span class="co">#&gt; [1020] "Acacia daphnifolia"                                                 </span>
-<span class="co">#&gt; [1021] "Acacia drepanocarpa subsp. latifolia"                               </span>
-<span class="co">#&gt; [1022] "Acacia drummondii subsp. candolleana"                               </span>
-<span class="co">#&gt; [1023] "Acacia drummondii subsp. elegans"                                   </span>
-<span class="co">#&gt; [1024] "Acacia eremophila var. variabilis"                                  </span>
-<span class="co">#&gt; [1025] "Acacia excelsa subsp. angusta"                                      </span>
-<span class="co">#&gt; [1026] "Acacia excelsa subsp. excelsa"                                      </span>
-<span class="co">#&gt; [1027] "Acacia exudans"                                                     </span>
-<span class="co">#&gt; [1028] "Acacia flavipila var. ovalis"                                       </span>
-<span class="co">#&gt; [1029] "Acacia fuscaneura"                                                  </span>
-<span class="co">#&gt; [1030] "Acacia heterochroa subsp. heterochroa"                              </span>
-<span class="co">#&gt; [1031] "Acacia heteroclita subsp. heteroclita"                              </span>
-<span class="co">#&gt; [1032] "Acacia heteroclita subsp. valida"                                   </span>
-<span class="co">#&gt; [1033] "Acacia hopperiana"                                                  </span>
-<span class="co">#&gt; [1034] "Acacia inceana subsp. conformis"                                    </span>
-<span class="co">#&gt; [1035] "Acacia julifera subsp. gilbertensis"                                </span>
-<span class="co">#&gt; [1036] "Acacia lanigera var. lanigera"                                      </span>
-<span class="co">#&gt; [1037] "Acacia lasiocarpa var. sedifolia"                                   </span>
-<span class="co">#&gt; [1038] "Acacia latipes subsp. licina"                                       </span>
-<span class="co">#&gt; [1039] "Acacia leiocalyx subsp. leiocalyx"                                  </span>
-<span class="co">#&gt; [1040] "Acacia leprosa var. graveolens"                                     </span>
-<span class="co">#&gt; [1041] "Acacia leptospermoides subsp. psammophila"                          </span>
-<span class="co">#&gt; [1042] "Acacia leucoclada subsp. argentifolia"                              </span>
-<span class="co">#&gt; [1043] "Acacia leucoclada subsp. leucoclada"                                </span>
-<span class="co">#&gt; [1044] "Acacia lineolata subsp. lineolata"                                  </span>
-<span class="co">#&gt; [1045] "Acacia lirellata subsp. compressa"                                  </span>
-<span class="co">#&gt; [1046] "Acacia mucronata subsp. mucronata"                                  </span>
-<span class="co">#&gt; [1047] "Acacia mutabilis subsp. incurva"                                    </span>
-<span class="co">#&gt; [1048] "Acacia neurophylla subsp. erugata"                                  </span>
-<span class="co">#&gt; [1049] "Acacia neurophylla subsp. neurophylla"                              </span>
-<span class="co">#&gt; [1050] "Acacia nigripilosa subsp. latifolia"                                </span>
-<span class="co">#&gt; [1051] "Acacia oncinophylla subsp. patulifolia"                             </span>
-<span class="co">#&gt; [1052] "Acacia penninervis var. penninervis"                                </span>
-<span class="co">#&gt; [1053] "Acacia phlebopetala var. phlebopetala"                              </span>
-<span class="co">#&gt; [1054] "Acacia pinguiculosa subsp. pinguiculosa"                            </span>
-<span class="co">#&gt; [1055] "Acacia plectocarpa subsp. plectocarpa"                              </span>
-<span class="co">#&gt; [1056] "Acacia provincialis"                                                </span>
-<span class="co">#&gt; [1057] "Acacia pyrifolia var. pyrifolia"                                    </span>
-<span class="co">#&gt; [1058] "Acacia ramulosa var. linophylla"                                    </span>
-<span class="co">#&gt; [1059] "Acacia rostriformis"                                                </span>
-<span class="co">#&gt; [1060] "Acacia sclerophylla var. teretiuscula"                              </span>
-<span class="co">#&gt; [1061] "Acacia sclerosperma subsp. sclerosperma"                            </span>
-<span class="co">#&gt; [1062] "Acacia sedifolia subsp. pulvinata"                                  </span>
-<span class="co">#&gt; [1063] "Acacia serpentinicola"                                              </span>
-<span class="co">#&gt; [1064] "Acacia simmonsiana"                                                 </span>
-<span class="co">#&gt; [1065] "Acacia splendens"                                                   </span>
-<span class="co">#&gt; [1066] "Acacia spooneri"                                                    </span>
-<span class="co">#&gt; [1067] "Acacia stanleyi"                                                    </span>
-<span class="co">#&gt; [1068] "Acacia steedmanii subsp. borealis"                                  </span>
-<span class="co">#&gt; [1069] "Acacia stereophylla var. cylindrata"                                </span>
-<span class="co">#&gt; [1070] "Acacia subflexuosa subsp. capillata"                                </span>
-<span class="co">#&gt; [1071] "Acacia sulcata var. platyphylla"                                    </span>
-<span class="co">#&gt; [1072] "Acacia sulcata var. sulcata"                                        </span>
-<span class="co">#&gt; [1073] "Acacia synoria"                                                     </span>
-<span class="co">#&gt; [1074] "Acacia toondulya"                                                   </span>
-<span class="co">#&gt; [1075] "Acacia tumida var. pilbarensis"                                     </span>
-<span class="co">#&gt; [1076] "Acacia tumida var. tumida"                                          </span>
-<span class="co">#&gt; [1077] "Acacia varia var. parviflora"                                       </span>
-<span class="co">#&gt; [1078] "Acacia victoriae subsp. victoriae"                                  </span>
-<span class="co">#&gt; [1079] "Acacia wickhamii subsp. cassitera"                                  </span>
-<span class="co">#&gt; [1080] "Acacia yorkrakinensis subsp. acrita"                                </span>
-<span class="co">#&gt; [1081] "Acacia derwentiana"                                                 </span>
-<span class="co">#&gt; [1082] "Acacia mucronata subsp. dependens"                                  </span>
-<span class="co">#&gt; [1083] "Acacia disparrima"                                                  </span>
-<span class="co">#&gt; [1084] "Acacia abbatiana"                                                   </span>
-<span class="co">#&gt; [1085] "Acacia alaticaulis"                                                 </span>
-<span class="co">#&gt; [1086] "Acacia sp. [Acacia anceps x Acacia nematophylla]"                   </span>
-<span class="co">#&gt; [1087] "Acacia sp. (Acacia ancistrocarpa x Acacia trachycarpa]"             </span>
-<span class="co">#&gt; [1088] "Acacia atrox"                                                       </span>
-<span class="co">#&gt; [1089] "Acacia barakulensis"                                                </span>
-<span class="co">#&gt; [1090] "Acacia burdekensis"                                                 </span>
-<span class="co">#&gt; [1091] "Acacia castanostegia"                                               </span>
-<span class="co">#&gt; [1092] "Acacia centrinervia"                                                </span>
-<span class="co">#&gt; [1093] "Acacia citriodora"                                                  </span>
-<span class="co">#&gt; [1094] "Acacia dissimilis"                                                  </span>
-<span class="co">#&gt; [1095] "Acacia dodonaeifolia x Acacia paradoxa"                             </span>
-<span class="co">#&gt; [1096] "Acacia sp. El Sharana (N.B.Byrnes 1326)"                            </span>
-<span class="co">#&gt; [1097] "Acacia faucium"                                                     </span>
-<span class="co">#&gt; [1098] "Acacia fodinalis"                                                   </span>
-<span class="co">#&gt; [1099] "Acacia hendersonii"                                                 </span>
-<span class="co">#&gt; [1100] "Acacia infecunda"                                                   </span>
-<span class="co">#&gt; [1101] "Acacia kulnurensis"                                                 </span>
-<span class="co">#&gt; [1102] "Acacia lauta"                                                       </span>
-<span class="co">#&gt; [1103] "Acacia sp. Small Red-leaved Wattle (J.B.Williams 95033)"            </span>
-<span class="co">#&gt; [1104] "Acacia sp. Kununurra (G.Lullfitz 6195)"                             </span>
-<span class="co">#&gt; [1105] "Acacia longifolia subsp. sophorae x Acacia oxycedrus"               </span>
-<span class="co">#&gt; [1106] "Acacia rubricola"                                                   </span>
-<span class="co">#&gt; [1107] "Acacia scabra"                                                      </span>
-<span class="co">#&gt; [1108] "Acacia seclusa"                                                     </span>
-<span class="co">#&gt; [1109] "Acacia semiaurea"                                                   </span>
-<span class="co">#&gt; [1110] "Acacia semibinervia"                                                </span>
-<span class="co">#&gt; [1111] "Acacia tabula"                                                      </span>
-<span class="co">#&gt; [1112] "Acacia tingoorensis"                                                </span>
-<span class="co">#&gt; [1113] "Acacia x grayana"                                                   </span>
-<span class="co">#&gt; [1114] "Acacia uncifolia"                                                   </span>
-<span class="co">#&gt; [1115] "Acacia verticillata subsp. cephalantha"                             </span>
-<span class="co">#&gt; [1116] "Acacia caesaneura"                                                  </span>
-<span class="co">#&gt; [1117] "Acacia calligera"                                                   </span>
-<span class="co">#&gt; [1118] "Acacia effusifolia"                                                 </span>
-<span class="co">#&gt; [1119] "Acacia macraneura"                                                  </span>
-<span class="co">#&gt; [1120] "Acacia pteraneura"                                                  </span>
-<span class="co">#&gt; [1121] "Acacia subcontorta"                                                 </span>
-<span class="co">#&gt; [1122] "Acacia sp. [unidentified]"                                          </span>
-<span class="co">#&gt; [1123] "Acacia baueri subsp. baueri"                                        </span>
-<span class="co">#&gt; [1124] "Acacia buxifolia subsp. pubiflora"                                  </span>
-<span class="co">#&gt; [1125] "Acacia capitata"                                                    </span>
-<span class="co">#&gt; [1126] "Acacia irrorata subsp. velutinella"                                 </span>
-<span class="co">#&gt; [1127] "Acacia"                                                             </span>
-<span class="co">#&gt; [1128] "Acacia sp. [fine phylloids]"                                        </span>
-<span class="co">#&gt; [1129] "Acacia sp. [linear]"                                                </span>
-<span class="co">#&gt; [1130] "Acacia sp. [Acacia 1]"                                              </span>
-<span class="co">#&gt; [1131] "Acacia sp. [Acacia  2]"                                             </span>
-<span class="co">#&gt; [1132] "Acacia sp. [Acacia  3 phylloclad]"                                  </span>
-<span class="co">#&gt; [1133] "Acacia sp. [leafy]"                                                 </span>
-<span class="co">#&gt; [1134] "Acacia sp. 2"                                                       </span>
-<span class="co">#&gt; [1135] "Acacia sp. [grey mulga]"                                            </span>
-<span class="co">#&gt; [1136] "Acacia sp. 1"                                                       </span>
-<span class="co">#&gt; [1137] "Acacia sp. 3"                                                       </span>
-<span class="co">#&gt; [1138] "Acacia sp. 4"                                                       </span>
-<span class="co">#&gt; [1139] "Acacia sp. [antenna, aireal]"                                       </span>
-<span class="co">#&gt; [1140] "Acacia sp. [Acacia  1, bubble]"                                     </span>
-<span class="co">#&gt; [1141] "Acacia sp. [prickly]"                                               </span>
-<span class="co">#&gt; [1142] "Acacia sp. [Acacia  3, semiprickly]"                                </span>
-<span class="co">#&gt; [1143] "Acacia  sp. [blue legume, broome-like]"                             </span>
-<span class="co">#&gt; [1144] "Acacia sp. [in flower]"                                             </span>
-<span class="co">#&gt; [1145] "Acacia sp. [Acacia  in Euc]"                                        </span>
-<span class="co">#&gt; [1146] "Acacia latipes subsp. latipes"                                      </span>
-<span class="co">#&gt; [1147] "Acacia sp. [needle]"                                                </span>
-<span class="co">#&gt; [1148] "Acacia sp. [linear, terete]"                                        </span>
-<span class="co">#&gt; [1149] "Acacia sp. [gidgee]"                                                </span>
-<span class="co">#&gt; [1150] "Acacia sp. [sickle leaf]"                                           </span>
-<span class="co">#&gt; [1151] "Acacia sp. [strap leaf]"                                            </span>
-<span class="co">#&gt; [1152] "Acacia sp. [spatulate]"                                             </span>
-<span class="co">#&gt; [1153] "Acacia sp. [ribbon]"                                                </span>
-<span class="co">#&gt; [1154] "Acacia  sp. [broad leaf]"                                           </span>
-<span class="co">#&gt; [1155] "Acacia coriacea subsp. pendens"                                     </span>
-<span class="co">#&gt; [1156] "Acacia sp. [Grevillea-like]"                                        </span>
-<span class="co">#&gt; [1157] "Acacia sp. [linear 1]"                                              </span>
-<span class="co">#&gt; [1158] "Acacia sp. [linear 2]"                                              </span>
-<span class="co">#&gt; [1159] "Acacia sp. [silvery new growth]"                                    </span>
-<span class="co">#&gt; [1160] "Acacia sp. [linear 1 [same as 33.1]]"                               </span>
-<span class="co">#&gt; [1161] "Acacia aneura var. aneura"                                          </span>
-<span class="co">#&gt; [1162] "Acacia cuthbertsonii subsp. linearis"                               </span>
-<span class="co">#&gt; [1163] "Acacia  sp. [bushy]"                                                </span>
-<span class="co">#&gt; [1164] "Acacia  sp. [blue leaf]"                                            </span>
-<span class="co">#&gt; [1165] "Acacia sp. [friendly]"                                              </span>
-<span class="co">#&gt; [1166] "Acacia  sp. [big leaf]"                                             </span>
-<span class="co">#&gt; [1167] "Acacia sp. [lanceolate leaf]"                                       </span>
-<span class="co">#&gt; [1168] "Acacia sp. [oval leaf, friendly?]"                                  </span>
-<span class="co">#&gt; [1169] "Acacia sp. [long &amp; narrow leaf]"                                    </span>
-<span class="co">#&gt; [1170] "Acacia sp. [shrub linear]"                                          </span>
-<span class="co">#&gt; [1171] "Acacia sp. [shrub oval]"                                            </span>
-<span class="co">#&gt; [1172] "Acacia sp. [long leaf]"                                             </span>
-<span class="co">#&gt; [1173] "Acacia sp. [falcate leaf]"                                          </span>
-<span class="co">#&gt; [1174] "Acacia  sp. [big falcate]"                                          </span>
-<span class="co">#&gt; [1175] "Acacia sp. [waxy falcate]"                                          </span>
-<span class="co">#&gt; [1176] "Acacia  sp. [boring]"                                               </span>
-<span class="co">#&gt; [1177] "Acacia sp. [small]"                                                 </span>
-<span class="co">#&gt; [1178] "Acacia sp. [phylloclade]"                                           </span>
-<span class="co">#&gt; [1179] "Acacia sp. [dwarf shrub]"                                           </span>
-<span class="co">#&gt; [1180] "Acacia sp. [corky]"                                                 </span>
-<span class="co">#&gt; [1181] "Acacia sp. [another big leaf]"                                      </span>
-<span class="co">#&gt; [1182] "Acacia  sp. [thorny]"                                               </span>
-<span class="co">#&gt; [1183] "Acacia sp. [phylloids]"                                             </span>
-<span class="co">#&gt; [1184] "Acacia sp. [with thorns]"                                           </span>
-<span class="co">#&gt; [1185] "Acacia sp. [green shrub]"                                           </span>
-<span class="co">#&gt; [1186] "Acacia sp. [shiny green leaf]"                                      </span>
-<span class="co">#&gt; [1187] "Acacia sp. [elephant ear]"                                          </span>
-<span class="co">#&gt; [1188] "Acacia sp. [fine leaf]"                                             </span>
-<span class="co">#&gt; [1189] "Acacia sp. [smoke bush-like]"                                       </span>
-<span class="co">#&gt; [1190] "Acacia  sp. [broad leaf tree]"                                      </span>
-<span class="co">#&gt; [1191] "Acacia sp. [medium leaf]"                                           </span>
-<span class="co">#&gt; [1192] "Acacia sp. [green]"                                                 </span>
-<span class="co">#&gt; [1193] "Acacia sp. [waxy]"                                                  </span>
-<span class="co">#&gt; [1194] "Acacia  sp. [Callitris-like]"                                       </span>
-<span class="co">#&gt; [1195] "Acacia  sp. [textured leaf]"                                        </span>
-<span class="co">#&gt; [1196] "Acacia sp. [parallel vein]"                                         </span>
-<span class="co">#&gt; [1197] "Acacia  sp. [bungle minniritchi bark]"                              </span>
-<span class="co">#&gt; [1198] "Acacia  sp. [bungle linear]"                                        </span>
-<span class="co">#&gt; [1199] "Acacia  sp. [broad pod]"                                            </span>
-<span class="co">#&gt; [1200] "Acacia sp. [phyllodium]"                                            </span>
-<span class="co">#&gt; [1201] "Acacia adjutrices"                                                  </span>
-<span class="co">#&gt; [1202] "Acacia adsurgens x Acacia rhodophloia"                              </span>
-<span class="co">#&gt; [1203] "Acacia ampliceps x Acacia bivenosa"                                 </span>
-<span class="co">#&gt; [1204] "Acacia anastomosa"                                                  </span>
-<span class="co">#&gt; [1205] "Acacia ancistrocarpa x Acacia citrinoviridis"                       </span>
-<span class="co">#&gt; [1206] "Acacia anserina"                                                    </span>
-<span class="co">#&gt; [1207] "Acacia areolata"                                                    </span>
-<span class="co">#&gt; [1208] "Acacia argentina"                                                   </span>
-<span class="co">#&gt; [1209] "Acacia aulacocarpa x Acacia disparrima"                             </span>
-<span class="co">#&gt; [1210] "Acacia aulacocarpa x Acacia celsa"                                  </span>
-<span class="co">#&gt; [1211] "Acacia bartlei"                                                     </span>
-<span class="co">#&gt; [1212] "Acacia besleyi"                                                     </span>
-<span class="co">#&gt; [1213] "Acacia bromilowiana"                                                </span>
-<span class="co">#&gt; [1214] "Acacia burrowsiana"                                                 </span>
-<span class="co">#&gt; [1215] "Acacia camptocarpa"                                                 </span>
-<span class="co">#&gt; [1216] "Acacia chisholmii x Acacia monticola"                               </span>
-<span class="co">#&gt; [1217] "Acacia claviseta"                                                   </span>
-<span class="co">#&gt; [1218] "Acacia coatesii"                                                    </span>
-<span class="co">#&gt; [1219] "Acacia collegialis"                                                 </span>
-<span class="co">#&gt; [1220] "Acacia cowleana x Acacia elachantha"                                </span>
-<span class="co">#&gt; [1221] "Acacia cowleana x Acacia hammondii"                                 </span>
-<span class="co">#&gt; [1222] "Acacia crassicarpa x Acacia midgleyi"                               </span>
-<span class="co">#&gt; [1223] "Acacia curryana"                                                    </span>
-<span class="co">#&gt; [1224] "Acacia cyclocarpa"                                                  </span>
-<span class="co">#&gt; [1225] "Acacia diallaga"                                                    </span>
-<span class="co">#&gt; [1226] "Acacia diastemata"                                                  </span>
-<span class="co">#&gt; [1227] "Acacia dilloniorum"                                                 </span>
-<span class="co">#&gt; [1228] "Acacia dimorpha"                                                    </span>
-<span class="co">#&gt; [1229] "Acacia doreta"                                                      </span>
-<span class="co">#&gt; [1230] "Acacia eriopoda x Acacia trachycarpa"                               </span>
-<span class="co">#&gt; [1231] "Acacia fecunda"                                                     </span>
-<span class="co">#&gt; [1232] "Acacia fraternalis"                                                 </span>
-<span class="co">#&gt; [1233] "Acacia gibsonii"                                                    </span>
-<span class="co">#&gt; [1234] "Acacia graciliformis"                                               </span>
-<span class="co">#&gt; [1235] "Acacia haematites"                                                  </span>
-<span class="co">#&gt; [1236] "Acacia hilliana x Acacia stellaticeps"                              </span>
-<span class="co">#&gt; [1237] "Acacia incognita"                                                   </span>
-<span class="co">#&gt; [1238] "Acacia karina"                                                      </span>
-<span class="co">#&gt; [1239] "Acacia keigheryi"                                                   </span>
-<span class="co">#&gt; [1240] "Acacia kulinensis"                                                  </span>
-<span class="co">#&gt; [1241] "Acacia lapidosa"                                                    </span>
-<span class="co">#&gt; [1242] "Acacia latior"                                                      </span>
-<span class="co">#&gt; [1243] "Acacia leeuweniana"                                                 </span>
-<span class="co">#&gt; [1244] "Acacia lumholtzii"                                                  </span>
-<span class="co">#&gt; [1245] "Acacia lysiphloia x Acacia monticola"                               </span>
-<span class="co">#&gt; [1246] "Acacia mackenziei"                                                  </span>
-<span class="co">#&gt; [1247] "Acacia minutissima"                                                 </span>
-<span class="co">#&gt; [1248] "Acacia mulganeura"                                                  </span>
-<span class="co">#&gt; [1249] "Acacia muriculata"                                                  </span>
-<span class="co">#&gt; [1250] "Acacia x nabonnandii"                                               </span>
-<span class="co">#&gt; [1251] "Acacia obtriangularis"                                              </span>
-<span class="co">#&gt; [1252] "Acacia orthotropica"                                                </span>
-<span class="co">#&gt; [1253] "Acacia paradoxa x Acacia verniciflua"                               </span>
-<span class="co">#&gt; [1254] "Acacia parkerae"                                                    </span>
-<span class="co">#&gt; [1255] "Acacia perpusilla"                                                  </span>
-<span class="co">#&gt; [1256] "Acacia petricola"                                                   </span>
-<span class="co">#&gt; [1257] "Acacia phacelia"                                                    </span>
-<span class="co">#&gt; [1258] "Acacia prolata"                                                     </span>
-<span class="co">#&gt; [1259] "Acacia rhodophloia x Acacia sibirica"                               </span>
-<span class="co">#&gt; [1260] "Acacia robeorum"                                                    </span>
-<span class="co">#&gt; [1261] "Acacia rubricaulis"                                                 </span>
-<span class="co">#&gt; [1262] "Acacia shapelleae"                                                  </span>
-<span class="co">#&gt; [1263] "Acacia sp. Airlie Island (V.Long VL 163)"                           </span>
-<span class="co">#&gt; [1264] "Acacia sp. Ambathala (C.Sandercoe 624)"                             </span>
-<span class="co">#&gt; [1265] "Acacia sp. Annan River (L.J.Webb+ 11134)"                           </span>
-<span class="co">#&gt; [1266] "Acacia sp. Baroalba (K.G.Brennan 186)"                              </span>
-<span class="co">#&gt; [1267] "Acacia sp. Biloela (T.Shepard A32)"                                 </span>
-<span class="co">#&gt; [1268] "Acacia sp. Blackall (D.Orr D01)"                                    </span>
-<span class="co">#&gt; [1269] "Acacia sp. Blyth Range (W.V.Fitzgerald s.n. 1898)"                  </span>
-<span class="co">#&gt; [1270] "Acacia sp. Boyd Creek (A.R.Bean 19248)"                             </span>
-<span class="co">#&gt; [1271] "Acacia sp. Bulburin (W.J.McDonald 3208)"                            </span>
-<span class="co">#&gt; [1272] "Acacia sp. Cadoux (B.R.Maslin 5786)"                                </span>
-<span class="co">#&gt; [1273] "Acacia sp. Cape Arid (A.S.Weston 8164)"                             </span>
-<span class="co">#&gt; [1274] "Acacia sp. Castletower (N.Gibson TO1345)"                           </span>
-<span class="co">#&gt; [1275] "Acacia sp. Charters Towers (E.J.Thompson+ 347)"                     </span>
-<span class="co">#&gt; [1276] "Acacia sp. Cockburn Range (R.Pullen 10.763)"                        </span>
-<span class="co">#&gt; [1277] "Acacia sp. Comet (L.Pedley 4091)"                                   </span>
-<span class="co">#&gt; [1278] "Acacia sp. Dinner Creek (K.G.Brennan 354)"                          </span>
-<span class="co">#&gt; [1279] "Acacia spectrum"                                                    </span>
-<span class="co">#&gt; [1280] "Acacia sp. Edgar Range (S.D.Hopper 1763)"                           </span>
-<span class="co">#&gt; [1281] "Acacia sp. Esperance (M.A.Burgman 1833b)"                           </span>
-<span class="co">#&gt; [1282] "Acacia sp. Fermoy Road (I.V.Newman 487)"                            </span>
-<span class="co">#&gt; [1283] "Acacia sp. F Kimberley Flora (J.J.Alford 557)"                      </span>
-<span class="co">#&gt; [1284] "Acacia sp. Gayndah (P.I.Forster+ PIF24863)"                         </span>
-<span class="co">#&gt; [1285] "Acacia sp. Gerang Gerung (M.G.Corrick 6451)"                        </span>
-<span class="co">#&gt; [1286] "Acacia sp. Gimbat (J.Russell-Smith 5223)"                           </span>
-<span class="co">#&gt; [1287] "Acacia sp. Goodlands (B.R.Maslin 7761)"                             </span>
-<span class="co">#&gt; [1288] "Acacia sp. Gove (N.B.Byrnes 2586)"                                  </span>
-<span class="co">#&gt; [1289] "Acacia sp. Hervey Range (G.Cocks AQ398930)"                         </span>
-<span class="co">#&gt; [1290] "Acacia sp. Indiana Station (P.K.Latz 4430)"                         </span>
-<span class="co">#&gt; [1291] "Acacia sp. Iron Range (D.G.Fell DF2327)"                            </span>
-<span class="co">#&gt; [1292] "Acacia sp. Jericho (G.R.Beeston 1065C)"                             </span>
-<span class="co">#&gt; [1293] "Acacia sp. Jimblebar (S.van Leeuwen 1342)"                          </span>
-<span class="co">#&gt; [1294] "Acacia sp. Jim Jim Falls (M.Lazarides 9075)"                        </span>
-<span class="co">#&gt; [1295] "Acacia sp. Kalannie (B.R.Maslin 7571)"                              </span>
-<span class="co">#&gt; [1296] "Acacia sp. Kalannie (B.R.Maslin 7706)"                              </span>
-<span class="co">#&gt; [1297] "Acacia sp. Kalannie North (B.R.Maslin 7702)"                        </span>
-<span class="co">#&gt; [1298] "Acacia sp. Kalannie North East (B.R.Maslin 7519)"                   </span>
-<span class="co">#&gt; [1299] "Acacia sp. Kokeby (L.Preiss 937)"                                   </span>
-<span class="co">#&gt; [1300] "Acacia sp. Krichauff Range (A.Soos 241)"                            </span>
-<span class="co">#&gt; [1301] "Acacia sp. Lake Disappointment (S.van Leeuwen 2865)"                </span>
-<span class="co">#&gt; [1302] "Acacia sp. Lake King (R.Hnatiuk 760791)"                            </span>
-<span class="co">#&gt; [1303] "Acacia sp. Lake Mackay (P.K.Latz 12836)"                            </span>
-<span class="co">#&gt; [1304] "Acacia sp. Laterite (I.D.Cowie 8754)"                               </span>
-<span class="co">#&gt; [1305] "Acacia sp. Little Sandy Desert (A.S.Mitchell 591)"                  </span>
-<span class="co">#&gt; [1306] "Acacia sp. L Kimberley Flora (T.G.Hartley 1469)"                    </span>
-<span class="co">#&gt; [1307] "Acacia sp. Manmanning (B.R.Maslin 7711)"                            </span>
-<span class="co">#&gt; [1308] "Acacia sp. Marble Bar (J.G. &amp; M.H.Simmons 3499)"                    </span>
-<span class="co">#&gt; [1309] "Acacia sp. Mekunga Creek (J.R.Clarkson 4373)"                       </span>
-<span class="co">#&gt; [1310] "Acacia sp. Merredin (B.R.Maslin 586)"                               </span>
-<span class="co">#&gt; [1311] "Acacia sp. Moorine Rock (B.R.Maslin 4474)"                          </span>
-<span class="co">#&gt; [1312] "Acacia sp. Mt Beaufort (E.J.Thompson+ JER164)"                      </span>
-<span class="co">#&gt; [1313] "Acacia sp. Muggon Station (S.Patrick &amp; D.Edinger SP3235)"           </span>
-<span class="co">#&gt; [1314] "Acacia sp. Mulga Blue Crown (D.E.Albrecht 9573)"                    </span>
-<span class="co">#&gt; [1315] "Acacia sp. Mulga Holey Trunk (P.K.Latz 12458)"                      </span>
-<span class="co">#&gt; [1316] "Acacia sp. Mulga Paraburdoo (B.R.Maslin et al. BRM 9201)"           </span>
-<span class="co">#&gt; [1317] "Acacia sp. Mullewa (B.R.Maslin 4269)"                               </span>
-<span class="co">#&gt; [1318] "Acacia sp. Murchison River (B.R.Maslin 7789)"                       </span>
-<span class="co">#&gt; [1319] "Acacia sp. Nalgi (N.T.Burbidge 1317)"                               </span>
-<span class="co">#&gt; [1320] "Acacia sp. Nantglyn (P.I.Forster+ PIF5741)"                         </span>
-<span class="co">#&gt; [1321] "Acacia sp. New Norcia (E.A.Griffin 5917)"                           </span>
-<span class="co">#&gt; [1322] "Acacia sp. Northampton (B.R.Maslin 7798)"                           </span>
-<span class="co">#&gt; [1323] "Acacia sp. Nullagine (B.R.Maslin 4955)"                             </span>
-<span class="co">#&gt; [1324] "Acacia sp. P129 (B.R.Maslin 5171)"                                  </span>
-<span class="co">#&gt; [1325] "Acacia sp. P170 (B.R.Maslin 4474)"                                  </span>
-<span class="co">#&gt; [1326] "Acacia sp. P176 (B.R.Maslin 5831)"                                  </span>
-<span class="co">#&gt; [1327] "Acacia sp. P19 (A.A.Mitchell 231)"                                  </span>
-<span class="co">#&gt; [1328] "Acacia sp. P69 (W.E.Blackall 3754)"                                 </span>
-<span class="co">#&gt; [1329] "Acacia sp. P94 (J.S.Beard 6178)"                                    </span>
-<span class="co">#&gt; [1330] "Acacia sp. Petrudor Rocks (B.R.Maslin 7714)"                        </span>
-<span class="co">#&gt; [1331] "Acacia sp. Pilbara (S.van Leeuwen 690)"                             </span>
-<span class="co">#&gt; [1332] "Acacia sp. Pine Islet (H.Heatwole AQ6370)"                          </span>
-<span class="co">#&gt; [1333] "Acacia sp. Ravensthorpe Range (B.R.Maslin 5463)"                    </span>
-<span class="co">#&gt; [1334] "Acacia sp. Ravensthorpe (R.S.Cowan &amp; B.R.Maslin RSC A-760)"         </span>
-<span class="co">#&gt; [1335] "Acacia sp. Richards Creek (J.R.Clarkson 5249)"                      </span>
-<span class="co">#&gt; [1336] "Acacia sp. Ripon Hills (B.R.Maslin 8460)"                           </span>
-<span class="co">#&gt; [1337] "Acacia sp. Ronlow Park (E.J.Thompson+61)"                           </span>
-<span class="co">#&gt; [1338] "Acacia sp. Rudall River (B.R.Maslin 2237)"                          </span>
-<span class="co">#&gt; [1339] "Acacia sp. Ruined Castle Creek (P.I.Forster+ PIF17848)"             </span>
-<span class="co">#&gt; [1340] "Acacia sp. Shark Bay (B.R.Maslin 3682)"                             </span>
-<span class="co">#&gt; [1341] "Acacia sp. Small seed (B.R.Maslin 7830)"                            </span>
-<span class="co">#&gt; [1342] "Acacia sp. Tanami (D.E.Albrecht 6176)"                              </span>
-<span class="co">#&gt; [1343] "Acacia sp. The Springs (V.J.Hansen AQ408159)"                       </span>
-<span class="co">#&gt; [1344] "Acacia sp. Tootbardie Road (B.R.Maslin 8204)"                       </span>
-<span class="co">#&gt; [1345] "Acacia sp. Urandangie (L.Pedley 2025)"                              </span>
-<span class="co">#&gt; [1346] "Acacia sp. Wiluna (B.R.Maslin 7090)"                                </span>
-<span class="co">#&gt; [1347] "Acacia sp. Winged (C.R.Alcock 4936)"                                </span>
-<span class="co">#&gt; [1348] "Acacia sp. Wirrabara (B.R.Maslin 5999)"                             </span>
-<span class="co">#&gt; [1349] "Acacia sp. Wubin (B.R.Maslin 4131)"                                 </span>
-<span class="co">#&gt; [1350] "Acacia sp. Yinnetharra (L.Sweedman 8229)"                           </span>
-<span class="co">#&gt; [1351] "Acacia stictophylla"                                                </span>
-<span class="co">#&gt; [1352] "Acacia subtiliformis"                                               </span>
-<span class="co">#&gt; [1353] "Acacia sulcaticaulis"                                               </span>
-<span class="co">#&gt; [1354] "Acacia synantha"                                                    </span>
-<span class="co">#&gt; [1355] "Acacia thieleana"                                                   </span>
-<span class="co">#&gt; [1356] "Acacia thoma"                                                       </span>
-<span class="co">#&gt; [1357] "Acacia trudgeniana"                                                 </span>
-<span class="co">#&gt; [1358] "Acacia umbraculiformis"                                             </span>
-<span class="co">#&gt; [1359] "Acacia walkeri"                                                     </span>
-<span class="co">#&gt; [1360] "Acacia webbii"                                                      </span>
-<span class="co">#&gt; [1361] "Acacia willingii"                                                   </span>
-<span class="co">#&gt; [1362] "Acacia woodmaniorum"                                                </span>
-<span class="co">#&gt; [1363] "Acacia yalwalensis"                                                 </span>
-<span class="co">#&gt; [1364] "Acacia insolita subsp. recurva"                                     </span>
-<span class="co">#&gt; [1365] "Acacia terminalis subsp. terminalis MS"                             </span>
-<span class="co">#&gt; [1366] "Acacia  sp. [broad leaf 2]"                                         </span>
-<span class="co">#&gt; [1367] "Acacia adoxa var. subglabra"                                        </span>
-<span class="co">#&gt; [1368] "Acacia assimilis subsp. assimilis"                                  </span>
-<span class="co">#&gt; [1369] "Acacia browniana var. endlicheri"                                   </span>
-<span class="co">#&gt; [1370] "Acacia browniana var. glaucescens"                                  </span>
-<span class="co">#&gt; [1371] "Acacia browniana var. intermedia"                                   </span>
-<span class="co">#&gt; [1372] "Acacia browniana var. obscura"                                      </span>
-<span class="co">#&gt; [1373] "Acacia desertorum var. desertorum"                                  </span>
-<span class="co">#&gt; [1374] "Acacia desertorum var. nudipes"                                     </span>
-<span class="co">#&gt; [1375] "Acacia heteroneura var. heteroneura"                                </span>
-<span class="co">#&gt; [1376] "Acacia heteroneura var. jutsonii"                                   </span>
-<span class="co">#&gt; [1377] "Acacia heteroneura var. petila"                                     </span>
-<span class="co">#&gt; [1378] "Acacia heteroneura var. prolixa"                                    </span>
-<span class="co">#&gt; [1379] "Acacia inceana subsp. inceana"                                      </span>
-<span class="co">#&gt; [1380] "Acacia pyrifolia var. morrisonii"                                   </span>
-<span class="co">#&gt; [1381] "Acacia sclerosperma subsp. glaucescens"                             </span>
-<span class="co">#&gt; [1382] "Acacia stereophylla var. stereophylla"                              </span>
-<span class="co">#&gt; [1383] "Acacia sp. [Acacia harpophylla Host]"                               </span>
-<span class="co">#&gt; [1384] "Acacia ancistrophylla var. lissophylla"                             </span>
-<span class="co">#&gt; [1385] "Acacia ancistrophylla var. ancistrophylla"                          </span>
-<span class="co">#&gt; [1386] "Acacia aspera subsp. aspera"                                        </span>
-<span class="co">#&gt; [1387] "Acacia baileyana x Acacia dealbata"                                 </span>
-<span class="co">#&gt; [1388] "Acacia dealbata subsp. subalpina"                                   </span>
-<span class="co">#&gt; [1389] "Acacia euthycarpa subsp. oblanceolata"                              </span>
-<span class="co">#&gt; [1390] "Acacia fimbriata x Acacia pravissima"                               </span>
-<span class="co">#&gt; [1391] "Acacia irrorata x Acacia parvipinnula"                              </span>
-<span class="co">#&gt; [1392] "Acacia lanigera var. gracilipes"                                    </span>
-<span class="co">#&gt; [1393] "Acacia lanigera var. whanii"                                        </span>
-<span class="co">#&gt; [1394] "Acacia leiophylla/pycnantha"                                        </span>
-<span class="co">#&gt; [1395] "Acacia melvillei x Acacia homalophylla"                             </span>
-<span class="co">#&gt; [1396] "Acacia penninervis var. longiracemosa"                              </span>
-<span class="co">#&gt; [1397] "Acacia sclerophylla var. sclerophylla"                              </span>
-<span class="co">#&gt; [1398] "Acacia terminalis subsp. Long inflorescences (P.G.Kodela 307)"      </span>
-<span class="co">#&gt; [1399] "Acacia verniciflua (1-nerved variant)"                              </span>
-<span class="co">#&gt; [1400] "Acacia verniciflua (typical variant)"                               </span>
-<span class="co">#&gt; [1401] "Acacia verticillata subsp. ovoidea"                                 </span>
-<span class="co">#&gt; [1402] "Acacia verticillata subsp. ruscifolia"                              </span>
-<span class="co">#&gt; [1403] "Acacia eremophila var. eremophila"                                  </span>
-<span class="co">#&gt; [1404] "Acacia pulchella var. reflexa"</span></code></pre>
+<span class="va">acacia</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">taxon_name</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; [1] "Acacia abbreviata"       "Acacia acinacea"        </span>
+<span class="co">#&gt; [3] "Acacia acuminata"        "Acacia adoxa var. adoxa"</span>
+<span class="co">#&gt; [5] "Acacia adsurgens"        "Acacia adunca"</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="extracting-by-trait">Extracting by trait<a class="anchor" aria-label="anchor" href="#extracting-by-trait"></a>
@@ -1771,14 +370,14 @@
 
 <span class="va">data_leaf</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id  taxon_name     site_name context_name observation_id trait_name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delta13C</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_per_d…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_lea…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 6 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 </div>
@@ -1792,14 +391,14 @@
 <code class="sourceCode R"><span class="co"># Join taxonomic information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 16</span></span>
-<span class="co">#&gt;   dataset_id  taxon_name     site_name context_name observation_id trait_name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delta13C</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_per_d…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_lea…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, family &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   genus &lt;chr&gt;, taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;</span></span></code></pre>
@@ -1807,14 +406,14 @@
 <code class="sourceCode R"><span class="co"># Join methodological information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 16</span></span>
-<span class="co">#&gt;   dataset_id  taxon_name     site_name context_name observation_id trait_name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delta13C</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_per_d…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_lea…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, methods &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></span></code></pre>
@@ -1822,46 +421,46 @@
 <code class="sourceCode R"><span class="co"># Join site based information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span>
-<span class="co">#&gt;   dataset_id  taxon_name     site_name context_name observation_id trait_name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delta13C</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_per_d…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_lea…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   latitude (deg) &lt;chr&gt;, longitude (deg) &lt;chr&gt;</span></span></code></pre>
+<span class="co">#&gt; <span style="color: #949494;">#   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join context information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_contexts</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 13</span></span>
-<span class="co">#&gt;   dataset_id  taxon_name     site_name context_name observation_id trait_name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delta13C</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_per_d…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_lea…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 7 more variables: value.x &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, value.y &lt;chr&gt;</span></span></code></pre>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 6 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Alternatively users can join *all* information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_all</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 22</span></span>
-<span class="co">#&gt;   dataset_id  taxon_name     site_name context_name observation_id trait_name   </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delta13C</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_per_d…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_lea…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calo… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area    </span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 16 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   latitude (deg) &lt;chr&gt;, longitude (deg) &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;, methods &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></span></code></pre>
 </div>
@@ -1870,8 +469,8 @@
 </h2>
 <p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longitude information into the trait dataframe before plotting</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span>
-<span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_all.html">join_sites</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></code></pre></div>
 <p><img src="austraits_files/figure-html/site_plot-1.png" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -1889,7 +488,9 @@
 </h3>
 <p>The table of traits in AusTraits comes in long format, where data for all traits are in two columns called <code>trait_name</code> and <code>value</code>. You can convert to wide format, where each trait is in a separate column, using the function <code>trait_pivot_wider</code>.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data_wide</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data_wide</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/summarise_trait_means.html">summarise_trait_means</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The returned object is a list with several parts:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wide</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -1898,31 +499,31 @@
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wide</span><span class="op">$</span><span class="va">value</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt;  [1] "dataset_id"           "taxon_name"           "site_name"           </span>
-<span class="co">#&gt;  [4] "context_name"         "observation_id"       "original_name"       </span>
-<span class="co">#&gt;  [7] "leaf_angle"           "leaf_area"            "leaf_compoundness"   </span>
-<span class="co">#&gt; [10] "branch_mass_fraction" "huber_value"          "leaf_N_per_dry_mass" </span>
-<span class="co">#&gt; [13] "seed_mass"            "specific_leaf_area"   "wood_density"        </span>
-<span class="co">#&gt; [16] "fire_response"        "plant_height"</span></code></pre>
+<span class="co">#&gt;  [4] "context_name"         "observation_id"       "leaf_angle"          </span>
+<span class="co">#&gt;  [7] "leaf_area"            "leaf_compoundness"    "branch_mass_fraction"</span>
+<span class="co">#&gt; [10] "leaf_N_per_dry_mass"  "seed_mass"            "specific_leaf_area"  </span>
+<span class="co">#&gt; [13] "wood_density"         "huber_value"          "fire_response"       </span>
+<span class="co">#&gt; [16] "plant_height"         "original_name"</span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wide</span><span class="op">$</span><span class="va">value</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 691 × 17</span></span>
-<span class="co">#&gt;    dataset_id   taxon_name  site_name  context_name observation_id original_name</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Falster_2003 Acacia myr… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Acacia myrti…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Falster_2003 Acacia myr… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Acacia myrti…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Falster_2003 Acacia myr… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Acacia myrti…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Falster_2003 Acacia sua… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Acacia suave…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Falster_2003 Acacia sua… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Acacia suave…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Falster_2003 Acacia sua… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Acacia suave…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Falster_2003 Angophora … Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Angophora hi…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Falster_2003 Angophora … Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Angophora hi…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Falster_2003 Angophora … Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Angophora hi…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Falster_2003 Banksia ma… Ku-ring-g… <span style="color: #BB0000;">NA</span>           Falster_2003_… Banksia marg…</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 681 more rows, and 11 more variables: leaf_angle &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   leaf_area &lt;chr&gt;, leaf_compoundness &lt;chr&gt;, branch_mass_fraction &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   huber_value &lt;chr&gt;, leaf_N_per_dry_mass &lt;chr&gt;, seed_mass &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   specific_leaf_area &lt;chr&gt;, wood_density &lt;chr&gt;, fire_response &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   plant_height &lt;chr&gt;</span></span></code></pre>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 103 × 17</span></span>
+<span class="co">#&gt;    dataset_id   taxon_name      site_name context_name observation_id leaf_angle</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Falster_2003 Acacia myrtifo… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       66.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Falster_2003 Acacia suaveol… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       71.7</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Falster_2003 Angophora hisp… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       50.8</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Falster_2003 Banksia margin… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       53.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Falster_2003 Banksia oblong… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       45  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Falster_2003 Boronia pinnata Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       43.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Falster_2003 Conospermum lo… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       72.3</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Falster_2003 Epacris pulche… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       42.9</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Falster_2003 Eriostemon aus… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       62.1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Falster_2003 Corymbia gummi… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       59.3</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 93 more rows, and 11 more variables: leaf_area &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   leaf_compoundness &lt;dbl&gt;, branch_mass_fraction &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   leaf_N_per_dry_mass &lt;dbl&gt;, seed_mass &lt;dbl&gt;, specific_leaf_area &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   wood_density &lt;dbl&gt;, huber_value &lt;dbl&gt;, fire_response &lt;dbl&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   plant_height &lt;dbl&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 </div>
 </div>
   </div>
@@ -1944,7 +545,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

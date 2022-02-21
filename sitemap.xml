@@ -28,10 +28,10 @@
     <loc>https://traitecoevo.github.io/austraits/news/index.html</loc>
   </url>
   <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/austraits.html</loc>
+    <loc>https://traitecoevo.github.io/austraits/reference/bind_trait_values.html</loc>
   </url>
   <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/bind_trait_values.html</loc>
+    <loc>https://traitecoevo.github.io/austraits/reference/download_austraits.html</loc>
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/extract_dataset.html</loc>
@@ -55,6 +55,9 @@
     <loc>https://traitecoevo.github.io/austraits/reference/load_austraits.html</loc>
   </url>
   <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/lookup_trait.html</loc>
+  </url>
+  <url>
     <loc>https://traitecoevo.github.io/austraits/reference/my_kable_styling_html.html</loc>
   </url>
   <url>
@@ -73,7 +76,16 @@
     <loc>https://traitecoevo.github.io/austraits/reference/plot_trait_distribution_beeswarm.html</loc>
   </url>
   <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/print_austraits.html</loc>
+  </url>
+  <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/print_versions.html</loc>
+  </url>
+  <url>
     <loc>https://traitecoevo.github.io/austraits/reference/separate_trait_values.html</loc>
+  </url>
+  <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/summarise_trait_means.html</loc>
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/trait_pivot_longer.html</loc>
