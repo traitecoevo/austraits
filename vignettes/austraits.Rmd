@@ -213,7 +213,7 @@ data_wide_bound <- data_falster_studies$traits %>%
 data_wide_bound$value # The trait values table
 
 # Check out the 'bounded' trait values
-data_wide_bound$value$huber_value[! is.na(data_wide_bound$value$huber_value)] %>% head()
+data_wide_bound$value$huber_value[!is.na(data_wide_bound$value$huber_value)] %>% head()
 ```
 
 If you would like to revert the bounded trait values, you have to `trait_pivot_longer` first then: 
@@ -226,11 +226,11 @@ data_wide_bound %>%
 
 Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computers means with the multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
 
-```{r, pivot}
+```{r, pivot_summarised}
 data_wide_summarised <- data_falster_studies$traits %>%
   summarise_trait_means() %>% 
   trait_pivot_wider()
 
-data_wide_summarised$traits %>% head()
+data_wide_summarised$value %>% head()
 ```
 
