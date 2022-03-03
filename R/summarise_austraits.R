@@ -20,15 +20,15 @@ summarise_austraits <- function(austraits, var){
   }
   
   switch(var,
-         trait_name = print_austraits_traits(austraits, var),
-         genus =  print_austraits_taxa(austraits, var),
-         family = print_austraits_taxa(austraits, var)
+         trait_name = summarise_austraits_traits(austraits, var),
+         genus =  summarise_austraits_taxa(austraits, var),
+         family = summarise_austraits_taxa(austraits, var)
   )
 }
 
 #' @rdname print_austraits
          
-print_austraits_traits <-function(austraits, var) {
+summarise_austraits_traits <-function(austraits, var) {
 
   ret <- 
     austraits[["traits"]] %>% 
@@ -58,7 +58,7 @@ print_austraits_traits <-function(austraits, var) {
 
 #' @rdname print_austraits
 
-print_austraits_taxa <-function(austraits, var) {
+summarise_austraits_taxa <-function(austraits, var) {
   
   #Join taxonomic info
   austraits <- austraits %>% join_taxonomy()
