@@ -5,7 +5,7 @@
 * Improved `plot_site_locations`
 * Improved `trait_pivot_wider`
 * Improved `load_austraits`
-* Added `print_versions`
+* Added `get_versions`
 * Added `summarise_trait_means` to aid `trait_pivot_wider`
 * Added `print_austraits`
 * Added `lookup_trait`

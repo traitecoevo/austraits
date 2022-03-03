@@ -49,7 +49,7 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
       ...
     ) +
     scale_x_continuous(limits = c(NA, 154)) +
-    ggplot2::scale_fill_manual(values = "dodgerblue4", na.value="white", guide = "none") +
+    ggplot2::scale_fill_manual(values = "cadetblue4", na.value="white", guide = "none") +
     viridis::scale_color_viridis(option = "plasma") +
     theme(
       legend.justification = c(-0.1, 0),
