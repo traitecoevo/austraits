@@ -15,6 +15,17 @@
 
 
 load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", update = FALSE){
+  # Is path supplied?
+  if(missing(path)){
+    stop("File path must be supplied!")
+  }
+  
+  # Is version or doi supplied? 
+  # Is path supplied?
+  if(missing(version) & missing(doi)){
+    stop("Either version or doi must be supplied - try get_versions()")
+  }
+  
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -58,7 +69,7 @@ load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", 
   
   # Check if version/doi is available
   if(! version %in% ret$version | ! doi %in% ret$doi){
-    rlang::abort("Requested version/doi is incorrect! Try print_versions()")
+    rlang::abort("Requested version/doi is incorrect! Try get_versions()")
   }
   
   # Add in prefix of v
@@ -121,13 +132,27 @@ download_austraits <- function(url, filename, path) {
 
 #' Print out AusTraits versions
 #'
-#' @param path A file path, if AusTraits was previously downloaded direct to that folder
+#' @param path A file path where AusTraits was previously downloaded
 #' @param update Would you like the versions json be updated in case of new releases?
 #'
 #' @return A tibble containing version numbers and doi which can be used in load_austraits()
+#' @examples
+#' \dontrun{
+#' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+#' }
 #' @export
 
-print_versions <- function(path, update = TRUE){
+get_versions <- function(path, update = TRUE){
+  
+  # Is path supplied?
+  if(missing(path)){
+    stop("File path must be supplied!")
+  }
+  
+  # Does the path exist? 
+  if(! file.exists(path)) {
+    dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
+  }
   
   file_json <- file.path(path, "austraits.json")
   
