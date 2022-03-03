@@ -1,4 +1,6 @@
 #Extract a dataset
+austraits <- austraits_lite
+
 dataset_id <- c("Falster_2003")
 subset <- extract_dataset(austraits, dataset_id = dataset_id)
 
@@ -23,3 +25,4 @@ test_that("extraction of dataset was successful", {
   expect_match(trait, unique(trait_subset$traits$trait_name))
   expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name))  
 })
+

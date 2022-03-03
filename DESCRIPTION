@@ -1,6 +1,6 @@
 Package: austraits
 Title: Helpful functions to access, summarise and wrangle austraits data
-Version: 0.1.0
+Version: 1.0.0.0000
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
@@ -27,31 +27,34 @@ Depends:
     R (>= 4.0.0),
     RefManageR
 Imports:
-    magrittr,
     dplyr,
     tidyr,
     rlang,
+    purrr,
     rmarkdown,
     tidyselect,
     assertthat,
     stringr,
+    stats,
+    readr,
+    jsonlite,
+    utils,
+    httr,
+    raster,
+    janitor,
+    ggplot2,
+    magrittr
+Suggests: 
+    knitr,
+    testthat (>= 3.0.0),
+    markdown,
+    ggpointdensity, 
     ggbeeswarm,
     gridExtra,
     scales,
     forcats,
-    ggplot2,
-    stats,
-    ggpointdensity, 
     viridis,
-    kableExtra,
-    readr,
-    jsonlite,
-    utils,
-    httr
-Suggests: 
-    knitr,
-    testthat (>= 3.0.0),
-    markdown
+    kableExtra
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://traitecoevo.github.io/austraits/

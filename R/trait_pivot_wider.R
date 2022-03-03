@@ -5,7 +5,7 @@
 #' This function converts the data into wide format so that each trait in it's own column. 
 #' Note that some studies have multiple rows of data for each observation_id, so this function will create four lists (value, unit, value_type,date and replicates) with the identifying columns as well as trait data arranged in columns. 
 #' @usage trait_pivot_wider(data)
-#' @param data A tibble generated from austraits - see example
+#' @param data The traits table from austraits list
 #' @return list of five tibbles in wide format
 #'
 #' @examples 
@@ -19,21 +19,32 @@
 #' @export
 #' @importFrom rlang .data
 
-trait_pivot_wider <- function(data) {
+trait_pivot_wider <- function(data){
+  
+  check_obs <- data %>% 
+    dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
+    dplyr::summarise(dplyr::n()) %>% 
+    dplyr::filter(`dplyr::n()` > 1) %>%
+    dplyr::select(.data$trait_name, .data$observation_id)
+  
+  if(nrow(check_obs) >1){
+    rlang::abort("There are multiple data points for the same observation - try summarise_trait_means() before widening!")
+  }
   
   vars <- c("value", "unit", "date", "value_type", "replicates")
-  ret <- list()
-  for(v in vars) {
-    ret[[v]] <- data %>% 
-      dplyr::rename(to_spread = !!v) %>%
-      dplyr::mutate(unique_id = paste(.data$dataset_id, dplyr::row_number(), sep = "_")) %>% 
-      #dplyr::select(.data$dataset_id:.data$unique_id) %>% #select all the cols
-      dplyr::select(.data$dataset_id, .data$taxon_name, .data$site_name, .data$context_name, .data$observation_id, .data$trait_name, .data$to_spread, .data$original_name, .data$unique_id) %>% 
-      tidyr::pivot_wider(names_from = .data$trait_name, values_from = .data$to_spread) %>% 
-      dplyr::select(-.data$unique_id)
-  }
+  
+  ret  <- purrr::map(vars, piv_wide, data = data)
+  
+  names(ret) <- vars
   
   ret
 }
 
-
+piv_wide <- function(data, var_to_spread){
+  ret <- data %>% 
+    dplyr::select(.data$dataset_id:.data$trait_name, {{var_to_spread}}, .data$original_name) %>% 
+    tidyr::pivot_wider(id_cols = c(.data$dataset_id:.data$observation_id, .data$original_name), names_from = .data$trait_name, values_from = {{var_to_spread}}) %>% 
+    dplyr::select(-.data$original_name, .data$original_name) # Moving original name to the end
+  
+  ret
+}

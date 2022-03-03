@@ -7,7 +7,7 @@
 trait_pivot_wider(data)
 }
 \arguments{
-\item{data}{A tibble generated from austraits - see example}
+\item{data}{The traits table from austraits list}
 }
 \value{
 list of five tibbles in wide format

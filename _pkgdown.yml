@@ -8,11 +8,20 @@ template:
   bootswatch: cerulean
   
 reference:
+- title: Accessing AusTraits
+- contents:
+  - load_austraits
+  - download_austraits
+  - get_versions
+  - summarise_austraits
+  - lookup_trait
+  - print.austraits
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
-  - load_austraits
   - starts_with("extract")
+  - summarise_trait_means
+  - bind_trait_values
   - starts_with("trait_pivot")
   - join_all
   - ends_with("trait_values")
@@ -20,3 +29,36 @@ reference:
   desc: Plot site or variance distributions
 - contents:
   - starts_with("plot")
+  
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - structure
+    - traits
+    - reference
+    - news
+    right: github
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+    reference:
+      text: Function glossary
+      href: reference/index.html
+    intro:
+      text: Tutorial
+      href: articles/austraits.html
+    structure:
+      text: Structure of AusTraits
+      href: articles/structure.html
+    traits:
+      text: Trait definitions
+      href: articles/dictionary.html
+    news:
+      text: What's new?
+      href: news/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/traitecoevo/austraits/

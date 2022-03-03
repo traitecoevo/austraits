@@ -21,6 +21,10 @@
 
 plot_site_locations <- function(traits, feature="trait_name", ...){
   
+  au_map <- australia_map_raster %>%
+    raster::as.data.frame(xy = T) %>% 
+    dplyr::mutate(australia = as.factor(.data$australia))
+  
   #Create site data
   sites <- 
     traits %>%
@@ -34,7 +38,7 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
   #Create site map  
   site_map <- 
     ggplot() +
-    geom_raster(data = austraits::australia_raster, aes(x = .data$x, y = .data$y, fill = .data$ID), show.legend = F) +
+    geom_raster(data = au_map, aes(x = .data$x, y = .data$y, fill = .data$australia), show.legend = FALSE) +
     # Add trait data
     ggpointdensity::geom_pointdensity(
       data = sites,
@@ -45,7 +49,7 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
       ...
     ) +
     scale_x_continuous(limits = c(NA, 154)) +
-    scale_fill_continuous(na.value="white") +
+    ggplot2::scale_fill_manual(values = "cadetblue4", na.value="white", guide = "none") +
     viridis::scale_color_viridis(option = "plasma") +
     theme(
       legend.justification = c(-0.1, 0),
@@ -57,7 +61,8 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
             panel.border = ggplot2::element_rect(colour = "black", fill=NA, size=1),
             axis.ticks.length = ggplot2::unit(1, "mm"),
             axis.ticks = ggplot2::element_line(size = 1)
-    )  + xlab("") + ylab("")
+    )  + xlab("") + ylab("") + 
+    ggplot2::coord_fixed()
   
   # facet by feature if specified - default
   if(!is.na(feature)){

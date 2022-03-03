@@ -50,7 +50,7 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   
   # if numeric, convert to numeric
   if(!is.na(ret[["traits"]][["unit"]][1])){
-    ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]])
+    suppressWarnings(ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]]))
   }
   
 

@@ -6,8 +6,10 @@
 #' @param dataset_id - character string that matches a dataset_id in the data
 #' @return A large list of tibbles containing all austraits information for one particular dataset
 #'
-#' @examples 
+#' @examples
+#' \dontrun{
 #' extract_dataset(austraits, "Falster_2003")
+#' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 #' @importFrom rlang .data
