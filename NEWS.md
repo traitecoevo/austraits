@@ -7,5 +7,5 @@
 * Improved `load_austraits`
 * Added `get_versions`
 * Added `summarise_trait_means` to aid `trait_pivot_wider`
-* Added `print_austraits`
+* Added `summarise_austraits`
 * Added `lookup_trait`

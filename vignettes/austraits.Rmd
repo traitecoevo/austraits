@@ -77,11 +77,11 @@ AusTraits contains `r length(unique(austraits$traits$trait_name))` plant traits.
 Have a look at what trait or taxa we have with: 
 
 ```{r}
-print_austraits(austraits, "trait_name") %>% head()
+summarise_austraits(austraits, "trait_name") %>% head()
 
-print_austraits(austraits, "family") %>% head()
+summarise_austraits(austraits, "family") %>% head()
 
-print_austraits(austraits, "genus") %>% head()
+summarise_austraits(austraits, "genus") %>% head()
 ```
 
 Interested in a specific trait? Try `lookup_trait`

@@ -1,5 +1,6 @@
-#' Summarise counts for a particular variable of interest
+#' @title Summarise counts for a particular variable of interest
 #'
+#' @name summarise_austraits
 #' @param austraits A large list of tibbles built from austraits
 #' @param var variable you use wish to see summary of (trait_name, genus, family)
 #'
@@ -7,15 +8,15 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' print_austraits(austraits, "trait_name")
-#' print_austraits(austraits, "family")
+#' summarise_austraits(austraits, "trait_name")
+#' summarise_austraits(austraits, "family")
 #' }
 #' @importFrom rlang .data
 
-print_austraits <- function(austraits, var){
+summarise_austraits <- function(austraits, var){
   
   if(!var %in% c("trait_name", "family", "genus")){
-    stop(paste0("Print summary for ", var, " has not been implemented! see ?print_austraits()"))
+    stop(paste0("Print summary for ", var, " has not been implemented! see examples)"))
   }
   
   switch(var,
