@@ -84,7 +84,7 @@
       <h1 data-toc-skip>austraits</h1>
                         <h4 data-toc-skip class="author">Fonti Kar, Daniel Falster</h4>
             
-            <h4 data-toc-skip class="date">2022-02-22</h4>
+            <h4 data-toc-skip class="date">2022-03-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/austraits.Rmd" class="external-link"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="hidden name"><code>austraits.Rmd</code></div>
@@ -112,7 +112,7 @@
 <code class="sourceCode R"><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.0.2"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></code></pre></div>
 <p>You can check out different versions and their associated DOI of the AusTraits by using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print_versions.html">print_versions</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/get_versions.html">get_versions</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 3</span></span>
 <span class="co">#&gt;   date       version doi                   </span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span>
@@ -156,7 +156,7 @@
 <p>AusTraits contains 448 plant traits. Check out <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions of the traits</a> to learn more about how each trait is defined.</p>
 <p>Have a look at what trait or taxa we have with:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print_austraits.html">print_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"trait_name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/summarise_austraits.html">summarise_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"trait_name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt;                     trait_name n_records n_dataset n_taxa percent_total</span>
 <span class="co">#&gt;        accessory_cost_fraction        47         1     47      4.71e-05</span>
 <span class="co">#&gt;            accessory_cost_mass        47         1     47      4.71e-05</span>
@@ -165,7 +165,7 @@
 <span class="co">#&gt;            bark_B_per_dry_mass        70         1     10      7.02e-05</span>
 <span class="co">#&gt;            bark_C_per_dry_mass       240         2     27      2.41e-04</span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print_austraits.html">print_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"family"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/summarise_austraits.html">summarise_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"family"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt;         family n_records n_dataset n_taxa percent_total</span>
 <span class="co">#&gt;    Acanthaceae      1631        31    102      1.64e-03</span>
 <span class="co">#&gt;    Achariaceae        76         8      2      7.63e-05</span>
@@ -174,7 +174,7 @@
 <span class="co">#&gt;  Agapanthaceae         9         1      1      9.04e-06</span>
 <span class="co">#&gt;      Aizoaceae      1692        38     84      1.70e-03</span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print_austraits.html">print_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"genus"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/summarise_austraits.html">summarise_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"genus"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt;         genus n_records n_dataset n_taxa percent_total</span>
 <span class="co">#&gt;   Abelmoschus        63         6      4      6.33e-05</span>
 <span class="co">#&gt;  Abildgaardia        50         2      2      5.03e-05</span>
