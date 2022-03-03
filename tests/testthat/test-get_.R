@@ -1,21 +1,21 @@
 test_that("Function works", {
-  expect_visible(austraits_lite %>% get_austraits("family"))
-  expect_visible(austraits_lite %>% get_austraits("genus"))
-  expect_visible(austraits_lite %>% get_austraits("trait_name"))
+  expect_visible(austraits_lite %>% summarise_austraits("family"))
+  expect_visible(austraits_lite %>% summarise_austraits("genus"))
+  expect_visible(austraits_lite %>% summarise_austraits("trait_name"))
 })
 
 test_that("Throws errors", {
-  expect_error(austraits_lite %>% get_austraits("observation_id"))
-  expect_error(austraits_lite %>% get_austraits("trait"))
-  expect_error(austraits_lite %>% get_austraits("unit"))
-  expect_error(austraits_lite %>% get_austraits("source"))
+  expect_error(austraits_lite %>% summarise_austraits("observation_id"))
+  expect_error(austraits_lite %>% summarise_austraits("trait"))
+  expect_error(austraits_lite %>% summarise_austraits("unit"))
+  expect_error(austraits_lite %>% summarise_austraits("source"))
   
 })
 
 test_that("Output correct", {
-  family <- austraits_lite %>% get_austraits("family")
-  genus <- austraits_lite %>% get_austraits("genus")
-  trait_nm <- austraits_lite %>% get_austraits("trait_name")
+  family <- austraits_lite %>% summarise_austraits("family")
+  genus <- austraits_lite %>% summarise_austraits("genus")
+  trait_nm <- austraits_lite %>% summarise_austraits("trait_name")
   
   expect_length(family, 5)
   expect_length(genus, 5)

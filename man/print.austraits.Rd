@@ -4,10 +4,12 @@
 \alias{print.austraits}
 \title{Generic for outputting a nice summary for austraits objects}
 \usage{
-\method{print}{austraits}(x)
+\method{print}{austraits}(x, ...)
 }
 \arguments{
 \item{x}{austraits list object}
+
+\item{\dots}{passed to print}
 }
 \value{
 nicely printed table

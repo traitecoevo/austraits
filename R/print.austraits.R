@@ -2,11 +2,12 @@
 #'
 #' @name print.austraits
 #' @param x austraits list object 
+#' @param \dots passed to print
 #'
 #' @return nicely printed table
 #' @export
 
-print.austraits <- function(x){
+print.austraits <- function(x, ...){
   # Setting up
   version <- x$build_info$version %>% as.character()
   nrecords <- nrow(x$traits)

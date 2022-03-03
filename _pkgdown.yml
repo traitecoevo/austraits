@@ -12,9 +12,10 @@ reference:
 - contents:
   - load_austraits
   - download_austraits
-  - print_versions
-  - print_austraits
+  - get_versions
+  - summarise_austraits
   - lookup_trait
+  - print.austraits
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
