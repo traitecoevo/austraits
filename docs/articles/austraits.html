@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.0000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
       </span>
     </div>
 
@@ -84,8 +84,7 @@
       <h1 data-toc-skip>austraits</h1>
                         <h4 data-toc-skip class="author">Fonti Kar, Daniel Falster</h4>
             
-
-            <h4 data-toc-skip class="date">2022-03-03</h4>
+            <h4 data-toc-skip class="date">2022-03-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/austraits.Rmd" class="external-link"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="hidden name"><code>austraits.Rmd</code></div>
@@ -310,6 +309,88 @@
 </div>
 <div class="section level2">
 <h2 id="join-data-from-other-tables-and-elements">Join data from other tables and elements<a class="anchor" aria-label="anchor" href="#join-data-from-other-tables-and-elements"></a>
+</h2>
+<p>Once users have extracted the data they want, they may want to merge in other study details into the main <code>traits</code> dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the <code>join_</code> functions come in.</p>
+<p>There are five <code>join_</code> functions in total, each designed to append specific information from other tables and elements in the <code>austraits</code> object. Their suffixes refer to the type of information that is joined, e.g. <code>join_taxonomy</code> appends taxonomic information to the <code>traits</code> dataframe. See <code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Join taxonomic information </span>
+<span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 16</span></span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, family &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   genus &lt;chr&gt;, taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;</span></span></code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Join methodological information </span>
+<span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 16</span></span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;, methods &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></span></code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Join site based information </span>
+<span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Join context information </span>
+<span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_contexts</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 6 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Alternatively users can join *all* information </span>
+<span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_all</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 22</span></span>
+<span class="co">#&gt;   dataset_id  taxon_name        site_name context_name observation_id trait_name</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_delt…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_N_pe…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_PRI  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… specific_…</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ahrens_2019 Corymbia calophy… BOO       <span style="color: #BB0000;">NA</span>           Ahrens_2019_0… leaf_area </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 16 more variables: value &lt;dbl&gt;, unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;, methods &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="visualising-data-by-site">Visualising data by site<a class="anchor" aria-label="anchor" href="#visualising-data-by-site"></a>
 </h2>
 <p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longitude information into the trait dataframe before plotting</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
