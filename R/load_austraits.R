@@ -14,15 +14,15 @@
 #' }
 
 
-load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", update = FALSE){
+load_austraits <- function(version = "3.0.2", doi = NULL, path = "data/austraits", update = FALSE){
   # Is path supplied?
-  if(missing(path)){
+  if(rlang::is_missing(path)){
     stop("File path must be supplied!")
   }
   
   # Is version or doi supplied? 
   # Is path supplied?
-  if(missing(version) & missing(doi)){
+  if(is.null(version) & is.null(doi)){
     stop("Either version or doi must be supplied - try get_versions()")
   }
   
@@ -52,18 +52,19 @@ load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", 
   ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
                        version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
                        doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1) # Exclude any versions prior to 1.0.0
+    dplyr::filter(! version < 1) %>% # Exclude any versions prior to 1.0.0
+    as.data.frame()
   
   # Order by numeric version
   ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
   
   # If only doi is provided, match it with its version number
-  if(missing(version) & ! missing(doi)){
+  if(is.null(version) & ! rlang::is_missing(doi)){
     version <- ret[which(ret$doi == doi),"version"] %>% as.character()
   }
   
   # If only version is provided, match it with its doi (so it doesn't throw errors below)
-  if(! missing(version) & missing(doi)){
+  if(! rlang::is_missing(version) & is.null(doi)){
     doi <- ret[which(ret$version == version),"doi"] %>% as.character()
   }
   
@@ -72,6 +73,11 @@ load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", 
     rlang::abort("Requested version/doi is incorrect! Try get_versions()")
   }
   
+  # If both doi and version is supplied but they don't match
+  if(! ret[ret$version == version,"doi"] == doi){
+    message(paste0("Supplied version and doi does not match! We'll load the requested version ", version))
+  }
+    
   # Add in prefix of v
   version_name <- paste0("v", version)
   
@@ -142,10 +148,10 @@ download_austraits <- function(url, filename, path) {
 #' }
 #' @export
 
-get_versions <- function(path, update = TRUE){
+get_versions <- function(path = "data/austraits", update = TRUE){
   
   # Is path supplied?
-  if(missing(path)){
+  if(rlang::is_missing(path)){
     stop("File path must be supplied!")
   }
   

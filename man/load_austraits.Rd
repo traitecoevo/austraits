@@ -5,7 +5,7 @@
 \title{Load AusTraits database into R console}
 \usage{
 load_austraits(
-  version = NULL,
+  version = "3.0.2",
   doi = NULL,
   path = "data/austraits",
   update = FALSE
