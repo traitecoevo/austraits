@@ -4,6 +4,9 @@ home:
   title: An R package for accessing the AusTraits database
   description: Explore and wrangle curated database of plant traits of Australian flora
 
+development:
+  mode: release
+
 template:
   bootswatch: cerulean
   
