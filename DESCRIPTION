@@ -36,15 +36,14 @@ Imports:
     assertthat,
     stringr,
     stats,
-    readr,
     jsonlite,
     utils,
     httr,
-    raster,
-    janitor,
-    ggplot2,
     magrittr
 Suggests: 
+    janitor,
+    ggplot2,
+    raster,
     knitr,
     testthat (>= 3.0.0),
     markdown,
