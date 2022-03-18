@@ -16,7 +16,6 @@
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 #' @importFrom rlang .data
-#' @importFrom ggplot2 ggplot aes geom_histogram geom_density guides theme theme_bw xlab ylab element_blank element_text scale_shape_manual scale_x_log10 scale_x_continuous rel
 #
 plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
   
@@ -76,38 +75,38 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # Top plot - plain histogram of data
   p1 <-
-    ggplot(data, aes(x=.data$value)) +
-    geom_histogram(aes(y = .data$..density..), color="darkgrey", fill="darkgrey", bins=50) +
-    geom_density(color="black") +
-    xlab("") + ylab("All data") +
-    theme_bw()  +
-    theme(legend.position = "none",
-          panel.grid.minor = element_blank(),
-          panel.grid.major = element_blank(),
-          axis.ticks.y= element_blank(),
-          axis.text= element_blank(),
-          panel.background = element_blank()
+    ggplot2::ggplot(data, ggplot2::aes(x=.data$value)) +
+    ggplot2::geom_histogram(ggplot2::aes(y = .data$..density..), color="darkgrey", fill="darkgrey", bins=50) +
+    ggplot2::geom_density(color="black") +
+    ggplot2::xlab("") + ggplot2::ylab("All data") +
+    ggplot2::theme_bw()  +
+    ggplot2::theme(legend.position = "none",
+          panel.grid.minor = ggplot2::element_blank(),
+          panel.grid.major = ggplot2::element_blank(),
+          axis.ticks.y= ggplot2::element_blank(),
+          axis.text= ggplot2::element_blank(),
+          panel.background = ggplot2::element_blank()
     )
   # Second plot -- dots by groups, using ggbeeswarm package
   p2 <-
-    ggplot(data, ggplot2::aes(x = .data$value, y = .data$Group, colour = .data$colour, shape = .data$shapes)) +
+    ggplot2::ggplot(data, ggplot2::aes(x = .data$value, y = .data$Group, colour = .data$colour, shape = .data$shapes)) +
     ggbeeswarm::geom_quasirandom(groupOnX=FALSE) +
-    ylab(paste("By ", y_axis_category)) +
+    ggplot2::ylab(paste("By ", y_axis_category)) +
     # inclusion of custom shapes: for min, mean, unknown
     # NB: this single line of code makes function about 4-5 slower for some reason
-    scale_shape_manual(values = my_shapes) +
-    theme_bw() +
-    theme(legend.position = "none",
-          panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank(),
-          axis.text.x=element_text(size=rel(1.25)),
-          axis.text.y=element_text(size=rel(y.text))
+    ggplot2::scale_shape_manual(values = my_shapes) +
+    ggplot2::theme_bw() +
+    ggplot2::theme(legend.position = "none",
+          panel.grid.major.x = ggplot2::element_blank(),
+          panel.grid.minor.x = ggplot2::element_blank(),
+          axis.text.x = ggplot2::element_text(size=ggplot2::rel(1.25)),
+          axis.text.y = ggplot2::element_text(size=ggplot2::rel(y.text))
     ) #+
    # guides(colour=FALSE)
 
   
   if(hide_ids) {
-    p2 <- p2 + theme(axis.text.y = element_blank())
+    p2 <- p2 + ggplot2::theme(axis.text.y = ggplot2::element_blank())
   }
   
   #Sourced from https://gist.github.com/bbolker/5ba6a37d64b06a176e320b2b696b6733
@@ -126,18 +125,18 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   if(vals$minimum !=0 & range > 20) {
     #log transformation
     p1 <- p1 +
-      scale_x_log10(name="",
+      ggplot2::scale_x_log10(name="",
                     breaks = scales::breaks_log(),
                     labels = scientific_10,
                     limits=c(vals$minimum, vals$maximum))
     p2 <- p2 +
-      scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
+      ggplot2::scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
                     breaks = scales::breaks_log(),
                     labels = scientific_10,
                     limits=c(vals$minimum, vals$maximum))
   } else {
-    p1 <- p1 + scale_x_continuous(limits=c(vals$minimum, vals$maximum))
-    p2 <- p2 + scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
+    p1 <- p1 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum))
+    p2 <- p2 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
       xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
     
   }
