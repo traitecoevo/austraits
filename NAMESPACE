@@ -2,6 +2,7 @@
 
 S3method(print,austraits)
 export("%>%")
+export(as_wide_table)
 export(bind_trait_values)
 export(extract_dataset)
 export(extract_taxa)

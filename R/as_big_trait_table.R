@@ -1,119 +1,133 @@
-#' Create a single wide table from the austraits list for ease of export 
+#' Create a single wide table from the AusTraits data object
 #'
-#' @param austraits_all trait table for austraits list
+#' @param austraits austraits data object
 #'
-#' @return A single wide table with collapsed contexts and sites text and with some cols renamed for clarity
+#' @return A single wide table with collapsed contexts and sites text and with 
+#' some cols renamed for alignment with other reosurces
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' data <- austraits
-#' data %>% wide_table_format()
+#' data %>% as_wide_table()
 #' }
 #' @importFrom rlang .data
 #' 
-wide_table_format <- function(austraits_all){
+as_wide_table <- function(austraits){
 
 
-    
   ################################################################################
+  # TODO: this updated with next zenodo release
   # Load the trait classification doc - classifies the tissue type and type of trait based on the trait_name data field
-  trait_class = read.csv("data_raw/Trait_classifications_v3.csv")
-  trait_class[is.na(trait_class)] = ""
-  ################################################################################
-  #Define the collapse-cols function
-  collapse_cols <- function(data) {
-    data %>% imap_dfr(~ sprintf("%s='%s'",.y,.x)) %>%
-      unite("text", sep="; ") %>% pull(text)
+  # Exclude this for now -- will be added to definitions file in future release
+  # trait_class = read.csv("data-raw/Trait_classifications_v3.csv")
+  # trait_class[is.na(trait_class)] = ""
+  # trait_class <- trait_class %>% as_tibble()
+  # 
+  # we only need two extra columns from the trait class table - collapsing two category and other_tags cols and renaming them for clarity
+  # x2 <- 
+  #   trait_class %>% dplyr::mutate(
+  #   trait_category = str_c(category, "; ", other_tags) %>% gsub("; $", "", .)
+  # ) %>% 
+  #   dplyr::select(trait_name, tissue, trait_category)
+  # 
+  # Function to collapse columns in sites and contexts into single column
+  process_table <- function(data) {
+    
+    # worker function called intop worklfow below
+    # for a df, combine all column names and values
+    collapse_cols <- function(data) {
+      
+      if(ncol(data) ==0) return(NA_character_)
+      
+      data %>% purrr::imap_dfr(~ sprintf("%s='%s'",.y,.x)) %>%
+        tidyr::unite("text", sep="; ") %>% dplyr::pull(text)
+    }
+    
+    data %>% 
+      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
+      tidyr::nest(data=-any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
+      dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
+      dplyr::select(-data) 
   }
   
   ################################################################################
   # Define and adapt each table in the list of austraits to prepare for the wide table format 
-  
+
   # the trait table needs little prep. Rename the value columns as value
-  x1 = austraits$traits %>% 
-    rename(c("trait_value" = "value")) 
-  
-  # we only need two extra columns from the trait class table - collapsing two category and other_tags cols and renaming them for clarity
-  x2 = trait_class %>% mutate(trait_category = str_c(category, "; ", other_tags)) %>% 
-    select(trait_name, tissue, trait_category)
-  
-  x2$trait_category = gsub("; $", "", x2$trait_category)
+  austraits$traits <- 
+    austraits$traits %>% 
+    dplyr::rename(c("trait_value" = "value")) 
   
   # The contexts table needs the contexts collapsed to one context name per site
-  x3 <- austraits$contexts %>% 
-    pivot_wider(names_from = context_property, values_from = value) %>% 
-    nest(data=-c(dataset_id, context_name)) %>%
-    mutate(context = purrr::map_chr(data, collapse_cols)) %>%
-    select(-data) 
-  
-  # This removes unwanted NA text left over from the collapse_cols function used previously
-  x3$a = strsplit(x3$context,";")
-  x3$b = lapply(x3$a, function(x){ subset(x, grepl("'NA'", x) == F)})
-  x3$context = unlist(lapply(x3$b, function(x){ str_c(x, collapse = "; ")}))
-  x3 = x3 %>% select(-a, -b)
-  
+  austraits$contexts <- 
+    austraits$contexts %>% 
+    dplyr::rename(c("property" = "context_property")) %>%
+    split(austraits$contexts$dataset_id) %>%
+    purrr::map_dfr(process_table)  %>% 
+    dplyr::rename(c("context" = "site"))
+
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
-  x4 = austraits$methods %>% 
-    select(-year_collected_start, -year_collected_end) %>% 
-    rename(c("dataset_description" = "description"))
-  
-  # Sites needs the most prep. We are creating two extra columns, lat and long as well as collapsing to just one site description column per site
-  sites_lat_long = austraits$sites %>% 
-    filter(site_property %in% c("latitude (deg)", "longitude (deg)")) %>%
-    spread(key = site_property, value = value) %>% 
-    filter(!is.na(`latitude (deg)`)) %>%
-    filter(`latitude (deg)` != "unknown") 
+  austraits$methods <- 
+    austraits$methods %>% 
+    #  -----------
+    # TODO: this section can be removed for next release
+    # Some studies have multiple records per traits. This breaks things when joining
+    # For now select first
+    dplyr::group_by(dataset_id, trait_name) %>% 
+    dplyr::slice(1) %>%
+    dplyr:: ungroup() %>%
+    #------------
+    dplyr::select(-year_collected_start, -year_collected_end) %>% 
+    dplyr::rename(c("dataset_description" = "description"))  
   
   # collapse into one column
-  sites_condensed <- 
+  austraits$sites <- 
     austraits$sites %>% 
-    filter(site_property != "latitude (deg)" & site_property != "longitude (deg)") %>% 
-    pivot_wider(names_from = site_property, values_from = value, names_repair = "minimal") %>% 
-    nest(data=-c(dataset_id, site_name)) %>% 
-    mutate(site = purrr::map_chr(data, collapse_cols)) %>% 
-    select(-data)
-  
-  #merge the two dataframes together
-  x5 = merge(sites_lat_long, sites_condensed, by = c("dataset_id", "site_name"))
-  
-  #remove the unwanted extra NA text from the collapse_cols function
-  x5$a = strsplit(x5$site,";")
-  x5$b = lapply(x5$a, function(x){ subset(x, grepl("'NA'", x) == F)})
-  x5$site = unlist(lapply(x5$b, function(x){ str_c(x, collapse = "; ")}))
-  x5 = x5 %>% select(-a, -b)
-  
+    dplyr::filter(value!="unkown") %>% 
+    # next line is a fix -- one dataset in 3.0.2 has value "site_name"
+    dplyr::mutate(site_property = gsub("site_name", "name", site_property)) %>%
+    dplyr::rename(c("property" = "site_property")) %>%
+    split(., .$dataset_id) %>%
+    purrr::map_dfr(process_table)
+
   # rename source data field to reflect the APC/APNI name matching process better
-  x6 = austraits$taxa %>% 
-    rename(c("taxonNameValidation" = "source"))
+  austraits$taxa <- 
+    austraits$taxa %>% 
+    dplyr::rename(c("taxonNameValidation" = "source"))
   
-  # merge them together
-  austraits_wide = Reduce(function(a,b) merge(x = a, y = b, by = intersect(names(a), names(b))[intersect(names(a), names(b)) %in% c("dataset_id", "context_name", "site_name", "trait_name", "taxon_name")]), 
-                          list(x1, x2, x3, x4, x5, x6))
-  
-  # reorder the names to be more intuitive
-  austraits_wide = austraits_wide %>% select(
-    
+  austraits_wide <- 
+    austraits$traits %>%
+    dplyr::left_join(by=c("dataset_id", "context_name"), austraits$contexts) %>%
+    dplyr::left_join(by=c("dataset_id", "site_name"), austraits$sites) %>%
+    dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods) %>%
+    dplyr::left_join(by=c("taxon_name"), austraits$taxa) %>%
+
+    # reorder the names to be more intuitive
+    dplyr::select(
+      
     # The most useful (if you are filtering for just one taxon_name)
-    dataset_id, trait_name, trait_value, unit, 
-    value_type, replicates, tissue, trait_category,
+    dataset_id, observation_id, trait_name, taxon_name, trait_value, unit, 
+    value_type, replicates, 
+    # tissue, trait_category,  # Add after new zenodo release
     
     # More stuff you can filter on
-    collection_type, sample_age_class, sampling_strategy, observation_id, date,
+    date, collection_type, sample_age_class, sampling_strategy, 
     
     #stuff relating to sites
     `latitude (deg)`, `longitude (deg)`, site_name, site,
     
     #stuff relating to contexts and methods
-    context_name, context, methods, 
+    context_name, context, methods, original_name,
     
     #the citations
-    dataset_description, source_primary_citation, source_secondary_key, source_secondary_citation,
+    dataset_description, source_primary_citation, source_secondary_citation,
     
     #the taxa details
-    taxon_name, original_name, taxonomicStatus, taxonDistribution, 
+    taxonomicStatus, taxonDistribution, 
     taxonRank, genus, family, acceptedNameUsageID, 
-    scientificNameAuthorship, ccAttributionIRI )
+    scientificNameAuthorship, ccAttributionIRI
+    )
   
-  return(austraits_wide)
+  austraits_wide
 }
