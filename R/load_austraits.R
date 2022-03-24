@@ -14,16 +14,10 @@
 #' }
 
 
-load_austraits <- function(version = "3.0.2", doi = NULL, path = "data/austraits", update = FALSE){
+load_austraits <- function(doi = NULL, version = get_version_latest(path = path, update = update), path = "data/austraits", update = FALSE){
   # Is path supplied?
   if(rlang::is_missing(path)){
     stop("File path must be supplied!")
-  }
-  
-  # Is version or doi supplied? 
-  # Is path supplied?
-  if(is.null(version) & is.null(doi)){
-    stop("Either version or doi must be supplied - try get_versions()")
   }
   
   # Does the path exist? 
@@ -58,26 +52,21 @@ load_austraits <- function(version = "3.0.2", doi = NULL, path = "data/austraits
   # Order by numeric version
   ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
   
-  # If only doi is provided, match it with its version number
-  if(is.null(version) & ! rlang::is_missing(doi)){
+  # If only doi is provided, match it with its version number  
+  if(! is.null(doi)){
+    # Check doi is in list of doi 
+    if(! doi %in% ret$doi){
+      rlang::abort("Requested version/doi is incorrect!")
+    }
     version <- ret[which(ret$doi == doi),"version"] %>% as.character()
   }
-  
-  # If only version is provided, match it with its doi (so it doesn't throw errors below)
-  if(! rlang::is_missing(version) & is.null(doi)){
-    doi <- ret[which(ret$version == version),"doi"] %>% as.character()
-  }
-  
+
+
   # Check if version/doi is available
-  if(! version %in% ret$version | ! doi %in% ret$doi){
+  if(! version %in% ret$version){
     rlang::abort("Requested version/doi is incorrect! Try get_versions()")
   }
   
-  # If both doi and version is supplied but they don't match
-  if(! ret[ret$version == version,"doi"] == doi){
-    message(paste0("Supplied version and doi does not match! We'll load the requested version ", version))
-  }
-    
   # Add in prefix of v
   version_name <- paste0("v", version)
   
@@ -190,3 +179,47 @@ get_versions <- function(path = "data/austraits", update = TRUE){
   
 }
 
+
+#' Retrieve the latest version of AusTraits
+#'
+#' @inheritParams load_austraits
+#'
+#' @return character string of latest version
+
+get_version_latest <- function(path = "data/austraits", update = TRUE){
+  # Is path supplied?
+  if(rlang::is_missing(path)){
+    stop("File path must be supplied!")
+  }
+  
+  # Does the path exist? 
+  if(! file.exists(path)) {
+    dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
+  }
+  
+  file_json <- file.path(path, "austraits.json")
+  
+  # Does the .json exist in specified path?
+  if(! file.exists(file_json) | update == TRUE){
+    # Retrieve the .json
+    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
+                               simplifyVector = T)
+    
+    message("Retrieving latest version of AusTraits...")
+    
+    # Save it
+    jsonlite::write_json(res, file_json)
+  }
+  
+  # Load the json
+  res <- jsonlite::fromJSON(file_json) 
+  
+  # Get all versions and remove the 'v'
+  version_numbers <- stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]")
+
+  # Order by numeric version
+  version_numbers <- version_numbers[order(dplyr::desc(numeric_version(version_numbers)))]
+  
+  # Return the first value as the version we want
+  dplyr::first(version_numbers)
+}
