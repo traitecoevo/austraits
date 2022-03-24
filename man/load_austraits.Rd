@@ -6,7 +6,7 @@
 \usage{
 load_austraits(
   doi = NULL,
-  version = get_latest_version(path = path, update = update),
+  version = get_version_latest(path = path, update = update),
   path = "data/austraits",
   update = FALSE
 )

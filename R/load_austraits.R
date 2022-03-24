@@ -25,19 +25,8 @@ load_austraits <- function(doi = NULL, version = get_version_latest(path = path,
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
   
-  file_json <- file.path(path, "austraits.json")
-  
-  # Does the .json exist?
-  if(! file.exists(file_json) | update == TRUE){
-    # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
-                               simplifyVector = T)
-    # Save it
-    jsonlite::write_json(res, file_json)
-  }
-  
   # Load the json
-  res <- jsonlite::fromJSON(file_json) 
+  res <- load_json(path = path, update = update) 
   
   # Name the files list
   names(res$hits$hits$files) <- res$hits$hits$metadata$version
@@ -60,7 +49,6 @@ load_austraits <- function(doi = NULL, version = get_version_latest(path = path,
     }
     version <- ret[which(ret$doi == doi),"version"] %>% as.character()
   }
-
 
   # Check if version/doi is available
   if(! version %in% ret$version){
@@ -91,6 +79,29 @@ load_austraits <- function(doi = NULL, version = get_version_latest(path = path,
   attr(data, "class") <- "austraits"
   
   data
+}
+
+
+#' Load the austraits.json
+#'
+#' @inheritParams load_austraits
+#' @return
+
+load_json <- function(path, update){
+  # Set the directory path to json
+  file_json <- file.path(path, "austraits.json")
+  
+  # Does the .json exist?
+  if(! file.exists(file_json) | update == TRUE){
+    # Retrieve the .json
+    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
+                               simplifyVector = T)
+    # Save it
+    jsonlite::write_json(res, file_json)
+  }
+  
+  # Load the json
+  jsonlite::fromJSON(file_json) 
 }
 
 
@@ -149,22 +160,8 @@ get_versions <- function(path = "data/austraits", update = TRUE){
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
   
-  file_json <- file.path(path, "austraits.json")
-  
-  # Does the .json exist in specificied path?
-  if(! file.exists(file_json) | update == TRUE){
-    # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
-                               simplifyVector = T)
-    
-    message("Retrieving all versions of AusTraits...")
-    
-    # Save it
-    jsonlite::write_json(res, file_json)
-  }
-  
   # Load the json
-  res <- jsonlite::fromJSON(file_json) 
+  res <- load_json(path = path, update = update)  
   
   # Create a table
   ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
@@ -196,23 +193,9 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
-  
-  file_json <- file.path(path, "austraits.json")
-  
-  # Does the .json exist in specified path?
-  if(! file.exists(file_json) | update == TRUE){
-    # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
-                               simplifyVector = T)
-    
-    message("Retrieving latest version of AusTraits...")
-    
-    # Save it
-    jsonlite::write_json(res, file_json)
-  }
-  
+
   # Load the json
-  res <- jsonlite::fromJSON(file_json) 
+  res <- load_json(path = path, update = update)
   
   # Get all versions and remove the 'v'
   version_numbers <- stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]")
