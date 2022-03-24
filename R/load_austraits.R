@@ -13,7 +13,6 @@
 #' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 #' }
 
-
 load_austraits <- function(doi = NULL, version = get_version_latest(path = path, update = update), path = "data/austraits", update = FALSE){
   # Is path supplied?
   if(rlang::is_missing(path)){
@@ -28,18 +27,11 @@ load_austraits <- function(doi = NULL, version = get_version_latest(path = path,
   # Load the json
   res <- load_json(path = path, update = update) 
   
-  # Name the files list
+  # Name the response list
   names(res$hits$hits$files) <- res$hits$hits$metadata$version
   
-  # Version table
-  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
-                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-                       doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1) %>% # Exclude any versions prior to 1.0.0
-    as.data.frame()
-  
-  # Order by numeric version
-  ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
+  # Create metadata table
+  ret <- create_metadata(res)
   
   # If only doi is provided, match it with its version number  
   if(! is.null(doi)){
@@ -104,6 +96,23 @@ load_json <- function(path, update){
   jsonlite::fromJSON(file_json) 
 }
 
+#' Helper function to create nice metadata table
+#'
+#' @param res output of austraits.json
+#'
+#' @return dataframe of metadata (date of release, doi and version)
+
+create_metadata <- function(res){
+  # Version table
+  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
+                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
+                       doi = res$hits$hits$metadata$doi) %>% 
+    dplyr::filter(! version < 1) %>% # Exclude any versions prior to 1.0.0
+    as.data.frame()
+  
+  # Order by numeric version
+  ret[order(dplyr::desc(numeric_version(ret$version))),]
+}
 
 #' Function for loading .rds AusTraits files
 #'
@@ -163,19 +172,9 @@ get_versions <- function(path = "data/austraits", update = TRUE){
   # Load the json
   res <- load_json(path = path, update = update)  
   
-  # Create a table
-  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
-                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-                       doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1)
-  
-  # Order by numeric version
-  ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
-  
-  ret
-  
+  # Create metadata table
+  create_metadata(res) %>% dplyr::as_tibble()
 }
-
 
 #' Retrieve the latest version of AusTraits
 #'
@@ -206,3 +205,4 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   # Return the first value as the version we want
   dplyr::first(version_numbers)
 }
+
