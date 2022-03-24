@@ -10,9 +10,9 @@ template:
 reference:
 - title: Accessing AusTraits
 - contents:
-  - load_austraits
+  - starts_with("load")
   - download_austraits
-  - get_versions
+  - starts_with("get_")
   - summarise_austraits
   - lookup_trait
   - print.austraits
