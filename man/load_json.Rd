@@ -11,9 +11,6 @@ load_json(path, update)
 
 \item{update}{if TRUE, AusTraits versions .json will be re-downloaded}
 }
-\value{
-
-}
 \description{
 Load the austraits.json
 }

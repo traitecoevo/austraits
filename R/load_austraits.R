@@ -77,8 +77,7 @@ load_austraits <- function(doi = NULL, version = get_version_latest(path = path,
 #' Load the austraits.json
 #'
 #' @inheritParams load_austraits
-#' @return
-
+#' 
 load_json <- function(path, update){
   # Set the directory path to json
   file_json <- file.path(path, "austraits.json")

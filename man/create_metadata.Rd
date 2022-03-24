@@ -10,7 +10,7 @@ create_metadata(res)
 \item{res}{output of austraits.json}
 }
 \value{
-tibble of metadata (date of release, doi and version)
+dataframe of metadata (date of release, doi and version)
 }
 \description{
 Helper function to create nice metadata table
