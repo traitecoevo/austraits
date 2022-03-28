@@ -12,7 +12,7 @@ test_that("Output is correct", {
 })
 
 test_that("Complains at the right time", {
-  expect_error(austraits$traits %>% as_wide_table())
+  expect_error(as_wide_table())
 })
 
 

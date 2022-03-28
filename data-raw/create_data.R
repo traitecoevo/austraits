@@ -4,8 +4,7 @@
 devtools::load_all()
 set.seed(109)
 austraits_all <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
-dataset_id <- unique(austraits_all$traits$dataset_id) %>% sample(5)
-#dataset_id <- c("Falster_2003", "Falster_2005_1", "Falster_2005_2")
+dataset_id <- c( unique(austraits_all$traits$dataset_id) %>% sample(5), "Falster_2003", "Falster_2005_1", "Falster_2005_2" )
 
 austraits_lite <- extract_dataset(austraits_all, dataset_id)
 

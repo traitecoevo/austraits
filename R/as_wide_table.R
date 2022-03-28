@@ -41,11 +41,11 @@ as_wide_table <- function(austraits){
       if(ncol(data) ==0) return(NA_character_)
       
       data %>% purrr::imap_dfr(~ sprintf("%s='%s'",.y,.x)) %>%
-        tidyr::unite("text", sep="; ") %>% dplyr::pull(text)
+        tidyr::unite("text", sep="; ") %>% dplyr::pull(.data$text)
     }
     
     data %>% 
-      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
       tidyr::nest(data=-any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
