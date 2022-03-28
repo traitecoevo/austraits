@@ -12,7 +12,8 @@
 #' data %>% as_wide_table()
 #' }
 #' @importFrom rlang .data
-#' 
+#' @importFrom stats family
+#' @importFrom utils methods
 as_wide_table <- function(austraits){
 
 
@@ -41,12 +42,12 @@ as_wide_table <- function(austraits){
       if(ncol(data) ==0) return(NA_character_)
       
       data %>% purrr::imap_dfr(~ sprintf("%s='%s'",.y,.x)) %>%
-        tidyr::unite("text", sep="; ") %>% dplyr::pull(text)
+        tidyr::unite("text", sep="; ") %>% dplyr::pull(.data$text)
     }
     
     data %>% 
-      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
-      tidyr::nest(data=-any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
+      tidyr::pivot_wider(names_from = .data$property, values_from = .data$value) %>% 
+      tidyr::nest(data=-dplyr::any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
   }
@@ -74,19 +75,19 @@ as_wide_table <- function(austraits){
     # TODO: this section can be removed for next release
     # Some studies have multiple records per traits. This breaks things when joining
     # For now select first
-    dplyr::group_by(dataset_id, trait_name) %>% 
+    dplyr::group_by(.data$dataset_id, .data$trait_name) %>% 
     dplyr::slice(1) %>%
     dplyr:: ungroup() %>%
     #------------
-    dplyr::select(-year_collected_start, -year_collected_end) %>% 
+    dplyr::select(-.data$year_collected_start, -.data$year_collected_end) %>% 
     dplyr::rename(c("dataset_description" = "description"))  
   
   # collapse into one column
   austraits$sites <- 
     austraits$sites %>% 
-    dplyr::filter(value!="unkown") %>% 
+    dplyr::filter(.data$value!="unkown") %>% 
     # next line is a fix -- one dataset in 3.0.2 has value "site_name"
-    dplyr::mutate(site_property = gsub("site_name", "name", site_property)) %>%
+    dplyr::mutate(site_property = gsub("site_name", "name", .data$site_property)) %>%
     dplyr::rename(c("property" = "site_property")) %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table)
@@ -107,26 +108,26 @@ as_wide_table <- function(austraits){
     dplyr::select(
       
     # The most useful (if you are filtering for just one taxon_name)
-    dataset_id, observation_id, trait_name, taxon_name, trait_value, unit, 
-    value_type, replicates, 
+      .data$dataset_id, .data$observation_id, .data$trait_name, .data$taxon_name, .data$trait_value, .data$unit, 
+      .data$value_type, .data$replicates, 
     # tissue, trait_category,  # Add after new zenodo release
     
     # More stuff you can filter on
-    date, collection_type, sample_age_class, sampling_strategy, 
+    .data$date, .data$collection_type, .data$sample_age_class, .data$sampling_strategy, 
     
     #stuff relating to sites
-    `latitude (deg)`, `longitude (deg)`, site_name, site,
+    .data$`latitude (deg)`, .data$`longitude (deg)`, .data$site_name, .data$site,
     
     #stuff relating to contexts and methods
-    context_name, context, methods, original_name,
+    .data$context_name, .data$context, .data$methods, .data$original_name,
     
     #the citations
-    dataset_description, source_primary_citation, source_secondary_citation,
+    .data$dataset_description, .data$source_primary_citation, .data$source_secondary_citation,
     
     #the taxa details
-    taxonomicStatus, taxonDistribution, 
-    taxonRank, genus, family, acceptedNameUsageID, 
-    scientificNameAuthorship, ccAttributionIRI
+    .data$taxonomicStatus, .data$taxonDistribution, 
+    .data$taxonRank, .data$genus, .data$family, .data$acceptedNameUsageID, 
+    .data$scientificNameAuthorship, .data$ccAttributionIRI
     )
   
   austraits_wide
