@@ -28,6 +28,7 @@ reference:
   - starts_with("trait_pivot")
   - join_all
   - ends_with("trait_values")
+  - as_wide_table
 - title: Quick data visualisations
   desc: Plot site or variance distributions
 - contents:

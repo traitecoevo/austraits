@@ -10,3 +10,4 @@
 * Added `summarise_austraits`
 * Added `lookup_trait`
 * Added `print.austraits`
+* Added `as_wide_table`
