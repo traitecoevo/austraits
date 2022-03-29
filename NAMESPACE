@@ -2,6 +2,7 @@
 
 S3method(print,austraits)
 export("%>%")
+export(as_wide_table)
 export(bind_trait_values)
 export(extract_dataset)
 export(extract_taxa)
@@ -48,3 +49,5 @@ importFrom(ggplot2,ylab)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
 importFrom(rlang,abort)
+importFrom(stats,family)
+importFrom(utils,methods)
