@@ -7,13 +7,19 @@
 #'
 #' @return a large list containing AusTraits data tables
 #' @export
+#' @seealso get_versions get_version_latest
 #'
 #' @examples
 #' \dontrun{
 #' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 #' }
 
-load_austraits <- function(doi = NULL, version = get_version_latest(path = path, update = update), path = "data/austraits", update = FALSE){
+load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = FALSE){
+  # Is either doi or version supplied? 
+  if(is.null(doi) & is.null(version)){
+    stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
+  }
+  
   # Is path supplied?
   if(rlang::is_missing(path)){
     stop("File path must be supplied!")
@@ -44,7 +50,7 @@ load_austraits <- function(doi = NULL, version = get_version_latest(path = path,
 
   # Check if version/doi is available
   if(! version %in% ret$version){
-    rlang::abort("Requested version/doi is incorrect! Try get_versions()")
+    rlang::abort("Requested version/doi is incorrect!")
   }
   
   # Add in prefix of v
@@ -178,7 +184,7 @@ get_versions <- function(path = "data/austraits", update = TRUE){
 #' Retrieve the latest version of AusTraits
 #'
 #' @inheritParams load_austraits
-#'
+#' @export
 #' @return character string of latest version
 
 get_version_latest <- function(path = "data/austraits", update = TRUE){

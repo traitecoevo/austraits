@@ -6,7 +6,7 @@
 \usage{
 load_austraits(
   doi = NULL,
-  version = get_version_latest(path = path, update = update),
+  version = NULL,
   path = "data/austraits",
   update = FALSE
 )
@@ -30,4 +30,7 @@ Load AusTraits database into R console
 \dontrun{
 austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 }
+}
+\seealso{
+get_versions get_version_latest
 }
