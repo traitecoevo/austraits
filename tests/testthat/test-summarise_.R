@@ -71,8 +71,8 @@ test_that("Output correct", {
   family_vec <- austraits_lite$taxa$family %>% unique()
   genus_vec <- austraits_lite$taxa$genus %>% unique()
   
-  expect_equal(nrow(family), family[!is.na(family)] %>% length())
-  expect_equal(nrow(genus), genus[!is.na(genus)] %>% length())
+  expect_equal(nrow(family), family_vec[!is.na(family_vec)] %>% length())
+  expect_equal(nrow(genus), genus_vec[!is.na(genus_vec)] %>% length())
   expect_equal(nrow(trait_nm), austraits_lite$traits$trait_name %>% unique() %>% length())
 })
 
