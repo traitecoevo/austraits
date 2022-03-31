@@ -7,23 +7,22 @@
 #'
 #' @return a large list containing AusTraits data tables
 #' @export
+#' @seealso get_versions get_version_latest
 #'
 #' @examples
 #' \dontrun{
 #' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 #' }
 
-
-load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", update = FALSE){
-  # Is path supplied?
-  if(missing(path)){
-    stop("File path must be supplied!")
+load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = FALSE){
+  # Is either doi or version supplied? 
+  if(is.null(doi) & is.null(version)){
+    stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
   }
   
-  # Is version or doi supplied? 
   # Is path supplied?
-  if(missing(version) & missing(doi)){
-    stop("Either version or doi must be supplied - try get_versions()")
+  if(rlang::is_missing(path)){
+    stop("File path must be supplied!")
   }
   
   # Does the path exist? 
@@ -31,45 +30,27 @@ load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", 
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
   
-  file_json <- file.path(path, "austraits.json")
-  
-  # Does the .json exist?
-  if(! file.exists(file_json) | update == TRUE){
-    # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
-                               simplifyVector = T)
-    # Save it
-    jsonlite::write_json(res, file_json)
-  }
-  
   # Load the json
-  res <- jsonlite::fromJSON(file_json) 
+  res <- load_json(path = path, update = update) 
   
-  # Name the files list
+  # Name the response list
   names(res$hits$hits$files) <- res$hits$hits$metadata$version
   
-  # Version table
-  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
-                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-                       doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1) # Exclude any versions prior to 1.0.0
+  # Create metadata table
+  ret <- create_metadata(res)
   
-  # Order by numeric version
-  ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
-  
-  # If only doi is provided, match it with its version number
-  if(missing(version) & ! missing(doi)){
+  # If only doi is provided, match it with its version number  
+  if(! is.null(doi)){
+    # Check doi is in list of doi 
+    if(! doi %in% ret$doi){
+      rlang::abort("Requested version/doi is incorrect!")
+    }
     version <- ret[which(ret$doi == doi),"version"] %>% as.character()
   }
-  
-  # If only version is provided, match it with its doi (so it doesn't throw errors below)
-  if(! missing(version) & missing(doi)){
-    doi <- ret[which(ret$version == version),"doi"] %>% as.character()
-  }
-  
+
   # Check if version/doi is available
-  if(! version %in% ret$version | ! doi %in% ret$doi){
-    rlang::abort("Requested version/doi is incorrect! Try get_versions()")
+  if(! version %in% ret$version){
+    rlang::abort("Requested version/doi is incorrect!")
   }
   
   # Add in prefix of v
@@ -98,6 +79,45 @@ load_austraits <- function(version = NULL, doi = NULL, path = "data/austraits", 
   data
 }
 
+
+#' Load the austraits.json
+#'
+#' @inheritParams load_austraits
+#' 
+load_json <- function(path, update){
+  # Set the directory path to json
+  file_json <- file.path(path, "austraits.json")
+  
+  # Does the .json exist?
+  if(! file.exists(file_json) | update == TRUE){
+    # Retrieve the .json
+    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
+                               simplifyVector = T)
+    # Save it
+    jsonlite::write_json(res, file_json)
+  }
+  
+  # Load the json
+  jsonlite::fromJSON(file_json) 
+}
+
+#' Helper function to create nice metadata table
+#'
+#' @param res output of austraits.json
+#'
+#' @return dataframe of metadata (date of release, doi and version)
+
+create_metadata <- function(res){
+  # Version table
+  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
+                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
+                       doi = res$hits$hits$metadata$doi) %>% 
+    dplyr::filter(! version < 1) %>% # Exclude any versions prior to 1.0.0
+    as.data.frame()
+  
+  # Order by numeric version
+  ret[order(dplyr::desc(numeric_version(ret$version))),]
+}
 
 #' Function for loading .rds AusTraits files
 #'
@@ -142,10 +162,10 @@ download_austraits <- function(url, filename, path) {
 #' }
 #' @export
 
-get_versions <- function(path, update = TRUE){
+get_versions <- function(path = "data/austraits", update = TRUE){
   
   # Is path supplied?
-  if(missing(path)){
+  if(rlang::is_missing(path)){
     stop("File path must be supplied!")
   }
   
@@ -154,33 +174,40 @@ get_versions <- function(path, update = TRUE){
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
   
-  file_json <- file.path(path, "austraits.json")
+  # Load the json
+  res <- load_json(path = path, update = update)  
   
-  # Does the .json exist in specificied path?
-  if(! file.exists(file_json) | update == TRUE){
-    # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
-                               simplifyVector = T)
-    
-    message("Retrieving all versions of AusTraits...")
-    
-    # Save it
-    jsonlite::write_json(res, file_json)
+  # Create metadata table
+  create_metadata(res) %>% dplyr::as_tibble()
+}
+
+#' Retrieve the latest version of AusTraits
+#'
+#' @inheritParams load_austraits
+#' @export
+#' @return character string of latest version
+
+get_version_latest <- function(path = "data/austraits", update = TRUE){
+  # Is path supplied?
+  if(rlang::is_missing(path)){
+    stop("File path must be supplied!")
   }
   
+  # Does the path exist? 
+  if(! file.exists(path)) {
+    dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
+  }
+
   # Load the json
-  res <- jsonlite::fromJSON(file_json) 
+  res <- load_json(path = path, update = update)
   
-  # Create a table
-  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
-                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-                       doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1)
-  
+  # Get all versions and remove the 'v'
+  version_numbers <- stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]")
+
   # Order by numeric version
-  ret <- ret[order(dplyr::desc(numeric_version(ret$version))),]
+  version_numbers <- version_numbers[order(dplyr::desc(numeric_version(version_numbers)))]
   
-  ret
-  
+  # Return the first value as the version we want
+  dplyr::first(version_numbers)
 }
 

@@ -4,7 +4,7 @@
 \alias{get_versions}
 \title{Print out AusTraits versions}
 \usage{
-get_versions(path, update = TRUE)
+get_versions(path = "data/austraits", update = TRUE)
 }
 \arguments{
 \item{path}{A file path where AusTraits was previously downloaded}

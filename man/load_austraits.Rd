@@ -5,16 +5,16 @@
 \title{Load AusTraits database into R console}
 \usage{
 load_austraits(
-  version = NULL,
   doi = NULL,
+  version = NULL,
   path = "data/austraits",
   update = FALSE
 )
 }
 \arguments{
-\item{version}{character string - version number of database}
-
 \item{doi}{character string - doi of particular version}
+
+\item{version}{character string - version number of database}
 
 \item{path}{file path to where AusTraits will be downloaded}
 
@@ -30,4 +30,7 @@ Load AusTraits database into R console
 \dontrun{
 austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 }
+}
+\seealso{
+get_versions get_version_latest
 }
