@@ -80,7 +80,7 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🔧
+### Behind the scenes 🛠
 
 Check out
 [austraits.build](http://traitecoevo.github.io/austraits.build/), if you

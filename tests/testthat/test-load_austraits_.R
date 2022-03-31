@@ -1,7 +1,7 @@
 path = "ignore/data/austraits"
 
 test_that("load_austraits is working", {
-  austraits <- load_austraits(path = path, update = FALSE)
+  austraits <- load_austraits(version = "3.0.2", path = path, update = FALSE)
   
   expect_visible(austraits)
   expect_named(austraits)

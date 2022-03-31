@@ -68,8 +68,11 @@ test_that("Output correct", {
   expect_named(genus, expected = c("genus", "n_records", "n_dataset", "n_taxa", "percent_total"))
   expect_named(trait_nm, expected = c("trait_name", "n_records", "n_dataset", "n_taxa", "percent_total"))
   
-  expect_equal(nrow(family), austraits_lite$taxa$family %>% unique() %>% length())
-  expect_equal(nrow(genus), austraits_lite$taxa$genus %>% unique() %>% length())
+  family_vec <- austraits_lite$taxa$family %>% unique()
+  genus_vec <- austraits_lite$taxa$genus %>% unique()
+  
+  expect_equal(nrow(family), family[!is.na(family)] %>% length())
+  expect_equal(nrow(genus), genus[!is.na(genus)] %>% length())
   expect_equal(nrow(trait_nm), austraits_lite$traits$trait_name %>% unique() %>% length())
 })
 
