@@ -19,12 +19,11 @@ reference:
   - summarise_austraits
   - lookup_trait
   - print.austraits
+  - create_metadata
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
   - starts_with("extract")
-  - summarise_trait_means
-  - bind_trait_values
   - starts_with("trait_pivot")
   - join_all
   - ends_with("trait_values")
@@ -49,7 +48,7 @@ navbar:
       icon: fas fa-home fa-lg
       href: index.html
     reference:
-      text: Function glossary
+      text: Functions glossary
       href: reference/index.html
     intro:
       text: Tutorial

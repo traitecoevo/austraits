@@ -83,7 +83,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
 #' Load the austraits.json
 #'
 #' @inheritParams load_austraits
-#' 
+
 load_json <- function(path, update){
   # Set the directory path to json
   file_json <- file.path(path, "austraits.json")
@@ -104,7 +104,6 @@ load_json <- function(path, update){
 #' Helper function to create nice metadata table
 #'
 #' @param res output of austraits.json
-#'
 #' @return dataframe of metadata (date of release, doi and version)
 
 create_metadata <- function(res){
