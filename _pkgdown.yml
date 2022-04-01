@@ -11,7 +11,7 @@ template:
   bootswatch: cerulean
   
 reference:
-- title: Accessing AusTraits
+- title: Accessing and exploring AusTraits
 - contents:
   - starts_with("load")
   - download_austraits
@@ -25,6 +25,7 @@ reference:
 - contents:
   - starts_with("extract")
   - starts_with("trait_pivot")
+  - summarise_trait_means
   - join_all
   - ends_with("trait_values")
   - as_wide_table
