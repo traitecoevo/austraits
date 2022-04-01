@@ -34,6 +34,9 @@
     <loc>https://traitecoevo.github.io/austraits/reference/bind_trait_values.html</loc>
   </url>
   <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/create_metadata.html</loc>
+  </url>
+  <url>
     <loc>https://traitecoevo.github.io/austraits/reference/download_austraits.html</loc>
   </url>
   <url>
@@ -44,6 +47,9 @@
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/extract_trait.html</loc>
+  </url>
+  <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/get_version_latest.html</loc>
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/get_versions.html</loc>
@@ -59,6 +65,9 @@
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/load_austraits.html</loc>
+  </url>
+  <url>
+    <loc>https://traitecoevo.github.io/austraits/reference/load_json.html</loc>
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/lookup_trait.html</loc>
