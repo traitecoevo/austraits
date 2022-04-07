@@ -17,7 +17,6 @@
 #' }
 #' @export
 #' @importFrom rlang .data
-#' @importFrom ggplot2 ggplot aes geom_raster theme scale_fill_grey xlab ylab facet_wrap scale_x_continuous scale_fill_continuous
 
 plot_site_locations <- function(traits, feature="trait_name", ...){
   
@@ -37,21 +36,21 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
 
   #Create site map  
   site_map <- 
-    ggplot() +
-    geom_raster(data = au_map, aes(x = .data$x, y = .data$y, fill = .data$australia), show.legend = FALSE) +
+    ggplot2::ggplot() +
+    ggplot2::geom_raster(data = au_map, ggplot2::aes(x = .data$x, y = .data$y, fill = .data$australia), show.legend = FALSE) +
     # Add trait data
     ggpointdensity::geom_pointdensity(
       data = sites,
-      aes(y = .data$`latitude (deg)`, x = .data$`longitude (deg)`),
+      ggplot2::aes(y = .data$`latitude (deg)`, x = .data$`longitude (deg)`),
       inherit.aes = FALSE,
       show.legend = TRUE,
       adjust = 1,
       ...
     ) +
-    scale_x_continuous(limits = c(NA, 154)) +
+    ggplot2::scale_x_continuous(limits = c(NA, 154)) +
     ggplot2::scale_fill_manual(values = "cadetblue4", na.value="white", guide = "none") +
     viridis::scale_color_viridis(option = "plasma") +
-    theme(
+    ggplot2::theme(
       legend.justification = c(-0.1, 0),
       legend.position = "bottom",
       legend.direction  = "horizontal",
@@ -61,12 +60,12 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
             panel.border = ggplot2::element_rect(colour = "black", fill=NA, size=1),
             axis.ticks.length = ggplot2::unit(1, "mm"),
             axis.ticks = ggplot2::element_line(size = 1)
-    )  + xlab("") + ylab("") + 
+    )  + ggplot2::xlab("") + ggplot2::ylab("") + 
     ggplot2::coord_fixed()
   
   # facet by feature if specified - default
   if(!is.na(feature)){
-      site_map <- site_map + facet_wrap(paste("~", feature))
+      site_map <- site_map + ggplot2::facet_wrap(paste("~", feature))
   }
   suppressWarnings(print(site_map))
 }
