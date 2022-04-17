@@ -4,11 +4,14 @@ home:
   title: An R package for accessing the AusTraits database
   description: Explore and wrangle curated database of plant traits of Australian flora
 
+development:
+  mode: release
+
 template:
   bootswatch: cerulean
   
 reference:
-- title: Accessing AusTraits
+- title: Accessing and exploring AusTraits
 - contents:
   - starts_with("load")
   - download_austraits
@@ -16,15 +19,16 @@ reference:
   - summarise_austraits
   - lookup_trait
   - print.austraits
+  - create_metadata
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
   - starts_with("extract")
-  - summarise_trait_means
-  - bind_trait_values
   - starts_with("trait_pivot")
+  - summarise_trait_means
   - join_all
   - ends_with("trait_values")
+  - as_wide_table
 - title: Quick data visualisations
   desc: Plot site or variance distributions
 - contents:
@@ -45,7 +49,7 @@ navbar:
       icon: fas fa-home fa-lg
       href: index.html
     reference:
-      text: Function glossary
+      text: Functions glossary
       href: reference/index.html
     intro:
       text: Tutorial

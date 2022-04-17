@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -38,7 +38,7 @@
   <a href="../articles/dictionary.html">Trait definitions</a>
 </li>
 <li>
-  <a href="../reference/index.html">Function glossary</a>
+  <a href="../reference/index.html">Functions glossary</a>
 </li>
 <li>
   <a href="../news/index.html">What's new?</a>
@@ -62,7 +62,7 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="accessing-austraits">Accessing AusTraits <a href="#accessing-austraits" class="anchor" aria-hidden="true"></a></h2>
+          <h2 id="accessing-and-exploring-austraits">Accessing and exploring AusTraits <a href="#accessing-and-exploring-austraits" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p>
         </th>
       </tr></tbody><tbody><tr><td>
@@ -97,6 +97,10 @@
           <p><code><a href="print.austraits.html">print(<i>&lt;austraits&gt;</i>)</a></code> </p>
         </td>
         <td><p>Generic for outputting a nice summary for austraits objects</p></td>
+      </tr><tr><td>
+          <p><code><a href="create_metadata.html">create_metadata()</a></code> </p>
+        </td>
+        <td><p>Helper function to create nice metadata table</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="wrangling-austraits">Wrangling AusTraits <a href="#wrangling-austraits" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions to extract, pivot and join data</p>
@@ -114,14 +118,6 @@
         </td>
         <td><p>Extract data for specific traits</p></td>
       </tr><tr><td>
-          <p><code><a href="summarise_trait_means.html">summarise_trait_means()</a></code> </p>
-        </td>
-        <td><p>Compute mean trait values for studies that have multiple observations for a given trait</p></td>
-      </tr><tr><td>
-          <p><code><a href="bind_trait_values.html">bind_trait_values()</a></code> </p>
-        </td>
-        <td><p>Bind trait values</p></td>
-      </tr><tr><td>
           <p><code><a href="trait_pivot_longer.html">trait_pivot_longer()</a></code> </p>
         </td>
         <td><p>Pivot wide format ausTrait data into a long format</p></td>
@@ -130,13 +126,25 @@
         </td>
         <td><p>Pivot long format austrait data into a wide format</p></td>
       </tr><tr><td>
+          <p><code><a href="summarise_trait_means.html">summarise_trait_means()</a></code> </p>
+        </td>
+        <td><p>Compute mean trait values for studies that have multiple observations for a given trait</p></td>
+      </tr><tr><td>
           <p><code><a href="join_all.html">join_all()</a></code> <code><a href="join_all.html">join_taxonomy()</a></code> <code><a href="join_all.html">join_methods()</a></code> <code><a href="join_all.html">join_sites()</a></code> <code><a href="join_all.html">join_contexts()</a></code> </p>
         </td>
         <td><p>Join study details into main <code>traits</code> dataset</p></td>
       </tr><tr><td>
+          <p><code><a href="bind_trait_values.html">bind_trait_values()</a></code> </p>
+        </td>
+        <td><p>Bind trait values</p></td>
+      </tr><tr><td>
           <p><code><a href="separate_trait_values.html">separate_trait_values()</a></code> </p>
         </td>
         <td><p>Separate bounded trait values</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_wide_table.html">as_wide_table()</a></code> </p>
+        </td>
+        <td><p>Create a single wide table from the AusTraits data object</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="quick-data-visualisations">Quick data visualisations <a href="#quick-data-visualisations" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Plot site or variance distributions</p>
