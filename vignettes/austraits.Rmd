@@ -56,10 +56,6 @@ You can check out different versions and their associated DOI of the AusTraits b
 get_versions(path = "data/austraits")
 ```
 
-```{r, echo=FALSE}
-get_versions(path = "ignore/data/austraits")
-```
-
 The AusTraits object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
 
 ```{r}
