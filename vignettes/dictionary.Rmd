@@ -245,13 +245,13 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *eucalypt_box*: Eucalypts with "Box" type bark (including Corymbia and Angophora)
-    - *eucalypt_gum*: Eucalypts with "Gum" type bark (including Corymbia and Angophora)
-    - *eucalypt_stocking*: Eucalypts with "Gum" type bark above a rough barked stocking (including Corymbia and Angophora)
-    - *eucalypt_ironbark*: Eucalypts with "Ironbark" type bark (including Corymbia and Angophora)
-    - *eucalypt_peppermint*: Eucalypts with "Peppermint" type bark (including Corymbia and Angophora)
-    - *eucalypt_stringybark*: Eucalypts with "Stringy" type bark (including Corymbia and Angophora)
-    - *eucalypt_ribbonbark*: Eucalypts with "Gum" type bark that sheds in ribbons (including Corymbia and Angophora)
+ - *eucalypt_box*: Eucalypts with "Box" type bark (including Corymbia and Angophora)
+ - *eucalypt_gum*: Eucalypts with "Gum" type bark (including Corymbia and Angophora)
+ - *eucalypt_stocking*: Eucalypts with "Gum" type bark above a rough barked stocking (including Corymbia and Angophora)
+ - *eucalypt_ironbark*: Eucalypts with "Ironbark" type bark (including Corymbia and Angophora)
+ - *eucalypt_peppermint*: Eucalypts with "Peppermint" type bark (including Corymbia and Angophora)
+ - *eucalypt_stringybark*: Eucalypts with "Stringy" type bark (including Corymbia and Angophora)
+ - *eucalypt_ribbonbark*: Eucalypts with "Gum" type bark that sheds in ribbons (including Corymbia and Angophora)
 
 
 ## bark_thickness
@@ -340,8 +340,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *calcicole*: tolerant of basic soils, such as calcareous sands and limestone derived soils
-    - *calcifuge*: intolerant of basic soils
+ - *calcicole*: tolerant of basic soils, such as calcareous sands and limestone derived soils
+ - *calcifuge*: intolerant of basic soils
 
 
 ## carotenoid_per_area
@@ -694,10 +694,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *ground*: Graminoids, herbs and ferns reaching maximum heights of c. 0.2–1 m
-    - *mid*: Shrubs reaching maximum heights of c. 1–2 m
-    - *upper*: Tall shrubs reaching maximum heights of c. 3–5 m
-    - *post_fire_ephemeral*: Taxa that avoid competition with other strata by rapidly completing their life cycle after fire; a sub-category of 'ground'
+ - *ground*: Graminoids, herbs and ferns reaching maximum heights of c. 0.2–1 m
+ - *mid*: Shrubs reaching maximum heights of c. 1–2 m
+ - *upper*: Tall shrubs reaching maximum heights of c. 3–5 m
+ - *post_fire_ephemeral*: Taxa that avoid competition with other strata by rapidly completing their life cycle after fire; a sub-category of 'ground'
 
 
 ## cotyledon_function
@@ -709,8 +709,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *foliaceous*: Cotyledons are photosynthetic and function as leaves.
-    - *reserve*: Cotyledons function as energy reserve organs.
+ - *foliaceous*: Cotyledons are photosynthetic and function as leaves.
+ - *reserve*: Cotyledons function as energy reserve organs.
 
 
 ## cotyledon_position
@@ -722,8 +722,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *cryptocotylar*: A type of seed germination in which the cotyledons remain within the seed coat at germination.
-    - *phanerocotylar*: A type of seed germination in which the cotyledons emerge from the seed coat.
+ - *cryptocotylar*: A type of seed germination in which the cotyledons remain within the seed coat at germination.
+ - *phanerocotylar*: A type of seed germination in which the cotyledons emerge from the seed coat.
 
 
 ## cotyledon_type
@@ -735,8 +735,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *glabrous*: Cotyledon lacks hairs
-    - *hairy*: Cotyledon has hairs
+ - *glabrous*: Cotyledon lacks hairs
+ - *hairy*: Cotyledon has hairs
 
 
 ## seedling_germination_location
@@ -748,8 +748,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *epigeal*: Germinant with one or more cotyledons emerging aboveground.
-    - *hypogeal*: Germinant with all cotyledons remaining belowground.
+ - *epigeal*: Germinant with one or more cotyledons emerging aboveground.
+ - *hypogeal*: Germinant with all cotyledons remaining belowground.
 
 
 ## establishment_light_environment_index
@@ -816,57 +816,57 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 11
 - type: categorical
 - allowable values:
-    - *aril*: Fleshy outgrowth of a seed, that often attracts animals like birds or ants
-    - *awns*: A slender, bristle-like projection, e.g. from the back or tip of the glumes and lemmas in some grasses and on the fruit of some other taxa.
-    - *awn_bristle*: REPLACE WITH 'awns bristles'
-    - *barbs*: A rear-facing point, as in a fish hook that aid in seed and fruit dispersal. Includes "hooks", a term used in Ranunculus
-    - *beak*: Name of dispersal appendage in the genus Carex
-    - *berry*: Maybe referring to the wings present on the pollen grains of some conifers to aid in their dispersal by wind
-    - *bladdery_wings*: Bristle-like projections
-    - *bristles*: REPLACE WITH 'bracts'
-    - *bract*: When the bracts below the inflorescence are the dispersal appendage. For the family Poaceae "bract" refers to the glumes, the modified membranous bracts surrounding the spikelet of a grass.
-    - *bracts*: A type of eliasome, term especially used in the family Euphorbiaceae; an outgrowth or appendage at or near the hilum of certain seeds that aids in dispersal. Includes "strophiole"
-    - *caruncle*: A curved, slender awn
-    - *curved_awn*: Dry fruit that dehisces in some manner
-    - *dry_dehiscent*: Fruit with membranous exocarp, fleshy mesocarp and hard endocarp
-    - *drupe*: Fleshy (often fatty) appendage on seeds that attracts ants
-    - *elaiosome*: Wing-line seed extentions that enclose the seed
-    - *enclosing_wing*: A seed that lacks an aril
-    - *exarillate*: When a feathery style aids in seed dispersal
-    - *feathery_style*: A fleshy fruit that splits open and releases seeds at maturity; fruit type
-    - *fleshy_dehiscent_capsule*: A fruit where part or all of the pericarp (fruit wall) is fleshy at maturity; fruit type
-    - *fleshy_fruit*: A fruit whose capsule or wings are fleshy
-    - *fleshy_wings_capsule*: Seed that is dispersed by floating on water
-    - *floating_seed*: When a plant's floral parts, the petals and/or sepals, are persistent and aid in seed and fruit dispersal
-    - *floral_parts*: The stalk that joins the seed to the pod frame; aids in dispersal when persistent
-    - *funicle*: The modified membranous bracts surrounding the spikelet of a grass; also see 'bract'
-    - *glumes*: Modified hairs aid in seed dispersal
-    - *hairs*: Fruit that does not open at maturity in a pre-defined way, but instead relies on predation or decomposition to release the seeds;fruit type
-    - *indehiscent*: When some part of the seed, fruit, or associated tissues is inflated, aiding in seed or fruit dispersal
-    - *inflated_parts*: When a fruit and associated tissues lack any dispersal appendages; see also exarillate
-    - *none*: unknown meaning; currently used only for "Brachyscome dentata"
-    - *paddles*: The pappus is the modified calyx, the part of an individual floret, that surrounds the base of the corolla tube in flower heads of the plant family Asteraceae
-    - *pappus*: Pappus that is deciduous
-    - *pappus_deciduous*: Exact dispersal mechanism unclear; currently used only for "Crowea saligna" (maybe others now)
-    - *placental_endocarp*: Fruit or seed that has plumes to help with dispersal
-    - *plumose*: UNKNOWN
-    - *pseudo-wing*: UNKNOWN
-    - *receptacle*: A winged achene, a type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall
-    - *samara*: Fleshy seed coat; term especially used for cycads; dispersal appendage?
-    - *sarcotesta*: When scales assist in seed or fruit dispersal
-    - *scales*: Seed containing a sac of air
-    - *seed_airsac*: A seed wing that arises from one side; dispersal appendage
-    - *seed_unilaterally_winged*: Seed wing absent
-    - *seed_wing_obsolete*: Modified short hairs aid in seed dispersal
-    - *short_hairs*: Spines that aid in seed and fruit dispersal
-    - *spines*: Outgrowth of the hilum region which restricts water movement into and out of some seeds, especially legumes
-    - *strophiole*: REPLACE WITH 'strophiole'
-    - *strophiole_on_seed*: Cases where a taxon's style, stigma or carpel are persistent and aid in seed or fruit dispersal
-    - *style*: A fruit where some tissue layers have become flattened and papery to function as wings; includes reference to a winged nut and winged achene (samara); fruit type
-    - *winged_fruit*: Referring to wing-like seed extensions that aid in wind dispersal
-    - *wings*: Referring to small wing-like seed extensions that aid in wind dispersal
-    - *wings_small*: UNSURE; assume it refers to conifers, where woody bracts protect the seeds
-    - *woody_bract_scales*: Fleshy outgrowth of a seed, that often attracts animals like birds or ants
+ - *aril*: Fleshy outgrowth of a seed, that often attracts animals like birds or ants
+ - *awns*: A slender, bristle-like projection, e.g. from the back or tip of the glumes and lemmas in some grasses and on the fruit of some other taxa.
+ - *awn_bristle*: REPLACE WITH 'awns bristles'
+ - *barbs*: A rear-facing point, as in a fish hook that aid in seed and fruit dispersal. Includes "hooks", a term used in Ranunculus
+ - *beak*: Name of dispersal appendage in the genus Carex
+ - *berry*: NULL
+ - *bladdery_wings*: Maybe referring to the wings present on the pollen grains of some conifers to aid in their dispersal by wind
+ - *bristles*: Bristle-like projections
+ - *bract*: REPLACE WITH 'bracts'
+ - *bracts*: When the bracts below the inflorescence are the dispersal appendage. For the family Poaceae "bract" refers to the glumes, the modified membranous bracts surrounding the spikelet of a grass.
+ - *caruncle*: A type of eliasome, term especially used in the family Euphorbiaceae; an outgrowth or appendage at or near the hilum of certain seeds that aids in dispersal. Includes "strophiole"
+ - *curved_awn*: A curved, slender awn
+ - *dry_dehiscent*: Dry fruit that dehisces in some manner
+ - *drupe*: Fruit with membranous exocarp, fleshy mesocarp and hard endocarp
+ - *elaiosome*: Fleshy (often fatty) appendage on seeds that attracts ants
+ - *enclosing_wing*: Wing-line seed extentions that enclose the seed
+ - *exarillate*: A seed that lacks an aril
+ - *feathery_style*: When a feathery style aids in seed dispersal
+ - *fleshy_dehiscent_capsule*: A fleshy fruit that splits open and releases seeds at maturity; fruit type
+ - *fleshy_fruit*: A fruit where part or all of the pericarp (fruit wall) is fleshy at maturity; fruit type
+ - *fleshy_wings_capsule*: A fruit whose capsule or wings are fleshy
+ - *floating_seed*: Seed that is dispersed by floating on water
+ - *floral_parts*: When a plant's floral parts, the petals and/or sepals, are persistent and aid in seed and fruit dispersal
+ - *funicle*: The stalk that joins the seed to the pod frame; aids in dispersal when persistent
+ - *glumes*: The modified membranous bracts surrounding the spikelet of a grass; also see 'bract'
+ - *hairs*: Modified hairs aid in seed dispersal
+ - *indehiscent*: Fruit that does not open at maturity in a pre-defined way, but instead relies on predation or decomposition to release the seeds;fruit type
+ - *inflated_parts*: When some part of the seed, fruit, or associated tissues is inflated, aiding in seed or fruit dispersal
+ - *none*: When a fruit and associated tissues lack any dispersal appendages; see also exarillate
+ - *paddles*: unknown meaning; currently used only for "Brachyscome dentata"
+ - *pappus*: The pappus is the modified calyx, the part of an individual floret, that surrounds the base of the corolla tube in flower heads of the plant family Asteraceae
+ - *pappus_deciduous*: Pappus that is deciduous
+ - *placental_endocarp*: Exact dispersal mechanism unclear; currently used only for "Crowea saligna" (maybe others now)
+ - *plumose*: Fruit or seed that has plumes to help with dispersal
+ - *pseudo-wing*: UNKNOWN
+ - *receptacle*: UNKNOWN
+ - *samara*: A winged achene, a type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall
+ - *sarcotesta*: Fleshy seed coat; term especially used for cycads; dispersal appendage?
+ - *scales*: When scales assist in seed or fruit dispersal
+ - *seed_airsac*: Seed containing a sac of air
+ - *seed_unilaterally_winged*: A seed wing that arises from one side; dispersal appendage
+ - *seed_wing_obsolete*: Seed wing absent
+ - *short_hairs*: Modified short hairs aid in seed dispersal
+ - *spines*: Spines that aid in seed and fruit dispersal
+ - *strophiole*: Outgrowth of the hilum region which restricts water movement into and out of some seeds, especially legumes
+ - *strophiole_on_seed*: REPLACE WITH 'strophiole'
+ - *style*: Cases where a taxon's style, stigma or carpel are persistent and aid in seed or fruit dispersal
+ - *winged_fruit*: A fruit where some tissue layers have become flattened and papery to function as wings; includes reference to a winged nut and winged achene (samara); fruit type
+ - *wings*: Referring to wing-like seed extensions that aid in wind dispersal
+ - *wings_small*: Referring to small wing-like seed extensions that aid in wind dispersal
+ - *woody_bract_scales*: UNSURE; assume it refers to conifers, where woody bracts protect the seeds
 
 
 ## dispersal_syndrome
@@ -878,46 +878,46 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 28
 - type: categorical
 - allowable values:
-    - *adhesion*: Dispersal syndrome where fruit is transported by attaching itself to something, usually an animal; true dispersal syndrome; will overlap with exozoochory; also called epizoochory
-    - *anemochory*: Dispersal by wind; true dispersal syndrome
-    - *animal_vector*: Seeds are dispersed by an animal; true dispersal syndrome; should be replaced with zoochory
-    - *aril*: Fleshy outgrowth of a seed, that often attracts animals like birds or ants; dispersal appendage
-    - *atelochory*: Dispersal is prevented; also called antitelochory
-    - *ballistic*: Seeds are launched away from the plant by explosion as soon as the seed capsule opens; true dispersal syndrome
-    - *barochory*: Seeds are dispersed without assistance; true dispersal syndrome
-    - *barochory_small_seeds*: Small seeds (<0.1 mg) that are dispersed without assistance; true dispersal syndrome
-    - *bird*: Seed dispersed by birds
-    - *chamaechory*: diaspore is rolled along ground surface by wind
-    - *dispersal_rare*: Plant rarely produces propagules; mostly reproduces through vegetative spread
-    - *dyszoochory*: diaspore is eaten intentionally by an animal
-    - *elaiosome*: Fleshy (often fatty) appendage on seeds that attracts ants; dispersal appendage
-    - *endozoochory*: Diaspores that dispersed through ingestion by animals, either intentionally or unintentionally and are transported before dropping off; includes the term ingestion; true dispersal syndrome
-    - *endozoochory_mammal*: Diaspores that dispersed through ingestion by mammals, either intentionally or unintentionally and are transported before dropping off; includes the term ingestion; true dispersal syndrome
-    - *endozoochory_bird*: Diaspores that dispersed through ingestion by birds, either intentionally or unintentionally and are transported before dropping off; includes the term ingestion; true dispersal syndrome
-    - *exozoochory*: When seeds are dispersed on the surface of an animal; will overlap significantly with the terms adhesion and animal_vector
-    - *exozoochory_mammal*: When seeds are dispersed on the surface of a mammal
-    - *exozoochory_bird*: When seeds are dispersed on the surface of a bird
-    - *fleshy_fruit*: A fruit where part or all of the pericarp (fruit wall) is fleshy at maturity; fruit type
-    - *fleshy_wings_capsule*: A fruit whose capsule or wings are fleshy
-    - *gravity*: seed/fruit drops from plant
-    - *hydrochory*: Dispersal on the surface of water; see also the term water; true dispersal syndrome
-    - *insect*: Dispersal by ant or termite
-    - *invertebrate*: Dispersal by invertebrate other than insects
-    - *invertebrate_insect*: Dispersal by invertebrates including insects
-    - *mammal*: Dispersed by mammals by unspecified mechanisms
-    - *mobile*: use 'unassisted'
-    - *mud_on_cars*: Dispersules with elaiosomes (specialised nutritious appendages) that make them attractive for capture, transport and use by ants or related insects; true dispersal syndrome
-    - *myrmecochory*: water; e.g. floating/submerged in fresh/saltwater currents
-    - *nautohydrochory*: water; diaspore is propelled by action of rain on plant structure/wetting by rain or dew
-    - *ombrohydrochory*: methods originating from parent plant or diaspore
-    - *parent_plant_or_diaspore*: animal; diaspore is carried intentionally
-    - *synzoochory*: Mobile; Seeds are dispersed without assistance; true dispersal syndrome; same as barochory or passive; seeds drop to the ground close to or beneath the parent plant
-    - *unassisted*: UNKNOWN
-    - *undefined*: Seeds are dispersed by a vertebrate; true dispersal syndrome
-    - *vertebrate*: Seeds dispersal depends in some way on water; should use hydrochory instead
-    - *water*: Seeds are dispersed by wind; true dispersal syndrome; should use anemochory instead
-    - *wind*: wetting by rain or dew; also called hygrochasy
-    - *xerochasywater*: Dispersal syndrome where fruit is transported by attaching itself to something, usually an animal; true dispersal syndrome; will overlap with exozoochory; also called epizoochory
+ - *adhesion*: Dispersal syndrome where fruit is transported by attaching itself to something, usually an animal; true dispersal syndrome; will overlap with exozoochory; also called epizoochory
+ - *anemochory*: Dispersal by wind; true dispersal syndrome
+ - *animal_vector*: Seeds are dispersed by an animal; true dispersal syndrome; should be replaced with zoochory
+ - *aril*: Fleshy outgrowth of a seed, that often attracts animals like birds or ants; dispersal appendage
+ - *atelochory*: Dispersal is prevented; also called antitelochory
+ - *ballistic*: Seeds are launched away from the plant by explosion as soon as the seed capsule opens; true dispersal syndrome
+ - *barochory*: Seeds are dispersed without assistance; true dispersal syndrome
+ - *barochory_small_seeds*: Small seeds (<0.1 mg) that are dispersed without assistance; true dispersal syndrome
+ - *bird*: Seed dispersed by birds
+ - *chamaechory*: diaspore is rolled along ground surface by wind
+ - *dispersal_rare*: Plant rarely produces propagules; mostly reproduces through vegetative spread
+ - *dyszoochory*: diaspore is eaten intentionally by an animal
+ - *elaiosome*: Fleshy (often fatty) appendage on seeds that attracts ants; dispersal appendage
+ - *endozoochory*: Diaspores that dispersed through ingestion by animals, either intentionally or unintentionally and are transported before dropping off; includes the term ingestion; true dispersal syndrome
+ - *endozoochory_mammal*: Diaspores that dispersed through ingestion by mammals, either intentionally or unintentionally and are transported before dropping off; includes the term ingestion; true dispersal syndrome
+ - *endozoochory_bird*: Diaspores that dispersed through ingestion by birds, either intentionally or unintentionally and are transported before dropping off; includes the term ingestion; true dispersal syndrome
+ - *exozoochory*: When seeds are dispersed on the surface of an animal; will overlap significantly with the terms adhesion and animal_vector
+ - *exozoochory_mammal*: When seeds are dispersed on the surface of a mammal
+ - *exozoochory_bird*: When seeds are dispersed on the surface of a bird
+ - *fleshy_fruit*: A fruit where part or all of the pericarp (fruit wall) is fleshy at maturity; fruit type
+ - *fleshy_wings_capsule*: A fruit whose capsule or wings are fleshy
+ - *gravity*: seed/fruit drops from plant
+ - *hydrochory*: Dispersal on the surface of water; see also the term water; true dispersal syndrome
+ - *insect*: Dispersal by ant or termite
+ - *invertebrate*: Dispersal by invertebrate other than insects
+ - *invertebrate_insect*: Dispersal by invertebrates including insects
+ - *mammal*: Dispersed by mammals by unspecified mechanisms
+ - *mobile*: use 'unassisted'
+ - *mud_on_cars*: NULL
+ - *myrmecochory*: Dispersules with elaiosomes (specialised nutritious appendages) that make them attractive for capture, transport and use by ants or related insects; true dispersal syndrome
+ - *nautohydrochory*: water; e.g. floating/submerged in fresh/saltwater currents
+ - *ombrohydrochory*: water; diaspore is propelled by action of rain on plant structure/wetting by rain or dew
+ - *parent_plant_or_diaspore*: methods originating from parent plant or diaspore
+ - *synzoochory*: animal; diaspore is carried intentionally
+ - *unassisted*: Mobile; Seeds are dispersed without assistance; true dispersal syndrome; same as barochory or passive; seeds drop to the ground close to or beneath the parent plant
+ - *undefined*: UNKNOWN
+ - *vertebrate*: Seeds are dispersed by a vertebrate; true dispersal syndrome
+ - *water*: Seeds dispersal depends in some way on water; should use hydrochory instead
+ - *wind*: Seeds are dispersed by wind; true dispersal syndrome; should use anemochory instead
+ - *xerochasywater*: wetting by rain or dew; also called hygrochasy
 
 
 ## dispersers
@@ -929,21 +929,21 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 3
 - type: categorical
 - allowable values:
-    - *aborigines*: aboriginal people
-    - *ants*: ants
-    - *bats*: bats
-    - *birds*: birds
-    - *cassowary*: species explicitly dispersed by cassowaries (vs. all other birds)
-    - *flying*: flying birds and bats
-    - *flying_foxes*: flying foxes
-    - *invertebrate*: invertebrate
-    - *mammals*: mammals
-    - *non-flying*: mammals and non-flying birds (i.e. cassowary)
-    - *passive*: no dispersal agent
-    - *rodents*: rodents
-    - *vertebrate*: vertebrate
-    - *wind*: wind
-    - *water*: water
+ - *aborigines*: aboriginal people
+ - *ants*: ants
+ - *bats*: bats
+ - *birds*: birds
+ - *cassowary*: species explicitly dispersed by cassowaries (vs. all other birds)
+ - *flying*: flying birds and bats
+ - *flying_foxes*: flying foxes
+ - *invertebrate*: invertebrate
+ - *mammals*: mammals
+ - *non-flying*: mammals and non-flying birds (i.e. cassowary)
+ - *passive*: no dispersal agent
+ - *rodents*: rodents
+ - *vertebrate*: vertebrate
+ - *wind*: wind
+ - *water*: water
 
 
 ## dormancy_type
@@ -955,10 +955,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *morphophysiological_dormancy*: Seeds exhibit morphophysiological dormancy
-    - *non_dormant*: Seeds are non-dormant
-    - *physical_dormancy*: Seeds exhibit physical dormancy
-    - *physiological_dormancy*: Seeds exhibit physiological dormancy
+ - *morphophysiological_dormancy*: Seeds exhibit morphophysiological dormancy
+ - *non_dormant*: Seeds are non-dormant
+ - *physical_dormancy*: Seeds exhibit physical dormancy
+ - *physiological_dormancy*: Seeds exhibit physiological dormancy
 
 
 ## embryo_colour
@@ -970,8 +970,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *colourless*: Colourless embryo
-    - *green*: Green embryo
+ - *colourless*: Colourless embryo
+ - *green*: Green embryo
 
 
 ## epidermal_cell_density_abaxial
@@ -1049,11 +1049,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 25
 - type: categorical
 - allowable values:
-    - *fire_killed*: Plants killed by hot fires
-    - *resprouts*: Plants resprout from underground storage organ following fire. (For studies that don't differentiate between respouting strength)
-    - *not_fire_killed_does_not_resprout*: Plants that are rarely killed by a moderate-intensity fire, but do not resprout
-    - *fire_not_relevant*: Plant never affected by fire (for aquatic taxon)
-    - *unknown*: Fire status assessed, but unknown
+ - *fire_killed*: Plants killed by hot fires
+ - *resprouts*: Plants resprout from underground storage organ following fire. (For studies that don't differentiate between respouting strength)
+ - *not_fire_killed_does_not_resprout*: Plants that are rarely killed by a moderate-intensity fire, but do not resprout
+ - *fire_not_relevant*: Plant never affected by fire (for aquatic taxon)
+ - *unknown*: Fire status assessed, but unknown
 
 
 ## fire_response_detailed
@@ -1065,10 +1065,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *fire_killed*: Plants killed by hot fires
-    - *weak_resprouting*: Plant shows weak resprouting following fire
-    - *intermediate_resprouting*: Plant shows intermediate resprouting following fire
-    - *strong_resprouting*: Plant shows strong resprouting following fire
+ - *fire_killed*: Plants killed by hot fires
+ - *weak_resprouting*: Plant shows weak resprouting following fire
+ - *intermediate_resprouting*: Plant shows intermediate resprouting following fire
+ - *strong_resprouting*: Plant shows strong resprouting following fire
 
 
 ## fire_response_juvenile
@@ -1080,11 +1080,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *juvenile_fire_killed*: Juvenile plants killed by fires
-    - *juvenile_resprout*: Juvenile plants survive and resprout following fire
-    - *juvenile_most_fire_killed*: Fewer than 25% of juvenile plants resprout following fire
-    - *juvenile_moderate_fire_killed*: 25-50% of juvenile plants resprout following fire
-    - *juvenile_low_fire_killed*: More than 50% of juvenile plants resprout following fire
+ - *juvenile_fire_killed*: Juvenile plants killed by fires
+ - *juvenile_resprout*: Juvenile plants survive and resprout following fire
+ - *juvenile_most_fire_killed*: Fewer than 25% of juvenile plants resprout following fire
+ - *juvenile_moderate_fire_killed*: 25-50% of juvenile plants resprout following fire
+ - *juvenile_low_fire_killed*: More than 50% of juvenile plants resprout following fire
 
 
 ## fire_response_on_maturity
@@ -1096,9 +1096,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *remain_mature*: Mature plants remain mature following fire
-    - *mature_to_juvenile*: Mature plants become juvenile following fire
-    - *mature_do_not_resprout*: Mature plants do not resprout following fire
+ - *remain_mature*: Mature plants remain mature following fire
+ - *mature_to_juvenile*: Mature plants become juvenile following fire
+ - *mature_do_not_resprout*: Mature plants do not resprout following fire
 
 
 ## fire_cued_seeding
@@ -1110,13 +1110,13 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 4
 - type: categorical
 - allowable values:
-    - *fire_cued_seeding*: Plants that germinate robustly following fire; or number of seedlings not specified
-    - *fire_cued_seeding_minimal*: A small number of seedlings present post-fire
-    - *fire_cued_seeding_moderate*: A moderate number of seedlings present post-fire
-    - *fire_cued_seeding_high*: A high number of seedlings present post-fire
-    - *fire_cued_seeding_complete_germination*: The entire seedbank germinates following fire; no seedbank remains
-    - *fire_cued_seeding_incomplete_germination*: Only part of the seedbank germinates following fire
-    - *no_fire_cued_seeding*: Plants that do not show increased seeding following fire
+ - *fire_cued_seeding*: Plants that germinate robustly following fire; or number of seedlings not specified
+ - *fire_cued_seeding_minimal*: A small number of seedlings present post-fire
+ - *fire_cued_seeding_moderate*: A moderate number of seedlings present post-fire
+ - *fire_cued_seeding_high*: A high number of seedlings present post-fire
+ - *fire_cued_seeding_complete_germination*: The entire seedbank germinates following fire; no seedbank remains
+ - *fire_cued_seeding_incomplete_germination*: Only part of the seedbank germinates following fire
+ - *no_fire_cued_seeding*: Plants that do not show increased seeding following fire
 
 
 ## fire_and_establishing
@@ -1128,12 +1128,12 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *establish_just_after_fire_only*: Plants establish immediately after a fire (within the first 2 seasons, and usually within the first season), but cannot continue recruitment as the vegetation ages further, unable to establish in mature vegetation
-    - *establish_intermediate_age*: Plants can only establish at an intermediate stage, ie. cannot establish straight after fire nor in mature to over-mature vegetation.
-    - *establish_just_after_fire_and_mature_vegetation*: Plants able to establish immediately after fire and also in mature to over-mature vegetation, cannot establish in intermediate aged vegetation
-    - *establish_just_after_fire_and_intermediate_age*: Plants able to establish immediately after fire and also in intermediate aged vegetation.
-    - *establish_intermediate_to_over_mature_vegetation*: Plants unable to establish immediately after fire (within the first season or two), but can establish in older vegetation (including mature to over-mature vegetation), requires some environmental charateristics not found in vegetation straight after fires
-    - *establish_anytime*: Plants can establish immediately after fire and in later years as vegetation ages, right thru to mature and over-mature vegetation (assuming suitable seasonal conditions)
+ - *establish_just_after_fire_only*: Plants establish immediately after a fire (within the first 2 seasons, and usually within the first season), but cannot continue recruitment as the vegetation ages further, unable to establish in mature vegetation
+ - *establish_intermediate_age*: Plants can only establish at an intermediate stage, ie. cannot establish straight after fire nor in mature to over-mature vegetation.
+ - *establish_just_after_fire_and_mature_vegetation*: Plants able to establish immediately after fire and also in mature to over-mature vegetation, cannot establish in intermediate aged vegetation
+ - *establish_just_after_fire_and_intermediate_age*: Plants able to establish immediately after fire and also in intermediate aged vegetation.
+ - *establish_intermediate_to_over_mature_vegetation*: Plants unable to establish immediately after fire (within the first season or two), but can establish in older vegetation (including mature to over-mature vegetation), requires some environmental charateristics not found in vegetation straight after fires
+ - *establish_anytime*: Plants can establish immediately after fire and in later years as vegetation ages, right thru to mature and over-mature vegetation (assuming suitable seasonal conditions)
 
 
 ## fire_flame_duration
@@ -1222,12 +1222,12 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *blue_purple*: blue or purple
-    - *green*: green flower
-    - *pink*: pink flower
-    - *red_brown*: red or brown flower
-    - *white_cream*: white or cream flower
-    - *yellow_orange*: yellow orange flower
+ - *blue_purple*: blue or purple
+ - *green*: green flower
+ - *pink*: pink flower
+ - *red_brown*: red or brown flower
+ - *white_cream*: white or cream flower
+ - *yellow_orange*: yellow orange flower
 
 
 ## flower_count_maximum
@@ -1261,7 +1261,7 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 30
 - type: categorical
 - allowable values:
-    - **: 
+ - **: 
 
 
 ## flower_structural_sex_type
@@ -1273,9 +1273,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *bisexual*: Hermaphrodite; flowers with both male and female reproductive organs
-    - *incompletely_unisexual*: Male flowers with pistillode and/or female flowers with staminodes
-    - *unisexual*: Flowers with either male or female reproductive organs
+ - *bisexual*: Hermaphrodite; flowers with both male and female reproductive organs
+ - *incompletely_unisexual*: Male flowers with pistillode and/or female flowers with staminodes
+ - *unisexual*: Flowers with either male or female reproductive organs
 
 
 ## flower_ovary_position
@@ -1287,11 +1287,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *inferior*: Flower with inferior ovary, where the ovary is embedded in the receptacle and therefore located below the insertion level of the remaining floral organs
-    - *superior*: Flower with superior ovary, where the ovary is positioned above the insertion level of the remaining floral organs
-    - *half_inferior*: Flower where the receptacle is surrounded by the ovary to its mid-level
-    - *one_quarter_inferior*: Flower where the receptacle surrounds up to one quarter of the ovary
-    - *three_quarters_inferior*: Flower where the receptacle surrounds more than three quarters of the ovary
+ - *inferior*: Flower with inferior ovary, where the ovary is embedded in the receptacle and therefore located below the insertion level of the remaining floral organs
+ - *superior*: Flower with superior ovary, where the ovary is positioned above the insertion level of the remaining floral organs
+ - *half_inferior*: Flower where the receptacle is surrounded by the ovary to its mid-level
+ - *one_quarter_inferior*: Flower where the receptacle surrounds up to one quarter of the ovary
+ - *three_quarters_inferior*: Flower where the receptacle surrounds more than three quarters of the ovary
 
 
 ## flower_perianth_parts_count
@@ -1325,13 +1325,13 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *actinomorphic_general*: Perianth displaying radial symmetry
-    - *actinomorphic_rotational*: Perianth that can be equally divided into three or more identical sections that, when rotated around the center of the flower by some number of degrees, exactly match each other in orientation and shape.
-    - *actinomorphic_strictly_polysymmetric*: Polysymmetry, with three or more planes of bilateral symmetry
-    - *actinomorphic_spiral*: Perianth lacking a distinct plane of symmetry because their perianth parts are spirally arranged.
-    - *asymmetric*: Perianth lacking any planes of symmetry
-    - *disymmetric*: Perianth with two orthogonal planes of bilateral symmetry
-    - *zygomorphic*: Monosymmetric, with a single plane of bilateral symmetry
+ - *actinomorphic_general*: Perianth displaying radial symmetry
+ - *actinomorphic_rotational*: Perianth that can be equally divided into three or more identical sections that, when rotated around the center of the flower by some number of degrees, exactly match each other in orientation and shape.
+ - *actinomorphic_strictly_polysymmetric*: Polysymmetry, with three or more planes of bilateral symmetry
+ - *actinomorphic_spiral*: Perianth lacking a distinct plane of symmetry because their perianth parts are spirally arranged.
+ - *asymmetric*: Perianth lacking any planes of symmetry
+ - *disymmetric*: Perianth with two orthogonal planes of bilateral symmetry
+ - *zygomorphic*: Monosymmetric, with a single plane of bilateral symmetry
 
 
 ## flower_perianth_phyllotaxis
@@ -1343,9 +1343,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *irregular*: Perianth parts lacking any symmetrical organisation.
-    - *spiral*: Perianth parts organised along a continuous spiral, usually with wide divergence angles more or less equal to 137.5 degrees, the Fibonacci 'golden angle'
-    - *whorled*: Perianth parts organised in one or more whorls
+ - *irregular*: Perianth parts lacking any symmetrical organisation.
+ - *spiral*: Perianth parts organised along a continuous spiral, usually with wide divergence angles more or less equal to 137.5 degrees, the Fibonacci 'golden angle'
+ - *whorled*: Perianth parts organised in one or more whorls
 
 
 ## flower_perianth_whorls_count
@@ -1379,16 +1379,16 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *undifferentiated*: All tepals alike; includes a single undifferentiated whorl
-    - *marked_differentiation_outer_sepaloid_inner_petaloid*: A typical flower with calyx and corolla
-    - *marked_differentiation_among_petaloid_tepals*: All tepals alike; includes a single undifferentiated whorl
-    - *marked_differentiation_among_sepaloid_tepals*: A typical flower with calyx and corolla
-    - *marked_differentiation*: All tepals alike; includes a single undifferentiated whorl
-    - *continuous_differentiation_outer_sepaloid_inner_petaloid*: A typical flower with calyx and corolla
-    - *continuous_differentiation_among_petaloid_tepals*: All tepals alike; includes a single undifferentiated whorl
-    - *continuous_differentiation_among_sepaloid_tepals*: A typical flower with calyx and corolla
-    - *weak_differentiation*: All tepals alike; includes a single undifferentiated whorl
-    - *very_weak_differentiation*: A typical flower with calyx and corolla
+ - *undifferentiated*: All tepals alike; includes a single undifferentiated whorl
+ - *marked_differentiation_outer_sepaloid_inner_petaloid*: A typical flower with calyx and corolla
+ - *marked_differentiation_among_petaloid_tepals*: NULL
+ - *marked_differentiation_among_sepaloid_tepals*: NULL
+ - *marked_differentiation*: NULL
+ - *continuous_differentiation_outer_sepaloid_inner_petaloid*: NULL
+ - *continuous_differentiation_among_petaloid_tepals*: NULL
+ - *continuous_differentiation_among_sepaloid_tepals*: NULL
+ - *weak_differentiation*: NULL
+ - *very_weak_differentiation*: NULL
 
 
 ## flower_fertile_stamens_count
@@ -1411,18 +1411,18 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *absent*: No filaments present
-    - *present_general*: Filaments present, with no specific defining characteristics
-    - *long_and_narrow*: Long and narrow shape; also called filiform, slender
-    - *short_and_narrow*: Short and narrow shape; subsessile anthers
-    - *long_and_wide*: Long and wide laminar shape
-    - *short_and_wide*: Short and wide laminar shape
-    - *long_and_very_wide*: Long and very wide shape; for instance, the petal-like (outer) stamens of Nymphaea
-    - *petaloid*: Long and wide and colorful, e.g. Canna
-    - *fused_into_synandrium*: Structure formed when stamens fused together
-    - *fused_into_fascicle_stalks*: Special case where the stamens are fused into the stalk of a fascicle of flowers
-    - *long_and_narrow_divided_in_two*: Long and narrow shape that is divided in two; e.g. Adoxa
-    - *short_general*: Filament is short relative to the anther
+ - *absent*: No filaments present
+ - *present_general*: Filaments present, with no specific defining characteristics
+ - *long_and_narrow*: Long and narrow shape; also called filiform, slender
+ - *short_and_narrow*: Short and narrow shape; subsessile anthers
+ - *long_and_wide*: Long and wide laminar shape
+ - *short_and_wide*: Short and wide laminar shape
+ - *long_and_very_wide*: Long and very wide shape; for instance, the petal-like (outer) stamens of Nymphaea
+ - *petaloid*: Long and wide and colorful, e.g. Canna
+ - *fused_into_synandrium*: Structure formed when stamens fused together
+ - *fused_into_fascicle_stalks*: Special case where the stamens are fused into the stalk of a fascicle of flowers
+ - *long_and_narrow_divided_in_two*: Long and narrow shape that is divided in two; e.g. Adoxa
+ - *short_general*: Filament is short relative to the anther
 
 
 ## flower_filament_fusion
@@ -1456,10 +1456,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *apical*: When thecae are positioned in a transverse position at the tip of the connective and thus dehisce upward in the flower (e.g., Sinofranchetia, Endress and Hufford, 1989).
-    - *extrorse*: When the stomia of the thecae face the floral periphery
-    - *introrse*: When the stomia of the thecae face the floral centre
-    - *latrorse*: When pollen is released toward the side (i.e., toward neighbouring anthers)
+ - *apical*: When thecae are positioned in a transverse position at the tip of the connective and thus dehisce upward in the flower (e.g., Sinofranchetia, Endress and Hufford, 1989).
+ - *extrorse*: When the stomia of the thecae face the floral periphery
+ - *introrse*: When the stomia of the thecae face the floral centre
+ - *latrorse*: When pollen is released toward the side (i.e., toward neighbouring anthers)
 
 
 ## flower_anther_attachment
@@ -1471,10 +1471,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *basifixed*: Filament attached to the base of the connective. Laminar stamens are classified as basifixed
-    - *dorsifixed*: Filament attached to the dorsal side of the anther
-    - *dorsifixed_at_base*: Filament attached to the dorsal side of the anther, at the base**
-    - *ventrifixed*: Filament attached to the ventral side of the anther
+ - *basifixed*: Filament attached to the base of the connective. Laminar stamens are classified as basifixed
+ - *dorsifixed*: Filament attached to the dorsal side of the anther
+ - *dorsifixed_at_base*: Filament attached to the dorsal side of the anther, at the base**
+ - *ventrifixed*: Filament attached to the ventral side of the anther
 
 
 ## flower_anther_dehiscence
@@ -1486,16 +1486,16 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *longitudinal slit*: Anther with longitudinal slits that extend along the entire length of each theca
-    - *poricidal*: Anther where dehiscence of longitudinal slits is incomplete, with pollen exiting via a small pore
-    - *H_valvate*: Anther with two valves on longitudinal hinges, opening horizontally as sallon doors; when the stomium bifurcates at its distal and/or proximal end and thus a valve is formed
-    - *flap_valvate*: Anther with one or more flap-like valves on horizontal hinges, opening vertically
-    - *transverse_slit*: Anther with horizontal slit
-    - *short_basal_slits*: Anther where dehiscence of longitudinal slits is incomplete and only occurs over a short extent at the base of the theca
-    - *short_central_slits*: Anther where dehiscence of longitudinal slits is incomplete and only occurs over a short extent at the center of the theca
-    - *short_apical_slits*: Anther where dehiscence of longitudinal slits is incomplete and only occurs over a short extent at the apical end of the theca
-    - *T_valvate*: Anther with T-shaped stomium; reduced transverse slit at base
-    - *common_stomium_confluent_thecae*: (uncertain)
+ - *longitudinal slit*: Anther with longitudinal slits that extend along the entire length of each theca
+ - *poricidal*: Anther where dehiscence of longitudinal slits is incomplete, with pollen exiting via a small pore
+ - *H_valvate*: Anther with two valves on longitudinal hinges, opening horizontally as sallon doors; when the stomium bifurcates at its distal and/or proximal end and thus a valve is formed
+ - *flap_valvate*: Anther with one or more flap-like valves on horizontal hinges, opening vertically
+ - *transverse_slit*: Anther with horizontal slit
+ - *short_basal_slits*: Anther where dehiscence of longitudinal slits is incomplete and only occurs over a short extent at the base of the theca
+ - *short_central_slits*: Anther where dehiscence of longitudinal slits is incomplete and only occurs over a short extent at the center of the theca
+ - *short_apical_slits*: Anther where dehiscence of longitudinal slits is incomplete and only occurs over a short extent at the apical end of the theca
+ - *T_valvate*: Anther with T-shaped stomium; reduced transverse slit at base
+ - *common_stomium_confluent_thecae*: (uncertain)
 
 
 ## flower_anther_connective_extension
@@ -1507,11 +1507,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *absent*: Apical connective extensions are lacking
-    - *short_extension*: Connective extension less than a third of the length of anther
-    - *long_extension*: Connective extension more than a third but less than length of anther; e.g. Idiospermum australiense
-    - *very_long_extension*: Connective extension more than length of anther; e.g. Galbulimima belgraveana
-    - *present_general*: Apical connective extensions are present, but no information on their length relative to the anthers
+ - *absent*: Apical connective extensions are lacking
+ - *short_extension*: Connective extension less than a third of the length of anther
+ - *long_extension*: Connective extension more than a third but less than length of anther; e.g. Idiospermum australiense
+ - *very_long_extension*: Connective extension more than length of anther; e.g. Galbulimima belgraveana
+ - *present_general*: Apical connective extensions are present, but no information on their length relative to the anthers
 
 
 ## flower_androecium_structural_phyllotaxis
@@ -1523,9 +1523,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *whorled*: Stamens and staminodes arranged in whorls
-    - *spiral*: Stamens and staminodes have a spiral arrangement
-    - *irregular*: Stamens and staminodes have an irregular arrangement
+ - *whorled*: Stamens and staminodes arranged in whorls
+ - *spiral*: Stamens and staminodes have a spiral arrangement
+ - *irregular*: Stamens and staminodes have an irregular arrangement
 
 
 ## flower_androecium_structural_whorls_count
@@ -1559,9 +1559,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *one_whorl*: Flowers with a single whorl of carpels
-    - *two_or_more_whorls*: Flowers with two or more whorls of carpels
-    - *spiral*: Flowers with carpels in a spiral arrangement
+ - *one_whorl*: Flowers with a single whorl of carpels
+ - *two_or_more_whorls*: Flowers with two or more whorls of carpels
+ - *spiral*: Flowers with carpels in a spiral arrangement
 
 
 ## flower_structural_carpels_count
@@ -1595,14 +1595,14 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *absent*: Stigma sessile
-    - *present_length_and_shape_unknown*: Style present, but shape unknown
-    - *present_short_and_thick*: Style present, and short and thick
-    - *present_short_and_narrow*: Style present, and short and narrow, including short filiform styles
-    - *present_long_and_wide*: Style present, and long and wide
-    - *present_long_and_narrow*: Style present, and long and narrow, including long filiform styles
-    - *present_petaloid*: Style present and petaloid
-    - *continuous*: When the style is an apical extension of carpel with decurrent stigma
+ - *absent*: Stigma sessile
+ - *present_length_and_shape_unknown*: Style present, but shape unknown
+ - *present_short_and_thick*: Style present, and short and thick
+ - *present_short_and_narrow*: Style present, and short and narrow, including short filiform styles
+ - *present_long_and_wide*: Style present, and long and wide
+ - *present_long_and_narrow*: Style present, and long and narrow, including long filiform styles
+ - *present_petaloid*: Style present and petaloid
+ - *continuous*: When the style is an apical extension of carpel with decurrent stigma
 
 
 ## flower_style_fusion
@@ -1636,13 +1636,13 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *axile*: Ovules are placed in the angle between carpel flanks in the center of the ovary; in syncarpous gynoecia
-    - *apical*: Ovules attach at the top of the ovary; pendulous; in syncarpous gynoecia and apocarpous and unicarpellate gynoecia
-    - *basal*: Ovules attach at the base of the ovary; in syncarpous gynoecia and apocarpous and unicarpellate gynoecia
-    - *parietal*: Ovules attach to the ovary wall where two carpels meet; in syncarpous gynoecia
-    - *marginal*: Ovules attach along the ventral slit; in apocarpous and unicarpellate gynoecia
-    - *free_central*: Ovules are attached to a central column that emerges from the base of the ovary and protrudes into the non-septate ovary; in syncarpous gynoecia
-    - *laminar*: When there is more than one series of ovules at the flanks of a carpel; in syncarpous gynoecia and apocarpous and unicarpellate gynoecia
+ - *axile*: Ovules are placed in the angle between carpel flanks in the center of the ovary; in syncarpous gynoecia
+ - *apical*: Ovules attach at the top of the ovary; pendulous; in syncarpous gynoecia and apocarpous and unicarpellate gynoecia
+ - *basal*: Ovules attach at the base of the ovary; in syncarpous gynoecia and apocarpous and unicarpellate gynoecia
+ - *parietal*: Ovules attach to the ovary wall where two carpels meet; in syncarpous gynoecia
+ - *marginal*: Ovules attach along the ventral slit; in apocarpous and unicarpellate gynoecia
+ - *free_central*: Ovules are attached to a central column that emerges from the base of the ovary and protrudes into the non-septate ovary; in syncarpous gynoecia
+ - *laminar*: When there is more than one series of ovules at the flanks of a carpel; in syncarpous gynoecia and apocarpous and unicarpellate gynoecia
 
 
 ## flower_pollen_apertures_count
@@ -1665,15 +1665,15 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *absent*: (uncertain)
-    - *colporus*: Pollen aperture shape that combines the groove of colpate and the pore of porate apertures
-    - *colpus*: Pollen aperture shape is elongate and grooved and may be positioned globally or equatorially
-    - *pore*: Pollen aperture shape is round and pore-like and may be positioned globally or equatorially
-    - *ring_like*: (uncertain)
-    - *spiraperturate*: Pollen grain with one or more spiral apertures
-    - *sulcus*: Pollen aperture shape is elongate and grooved and positioned at the pole
-    - *syncolpus*: Pollen grain with two or more simple (or compound) colpi, the ends of which join at the pole
-    - *ulcus*: Pollen aperture shape is round and pore-like and positioned at the pole
+ - *absent*: (uncertain)
+ - *colporus*: Pollen aperture shape that combines the groove of colpate and the pore of porate apertures
+ - *colpus*: Pollen aperture shape is elongate and grooved and may be positioned globally or equatorially
+ - *pore*: Pollen aperture shape is round and pore-like and may be positioned globally or equatorially
+ - *ring_like*: (uncertain)
+ - *spiraperturate*: Pollen grain with one or more spiral apertures
+ - *sulcus*: Pollen aperture shape is elongate and grooved and positioned at the pole
+ - *syncolpus*: Pollen grain with two or more simple (or compound) colpi, the ends of which join at the pole
+ - *ulcus*: Pollen aperture shape is round and pore-like and positioned at the pole
 
 
 ## fluorescence_Jmax_per_mass
@@ -1740,18 +1740,18 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 0
 - type: categorical
 - allowable values:
-    - *pink*: pink
-    - *red*: red
-    - *orange*: orange
-    - *yellow*: yellow
-    - *green*: green
-    - *blue*: blue
-    - *purple*: purple
-    - *white*: white
-    - *cream*: cream
-    - *brown*: brown
-    - *black*: black
-    - *grey*: grey
+ - *pink*: pink
+ - *red*: red
+ - *orange*: orange
+ - *yellow*: yellow
+ - *green*: green
+ - *blue*: blue
+ - *purple*: purple
+ - *white*: white
+ - *cream*: cream
+ - *brown*: brown
+ - *black*: black
+ - *grey*: grey
 
 
 ## fruit_mass
@@ -1884,63 +1884,63 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 10
 - type: categorical
 - allowable values:
-    - *achene*: A small, dry, indehiscent one-seeded fruit with a thin wall
-    - *accessory_fruit*: Fruit in which some of the flesh is derived from tissues adjacent to the true fruit; pseudocarp
-    - *accessory_fruit_dry*: Dry fruit in which some of the flesh is derived from tissues adjacent to the true fruit; pseudocarp
-    - *aggregate_fruit*: A fruit formed from several carpels derived from the same flower
-    - *anthocarp_nut*: A  false fruit consisting of the true fruit and the base of the floral whorls; instance where the true fruit is a nut
-    - *anthocarp_viscid*: UNCERTAIN what the viscid refers to (See anthocarp above)
-    - *berry*: Fleshy, indehiscent fruit in which the seeds are generally more than 1 and are not encased in a stone
-    - *berry_dry*: Indehiscent fruit that is a berry, but dry
-    - *berry_inf*: UNCERTAIN how this differs from general definition for berry
-    - *capsule*: Dry fruit from compound pistil, nearly always dehiscent
-    - *capsule_dehiscent*: Capsule that is dehiscent
-    - *capsule_indehiscent*: Capsule that is indehiscent
-    - *capsule_explosive*: Dry fruit from compound pistil, that releases its seeds in an explosive manner
-    - *capsule_aril*: Dry fruit from compound pistil, with a fleshy outgrowth (aril) to attract pollinators; maybe use 'capsule_reward'
-    - *capsule_wing*: Dry fruit from compound pistil, with a wing for dispersal by wind
-    - *caryopsis*: a dry one-seeded fruit in which the ovary wall is united with the seed coat, typical of grasses and cereals
-    - *cocci*: One of the carpels or seed-vessels of a dry fruit.
-    - *cone*: Fruit is located in a cone.
-    - *cypsela*: An achene developed from an inferior bicarpellary ovary fused with the calyx tube (in Asteraceae)
-    - *dehiscent*: Dehiscent fruit, no details specified
-    - *dehiscent_pod*: Pod that opens or disarticulates at maturity
-    - *dry_indehiscent*: Dry, indehiscent fruit, exact type not specified
-    - *dry_dehiscent_reward*: Dry dehiscent with fleshy reward  (e.g. aril, funicle, elaiosome, etc.)
-    - *dry_not_winged*: Dry dehiscent or indehiscent without attractant or wing
-    - *dry_winged*: Dry dehiscent or indehiscent with wing or plume (e.g. cypsela, samara, plumed achene, etc.)
-    - *drupe*: Fleshy or pulpy, indehiscent, superficially berry-like fruit in which 1 seed is encased in a stone or more than 1 seed is encased in an equal number of free or variously fused stones
-    - *drupe_fibrous*: Fibrous or dry drupe; indehiscent, superficially berry-like fruit in which 1 seed is encased in a stone or more than 1 seed is encased in an equal number of free or variously fused stones
-    - *fig*: UNKNOWN
-    - *fleshy*: Any fleshy fruit, including leshy berry, pome, pepo, etc.
-    - *fleshy_dehiscent*: Dehiscent fleshy fruit
-    - *fleshy_indehiscent*: Indehiscent fleshy fruit
-    - *follicle*: Dry fruit from a simple pistil, dehiscent on generally only one side, along a single suture
-    - *follicle_dehiscent*: Follicle that is dehiscent
-    - *indehiscent_pod*: Pod that does not or disarticulate at maturity
-    - *indehiscent*: Indehiscent fruit, no details specified
-    - *legume*: Fruits from a legume; a dry or somewhat fleshy, 1- to many-seeded fruit from a simple pistil, typically dehiscent longitudinally along two sutures and splitting into halves that remain joined at the base
-    - *legume_indehiscent*: Fruits from a legume; a legume (see above) that is indehiscent
-    - *mericarp*: One of the two carpels that resemble achenes and form the schizocarp of an umbelliferous plant.
-    - *multiple_fruit*: UNKNOWN
-    - *nut*: Mostly dry, sometimes fleshy or pulpy, usually indehiscent fruit in which a single seed is encased in a hard shell
-    - *nut_indehiscent*: Nut that is indehiscent
-    - *nut_winged*: A nut that is enclosed in a winglike bract
-    - *nutlet*: Small, dry nut or nut-like fruit, usually several of which are produced by a single flower; especially an achene
-    - *pod*: A legume or superficially similar fruit
-    - *pome*: A fleshy false fruit
-    - *pyrene*: Fleshy fruit with each seed surrounded by a bony endocarp.
-    - *samara*: A winged achene, a type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall
-    - *schizocarp*: A dry fruit which splits into individual carpels
-    - *silique*: Fruit type with two fused carpels with the length being more than three times the width; Brassicaceae
-    - *spore*: Spore-producing plant
-    - *synangium*: Compound fruiting body produced by some ferns and primitive gymnosperms
-    - *synconium*: A fleshy hollow receptacle that develops into a multiple fruit, as in the fig
-    - *syncarp*: A multiple fruit consisting of several united fruits, originating from several originally free carpels, usually fleshy
-    - *utricle*: Small, bladder-like, thin-walled indehiscent fruit
-    - *utricle_fleshy*: Small, bladder-like, thin-walled indehiscent fruit, that is partially fleshy
-    - *utricle_spiny*: Small, bladder-like, thin-walled indehiscent fruit, that is spiny
-    - *viviparous*: Plant sheds small live parts to spread
+ - *achene*: A small, dry, indehiscent one-seeded fruit with a thin wall
+ - *accessory_fruit*: Fruit in which some of the flesh is derived from tissues adjacent to the true fruit; pseudocarp
+ - *accessory_fruit_dry*: Dry fruit in which some of the flesh is derived from tissues adjacent to the true fruit; pseudocarp
+ - *aggregate_fruit*: A fruit formed from several carpels derived from the same flower
+ - *anthocarp_nut*: A  false fruit consisting of the true fruit and the base of the floral whorls; instance where the true fruit is a nut
+ - *anthocarp_viscid*: UNCERTAIN what the viscid refers to (See anthocarp above)
+ - *berry*: Fleshy, indehiscent fruit in which the seeds are generally more than 1 and are not encased in a stone
+ - *berry_dry*: Indehiscent fruit that is a berry, but dry
+ - *berry_inf*: UNCERTAIN how this differs from general definition for berry
+ - *capsule*: Dry fruit from compound pistil, nearly always dehiscent
+ - *capsule_dehiscent*: Capsule that is dehiscent
+ - *capsule_indehiscent*: Capsule that is indehiscent
+ - *capsule_explosive*: Dry fruit from compound pistil, that releases its seeds in an explosive manner
+ - *capsule_aril*: Dry fruit from compound pistil, with a fleshy outgrowth (aril) to attract pollinators; maybe use 'capsule_reward'
+ - *capsule_wing*: Dry fruit from compound pistil, with a wing for dispersal by wind
+ - *caryopsis*: a dry one-seeded fruit in which the ovary wall is united with the seed coat, typical of grasses and cereals
+ - *cocci*: One of the carpels or seed-vessels of a dry fruit.
+ - *cone*: Fruit is located in a cone.
+ - *cypsela*: An achene developed from an inferior bicarpellary ovary fused with the calyx tube (in Asteraceae)
+ - *dehiscent*: Dehiscent fruit, no details specified
+ - *dehiscent_pod*: Pod that opens or disarticulates at maturity
+ - *dry_indehiscent*: Dry, indehiscent fruit, exact type not specified
+ - *dry_dehiscent_reward*: Dry dehiscent with fleshy reward  (e.g. aril, funicle, elaiosome, etc.)
+ - *dry_not_winged*: Dry dehiscent or indehiscent without attractant or wing
+ - *dry_winged*: Dry dehiscent or indehiscent with wing or plume (e.g. cypsela, samara, plumed achene, etc.)
+ - *drupe*: Fleshy or pulpy, indehiscent, superficially berry-like fruit in which 1 seed is encased in a stone or more than 1 seed is encased in an equal number of free or variously fused stones
+ - *drupe_fibrous*: Fibrous or dry drupe; indehiscent, superficially berry-like fruit in which 1 seed is encased in a stone or more than 1 seed is encased in an equal number of free or variously fused stones
+ - *fig*: UNKNOWN
+ - *fleshy*: Any fleshy fruit, including leshy berry, pome, pepo, etc.
+ - *fleshy_dehiscent*: Dehiscent fleshy fruit
+ - *fleshy_indehiscent*: Indehiscent fleshy fruit
+ - *follicle*: Dry fruit from a simple pistil, dehiscent on generally only one side, along a single suture
+ - *follicle_dehiscent*: Follicle that is dehiscent
+ - *indehiscent_pod*: Pod that does not or disarticulate at maturity
+ - *indehiscent*: Indehiscent fruit, no details specified
+ - *legume*: Fruits from a legume; a dry or somewhat fleshy, 1- to many-seeded fruit from a simple pistil, typically dehiscent longitudinally along two sutures and splitting into halves that remain joined at the base
+ - *legume_indehiscent*: Fruits from a legume; a legume (see above) that is indehiscent
+ - *mericarp*: One of the two carpels that resemble achenes and form the schizocarp of an umbelliferous plant.
+ - *multiple_fruit*: UNKNOWN
+ - *nut*: Mostly dry, sometimes fleshy or pulpy, usually indehiscent fruit in which a single seed is encased in a hard shell
+ - *nut_indehiscent*: Nut that is indehiscent
+ - *nut_winged*: A nut that is enclosed in a winglike bract
+ - *nutlet*: Small, dry nut or nut-like fruit, usually several of which are produced by a single flower; especially an achene
+ - *pod*: A legume or superficially similar fruit
+ - *pome*: A fleshy false fruit
+ - *pyrene*: Fleshy fruit with each seed surrounded by a bony endocarp.
+ - *samara*: A winged achene, a type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall
+ - *schizocarp*: A dry fruit which splits into individual carpels
+ - *silique*: Fruit type with two fused carpels with the length being more than three times the width; Brassicaceae
+ - *spore*: Spore-producing plant
+ - *synangium*: Compound fruiting body produced by some ferns and primitive gymnosperms
+ - *synconium*: A fleshy hollow receptacle that develops into a multiple fruit, as in the fig
+ - *syncarp*: A multiple fruit consisting of several united fruits, originating from several originally free carpels, usually fleshy
+ - *utricle*: Small, bladder-like, thin-walled indehiscent fruit
+ - *utricle_fleshy*: Small, bladder-like, thin-walled indehiscent fruit, that is partially fleshy
+ - *utricle_spiny*: Small, bladder-like, thin-walled indehiscent fruit, that is spiny
+ - *viviparous*: Plant sheds small live parts to spread
 
 
 ## fruit_type_botanical
@@ -1952,8 +1952,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *dry*: true fruit that is dry
-    - *fleshy*: true fruit that is fleshy
+ - *dry*: true fruit that is dry
+ - *fleshy*: true fruit that is fleshy
 
 
 ## fruit_type_functional
@@ -1965,8 +1965,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *dry*: fruit whose dispersal unit is functionally dry
-    - *fleshy*: fruit whose dispersal unit is functionally fleshy
+ - *dry*: fruit whose dispersal unit is functionally dry
+ - *fleshy*: fruit whose dispersal unit is functionally fleshy
 
 
 ## fruiting_time
@@ -1978,7 +1978,7 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 7
 - type: categorical
 - allowable values:
-    - **: 
+ - **: 
 
 
 ## time_from_fire_to_fruit
@@ -2023,48 +2023,48 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 3
 - type: categorical
 - allowable values:
-    - *apply_chemical*: apply generic chemical treatment
-    - *crack_seed*: UNKNOWN
-    - *excise_pericarp*: same as remove seed_coat
-    - *heat*: heating the seed
-    - *imbibed*: soaked
-    - *imbibed_bleach*: soaked in a mild bleach solution
-    - *imbibed_calcium_hypochlorite*: soaked in a mild solution of calcium hypochlorite (is this always the same as standard bleach?)
-    - *imbibed_cooled_boiling*: soaked in water that has boiled and then cooled slightly
-    - *imbibed_distilled*: soaked in distilled water
-    - *imbibed_hot_water*: soaked in hot, but not boiling water
-    - *imbibed_near_boiling*: soaked in near-boiling water
-    - *imbibed_remove_casing*: soaked and seed casing removed
-    - *imbibed_remove_salt*: soaked to leach salts
-    - *imbibed_seed_primer*: soaked in seed primer
-    - *imbibed_then_nicked*: soaked, then seed is nicked
-    - *incise_pericarp*: make incision into pericarp
-    - *light*: light
-    - *mycorhizal_association*: Requires mycorhizal symbiont to germinate
-    - *none*: No special germination treatment required
-    - *remove_bracts*: remove bracts surrounding the seed
-    - *remove_mericarp_plug*: remove the mericarp plug
-    - *remove_seed_casing*: UNKNOWN
-    - *remove_seed_coat*: same as excise pericarp
-    - *rinse*: rinse the seed (generic)
-    - *scarify*: Unspecified seed scarification
-    - *scarify_file_seed_coat*: UNKNOWN
-    - *scarify_fruit*: Remove or partially remove a covering that is not the seed coat
-    - *scarify_fruit_vice*: Remove or partially remove a covering that is not the seed coat. Covering sufficiently tough a vice is required to break it.
-    - *scarify_nick_seed_coat*: Chip, nick, or otherwise partially remove the seed coat
-    - *scarify_pierce_seed_coat*: UNKNOWN
-    - *scarify_remove_aril*: UNKNOWN
-    - *scarify_remove_seed_coat*: UNKNOWN
-    - *scarify_sand_seed_coat*: Sand the seed coat
-    - *scarify_seed_coat_vice*: UNKNOWN
-    - *simulate_smoke*: Simulate smoke conditions for a period using the disk method.
-    - *smoke*: Seed requires smoke to germinate
-    - *smoked_water*: Soak seed in smoked water
-    - *smoke_and_heat*: Expose seed to a combination of smoke and heat
-    - *smoke_and_light*: Expose seed to smoke and light
-    - *sterilise_calcium_hydroxide*: Seed sterilised in calcium hydroxide (or similar)
-    - *sterilise_domestos*: Seed sterilised in 10% doemestos (or similar)
-    - *stratification*: Cold treatment
+ - *apply_chemical*: apply generic chemical treatment
+ - *crack_seed*: UNKNOWN
+ - *excise_pericarp*: same as remove seed_coat
+ - *heat*: heating the seed
+ - *imbibed*: soaked
+ - *imbibed_bleach*: soaked in a mild bleach solution
+ - *imbibed_calcium_hypochlorite*: soaked in a mild solution of calcium hypochlorite (is this always the same as standard bleach?)
+ - *imbibed_cooled_boiling*: soaked in water that has boiled and then cooled slightly
+ - *imbibed_distilled*: soaked in distilled water
+ - *imbibed_hot_water*: soaked in hot, but not boiling water
+ - *imbibed_near_boiling*: soaked in near-boiling water
+ - *imbibed_remove_casing*: soaked and seed casing removed
+ - *imbibed_remove_salt*: soaked to leach salts
+ - *imbibed_seed_primer*: soaked in seed primer
+ - *imbibed_then_nicked*: soaked, then seed is nicked
+ - *incise_pericarp*: make incision into pericarp
+ - *light*: light
+ - *mycorhizal_association*: Requires mycorhizal symbiont to germinate
+ - *none*: No special germination treatment required
+ - *remove_bracts*: remove bracts surrounding the seed
+ - *remove_mericarp_plug*: remove the mericarp plug
+ - *remove_seed_casing*: UNKNOWN
+ - *remove_seed_coat*: same as excise pericarp
+ - *rinse*: rinse the seed (generic)
+ - *scarify*: Unspecified seed scarification
+ - *scarify_file_seed_coat*: UNKNOWN
+ - *scarify_fruit*: Remove or partially remove a covering that is not the seed coat
+ - *scarify_fruit_vice*: Remove or partially remove a covering that is not the seed coat. Covering sufficiently tough a vice is required to break it.
+ - *scarify_nick_seed_coat*: Chip, nick, or otherwise partially remove the seed coat
+ - *scarify_pierce_seed_coat*: UNKNOWN
+ - *scarify_remove_aril*: UNKNOWN
+ - *scarify_remove_seed_coat*: UNKNOWN
+ - *scarify_sand_seed_coat*: Sand the seed coat
+ - *scarify_seed_coat_vice*: UNKNOWN
+ - *simulate_smoke*: Simulate smoke conditions for a period using the disk method.
+ - *smoke*: Seed requires smoke to germinate
+ - *smoked_water*: Soak seed in smoked water
+ - *smoke_and_heat*: Expose seed to a combination of smoke and heat
+ - *smoke_and_light*: Expose seed to smoke and light
+ - *sterilise_calcium_hydroxide*: Seed sterilised in calcium hydroxide (or similar)
+ - *sterilise_domestos*: Seed sterilised in 10% doemestos (or similar)
+ - *stratification*: Cold treatment
 
 
 ## genome_size
@@ -2087,8 +2087,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *0*: not glaucous
-    - *1*: glaucous
+ - *0*: not glaucous
+ - *1*: glaucous
 
 
 ## growth_habit
@@ -2100,10 +2100,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 4
 - type: categorical
 - allowable values:
-    - *prostrate*: Plants that lie flat on the ground
-    - *rhizomatous*: Plants having modified underground stems
-    - *stoloniferous*: Plants having horizontal branches from the base of the plant that produce new plants from buds at its tip or nodes
-    - *tufted*: A dense clump attached at the base or growing close together; can refer to grasses, shrubs, or trees
+ - *prostrate*: Plants that lie flat on the ground
+ - *rhizomatous*: Plants having modified underground stems
+ - *stoloniferous*: Plants having horizontal branches from the base of the plant that produce new plants from buds at its tip or nodes
+ - *tufted*: A dense clump attached at the base or growing close together; can refer to grasses, shrubs, or trees
 
 
 ## guard_cell_length
@@ -2137,8 +2137,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *glabrous*: Hypocotyl lacks hairs
-    - *hairy*: Hypocotyl has hairs
+ - *glabrous*: Hypocotyl lacks hairs
+ - *hairy*: Hypocotyl has hairs
 
 
 ## upper_hypodermis_thickness
@@ -2172,11 +2172,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *not_applicable*: Taxa is not typically confronted with beng inundated and its response is unknown.
-    - *<1_month*: Taxa able to tolerate being inundated for less than 1 month.
-    - *1-6_months*: Taxa able to tolerate being inundated for 1-6 months.
-    - *>6_months*: Taxa able to tolerate being inundated for  more than 6 months.
-    - *aquatic*: Taxa truly aquatic and able to be permanantly inundated.
+ - *not_applicable*: Taxa is not typically confronted with beng inundated and its response is unknown.
+ - *<1_month*: Taxa able to tolerate being inundated for less than 1 month.
+ - *1-6_months*: Taxa able to tolerate being inundated for 1-6 months.
+ - *>6_months*: Taxa able to tolerate being inundated for  more than 6 months.
+ - *aquatic*: Taxa truly aquatic and able to be permanantly inundated.
 
 
 ## flood_regime_classification
@@ -2188,14 +2188,14 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *terrestrial_dry*: Species which germinate, grow and reproduce where there is no surface water and the water table is below the soil surface. (Dry species; Tdr)
-    - *terrestrial_damp*: Species which germinate, grow and reproduce on saturated soil. (Damp species; Tda)
-    - *amphibious_fluctuation_tolerators_emergent*: Species which germinate in damp or flooded conditions, which tolerate variation in water level, and which grow with their basal portions under water and reproduce out of water. (Emergent species; ATe)
-    - *amphibious_fluctuation_tolerators_low*: Species which germinate in damp or flooded conditions, which tolerate variation in water level, which are low-growing and tolerate complete submersion when water-levels rise. (Low-growing species; ATl)
-    - *amphibious_fluctuation_responders_plastic*: Species which germinate in flooded conditions, grow in both flooded and damp conditions, reproduce above the surface of the water, and which have morphological plasticity (e.g. heterophylly) in response to water-level variation. (Morphologically plastic species; ARp)
-    - *amphibious_fluctuation_responders_floating*: Species which germinate in flooded conditions, grow in both flooded and damp conditions, reproduce above the surface of the water, and which have floating leaves when inundated. (Species with floating leaves; ARf)
-    - *amphibious*: Species which germinate in damp or flooded conditions and can grow in or our of water.
-    - *submerged*: Species which germinate, grow and reproduce underwater. (S)
+ - *terrestrial_dry*: Species which germinate, grow and reproduce where there is no surface water and the water table is below the soil surface. (Dry species; Tdr)
+ - *terrestrial_damp*: Species which germinate, grow and reproduce on saturated soil. (Damp species; Tda)
+ - *amphibious_fluctuation_tolerators_emergent*: Species which germinate in damp or flooded conditions, which tolerate variation in water level, and which grow with their basal portions under water and reproduce out of water. (Emergent species; ATe)
+ - *amphibious_fluctuation_tolerators_low*: Species which germinate in damp or flooded conditions, which tolerate variation in water level, which are low-growing and tolerate complete submersion when water-levels rise. (Low-growing species; ATl)
+ - *amphibious_fluctuation_responders_plastic*: Species which germinate in flooded conditions, grow in both flooded and damp conditions, reproduce above the surface of the water, and which have morphological plasticity (e.g. heterophylly) in response to water-level variation. (Morphologically plastic species; ARp)
+ - *amphibious_fluctuation_responders_floating*: Species which germinate in flooded conditions, grow in both flooded and damp conditions, reproduce above the surface of the water, and which have floating leaves when inundated. (Species with floating leaves; ARf)
+ - *amphibious*: Species which germinate in damp or flooded conditions and can grow in or our of water.
+ - *submerged*: Species which germinate, grow and reproduce underwater. (S)
 
 
 ## leaf_angle
@@ -2317,10 +2317,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *alternate*: A single leaf is attached at each stem node
-    - *opposite*: Leaves attach to the stem in pairs
-    - *reduced_to_scales*: Plant lacks true leaves. Leaves are instead small scales
-    - *whorled_tufted_crowded*: Three or more leaves are attached at each node
+ - *alternate*: A single leaf is attached at each stem node
+ - *opposite*: Leaves attach to the stem in pairs
+ - *reduced_to_scales*: Plant lacks true leaves. Leaves are instead small scales
+ - *whorled_tufted_crowded*: Three or more leaves are attached at each node
 
 
 ## leaf_ash_content_per_dry_mass
@@ -2442,12 +2442,12 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 26
 - type: categorical
 - allowable values:
-    - *compound*: A leaf that is divided into multiple leaflets
-    - *leafless*: A stem that lacks leaves
-    - *phyllode*: Stem segment that functions like a leaf
-    - *scale*: A scale leaf
-    - *simple*: A leaf with a single undivided blade
-    - *trifoliate*: A leaf that is divided into three leaflets; a special category of compound
+ - *compound*: A leaf that is divided into multiple leaflets
+ - *leafless*: A stem that lacks leaves
+ - *phyllode*: Stem segment that functions like a leaf
+ - *scale*: A scale leaf
+ - *simple*: A leaf with a single undivided blade
+ - *trifoliate*: A leaf that is divided into three leaflets; a special category of compound
 
 
 ## leaf_Co_per_dry_mass
@@ -2679,8 +2679,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 3
 - type: categorical
 - allowable values:
-    - *0*: leaves on adult plants do not have hairs
-    - *1*: leaves on adult plants do have hairs
+ - *0*: leaves on adult plants do not have hairs
+ - *1*: leaves on adult plants do have hairs
 
 
 ## leaf_hairs_juvenile
@@ -2692,8 +2692,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *0*: leaves on juvenile plants do not have hairs
-    - *1*: leaves on juvenile plants do have hairs
+ - *0*: leaves on juvenile plants do not have hairs
+ - *1*: leaves on juvenile plants do have hairs
 
 
 ## leaf_hydraulic_conductivity
@@ -2804,9 +2804,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 6
 - type: categorical
 - allowable values:
-    - *entire*: Leaf margin without lobes or toothed
-    - *lobed*: Leaf margin that is either lobed
-    - *toothed*: Leaf margin that is toothed
+ - *entire*: Leaf margin without lobes or toothed
+ - *lobed*: Leaf margin that is either lobed
+ - *toothed*: Leaf margin that is toothed
 
 
 ## leaf_division
@@ -2818,36 +2818,36 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *bipartite*: Divided into 2 lobes
-    - *bipinnate*: Twofold pinnate; a leaf with two levels of pinnae (leaflets)
-    - *bipinnatisect*: Twofold pinnatisect, with lobes upon lobes that extend nearly to the midrib in narrow divisions, but divisions are not separated into distinct leaflets
-    - *bipinnatipartite*: Twofold pinnatipartite, with lobes upon lobes that extend more than half way to the midrid
-    - *coarsely_toothed*: coarsely toothed
-    - *compound*: Compound leaf, type unspecified
-    - *crenate*: Having a round-toothed or scalloped edge
-    - *deeply_bipinnatifid*: Lobes upon lobes that extend about half-way toward the midrib
-    - *deeply_pinnatifid*: Lobes that extend about half-way toward the midrib
-    - *deeply_pinnatipartite*: Lobes that extend nearly all the way toward the midrib
-    - *deeply_segmented*: Deeply segmented
-    - *deeply_toothed*: Deeply toothed
-    - *dentate*: Sharply toothed
-    - *dichotomously_divided*: Divided into two lobes
-    - *entire*: Leaf margin without lobes or toothed; includes "simple" leaves where no lobing or divisions specified
-    - *lobed*: Leaf margin that is lobed
-    - *lobed_to_midvein*: same as pinnatisect
-    - *pinnate*: Leaf divided into leaflets
-    - *pinnatifid*: Lobes that extend less than half-way toward the midrib
-    - *pinnatipartite*: Lobes that extend more than half-way toward the midrib
-    - *pinnatisect*: Lobes that extend nearly to the midrib in narrow divisions, but divisions are not separated into distinct leaflets
-    - *pinnately_lobed*: Shallow lobes in a pinnate pattern
-    - *palmately_compound*: Palmately compound
-    - *palmately_lobed*: Palmately lobed
-    - *shallowly_lobed*: With shallow lobes
-    - *toothed*: Leaf margin that is toothed
-    - *trichotomously_divided*: Divided repeatedly into three lobes
-    - *trifoliate*: Divided into 3 leaflets
-    - *tripartite*: Divided into 3 lobes
-    - *tripinnate*: Threefold pinnate; a leaf with three levels of pinnae (leaflets)
+ - *bipartite*: Divided into 2 lobes
+ - *bipinnate*: Twofold pinnate; a leaf with two levels of pinnae (leaflets)
+ - *bipinnatisect*: Twofold pinnatisect, with lobes upon lobes that extend nearly to the midrib in narrow divisions, but divisions are not separated into distinct leaflets
+ - *bipinnatipartite*: Twofold pinnatipartite, with lobes upon lobes that extend more than half way to the midrid
+ - *coarsely_toothed*: coarsely toothed
+ - *compound*: Compound leaf, type unspecified
+ - *crenate*: Having a round-toothed or scalloped edge
+ - *deeply_bipinnatifid*: Lobes upon lobes that extend about half-way toward the midrib
+ - *deeply_pinnatifid*: Lobes that extend about half-way toward the midrib
+ - *deeply_pinnatipartite*: Lobes that extend nearly all the way toward the midrib
+ - *deeply_segmented*: Deeply segmented
+ - *deeply_toothed*: Deeply toothed
+ - *dentate*: Sharply toothed
+ - *dichotomously_divided*: Divided into two lobes
+ - *entire*: Leaf margin without lobes or toothed; includes "simple" leaves where no lobing or divisions specified
+ - *lobed*: Leaf margin that is lobed
+ - *lobed_to_midvein*: same as pinnatisect
+ - *pinnate*: Leaf divided into leaflets
+ - *pinnatifid*: Lobes that extend less than half-way toward the midrib
+ - *pinnatipartite*: Lobes that extend more than half-way toward the midrib
+ - *pinnatisect*: Lobes that extend nearly to the midrib in narrow divisions, but divisions are not separated into distinct leaflets
+ - *pinnately_lobed*: Shallow lobes in a pinnate pattern
+ - *palmately_compound*: Palmately compound
+ - *palmately_lobed*: Palmately lobed
+ - *shallowly_lobed*: With shallow lobes
+ - *toothed*: Leaf margin that is toothed
+ - *trichotomously_divided*: Divided repeatedly into three lobes
+ - *trifoliate*: Divided into 3 leaflets
+ - *tripartite*: Divided into 3 lobes
+ - *tripinnate*: Threefold pinnate; a leaf with three levels of pinnae (leaflets)
 
 
 ## leaf_mass_fraction
@@ -3013,11 +3013,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 27
 - type: categorical
 - allowable values:
-    - *deciduous*: Plant where all leaves are shed yearly, either due to drought or cold
-    - *evergreen*: Plant which retains its leaves year-round
-    - *drought_deciduous*: Plant that sheds its leaves in response to drought
-    - *facultative_drought_deciduous*: Plant that sometimes sheds its leaves in response to drought
-    - *semi_deciduous*: Plant that sheds its leaves each year for just a very brief period of time
+ - *deciduous*: Plant where all leaves are shed yearly, either due to drought or cold
+ - *evergreen*: Plant which retains its leaves year-round
+ - *drought_deciduous*: Plant that sheds its leaves in response to drought
+ - *facultative_drought_deciduous*: Plant that sometimes sheds its leaves in response to drought
+ - *semi_deciduous*: Plant that sheds its leaves each year for just a very brief period of time
 
 
 ## leaf_photosynthetic_nitrogen_use_efficiency_maximum
@@ -3106,74 +3106,74 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 16
 - type: categorical
 - allowable values:
-    - *acicular*: Needle-shaped
-    - *article*: Leaf comprised of jointed segments, as in family Casuarinaceae
-    - *auriculate*: Shaped like an ear or ear lobe.
-    - *branchlets_articles*: Branches with article leaves, as in family Casuarinaceae
-    - *broadly_lanceolate*: Like lanceolate, but broader
-    - *broadly_obovate*: Like obovate, but broader
-    - *broadly_ovate*: Like ovate, but broader
-    - *circular*: Circular
-    - *cladode*: A flattened stem or internode that resembles and functions as a leaf
-    - *clavate*: Slender, broadening towards the tip; club-shaped, with the thickened part at the tip
-    - *cordate*: Heart-shaped
-    - *cuneate*: Triangular, wedge-shaped, stem attaches to point
-    - *deltoid*: Triangular, stem attaches to side
-    - *dimidate*: A leaf in which only one side is developed
-    - *elliptical*: Oval shaped, without a distinct point
-    - *elliptical-oblong*: Oval shaped, without a distinct point, but more elongated
-    - *flabelliform*: Fan-shaped
-    - *falcate*: Sickle-shaped
-    - *flat*: Leave flat
-    - *filiform*: Thread-like or filament-shaped
-    - *fusiform*: Spindle-shaped and tapering at both ends
-    - *half_terete*: Semi-circular in cross-section
-    - *hastate*: Spear-shaped - pointed, with barbs, shaped like a spear point, with flaring pointed lobes at the base
-    - *lanceolate*: Long, wider in the middle, shaped like a lance tip
-    - *leafless*: No leaf present
-    - *linear*: Long and very narrow like a blade of grass
-    - *linear_elliptical*: A particularly long, narrow elliptical leaf
-    - *linear_oblanceolate*: A particularly long, narrow oblanceolate leaf
-    - *linear_obovate*: A particularly long, narrow obovate leaf
-    - *lobed*: Being divided by clefts, may be pinnately lobed or palmately lobed
-    - *lorate*: Having the form of a strap
-    - *narrowly_cuneate*: like cuneate, but narrower
-    - *narrowly_elliptical*: like elliptical, but narrower
-    - *narrowly_oblong*: like oblong, but narrower
-    - *narrowly_obovate*: like obovate, but narrower
-    - *narrowly_obtrullate*: like obtrullate, but narrower
-    - *narrowly_ovate*: like ovate, but narrower
-    - *narrowly_subulate*: like subulate, but narrower
-    - *narrowly_rhomboidal*: like rhomboidal, but narrower
-    - *narrowly_triangular*: like triangular, but narrower
-    - *needle*: Needle-shaped
-    - *obcordate*: Heart-shaped, stem attaches at the tapering end
-    - *oblanceolate*: Much longer than wide and with the widest portion near the tip, reversed lanceolate
-    - *oblate*: An elongate leaf that is wider in the middle than at the two ends
-    - *oblong*: Having an elongated form with slightly parallel sides, roughly rectangular
-    - *obtriangular*: A triangular leaf where the stem attaches to the tapering end
-    - *obtrullate*: In the form of a reversed trowel (with longer sides meeting at the base)
-    - *obovate*: Teardrop-shaped, stem attaches to the tapering end; reversed ovate
-    - *obovoid*: A 3-dimensional shape; teardrop-shaped, stem attaches to the tapering end
-    - *orbicular*: Circular
-    - *ovate*: Oval, egg-shaped, with a tapering point and the widest portion near the petiole
-    - *palm*: UNCERTAIN if this refers to a leaf from a palm (Araceeae) or a palmately lobed leaf
-    - *palmately_lobed*: Palm-shaped, i.e., with lobes or leaflets stemming from the leaf base
-    - *peltate*: A round leaf where the petiole attaches near the center
-    - *phyllode*: Stem segment that functions like a leaf
-    - *reniform*: Shaped like a kidney - an oval with an inward curve on one side
-    - *rhomboidal*: Diamond-shaped
-    - *scale*: Scale leaf
-    - *spathulate*: Spoon-shaped; having a broad flat end which tapers to the base
-    - *spine*: Leaf reduced to a spine
-    - *straight*: Leaf with very straight sides
-    - *subulate*: Slender and tapering to a point; awl-shaped.
-    - *terete*: Circular in cross-section; more or less cylindrical without grooves or ridges
-    - *terete_compressed*: Like terete, but compressed
-    - *triangular*: Triangular leaf where stem attaches to a side; similar to deltoid
-    - *trigonous_terete*: Terete, but triangular in cross section
-    - *widely_obovate*: like obovate, but wider
-    - *widely_obtrullate*: In the form of a reversed trowel (with longer sides meeting at the base), but wider
+ - *acicular*: Needle-shaped
+ - *article*: Leaf comprised of jointed segments, as in family Casuarinaceae
+ - *auriculate*: Shaped like an ear or ear lobe.
+ - *branchlets_articles*: Branches with article leaves, as in family Casuarinaceae
+ - *broadly_lanceolate*: Like lanceolate, but broader
+ - *broadly_obovate*: Like obovate, but broader
+ - *broadly_ovate*: Like ovate, but broader
+ - *circular*: Circular
+ - *cladode*: A flattened stem or internode that resembles and functions as a leaf
+ - *clavate*: Slender, broadening towards the tip; club-shaped, with the thickened part at the tip
+ - *cordate*: Heart-shaped
+ - *cuneate*: Triangular, wedge-shaped, stem attaches to point
+ - *deltoid*: Triangular, stem attaches to side
+ - *dimidate*: A leaf in which only one side is developed
+ - *elliptical*: Oval shaped, without a distinct point
+ - *elliptical-oblong*: Oval shaped, without a distinct point, but more elongated
+ - *flabelliform*: Fan-shaped
+ - *falcate*: Sickle-shaped
+ - *flat*: Leave flat
+ - *filiform*: Thread-like or filament-shaped
+ - *fusiform*: Spindle-shaped and tapering at both ends
+ - *half_terete*: Semi-circular in cross-section
+ - *hastate*: Spear-shaped - pointed, with barbs, shaped like a spear point, with flaring pointed lobes at the base
+ - *lanceolate*: Long, wider in the middle, shaped like a lance tip
+ - *leafless*: No leaf present
+ - *linear*: Long and very narrow like a blade of grass
+ - *linear_elliptical*: A particularly long, narrow elliptical leaf
+ - *linear_oblanceolate*: A particularly long, narrow oblanceolate leaf
+ - *linear_obovate*: A particularly long, narrow obovate leaf
+ - *lobed*: Being divided by clefts, may be pinnately lobed or palmately lobed
+ - *lorate*: Having the form of a strap
+ - *narrowly_cuneate*: like cuneate, but narrower
+ - *narrowly_elliptical*: like elliptical, but narrower
+ - *narrowly_oblong*: like oblong, but narrower
+ - *narrowly_obovate*: like obovate, but narrower
+ - *narrowly_obtrullate*: like obtrullate, but narrower
+ - *narrowly_ovate*: like ovate, but narrower
+ - *narrowly_subulate*: like subulate, but narrower
+ - *narrowly_rhomboidal*: like rhomboidal, but narrower
+ - *narrowly_triangular*: like triangular, but narrower
+ - *needle*: Needle-shaped
+ - *obcordate*: Heart-shaped, stem attaches at the tapering end
+ - *oblanceolate*: Much longer than wide and with the widest portion near the tip, reversed lanceolate
+ - *oblate*: An elongate leaf that is wider in the middle than at the two ends
+ - *oblong*: Having an elongated form with slightly parallel sides, roughly rectangular
+ - *obtriangular*: A triangular leaf where the stem attaches to the tapering end
+ - *obtrullate*: In the form of a reversed trowel (with longer sides meeting at the base)
+ - *obovate*: Teardrop-shaped, stem attaches to the tapering end; reversed ovate
+ - *obovoid*: A 3-dimensional shape; teardrop-shaped, stem attaches to the tapering end
+ - *orbicular*: Circular
+ - *ovate*: Oval, egg-shaped, with a tapering point and the widest portion near the petiole
+ - *palm*: UNCERTAIN if this refers to a leaf from a palm (Araceeae) or a palmately lobed leaf
+ - *palmately_lobed*: Palm-shaped, i.e., with lobes or leaflets stemming from the leaf base
+ - *peltate*: A round leaf where the petiole attaches near the center
+ - *phyllode*: Stem segment that functions like a leaf
+ - *reniform*: Shaped like a kidney - an oval with an inward curve on one side
+ - *rhomboidal*: Diamond-shaped
+ - *scale*: Scale leaf
+ - *spathulate*: Spoon-shaped; having a broad flat end which tapers to the base
+ - *spine*: Leaf reduced to a spine
+ - *straight*: Leaf with very straight sides
+ - *subulate*: Slender and tapering to a point; awl-shaped.
+ - *terete*: Circular in cross-section; more or less cylindrical without grooves or ridges
+ - *terete_compressed*: Like terete, but compressed
+ - *triangular*: Triangular leaf where stem attaches to a side; similar to deltoid
+ - *trigonous_terete*: Terete, but triangular in cross section
+ - *widely_obovate*: like obovate, but wider
+ - *widely_obtrullate*: In the form of a reversed trowel (with longer sides meeting at the base), but wider
 
 
 ## leaf_specific_conductivity
@@ -3306,12 +3306,12 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 12
 - type: categorical
 - allowable values:
-    - *article*: Leaf comprised of jointed segments
-    - *broadleaf*: Flat leaf lamina
-    - *leafless*: Lacks leaves
-    - *needle*: Needle or awl-shaped leaf
-    - *phyllode*: Winged leaf stalk which functions as a leaf
-    - *scale_leaf*: A small flat leaf resembling a scale
+ - *article*: Leaf comprised of jointed segments
+ - *broadleaf*: Flat leaf lamina
+ - *leafless*: Lacks leaves
+ - *needle*: Needle or awl-shaped leaf
+ - *phyllode*: Winged leaf stalk which functions as a leaf
+ - *scale_leaf*: A small flat leaf resembling a scale
 
 
 ## leaf_water_content_per_area
@@ -3488,20 +3488,20 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 13
 - type: categorical
 - allowable values:
-    - *aerophytes*: Plants that obtain moisture and nutrients from the air and rain
-    - *chamaephyte*: Plants with buds on persistent shoots near the soil surface
-    - *cryptophytes*: plants have subterranean or under water resting buds
-    - *epiphyte*: Plant that grows on the surface of another plant
-    - *geophyte*: Plants with bulbs that rest in dry soil as a rhizome, bulb or corm
-    - *helophytes*: Plants with bulbs that rest in marshy or wet soil
-    - *hemicryptophyte*: Plants with buds at or near the soil surface
-    - *hemicryptophyte_flat_rosette*: Plants with buds at or near the soil surface; all leaves radical, leaves flat or erect depending on conditions
-    - *hemicryptophyte_erect_rosette*: Plants with buds at or near the soil surface; all leaves radical, leaves always erect
-    - *hemicryptophyte_partial_rosette*: Plants with buds at or near the soil surface; radical and cauline leaves present, largest leaves on lower stem
-    - *hemicryptophyte_proto-rosette*: Plants with buds at or near the soil surface; all leaves cauline, largest leaves towards the middle of stem
-    - *hydrophytes*: Plants with bulbs that rest submerged under water
-    - *phanerophyte*: Plants with dominant buds on branches which project freely into the air; normally woody perennials
-    - *therophyte*: Annual plants that complete their lives rapidly in favourable conditions and survive the unfavourable cold or dry season in the form of seeds
+ - *aerophytes*: Plants that obtain moisture and nutrients from the air and rain
+ - *chamaephyte*: Plants with buds on persistent shoots near the soil surface
+ - *cryptophytes*: plants have subterranean or under water resting buds
+ - *epiphyte*: Plant that grows on the surface of another plant
+ - *geophyte*: Plants with bulbs that rest in dry soil as a rhizome, bulb or corm
+ - *helophytes*: Plants with bulbs that rest in marshy or wet soil
+ - *hemicryptophyte*: Plants with buds at or near the soil surface
+ - *hemicryptophyte_flat_rosette*: Plants with buds at or near the soil surface; all leaves radical, leaves flat or erect depending on conditions
+ - *hemicryptophyte_erect_rosette*: Plants with buds at or near the soil surface; all leaves radical, leaves always erect
+ - *hemicryptophyte_partial_rosette*: Plants with buds at or near the soil surface; radical and cauline leaves present, largest leaves on lower stem
+ - *hemicryptophyte_proto-rosette*: Plants with buds at or near the soil surface; all leaves cauline, largest leaves towards the middle of stem
+ - *hydrophytes*: Plants with bulbs that rest submerged under water
+ - *phanerophyte*: Plants with dominant buds on branches which project freely into the air; normally woody perennials
+ - *therophyte*: Annual plants that complete their lives rapidly in favourable conditions and survive the unfavourable cold or dry season in the form of seeds
 
 
 ## life_history
@@ -3513,14 +3513,14 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 49
 - type: categorical
 - allowable values:
-    - *annual*: Plant that lives for only a single year
-    - *biennial*: Plant with a two-year lifespan
-    - *ephemeral*: Very short-lived plant; the lifespan is usually only a few months
-    - *indefinite*: Very long-lived plant, whose exact lifespan is unknown. Category also includes plants that reproduce vegetatively, such that their 'genetic' lifespan is indefinite
-    - *long_lived*: Very long-lived plant, whose exact lifespan is unknown
-    - *perennial*: Plant that lives for 3 or more growing seasons
-    - *short_lived_perennial*: A short-lived perennial
-    - *short_lived*: Unclear term that only suggests a plant is not long-lived - could be ephemeral, annual or biennial
+ - *annual*: Plant that lives for only a single year
+ - *biennial*: Plant with a two-year lifespan
+ - *ephemeral*: Very short-lived plant; the lifespan is usually only a few months
+ - *indefinite*: Very long-lived plant, whose exact lifespan is unknown. Category also includes plants that reproduce vegetatively, such that their 'genetic' lifespan is indefinite
+ - *long_lived*: Very long-lived plant, whose exact lifespan is unknown
+ - *perennial*: Plant that lives for 3 or more growing seasons
+ - *short_lived_perennial*: A short-lived perennial
+ - *short_lived*: Unclear term that only suggests a plant is not long-lived - could be ephemeral, annual or biennial
 
 
 ## lifespan
@@ -3532,20 +3532,20 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 4
 - type: categorical
 - allowable values:
-    - *post_fire_ephemeral*: Plant that is short-lived following fires
-    - *<1*: Plant that lives less than 1 year
-    - *<3*: Plant that lives less than 3 years
-    - *<5*: Plant that lives less than 5 years
-    - *<6*: Plant that lives less than 6 years
-    - *>6*: Plant that lives more than 6 years
-    - *<10*: Plant that lives less than 10 years
-    - *<20*: Plant that lives less than 20 years
-    - *<50*: Plant that lives less than 50 years
-    - *<100*: Plant that lives less than 100 years
-    - *>100*: Plant that lives more than 100 years
-    - *50-500*: Plant that lives between 50-500
-    - *>500*: Plant that lives more than 500 years
-    - *?*: Plant with unknown lifespan
+ - *post_fire_ephemeral*: Plant that is short-lived following fires
+ - *<1*: Plant that lives less than 1 year
+ - *<3*: Plant that lives less than 3 years
+ - *<5*: Plant that lives less than 5 years
+ - *<6*: Plant that lives less than 6 years
+ - *>6*: Plant that lives more than 6 years
+ - *<10*: Plant that lives less than 10 years
+ - *<20*: Plant that lives less than 20 years
+ - *<50*: Plant that lives less than 50 years
+ - *<100*: Plant that lives less than 100 years
+ - *>100*: Plant that lives more than 100 years
+ - *50-500*: Plant that lives between 50-500
+ - *>500*: Plant that lives more than 500 years
+ - *?*: Plant with unknown lifespan
 
 
 ## sex_type
@@ -3557,18 +3557,18 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 5
 - type: categorical
 - allowable values:
-    - *androdioecious*: Taxa in which hermaphroditic and staminate (male) plants coexist within a population
-    - *andromonoecious*: Taxa with hermaphrodite flowers and staminate flowers (producing just male gametes) on the same plant but no pistillate (female) flowers.
-    - *dioecious*: Taxa that produce male and female flowers on separate plants
-    - *gynodioecious*: Taxa in which hermaphroditic and pistillate (female) plants coexist within a population
-    - *gynomonoecious*: Taxa with hermaphrodite flowers and pistillate flowers (producing just female gametes) on the same plant but no staminate (male) flowers.
-    - *hermaphrodite*: Taxa with flowers that produce both male and female gametes; bisexual
-    - *monoecious*: Taxa that have both male and female flowers on the same plant, but an individual flower produces only male or female gametes.
-    - *polygamous*: Taxa with both unisexual and bisexual flowers on the same plant
-    - *polygamodioecious*: Taxa where some flowers on a plant are hermaphrodite and other are pistillate (female) or staminate (male)
-    - *polygamonoecious*: Taxa where some plants in a population have hermaphrodite and pistillate (female) flowers and others have hermaphrodite and staminate (male) flowers
-    - *trioecious*: Taxa where plants in a population have either hermaphroditic (bisexual) flowers, pistillate (female) flowers, or staminate (male) flowers
-    - *unknown*: inadequate information to assign a sex type
+ - *androdioecious*: Taxa in which hermaphroditic and staminate (male) plants coexist within a population
+ - *andromonoecious*: Taxa with hermaphrodite flowers and staminate flowers (producing just male gametes) on the same plant but no pistillate (female) flowers.
+ - *dioecious*: Taxa that produce male and female flowers on separate plants
+ - *gynodioecious*: Taxa in which hermaphroditic and pistillate (female) plants coexist within a population
+ - *gynomonoecious*: Taxa with hermaphrodite flowers and pistillate flowers (producing just female gametes) on the same plant but no staminate (male) flowers.
+ - *hermaphrodite*: Taxa with flowers that produce both male and female gametes; bisexual
+ - *monoecious*: Taxa that have both male and female flowers on the same plant, but an individual flower produces only male or female gametes.
+ - *polygamous*: Taxa with both unisexual and bisexual flowers on the same plant
+ - *polygamodioecious*: Taxa where some flowers on a plant are hermaphrodite and other are pistillate (female) or staminate (male)
+ - *polygamonoecious*: Taxa where some plants in a population have hermaphrodite and pistillate (female) flowers and others have hermaphrodite and staminate (male) flowers
+ - *trioecious*: Taxa where plants in a population have either hermaphroditic (bisexual) flowers, pistillate (female) flowers, or staminate (male) flowers
+ - *unknown*: inadequate information to assign a sex type
 
 
 ## modified_NDVI
@@ -3635,8 +3635,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 29
 - type: categorical
 - allowable values:
-    - *0*: plant does not exhibit nitrogen-fixation
-    - *1*: plant does exhibit nitrogen-fixation
+ - *0*: plant does not exhibit nitrogen-fixation
+ - *1*: plant does exhibit nitrogen-fixation
 
 
 ## N_to_P_ratio
@@ -3725,11 +3725,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 9
 - type: categorical
 - allowable values:
-    - *hemi-parasitic*: Plant is hemi-parasitic
-    - *parasitic*: Plant is parasitic
-    - *not_parasitic*: Plant is not parasitic
-    - *root_parasitic*: Plant that is a root parasite
-    - *stem_parasitic*: Plant that is a stem parasite
+ - *hemi-parasitic*: Plant is hemi-parasitic
+ - *parasitic*: Plant is parasitic
+ - *not_parasitic*: Plant is not parasitic
+ - *root_parasitic*: Plant that is a root parasite
+ - *stem_parasitic*: Plant that is a stem parasite
 
 
 ## pendulous_leaves
@@ -3741,8 +3741,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *not_pendulous*: leaves are not pendulous
-    - *pendulous*: leaves are pendulous
+ - *not_pendulous*: leaves are not pendulous
+ - *pendulous*: leaves are pendulous
 
 
 ## photosynthetic_bark
@@ -3754,8 +3754,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *0*: bark is not photosynthetic
-    - *1*: bark is photosynthetic
+ - *0*: bark is not photosynthetic
+ - *1*: bark is photosynthetic
 
 
 ## photosynthetic_pathway
@@ -3767,14 +3767,14 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 23
 - type: categorical
 - allowable values:
-    - *c3*: Plant using the 'standard' photosynthetic pathway, where a 3-carbon compound is produced after the first stage in the photosynthetic pathway
-    - *c4*: Plants in which the photosynthetic light-dependent reactions and the Calvin cycle are physically separated to reduce photo respiration
-    - *c3-c4*: Taxa that shift between c3 and c4 photosynthesis
-    - *cam*: Plants which display crassulacean acid metabolism
-    - *c3-cam*: Taxa that shift between c3 and cam photosynthesis
-    - *c4-cam*: Taxa that shift between c4 and cam photosynthesis
-    - *facultative_cam*: Species that shifts between C3 and CAM photosynesis depending on water availablility.
-    - *unknown*: Photosynthetic pathway unknown
+ - *c3*: Plant using the 'standard' photosynthetic pathway, where a 3-carbon compound is produced after the first stage in the photosynthetic pathway
+ - *c4*: Plants in which the photosynthetic light-dependent reactions and the Calvin cycle are physically separated to reduce photo respiration
+ - *c3-c4*: Taxa that shift between c3 and c4 photosynthesis
+ - *cam*: Plants which display crassulacean acid metabolism
+ - *c3-cam*: Taxa that shift between c3 and cam photosynthesis
+ - *c4-cam*: Taxa that shift between c4 and cam photosynthesis
+ - *facultative_cam*: Species that shifts between C3 and CAM photosynesis depending on water availablility.
+ - *unknown*: Photosynthetic pathway unknown
 
 
 ## photosynthetic_rate_per_area_ambient
@@ -3852,9 +3852,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *no_physical_defence*: Neither spines nor stinging hairs
-    - *spines_or_thorns*: Plant has spines or thorns
-    - *stinging_or_irritant_hairs*: Stinging or irritant hairs
+ - *no_physical_defence*: Neither spines nor stinging hairs
+ - *spines_or_thorns*: Plant has spines or thorns
+ - *stinging_or_irritant_hairs*: Stinging or irritant hairs
 
 
 ## plant_growth_form
@@ -3866,70 +3866,70 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 85
 - type: categorical
 - allowable values:
-    - *aquatic*: Grows primarily in water
-    - *aquatic_floating*: Plant where most of the leaves are floating on water
-    - *aquatic_herb*: Herb that grows primarily in water
-    - *aquatic_submerged*: Plant where all the leaves are submerged in water
-    - *climber*: Plant that climbs up another plant's trunk, branches, rather than being able to support itself
-    - *climber_herb*: Herbaceous plant that climbs up another plant
-    - *climber_liana*: Liana (usually refers to a woody climber)
-    - *climber_palm*: Palm that climbs up another plant
-    - *climber_shrub*: Shrubby plant that climbs up another plant
-    - *climber_scrambler*: Plant that climbs by scrambling
-    - *climber_tree*: Tree that climbs up another plant
-    - *climber_twiner*: Climber that ascends by twining (usually will refer to herbaceous climber, but not always)
-    - *climber_vine*: Vine (usually will refer to herbaceous climber, but not always)
-    - *climber_vine_herbaceous*: Vine, explicitly referring to herbareous taxa
-    - *climber_vine_woody*: Vine whose stem is at least partially woody
-    - *climber_woody*: Woody or thick (>2 cm) climbers with hooks, tendrils, adventitious roots, etc.
-    - *creeper*: Creeper that roots along stems
-    - *cushion*: Plant with tightly packed foliage help close to soil surface, with relatively even and rounded canopy boundary; a sub-category of herb in Cornellison, but possibly used for subshrubs as well by some
-    - *cycad*: Cycad
-    - *epiphyte*: Plant that grows on top of another plant
-    - *epiphyte_herb*: Herb that grows on top of another plant
-    - *epiphyte_shrub*: Shrub that grows on top of another plant
-    - *epiphyte_tree*: Tree that grows on top of another plant
-    - *epiphyte_woody*: Woody epiphyte
-    - *epiphyte_treelet*: Tree that grows on top of another plant
-    - *erect_leafy*: Plant essentially erect with leaves concentrated in the middle and/or top parts; a sub-category of herb
-    - *fern*: A group of vascular plants that reproduce via spores
-    - *fern_tree*: Tree fern
-    - *geophyte*: A perennial plant with an underground food storage organ, such as a bulb, tuber, corm, or rhizome
-    - *graminoid*: Herbaceous plants with a grass-like morphology; includes all entries of 'grass' and 'sedge' that are purely taxonomic descriptions, not indicating explicitly how the grass/sedge grows
-    - *graminoid_not_tussock*: Herbaceous plants with a non-tussock grass-like morphology
-    - *graminoid_not_tussock_tall*: Herbaceous plants with a non-tussock grass-like morphology that are more than 1 m in height
-    - *graminoid_tussock*: Herbaceous plants with a tussock grass-like morphology; see also 'tussock'
-    - *graminoid_tussock_tall*: Herbaceous plants with a tussock grass-like morphology that are more than 1 m in height
-    - *grass-tree*: Term specific refers to members of the family Xanthorrhoaceae, monocots with a tree-like growth-form
-    - *hemi-epiphyte*: Plant that partially grows on top of another plant
-    - *hemi-epiphyte_shrub*: Shrub that partially grows on top of another plant
-    - *hemi-epiphyte_tree*: Tree that partially grows on top of another plant
-    - *hemi-parasite*: A plant that derives some of its nutritional requirements from another living plant
-    - *herb*: A seed-bearing plant which does not have a woody stem and dies down to the ground after flowering; when available this term has been divided into more detailed terms
-    - *herb_large*: An herbaceous plant >0.5 m tall
-    - *leafless_shrub_tree*: Shrubs and trees with green, non-succulent stems as the main photosynthetic structures
-    - *long_basal*: Large leaves >0.5 m long emerging from the soil surface; a sub-category of herb
-    - *palm*: Flowering plants in the family Arecaceae, most with large, compound evergreen leaves referred to as fronds
-    - *pandanus*: Pandanus
-    - *parasite*: A plant that derives some or all of its nutritional requirements from another living plant
-    - *parasite_woody*: A woody plant that derives some or all of its nutritional requirements from another living plant
-    - *primitive*: includes club moss, selaginella
-    - *prostrate*: Plant that lies flat against the ground
-    - *prostrate_herb*: Herbaceous plant that lies flat against the ground
-    - *prostrate_shrub*: Woody plant that lies flat against the ground
-    - *reed*: reed or rush; doesn't specify exact growth form
-    - *rosette*: Herb where the leaves are concentrated right at the ground surface; also termed 'flat rosette'
-    - *rosette_erect*: Rosette of leaves that is no flat on the ground; in Cornellison, this refers to semi-woody plant like a palm, but may have different meanings with some authors
-    - *saprophyte*: Plant that acquires nutrients from decaying matter
-    - *semi_basal*: Significant leaf area deployed both close to the soil surface and higher up the plant; a sub-category of herb
-    - *subshrub*: A dwarf shrub, especially one that is only woody at the base
-    - *succulent_short*: A plant < 0.5 m tall where some parts are thick and fleshy and usually involved in water storage
-    - *succulent_tall*: A plant > 0.5 m tall where some parts are thick and fleshy and usually involved in water storage
-    - *short_basal*: Leaves <0.5 m long concentrated very close to the soil surface (encompasses both prostrate and rosette); a sub-category of herb
-    - *shrub*: A woody plant that has multiple stems arising at or near ground level
-    - *treelet*: A woody plant that is intermediate between a shrub and a tree; also a short tree
-    - *tree*: A tall, woody, perennial plant, usually with a single main trunk
-    - *tussock*: Plant with many leaves from basal meristem forming prominent tufts
+ - *aquatic*: Grows primarily in water
+ - *aquatic_floating*: Plant where most of the leaves are floating on water
+ - *aquatic_herb*: Herb that grows primarily in water
+ - *aquatic_submerged*: Plant where all the leaves are submerged in water
+ - *climber*: Plant that climbs up another plant's trunk, branches, rather than being able to support itself
+ - *climber_herb*: Herbaceous plant that climbs up another plant
+ - *climber_liana*: Liana (usually refers to a woody climber)
+ - *climber_palm*: Palm that climbs up another plant
+ - *climber_shrub*: Shrubby plant that climbs up another plant
+ - *climber_scrambler*: Plant that climbs by scrambling
+ - *climber_tree*: Tree that climbs up another plant
+ - *climber_twiner*: Climber that ascends by twining (usually will refer to herbaceous climber, but not always)
+ - *climber_vine*: Vine (usually will refer to herbaceous climber, but not always)
+ - *climber_vine_herbaceous*: Vine, explicitly referring to herbareous taxa
+ - *climber_vine_woody*: Vine whose stem is at least partially woody
+ - *climber_woody*: Woody or thick (>2 cm) climbers with hooks, tendrils, adventitious roots, etc.
+ - *creeper*: Creeper that roots along stems
+ - *cushion*: Plant with tightly packed foliage help close to soil surface, with relatively even and rounded canopy boundary; a sub-category of herb in Cornellison, but possibly used for subshrubs as well by some
+ - *cycad*: Cycad
+ - *epiphyte*: Plant that grows on top of another plant
+ - *epiphyte_herb*: Herb that grows on top of another plant
+ - *epiphyte_shrub*: Shrub that grows on top of another plant
+ - *epiphyte_tree*: Tree that grows on top of another plant
+ - *epiphyte_woody*: Woody epiphyte
+ - *epiphyte_treelet*: Tree that grows on top of another plant
+ - *erect_leafy*: Plant essentially erect with leaves concentrated in the middle and/or top parts; a sub-category of herb
+ - *fern*: A group of vascular plants that reproduce via spores
+ - *fern_tree*: Tree fern
+ - *geophyte*: A perennial plant with an underground food storage organ, such as a bulb, tuber, corm, or rhizome
+ - *graminoid*: Herbaceous plants with a grass-like morphology; includes all entries of 'grass' and 'sedge' that are purely taxonomic descriptions, not indicating explicitly how the grass/sedge grows
+ - *graminoid_not_tussock*: Herbaceous plants with a non-tussock grass-like morphology
+ - *graminoid_not_tussock_tall*: Herbaceous plants with a non-tussock grass-like morphology that are more than 1 m in height
+ - *graminoid_tussock*: Herbaceous plants with a tussock grass-like morphology; see also 'tussock'
+ - *graminoid_tussock_tall*: Herbaceous plants with a tussock grass-like morphology that are more than 1 m in height
+ - *grass-tree*: Term specific refers to members of the family Xanthorrhoaceae, monocots with a tree-like growth-form
+ - *hemi-epiphyte*: Plant that partially grows on top of another plant
+ - *hemi-epiphyte_shrub*: Shrub that partially grows on top of another plant
+ - *hemi-epiphyte_tree*: Tree that partially grows on top of another plant
+ - *hemi-parasite*: A plant that derives some of its nutritional requirements from another living plant
+ - *herb*: A seed-bearing plant which does not have a woody stem and dies down to the ground after flowering; when available this term has been divided into more detailed terms
+ - *herb_large*: An herbaceous plant >0.5 m tall
+ - *leafless_shrub_tree*: Shrubs and trees with green, non-succulent stems as the main photosynthetic structures
+ - *long_basal*: Large leaves >0.5 m long emerging from the soil surface; a sub-category of herb
+ - *palm*: Flowering plants in the family Arecaceae, most with large, compound evergreen leaves referred to as fronds
+ - *pandanus*: Pandanus
+ - *parasite*: A plant that derives some or all of its nutritional requirements from another living plant
+ - *parasite_woody*: A woody plant that derives some or all of its nutritional requirements from another living plant
+ - *primitive*: includes club moss, selaginella
+ - *prostrate*: Plant that lies flat against the ground
+ - *prostrate_herb*: Herbaceous plant that lies flat against the ground
+ - *prostrate_shrub*: Woody plant that lies flat against the ground
+ - *reed*: reed or rush; doesn't specify exact growth form
+ - *rosette*: Herb where the leaves are concentrated right at the ground surface; also termed 'flat rosette'
+ - *rosette_erect*: Rosette of leaves that is no flat on the ground; in Cornellison, this refers to semi-woody plant like a palm, but may have different meanings with some authors
+ - *saprophyte*: Plant that acquires nutrients from decaying matter
+ - *semi_basal*: Significant leaf area deployed both close to the soil surface and higher up the plant; a sub-category of herb
+ - *subshrub*: A dwarf shrub, especially one that is only woody at the base
+ - *succulent_short*: A plant < 0.5 m tall where some parts are thick and fleshy and usually involved in water storage
+ - *succulent_tall*: A plant > 0.5 m tall where some parts are thick and fleshy and usually involved in water storage
+ - *short_basal*: Leaves <0.5 m long concentrated very close to the soil surface (encompasses both prostrate and rosette); a sub-category of herb
+ - *shrub*: A woody plant that has multiple stems arising at or near ground level
+ - *treelet*: A woody plant that is intermediate between a shrub and a tree; also a short tree
+ - *tree*: A tall, woody, perennial plant, usually with a single main trunk
+ - *tussock*: Plant with many leaves from basal meristem forming prominent tufts
 
 
 ## plant_type_by_resource_use
@@ -3941,12 +3941,12 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *hydrohalophyte*: Tidal swamp or ‘mangrove’ and coastal lagoon elements and temperate-zone salt-marsh taxa are classed together.
-    - *phreatophyte*: Deep-rooted plants—usually trees—obtaining water from a deep underground source that may or may not be saline.
-    - *psammophile*: Sand-loving plants commonly found in littoral strand or inland sandfields
-    - *weedy*: This inexact term is meant to indicate a high degree of adaptability to sites, and proven tendency toward aggressive colonization of either dry or wet sites, or rarely, both. In general, weeds invade and colonize highly disturbed sites or areas.
-    - *xerohalophyte*: Plants adapted to inland salt desert and saline habitats
-    - *xerophyte*: Drought-tolerant and drought-adapted plants
+ - *hydrohalophyte*: Tidal swamp or ‘mangrove’ and coastal lagoon elements and temperate-zone salt-marsh taxa are classed together.
+ - *phreatophyte*: Deep-rooted plants—usually trees—obtaining water from a deep underground source that may or may not be saline.
+ - *psammophile*: Sand-loving plants commonly found in littoral strand or inland sandfields
+ - *weedy*: This inexact term is meant to indicate a high degree of adaptability to sites, and proven tendency toward aggressive colonization of either dry or wet sites, or rarely, both. In general, weeds invade and colonize highly disturbed sites or areas.
+ - *xerohalophyte*: Plants adapted to inland salt desert and saline habitats
+ - *xerophyte*: Drought-tolerant and drought-adapted plants
 
 
 ## plant_height
@@ -4002,20 +4002,20 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 6
 - type: categorical
 - allowable values:
-    - *abiotic*: Pollination occurs through wind, water, or collision of free-floating particles
-    - *animal*: Generic catch-all for any form of animal pollination; change to biotic
-    - *bat*: Bat-pollinated
-    - *bee*: Bee-pollinated
-    - *beetle*: Beetle-pollinated
-    - *bird*: Bird-pollinated
-    - *butterfly*: Butterfly-pollinated
-    - *fly*: Fly-pollinated
-    - *insect*: Insect-pollinated, type of insect not specified
-    - *moth*: Moth-pollinated
-    - *none*: Spore-producing plants
-    - *vertebrate*: Vertebrate-pollinated, broadly defined
-    - *wind*: wind-pollinated
-    - *pollination_rare*: plants mostly reproduce through vegetative spread and flowering is rare
+ - *abiotic*: Pollination occurs through wind, water, or collision of free-floating particles
+ - *animal*: Generic catch-all for any form of animal pollination; change to biotic
+ - *bat*: Bat-pollinated
+ - *bee*: Bee-pollinated
+ - *beetle*: Beetle-pollinated
+ - *bird*: Bird-pollinated
+ - *butterfly*: Butterfly-pollinated
+ - *fly*: Fly-pollinated
+ - *insect*: Insect-pollinated, type of insect not specified
+ - *moth*: Moth-pollinated
+ - *none*: Spore-producing plants
+ - *vertebrate*: Vertebrate-pollinated, broadly defined
+ - *wind*: wind-pollinated
+ - *pollination_rare*: plants mostly reproduce through vegetative spread and flowering is rare
 
 
 ## pollination_system
@@ -4027,10 +4027,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *abiotic*: Taxa use nonliving methods such as wind and water for pollen transfer
-    - *biotic_unspecialised*: Taxa use living methods for pollen transfer, but do not have a specialist pollinator
-    - *biotic_specialised*: Taxa depend upon a specialist pollinator for pollen transfer
-    - *self_pollination*: Flowers are self-pollinated or pollinated by another flower on the same plant
+ - *abiotic*: Taxa use nonliving methods such as wind and water for pollen transfer
+ - *biotic_unspecialised*: Taxa use living methods for pollen transfer, but do not have a specialist pollinator
+ - *biotic_specialised*: Taxa depend upon a specialist pollinator for pollen transfer
+ - *self_pollination*: Flowers are self-pollinated or pollinated by another flower on the same plant
 
 
 ## regen_strategy
@@ -4042,39 +4042,39 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 19
 - type: categorical
 - allowable values:
-    - *aboveground*: Plants that resprout from an aboveground organ, but the type of organ isn't specified.
-    - *aboveground_caudex*: Plant regenerates from above-ground apical meristems. Also termed a caudex. Term refers to palm-like plants with aerial buds that resprout, including grass trees, palms, tree ferns, and pandanus.
-    - *aboveground_other*: vegetative buds or plant fragments that can disperse and produce new plants (including axillary buds, bulbils and turions)
-    - *adventitious_root_buds*: Adventitious root buds on main root or lateral roots
-    - *apical_buds*: Plant resprouts from apical buds.
-    - *basal*: Plant regenerates from the base of the stem (versus underground). Generally synonymous with "lignotuber", especially among Australian plants.
-    - *basal_stem_buds*: Plant resprouts from basal stem buds.
-    - *belowground*: Plants that resprout from a belowground organ, but the type of organ isn't specified.
-    - *belowground_caudex*: Plant regenerates from belowe-ground caudex.
-    - *bud-bearing_root*: Lateral root that produces vertical suckers, adventitious roots
-    - *bulb*: Below ground storage organ derived from stem (and sometimes leaf) tissue.
-    - *coppice*: Shoots regrowing from base of stem following managed cutting to ground level
-    - *corm*: Below ground storage organ derived from stem tissue.
-    - *epicormic*: Plants that resprout from epicormic buds; these are buds beneath the bark on stems that survive fire
-    - *fleshy_underground_organ*: Plants that use fleshy, generally underground organs (swellings) to regenerate; examples include corms, tubers, bulbs, and caudex
-    - *lignotuber*: Swollen woody structures are located at the transition between the stem base and root crown of woody shrubs, mallees and small trees, and are formed from stem tissues. Buds are located over the entire structure. No colonisation ability.
-    - *fire_killed*: Plant that is fire-killed and regenerates only by seed. (An obligate re-seeder.)
-    - *resprouts*: Plant reprouts following fire
-    - *resprouts_non_fire_disturbance*: Fire-killed plants that have the ability to resprout following a disturbance other than fire
-    - *rhizome*: Plant has an underground stem; this stem may be woody or non-woody. Rhizomes are both a mechanism for vegetative spread and a strategy to survive fire.
-    - *root_crown*: Plant that produces a few vertical shoots from the root crown.
-    - *root_tuber*: Below ground storage organ derived from root tissue.
-    - *seed*: Plants that regenerate only or primarily by seed. These are mostly fire-killed taxa, but the not always
-    - *stem_buds*: Plant resprouts from stem buds (separate to epicormic buds)
-    - *stem_tuber*: Below ground storage organ derived from stem tissue.
-    - *stolon*: Plants having horizontal branches (stems) from the base of the plant that produce new plants from buds at its tip or nodes
-    - *woody_rootstock*: Plant that regenerate by resprouting from wood rootstock.
-    - *woody_rootstock_or_lignotuber*: Plant that regenerates by resprouting from either a woody rootstock or lignotuber.
-    - *no_storage_organ*: No storage organ present
-    - *none*: Does not regenerate vegetatively
-    - *storage_organ*: Storage organ present, but the type is unknown
-    - *underground*: Plants that resprout from an underground organ, but the type of organ isn't specified.
-    - *unknown*: Assume this trait value means it is unknown if a storage organ is present or a plant can regenerate, not that the type is unknown
+ - *aboveground*: Plants that resprout from an aboveground organ, but the type of organ isn't specified.
+ - *aboveground_caudex*: Plant regenerates from above-ground apical meristems. Also termed a caudex. Term refers to palm-like plants with aerial buds that resprout, including grass trees, palms, tree ferns, and pandanus.
+ - *aboveground_other*: vegetative buds or plant fragments that can disperse and produce new plants (including axillary buds, bulbils and turions)
+ - *adventitious_root_buds*: Adventitious root buds on main root or lateral roots
+ - *apical_buds*: Plant resprouts from apical buds.
+ - *basal*: Plant regenerates from the base of the stem (versus underground). Generally synonymous with "lignotuber", especially among Australian plants.
+ - *basal_stem_buds*: Plant resprouts from basal stem buds.
+ - *belowground*: Plants that resprout from a belowground organ, but the type of organ isn't specified.
+ - *belowground_caudex*: Plant regenerates from belowe-ground caudex.
+ - *bud-bearing_root*: Lateral root that produces vertical suckers, adventitious roots
+ - *bulb*: Below ground storage organ derived from stem (and sometimes leaf) tissue.
+ - *coppice*: Shoots regrowing from base of stem following managed cutting to ground level
+ - *corm*: Below ground storage organ derived from stem tissue.
+ - *epicormic*: Plants that resprout from epicormic buds; these are buds beneath the bark on stems that survive fire
+ - *fleshy_underground_organ*: Plants that use fleshy, generally underground organs (swellings) to regenerate; examples include corms, tubers, bulbs, and caudex
+ - *lignotuber*: Swollen woody structures are located at the transition between the stem base and root crown of woody shrubs, mallees and small trees, and are formed from stem tissues. Buds are located over the entire structure. No colonisation ability.
+ - *fire_killed*: Plant that is fire-killed and regenerates only by seed. (An obligate re-seeder.)
+ - *resprouts*: Plant reprouts following fire
+ - *resprouts_non_fire_disturbance*: Fire-killed plants that have the ability to resprout following a disturbance other than fire
+ - *rhizome*: Plant has an underground stem; this stem may be woody or non-woody. Rhizomes are both a mechanism for vegetative spread and a strategy to survive fire.
+ - *root_crown*: Plant that produces a few vertical shoots from the root crown.
+ - *root_tuber*: Below ground storage organ derived from root tissue.
+ - *seed*: Plants that regenerate only or primarily by seed. These are mostly fire-killed taxa, but the not always
+ - *stem_buds*: Plant resprouts from stem buds (separate to epicormic buds)
+ - *stem_tuber*: Below ground storage organ derived from stem tissue.
+ - *stolon*: Plants having horizontal branches (stems) from the base of the plant that produce new plants from buds at its tip or nodes
+ - *woody_rootstock*: Plant that regenerate by resprouting from wood rootstock.
+ - *woody_rootstock_or_lignotuber*: Plant that regenerates by resprouting from either a woody rootstock or lignotuber.
+ - *no_storage_organ*: No storage organ present
+ - *none*: Does not regenerate vegetatively
+ - *storage_organ*: Storage organ present, but the type is unknown
+ - *underground*: Plants that resprout from an underground organ, but the type of organ isn't specified.
+ - *unknown*: Assume this trait value means it is unknown if a storage organ is present or a plant can regenerate, not that the type is unknown
 
 
 ## reproductive_maturity
@@ -4086,15 +4086,15 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 3
 - type: categorical
 - allowable values:
-    - *<1*: Plants reach reproductive maturity before age 1
-    - *1-2*: Plants reach reproductive maturity between ages 1-2
-    - *3-5*: Plants reach reproductive maturity between ages 3-5
-    - *1-5*: Plants reach reproductive maturity between ages 1-5
-    - *5-10*: Plants reach reproductive maturity between ages 5-10
-    - *5-20*: Plants reach reproductive maturity between ages 5-20
-    - *10-20*: Plants reach reproductive maturity between ages 10-20
-    - *>20*: Plants reach reproductive maturity after age 20
-    - *20-40*: Plants reach reproductive maturity between ages 20-40
+ - *<1*: Plants reach reproductive maturity before age 1
+ - *1-2*: Plants reach reproductive maturity between ages 1-2
+ - *3-5*: Plants reach reproductive maturity between ages 3-5
+ - *1-5*: Plants reach reproductive maturity between ages 1-5
+ - *5-10*: Plants reach reproductive maturity between ages 5-10
+ - *5-20*: Plants reach reproductive maturity between ages 5-20
+ - *10-20*: Plants reach reproductive maturity between ages 10-20
+ - *>20*: Plants reach reproductive maturity after age 20
+ - *20-40*: Plants reach reproductive maturity between ages 20-40
 
 
 ## reproductive_maturity_numeric
@@ -4282,15 +4282,15 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *type_i*: The primary root is fibrous or fleshy and is relatively long; mesophytic
-    - *type_ii*: The primary root is relatively short and is fibrous. Roots are well branched in a dry habitat but branch little in one that is wet.
-    - *type_iii*: The primary root is usually long and fibrous. The first order lateral roots are well branched and are usually short; they are rather evenly distributed along the primary root; xerophytic
-    - *type_iv*: The primary root is usually long and slender like that of Type II. The first order lateral roots are well branched. Those closest to the surface of the ground, or not far below, are relatively long; xerophytic and mesophytic
-    - *type_v*: The primary root is divided-forked or branched-and fibrous, and with few first order lateral roots, or, in age, apparently with none; xerophytic
-    - *type_vi*: The primary root is usually as in Type V. The first order lateral roots are mostly on the upper portion of the primary root and are thus relatively superficial; xerophytic or in well aerated sandy soil where the rainfall is not light.
-    - *type_vii*: Adventitious roots that are in one group and arise on a short horizontal, or vertical, axis of the shoot. They are fibrous or fleshly; mesophytic and hydrophytic
-    - *type_viii*: Adventitious roots that are in one group and are fibrous and fleshy, or fibrous and thick. The fibrous adventitious roots are absorbing-anchoring roots and are usually with laterals to the second order; meophytic
-    - *type_ix*: Adventitious roots that arise on the aerial stem and branches of some herbaceous taxa, shrubs, and trees; on creepers, vines, and runners; and on subterranean rhizomes and stolons
+ - *type_i*: The primary root is fibrous or fleshy and is relatively long; mesophytic
+ - *type_ii*: The primary root is relatively short and is fibrous. Roots are well branched in a dry habitat but branch little in one that is wet.
+ - *type_iii*: The primary root is usually long and fibrous. The first order lateral roots are well branched and are usually short; they are rather evenly distributed along the primary root; xerophytic
+ - *type_iv*: The primary root is usually long and slender like that of Type II. The first order lateral roots are well branched. Those closest to the surface of the ground, or not far below, are relatively long; xerophytic and mesophytic
+ - *type_v*: The primary root is divided-forked or branched-and fibrous, and with few first order lateral roots, or, in age, apparently with none; xerophytic
+ - *type_vi*: The primary root is usually as in Type V. The first order lateral roots are mostly on the upper portion of the primary root and are thus relatively superficial; xerophytic or in well aerated sandy soil where the rainfall is not light.
+ - *type_vii*: Adventitious roots that are in one group and arise on a short horizontal, or vertical, axis of the shoot. They are fibrous or fleshly; mesophytic and hydrophytic
+ - *type_viii*: Adventitious roots that are in one group and are fibrous and fleshy, or fibrous and thick. The fibrous adventitious roots are absorbing-anchoring roots and are usually with laterals to the second order; meophytic
+ - *type_ix*: Adventitious roots that arise on the aerial stem and branches of some herbaceous taxa, shrubs, and trees; on creepers, vines, and runners; and on subterranean rhizomes and stolons
 
 
 ## root_shoot_ratio
@@ -4313,26 +4313,26 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 14
 - type: categorical
 - allowable values:
-    - *arbuscular_mycorrhizal*: Symbiosis in which the mycorrhizal fungi does penetrate the cortex cells of the plant roots and its hyphae form arbuscules and vesicles inside the plant root; endomycorrhizal, AM, VAM
-    - *carnivorous*: non-mycorrhizal carnivorous root
-    - *cluster_roots*: cluster roots in non-proteoid taxa
-    - *coiling_vam*: Associations that spread predominantly by intracellular hyphal coils within roots
-    - *dauciform_root*: A type of cluster root found in the family Cyperaceae
-    - *ectomycorrhizal*: Symbiosis in which the mycorrhizal fungi does not penetrate the cortex cells of the plant roots
-    - *ericoid_mycorrhizal*: A form of arbuscular mycorrhizal relationship only found on plants in the order Ericales. The fungi's hyphae penetrate the plant root but do not form arbuscules
-    - *fine_roots*: Particularly fine roots for nutrient uptake
-    - *haustorium*: highly modified stem or root of a parasitic plant, such as mistletoe , or a specialized branch or tube originating from a hairlike filament (hypha) of a fungus. The haustorium penetrates the tissues of a host and absorbs nutrients and water.
-    - *hemiparasitic_root*: Partially parasitic root
-    - *long_root_hairs*: Specialised long root hairs
-    - *mycorrhizal*: Mycorrhizal, type not specified
-    - *non_mycorrhizal*: Plants lacking a mycorrhizal symbiont
-    - *orchid_mycorrhizal*: A mycorrhizal relationship specific to orchid taxa, and for most orchids, essential for seedlings to establish
-    - *parasitic_root*: Parasitic root
-    - *proteoid_root*: Also known as cluster roots, are plant roots that form clusters of closely spaced short lateral rootlets and aid in nutrient upake in nutrient-poor soils; common in members of the family Proteaceae, but present in other families as well
-    - *root_hairs*: Specialised root hairs
-    - *sand-binding*: Persistent sheaths of sand that form around the roots of taxa in the families Restionaceae, Cyperaceae, Haemodoraceae, and Lomandraceae in western Australia. Assumed to function in nutrient uptake.
-    - *subepidermal_mycorrhizal*: Mycorrhizae where hyphae grow in a cavity under epidermal cells. Only in the genus Thysanotus (family Laxmaniaceae).
-    - *unknown*: root structures unknown
+ - *arbuscular_mycorrhizal*: Symbiosis in which the mycorrhizal fungi does penetrate the cortex cells of the plant roots and its hyphae form arbuscules and vesicles inside the plant root; endomycorrhizal, AM, VAM
+ - *carnivorous*: non-mycorrhizal carnivorous root
+ - *cluster_roots*: cluster roots in non-proteoid taxa
+ - *coiling_vam*: Associations that spread predominantly by intracellular hyphal coils within roots
+ - *dauciform_root*: A type of cluster root found in the family Cyperaceae
+ - *ectomycorrhizal*: Symbiosis in which the mycorrhizal fungi does not penetrate the cortex cells of the plant roots
+ - *ericoid_mycorrhizal*: A form of arbuscular mycorrhizal relationship only found on plants in the order Ericales. The fungi's hyphae penetrate the plant root but do not form arbuscules
+ - *fine_roots*: Particularly fine roots for nutrient uptake
+ - *haustorium*: highly modified stem or root of a parasitic plant, such as mistletoe , or a specialized branch or tube originating from a hairlike filament (hypha) of a fungus. The haustorium penetrates the tissues of a host and absorbs nutrients and water.
+ - *hemiparasitic_root*: Partially parasitic root
+ - *long_root_hairs*: Specialised long root hairs
+ - *mycorrhizal*: Mycorrhizal, type not specified
+ - *non_mycorrhizal*: Plants lacking a mycorrhizal symbiont
+ - *orchid_mycorrhizal*: A mycorrhizal relationship specific to orchid taxa, and for most orchids, essential for seedlings to establish
+ - *parasitic_root*: Parasitic root
+ - *proteoid_root*: Also known as cluster roots, are plant roots that form clusters of closely spaced short lateral rootlets and aid in nutrient upake in nutrient-poor soils; common in members of the family Proteaceae, but present in other families as well
+ - *root_hairs*: Specialised root hairs
+ - *sand-binding*: Persistent sheaths of sand that form around the roots of taxa in the families Restionaceae, Cyperaceae, Haemodoraceae, and Lomandraceae in western Australia. Assumed to function in nutrient uptake.
+ - *subepidermal_mycorrhizal*: Mycorrhizae where hyphae grow in a cavity under epidermal cells. Only in the genus Thysanotus (family Laxmaniaceae).
+ - *unknown*: root structures unknown
 
 
 ## root_wood_density
@@ -4355,13 +4355,13 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *glycophyte*: Plants that cannot survive even one tenth the salt concentration found in seawater
-    - *halophyte*: Plants that complete their life cycle in a salty environment; many survive in seawater or even higher concentrations of salt
-    - *halophyte_moderate*: Plant that is moderately tolerant of soil salinity/sodicity
-    - *hydrohalophyte*: Tidal swamp or ‘mangrove’ and coastal lagoon elements and temperate-zone salt-marsh taxa are classed together.
-    - *salt_spray_tolerant*: Plant that is tolerant of salt spray (typically inhabiting near-coastal environments)
-    - *salinity_tolerance_undefined*: Plants ability to tolerate salt is unknown
-    - *xerohalophyte*: Plants adapted to inland salt desert and saline habitats
+ - *glycophyte*: Plants that cannot survive even one tenth the salt concentration found in seawater
+ - *halophyte*: Plants that complete their life cycle in a salty environment; many survive in seawater or even higher concentrations of salt
+ - *halophyte_moderate*: Plant that is moderately tolerant of soil salinity/sodicity
+ - *hydrohalophyte*: Tidal swamp or ‘mangrove’ and coastal lagoon elements and temperate-zone salt-marsh taxa are classed together.
+ - *salt_spray_tolerant*: Plant that is tolerant of salt spray (typically inhabiting near-coastal environments)
+ - *salinity_tolerance_undefined*: Plants ability to tolerate salt is unknown
+ - *xerohalophyte*: Plants adapted to inland salt desert and saline habitats
 
 
 ## sapwood_specific_conductivity
@@ -4549,77 +4549,77 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 8
 - type: categorical
 - allowable values:
-    - *angular*: Doesn't refer to a specific shape, but simply that instead of being smoothly rounded, it is angular
-    - *broadly_ellipsoid*: Like ellipsoid, but broader
-    - *broadly_obovoid*: A 3-dimensional shape; like obovoid, but particularly broad in the middle
-    - *circular*: Both width dimensions are similar; rounded; REPLACE WITH 'globoid' - maybe
-    - *comma_shaped*: Seed shaped liked a comma; see also 'falcate'
-    - *compressed*: Seed flatter
-    - *compressed_cylinder*: Like cylinder, but a flatter 3-dimensional shape
-    - *compressed_ellipsoid*: Like ellipsoid, but a flatter 3-dimensional shape
-    - *compressed_globoid*: Like globoid, but a flatter 3-dimensional shape
-    - *compressed_lachrimiform*: Like lachrimiform, but a flatter 3-dimensional shape
-    - *compressed_obovoid*: Like obovoid, but a flatter 3-dimensional shape
-    - *compressed_ovoid*: Like ovoid, but a flatter 3-dimensional shape
-    - *compressed_sectoroid*: Like sectoroid, but a flatter 3-dimensional shape
-    - *conical*: Shaped like a cone; the opposite of turbinate
-    - *cordiform*: Heart-shaped
-    - *cylindrical*: A 3-dimensional shape; shaped like a cylinder; see also 'terete' which refers to particular thin cylindrical shape; should maybe be cylinder?
-    - *discoid*: Resembling a disc, with two convex faces; similar to plano-convex and lenticular, flatter
-    - *discoid_two_lobed*: Resembling a disc, but with two lobes
-    - *ellipsoid*: A 3-dimensional shape; elliptic in outline and with a length:breadth ratio between 3:2 and 2:1
-    - *elongated_lachrimiform*: Like lachrimiform, but extended along the longest axis
-    - *elongated_ovoid*: Like ovoid, but extended along the longest axis
-    - *elongated_pyramidal*: Like pyramidal, but extended along the longest axis
-    - *elongated_reniform*: Like reniform, but extended along the longest axis
-    - *elongated_sectoroid*: Like sectoroid, but extended along the longest axis
-    - *falcate*: Sickle-shaped; see also 'comma-shaped'
-    - *flat*: Suggests a quite flattened seed, but no information about shape
-    - *fusiform*: Spindle-shaped, cigar-shaped, circular in cross-section and tapering at both ends
-    - *globoid*: Globe-shaped; includes 'globular' and 'globose'
-    - *inflated_pyramidal*: Like pyramidal, but inflated
-    - *inflated_trigonal_pyramidal*: Like trigonal_pyramidal, but inflated
-    - *irregular*: Irregular shape
-    - *irregular_lachrimiform*: Like lachrimiform, but somewhat irregular
-    - *irregular_ovoid*: Like ovoid, but somewhat irregular
-    - *lachrimiform*: A 3-dimensional shape; tear-shaped
-    - *lanceolate*: A 2-dimensional shape; much longer than wide, with the widest point below the middle; in reference to a seed, assume a rounded 2-D shape; REPLACE WITH OVOID
-    - *lenticular*: A 3-dimensional shape; shaped like a biconvex lens. Similar to plano-convex??
-    - *muricate*: has numerous short hard outgrowths
-    - *obclavate*: A 2 or 3-dimensional shape; slender, broadening towards the base; club-shaped, with the thickened part at the base
-    - *obloid*: A 3-dimensional shape, where the length is a few times greater than the width, with sides almost parallel and ends rounded.
-    - *obovoid*: A 3-dimensional shape; similar to ovoid, but attached at the narrower end and with a length:breadth ratio between 3:2 and 2:1
-    - *orbicular*: Fairly flat, but round in 2-dimensional outline; see also compressed_globoid
-    - *ovoid*: Egg-shaped (i.e., widest below the middle)
-    - *pointed_ovoid*: Like ovoid, but with one pointier end
-    - *pointed_samara*: A type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall; variant that is more pointed; not truly a shape
-    - *pyramidal*: Pyramid; cross-section unknown
-    - *pyriform*: A 3-dimensional shape; resembling a pear, attached at the broader end
-    - *rectangular*: REPLACE WITH 'rectangular_prism'
-    - *rectangular_prism*: Prism that is rectangular in cross=section
-    - *reniform*: Having a circular or roughly circular shape with a notch, like a kidney
-    - *rhomboid*: Diamond shaped in outline with the broadest axis in the middle and with a length:breadth ratio between 3:2 and 2:1
-    - *round*: Seed with round outline; seems to be a subcategory of samara
-    - *rounded_samara*: A type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall; variant that is rounder; not truly a shape
-    - *samara*: A type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall; not truly a shape
-    - *sectoroid*: Shaped like an orange segment
-    - *semigloboid*: Semi-circular in cross-section
-    - *sinusoidal*: S-shaped; includes 'sigmoidal'
-    - *spathulate*: Spoon-shaped
-    - *spherical*: A 3-dimensional shape; round with all dimensions approximately equal
-    - *spheroid*: A 3-dimensional shape; nearly, but imperfectly spherical
-    - *square_prism*: Prism that is square in cross=section
-    - *square_pyramidal*: Pyramid that is square in cross-section
-    - *subcylindrical*: Nearly or almost cylindrical in shape
-    - *subgloboid*: Nearly or almost globoid or spheroid in shape
-    - *suborbicular*: Nearly or almost orbicular in shape
-    - *subtriangular*: Nearly or almost 'trigonal_prism' in shape
-    - *terete*: Circular in cross-section; more or less cylindrical without grooves or ridges
-    - *triangular*: subset of samara possibly; 3-d structure should be trigonal_prism or trigonal_pyramidal
-    - *trigonal_prism*: Prism that is triangular in cross-section
-    - *trigonal_pyramidal*: Pyramid that is triangular in cross-section
-    - *turbinate*: A 3-dimensional shape; top shaped; inversely conical
-    - *wedge_shaped*: A 2 or 3-dimensional shape; tapers to a point at one end; includes the 2-D classificatiion "cuneate" and possibly plants that are more conical in outline
+ - *angular*: Doesn't refer to a specific shape, but simply that instead of being smoothly rounded, it is angular
+ - *broadly_ellipsoid*: Like ellipsoid, but broader
+ - *broadly_obovoid*: A 3-dimensional shape; like obovoid, but particularly broad in the middle
+ - *circular*: Both width dimensions are similar; rounded; REPLACE WITH 'globoid' - maybe
+ - *comma_shaped*: Seed shaped liked a comma; see also 'falcate'
+ - *compressed*: Seed flatter
+ - *compressed_cylinder*: Like cylinder, but a flatter 3-dimensional shape
+ - *compressed_ellipsoid*: Like ellipsoid, but a flatter 3-dimensional shape
+ - *compressed_globoid*: Like globoid, but a flatter 3-dimensional shape
+ - *compressed_lachrimiform*: Like lachrimiform, but a flatter 3-dimensional shape
+ - *compressed_obovoid*: Like obovoid, but a flatter 3-dimensional shape
+ - *compressed_ovoid*: Like ovoid, but a flatter 3-dimensional shape
+ - *compressed_sectoroid*: Like sectoroid, but a flatter 3-dimensional shape
+ - *conical*: Shaped like a cone; the opposite of turbinate
+ - *cordiform*: Heart-shaped
+ - *cylindrical*: A 3-dimensional shape; shaped like a cylinder; see also 'terete' which refers to particular thin cylindrical shape; should maybe be cylinder?
+ - *discoid*: Resembling a disc, with two convex faces; similar to plano-convex and lenticular, flatter
+ - *discoid_two_lobed*: Resembling a disc, but with two lobes
+ - *ellipsoid*: A 3-dimensional shape; elliptic in outline and with a length:breadth ratio between 3:2 and 2:1
+ - *elongated_lachrimiform*: Like lachrimiform, but extended along the longest axis
+ - *elongated_ovoid*: Like ovoid, but extended along the longest axis
+ - *elongated_pyramidal*: Like pyramidal, but extended along the longest axis
+ - *elongated_reniform*: Like reniform, but extended along the longest axis
+ - *elongated_sectoroid*: Like sectoroid, but extended along the longest axis
+ - *falcate*: Sickle-shaped; see also 'comma-shaped'
+ - *flat*: Suggests a quite flattened seed, but no information about shape
+ - *fusiform*: Spindle-shaped, cigar-shaped, circular in cross-section and tapering at both ends
+ - *globoid*: Globe-shaped; includes 'globular' and 'globose'
+ - *inflated_pyramidal*: Like pyramidal, but inflated
+ - *inflated_trigonal_pyramidal*: Like trigonal_pyramidal, but inflated
+ - *irregular*: Irregular shape
+ - *irregular_lachrimiform*: Like lachrimiform, but somewhat irregular
+ - *irregular_ovoid*: Like ovoid, but somewhat irregular
+ - *lachrimiform*: A 3-dimensional shape; tear-shaped
+ - *lanceolate*: A 2-dimensional shape; much longer than wide, with the widest point below the middle; in reference to a seed, assume a rounded 2-D shape; REPLACE WITH OVOID
+ - *lenticular*: A 3-dimensional shape; shaped like a biconvex lens. Similar to plano-convex??
+ - *muricate*: has numerous short hard outgrowths
+ - *obclavate*: A 2 or 3-dimensional shape; slender, broadening towards the base; club-shaped, with the thickened part at the base
+ - *obloid*: A 3-dimensional shape, where the length is a few times greater than the width, with sides almost parallel and ends rounded.
+ - *obovoid*: A 3-dimensional shape; similar to ovoid, but attached at the narrower end and with a length:breadth ratio between 3:2 and 2:1
+ - *orbicular*: Fairly flat, but round in 2-dimensional outline; see also compressed_globoid
+ - *ovoid*: Egg-shaped (i.e., widest below the middle)
+ - *pointed_ovoid*: Like ovoid, but with one pointier end
+ - *pointed_samara*: A type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall; variant that is more pointed; not truly a shape
+ - *pyramidal*: Pyramid; cross-section unknown
+ - *pyriform*: A 3-dimensional shape; resembling a pear, attached at the broader end
+ - *rectangular*: REPLACE WITH 'rectangular_prism'
+ - *rectangular_prism*: Prism that is rectangular in cross=section
+ - *reniform*: Having a circular or roughly circular shape with a notch, like a kidney
+ - *rhomboid*: Diamond shaped in outline with the broadest axis in the middle and with a length:breadth ratio between 3:2 and 2:1
+ - *round*: Seed with round outline; seems to be a subcategory of samara
+ - *rounded_samara*: A type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall; variant that is rounder; not truly a shape
+ - *samara*: A type of fruit in which a flattened wing of fibrous, papery tissue develops from the ovary wall; not truly a shape
+ - *sectoroid*: Shaped like an orange segment
+ - *semigloboid*: Semi-circular in cross-section
+ - *sinusoidal*: S-shaped; includes 'sigmoidal'
+ - *spathulate*: Spoon-shaped
+ - *spherical*: A 3-dimensional shape; round with all dimensions approximately equal
+ - *spheroid*: A 3-dimensional shape; nearly, but imperfectly spherical
+ - *square_prism*: Prism that is square in cross=section
+ - *square_pyramidal*: Pyramid that is square in cross-section
+ - *subcylindrical*: Nearly or almost cylindrical in shape
+ - *subgloboid*: Nearly or almost globoid or spheroid in shape
+ - *suborbicular*: Nearly or almost orbicular in shape
+ - *subtriangular*: Nearly or almost 'trigonal_prism' in shape
+ - *terete*: Circular in cross-section; more or less cylindrical without grooves or ridges
+ - *triangular*: subset of samara possibly; 3-d structure should be trigonal_prism or trigonal_pyramidal
+ - *trigonal_prism*: Prism that is triangular in cross-section
+ - *trigonal_pyramidal*: Pyramid that is triangular in cross-section
+ - *turbinate*: A 3-dimensional shape; top shaped; inversely conical
+ - *wedge_shaped*: A 2 or 3-dimensional shape; tapers to a point at one end; includes the 2-D classificatiion "cuneate" and possibly plants that are more conical in outline
 
 
 ## seed_texture
@@ -4631,47 +4631,47 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *acutely_reticulate*: UNKNOWN
-    - *bumpy*: UNKNOWN
-    - *chartaceous*: UNKNOWN
-    - *ciliate*: UNKNOWN
-    - *costate*: seed surface with a thickened linear ridge
-    - *deeply_reticulate*: UNKNOWN
-    - *deeply_rugose*: seed surface deeply wrinkled
-    - *dimpled*: UNKNOWN
-    - *finely_reticulate*: UNKNOWN
-    - *finely_rugose*: seed surface finely wrinkled
-    - *finely_textured*: seed surface with a fine-scaled pattern
-    - *fluted*: UNKNOWN
-    - *hairs*: seed surface hairy
-    - *lineolate*: UNKNOWN
-    - *micronate-tubercular*: UNKNOWN
-    - *multi-faceted*: UNKNOWN
-    - *papillate*: UNKNOWN
-    - *papillose*: seed surface covered with short blunt protruberances
-    - *pitted*: seed surface pitted
-    - *plumose*: UNKNOWN
-    - *raised_edge*: UNKNOWN
-    - *reticulate*: UNKNOWN
-    - *ribbed*: UNKNOWN
-    - *rough*: seed surface rough
-    - *rugose*: wrinkled
-    - *scabrous*: rough (synonym seed)
-    - *scalar*: UNKNOWN
-    - *scaly*: UNKNOWN
-    - *shallowly_costate*: seed surface with a shallow linear ridge
-    - *shallowly_pitted*: seed surface with shallow pits
-    - *shallowly_reticulate*: seed surface resembles a shallow net or network
-    - *shallowly_rugose*: seed surface with shallow wrinkles
-    - *slightly_rugose*: seed surface slightly wrinkled
-    - *smooth*: seed surface smooth
-    - *stellate*: seed surface covered with hairs with radiating papillae
-    - *striate*: seed surface marked with more or less parallel longitudinal ridges
-    - *tomentose*: seed surface covered with densely matted woolly hairs
-    - *tuberculate*: seed surface covered with small rounded warts, protuberances or nodules
-    - *undulate*: seed surface wavy
-    - *velutinous*: seed surface covered with short, dense, silky, upright hairs; soft and velvety
-    - *very_rough*: seed surface very rough
+ - *acutely_reticulate*: UNKNOWN
+ - *bumpy*: UNKNOWN
+ - *chartaceous*: UNKNOWN
+ - *ciliate*: UNKNOWN
+ - *costate*: seed surface with a thickened linear ridge
+ - *deeply_reticulate*: UNKNOWN
+ - *deeply_rugose*: seed surface deeply wrinkled
+ - *dimpled*: UNKNOWN
+ - *finely_reticulate*: UNKNOWN
+ - *finely_rugose*: seed surface finely wrinkled
+ - *finely_textured*: seed surface with a fine-scaled pattern
+ - *fluted*: UNKNOWN
+ - *hairs*: seed surface hairy
+ - *lineolate*: UNKNOWN
+ - *micronate-tubercular*: UNKNOWN
+ - *multi-faceted*: UNKNOWN
+ - *papillate*: UNKNOWN
+ - *papillose*: seed surface covered with short blunt protruberances
+ - *pitted*: seed surface pitted
+ - *plumose*: UNKNOWN
+ - *raised_edge*: UNKNOWN
+ - *reticulate*: UNKNOWN
+ - *ribbed*: UNKNOWN
+ - *rough*: seed surface rough
+ - *rugose*: wrinkled
+ - *scabrous*: rough (synonym seed)
+ - *scalar*: UNKNOWN
+ - *scaly*: UNKNOWN
+ - *shallowly_costate*: seed surface with a shallow linear ridge
+ - *shallowly_pitted*: seed surface with shallow pits
+ - *shallowly_reticulate*: seed surface resembles a shallow net or network
+ - *shallowly_rugose*: seed surface with shallow wrinkles
+ - *slightly_rugose*: seed surface slightly wrinkled
+ - *smooth*: seed surface smooth
+ - *stellate*: seed surface covered with hairs with radiating papillae
+ - *striate*: seed surface marked with more or less parallel longitudinal ridges
+ - *tomentose*: seed surface covered with densely matted woolly hairs
+ - *tuberculate*: seed surface covered with small rounded warts, protuberances or nodules
+ - *undulate*: seed surface wavy
+ - *velutinous*: seed surface covered with short, dense, silky, upright hairs; soft and velvety
+ - *very_rough*: seed surface very rough
 
 
 ## seed_viability
@@ -4716,8 +4716,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 4
 - type: categorical
 - allowable values:
-    - *0*: Seeds not present in soil seedbank
-    - *1*: Seeds present in soil seedbank
+ - *0*: Seeds not present in soil seedbank
+ - *1*: Seeds present in soil seedbank
 
 
 ## seed_storage_location
@@ -4729,10 +4729,10 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 2
 - type: categorical
 - allowable values:
-    - *canopy*: Seeds stored in the canopy, usually still within a woody cone
-    - *soil*: Seeds stored in the soil
-    - *none*: Seeds are not stored
-    - *not_canopy*: Seed explicitly not stored in the canopy; other storage locations unknown
+ - *canopy*: Seeds stored in the canopy, usually still within a woody cone
+ - *soil*: Seeds stored in the soil
+ - *none*: Seeds are not stored
+ - *not_canopy*: Seed explicitly not stored in the canopy; other storage locations unknown
 
 
 ## seed_longevity
@@ -4744,23 +4744,23 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 3
 - type: categorical
 - allowable values:
-    - *short-lived*: Seedbank survives for weeks
-    - *intermediate*: Seedbank survives for months to less than a year
-    - *long-lived*: Seedbank survives for more than 10 years
-    - *short_lived_in_soil*: Propagule is short-lived in soil
-    - *short_persistent_in_soil*: Propagule is persistent in soil 1 to 5 years
-    - *short_persistent_in_soil_b*: Propagule is persistent in soil for less than 2 years
-    - *long_persistent_in_soil*: Propagule is persistent in soil for more than 5 years
-    - *long_persistent_in_soil_b*: Propagule is persistent in soil for more than 2 years
-    - *persistent_in_canopy*: Propagule persistent in canopy for unspecified length of time
-    - *persistent_in_soil*: Propagule persistent in soil for unspecified length of time
-    - *short_persistent_in_canopy*: Propagule persistent in canopy for 1 to 5 years
-    - *long_persistent_in_canopy*: Propagule persistent in canopy for more than 5 years
-    - *persistent*: Propagule persistent, location not specified
-    - *transient*: Propagule transient, location not specified
-    - *transient_in_canopy*: Propagule transient in canopy
-    - *transient_in_soil*: Propagule transient in soil
-    - *widely_dispersed*: Seed longevity not important, as seeds are widely dispersed and always available for germination
+ - *short-lived*: Seedbank survives for weeks
+ - *intermediate*: Seedbank survives for months to less than a year
+ - *long-lived*: Seedbank survives for more than 10 years
+ - *short_lived_in_soil*: Propagule is short-lived in soil
+ - *short_persistent_in_soil*: Propagule is persistent in soil 1 to 5 years
+ - *short_persistent_in_soil_b*: Propagule is persistent in soil for less than 2 years
+ - *long_persistent_in_soil*: Propagule is persistent in soil for more than 5 years
+ - *long_persistent_in_soil_b*: Propagule is persistent in soil for more than 2 years
+ - *persistent_in_canopy*: Propagule persistent in canopy for unspecified length of time
+ - *persistent_in_soil*: Propagule persistent in soil for unspecified length of time
+ - *short_persistent_in_canopy*: Propagule persistent in canopy for 1 to 5 years
+ - *long_persistent_in_canopy*: Propagule persistent in canopy for more than 5 years
+ - *persistent*: Propagule persistent, location not specified
+ - *transient*: Propagule transient, location not specified
+ - *transient_in_canopy*: Propagule transient in canopy
+ - *transient_in_soil*: Propagule transient in soil
+ - *widely_dispersed*: Seed longevity not important, as seeds are widely dispersed and always available for germination
 
 
 ## seed_release
@@ -4772,9 +4772,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *serotinous*: Plant releases its seeds following an environmental trigger (usually fire)
-    - *mature_en_mass*: Seeds released en masse when mature (eg annually)
-    - *gradual_release*: Seeds maturing and released gradually from parent
+ - *serotinous*: Plant releases its seeds following an environmental trigger (usually fire)
+ - *mature_en_mass*: Seeds released en masse when mature (eg annually)
+ - *gradual_release*: Seeds maturing and released gradually from parent
 
 
 ## serotiny
@@ -4786,11 +4786,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 8
 - type: categorical
 - allowable values:
-    - *not_serotinous*: Plant does not display serotiny
-    - *serotinous*: Plant serotinous, level not specified
-    - *serotiny_low*: Plant displays a low level of serotiny
-    - *serotiny_moderate*: Plant displays a moderate level of serotiny
-    - *serotiny_high*: Plant displays a high level of serotiny
+ - *not_serotinous*: Plant does not display serotiny
+ - *serotinous*: Plant serotinous, level not specified
+ - *serotiny_low*: Plant displays a low level of serotiny
+ - *serotiny_moderate*: Plant displays a moderate level of serotiny
+ - *serotiny_high*: Plant displays a high level of serotiny
 
 
 ## seedling_first_leaf
@@ -4802,8 +4802,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *scale-like*: When the first leaf at germination is scale-like, also referred to as a cataphyll
-    - *leaf-like*: When the first leaf at germination is leaf-like
+ - *scale-like*: When the first leaf at germination is scale-like, also referred to as a cataphyll
+ - *leaf-like*: When the first leaf at germination is leaf-like
 
 
 ## seedling_first_node
@@ -4815,8 +4815,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *single*: When there is a single leaf at the first node
-    - *paired*: When there is a pair of leaves at the first node
+ - *single*: When there is a single leaf at the first node
+ - *paired*: When there is a pair of leaves at the first node
 
 
 ## senesced_leaf_Al_per_dry_mass
@@ -5004,11 +5004,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *not_applicable*: Taxa is virtually never confronted with snow in nature and the response is unknown
-    - *intolerant*: Taxa is frost tender and known to be killed by any snow
-    - *days*: Taxa can tolerate snow for days (typically less than 1 week)
-    - *weeks*: Taxa can tolerate snow for weeks (typically less than 1 month)
-    - *months*: Taxa can tolerate snow for months
+ - *not_applicable*: Taxa is virtually never confronted with snow in nature and the response is unknown
+ - *intolerant*: Taxa is frost tender and known to be killed by any snow
+ - *days*: Taxa can tolerate snow for days (typically less than 1 week)
+ - *weeks*: Taxa can tolerate snow for weeks (typically less than 1 month)
+ - *months*: Taxa can tolerate snow for months
 
 
 ## soil_salinity_tolerance
@@ -5207,13 +5207,13 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 3
 - type: categorical
 - allowable values:
-    - *0_no_spines*: (0) No spines.
-    - *1_low_density_soft_spines*: (1) Low or very local density of soft spines <5mm long; plant may sting or prickle when hit carelessly, but not impart strong pain.
-    - *2_high_density_soft_spines*: (2) High density of soft spines, intermediate density of spines of intermediate hardness, or low density of hard, sharp spines >5mm long; plant causes actual pain when hit carelessly.
-    - *3_high_density_hard_spines_to_5mm*: (3) Intermediate or high density of hard, sharp spines >5mm long; plant causes strong pain when hit carelessly.
-    - *4_high_density_hard_spines_to_20mm*: (4) Intermediate or high density of hard, sharp spines >20mm long; plant may cause significant wounds when hit carelessly.
-    - *5_high_density_hard_spines_to_100mm*: (5) Intermediate or high density of hard, sharp spines >100mm long; plant is dangerous to careless large mammals, including humans.
-    - *spines_present*: spines present, details not given
+ - *0_no_spines*: (0) No spines.
+ - *1_low_density_soft_spines*: (1) Low or very local density of soft spines <5mm long; plant may sting or prickle when hit carelessly, but not impart strong pain.
+ - *2_high_density_soft_spines*: (2) High density of soft spines, intermediate density of spines of intermediate hardness, or low density of hard, sharp spines >5mm long; plant causes actual pain when hit carelessly.
+ - *3_high_density_hard_spines_to_5mm*: (3) Intermediate or high density of hard, sharp spines >5mm long; plant causes strong pain when hit carelessly.
+ - *4_high_density_hard_spines_to_20mm*: (4) Intermediate or high density of hard, sharp spines >20mm long; plant may cause significant wounds when hit carelessly.
+ - *5_high_density_hard_spines_to_100mm*: (5) Intermediate or high density of hard, sharp spines >100mm long; plant is dangerous to careless large mammals, including humans.
+ - *spines_present*: spines present, details not given
 
 
 ## spongy_mesophyll_thickness
@@ -5423,9 +5423,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *amphistomatic*: Leaves with stomata on both leaf surfaces
-    - *amphistomatic_uneven*: Leaves with stomata on both leaf surfaces, but more stomata on the lower leaf surface
-    - *hypostomatic*: Leaves that only have stomata on the lower (abaxial) leaf surface
+ - *amphistomatic*: Leaves with stomata on both leaf surfaces
+ - *amphistomatic_uneven*: Leaves with stomata on both leaf surfaces, but more stomata on the lower leaf surface
+ - *hypostomatic*: Leaves that only have stomata on the lower (abaxial) leaf surface
 
 
 ## stomatal_hairs
@@ -5437,8 +5437,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 0
 - type: categorical
 - allowable values:
-    - *stomata_covered_with_dense_hairs*: Stomata densely covered by dense hairs
-    - *stomata_not_covered_by_hairs*: Stomata not hair-covered
+ - *stomata_covered_with_dense_hairs*: Stomata densely covered by dense hairs
+ - *stomata_not_covered_by_hairs*: Stomata not hair-covered
 
 
 ## support_fraction
@@ -5461,9 +5461,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *tap_root_absent*: tap root not present
-    - *tap_root_present*: tap root present
-    - *tap_root_sometimes_present*: tap root sometimes present
+ - *tap_root_absent*: tap root not present
+ - *tap_root_present*: tap root present
+ - *tap_root_sometimes_present*: tap root sometimes present
 
 
 ## thickest_root_diameter
@@ -5519,8 +5519,8 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 8
 - type: categorical
 - allowable values:
-    - *not_vegetative*: Plant that regenerate and spread only by seed
-    - *vegetative*: Generic term including all plants that can regenerate and spread through the growth and division of vegetative material, not just from seed; examples include runners, rhizomes, and bulbs
+ - *not_vegetative*: Plant that regenerate and spread only by seed
+ - *vegetative*: Generic term including all plants that can regenerate and spread through the growth and division of vegetative material, not just from seed; examples include runners, rhizomes, and bulbs
 
 
 ## vessel_diameter
@@ -5642,11 +5642,11 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *not_applicable*: Taxa is not typically confronted with waterlogging and its response is unknown
-    - *<1_month*: Taxa able to tolerate less than 1 month of waterlogging
-    - *1-6_months*: Taxa able to tolerate 1-6 months of waterlogging
-    - *>6_months*: Taxa able to tolerate more than 6 months of waterlogging
-    - *aquatic*: Taxa truly aquatic and able to be permanantly inundated
+ - *not_applicable*: Taxa is not typically confronted with waterlogging and its response is unknown
+ - *<1_month*: Taxa able to tolerate less than 1 month of waterlogging
+ - *1-6_months*: Taxa able to tolerate 1-6 months of waterlogging
+ - *>6_months*: Taxa able to tolerate more than 6 months of waterlogging
+ - *aquatic*: Taxa truly aquatic and able to be permanantly inundated
 
 
 ## wood_axial_parenchyma_fraction
@@ -5735,12 +5735,12 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 1
 - type: categorical
 - allowable values:
-    - *adventitious_roots*: roots arising from stem nodes which cling to host plant
-    - *hooks*: Curved stem outgrowths which allow climbers to cling to host plant
-    - *scrambling*: Plant parts supported by host vegetation but no specialized structures employed
-    - *spines*: Straight stem outgrowths which allow climbers to cling to host plant
-    - *tendrils*: Modified stems, leaves or petioles forming a specialized structure for climbing
-    - *twining*: Stems or petioles which coil around host plants
+ - *adventitious_roots*: roots arising from stem nodes which cling to host plant
+ - *hooks*: Curved stem outgrowths which allow climbers to cling to host plant
+ - *scrambling*: Plant parts supported by host vegetation but no specialized structures employed
+ - *spines*: Straight stem outgrowths which allow climbers to cling to host plant
+ - *tendrils*: Modified stems, leaves or petioles forming a specialized structure for climbing
+ - *twining*: Stems or petioles which coil around host plants
 
 
 ## water_band_index
@@ -6049,9 +6049,9 @@ Below is the standard definition for each trait in AusTraits (drawn from `austra
 - number of studies: 15
 - type: categorical
 - allowable values:
-    - *herbaceous*: Plant with non-lignified stems
-    - *semi_woody*: Plant with partially lignified stems
-    - *woody*: Plant that produces secondary xylem, have lignin
+ - *herbaceous*: Plant with non-lignified stems
+ - *semi_woody*: Plant with partially lignified stems
+ - *woody*: Plant that produces secondary xylem, have lignin
 
 # Orginal sources
 

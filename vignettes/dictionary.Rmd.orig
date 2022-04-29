@@ -43,7 +43,7 @@ for(trait in names(austraits$definitions$traits$elements)) {
   
   data_trait <- austraits$traits %>% filter(trait_name == trait)
   
-  c( sprintf("## %s\n\n", trait), sprintf("- label: %s", elements$label ), sprintf("- description: %s", elements$description ), sprintf("- number of records: %s", data_trait %>% nrow() ), sprintf("- number of studies: %s", data_trait %>% pull(dataset_id) %>% unique() %>% length() ), sprintf("- type: %s%s", elements$type,   ifelse(elements$type == "numeric",        sprintf("\n- units: %s", elements$units), "")), ifelse(elements$type == "numeric",        sprintf("- allowable range: %s - %s %s", elements$values$minimum,         elements$values$maximum, elements$units),      sprintf("- allowable values:\n%s\n",                paste0("    - *",elements$values %>% names(), "*: ", elements$values %>% unlist(), collapse="\n"))), ""
+  c( sprintf("## %s\n\n", trait), sprintf("- label: %s", elements$label ), sprintf("- description: %s", elements$description ), sprintf("- number of records: %s", data_trait %>% nrow() ), sprintf("- number of studies: %s", data_trait %>% pull(dataset_id) %>% unique() %>% length() ), sprintf("- type: %s%s", elements$type,   ifelse(elements$type == "numeric",        sprintf("\n- units: %s", elements$units), "")), ifelse(elements$type == "numeric",        sprintf("- allowable range: %s - %s %s", elements$values$minimum,         elements$values$maximum, elements$units),      sprintf("- allowable values:\n%s\n",               paste0(" - *",elements$values %>% names(), "*: ", elements$values, collapse="\n"))), ""
   ) %>% writeLines()
 }
 ```
