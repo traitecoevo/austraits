@@ -129,7 +129,8 @@ download_austraits <- function(url, filename, path) {
   o <- getOption('timeout')
   
   # Set max timeout
-  options(timeout = max(300, getOption("timeout")))  
+  options(timeout = max(300, getOption("timeout"))) 
+  on.exit(options(timeout = o)) #Set options back to original
   
   #Download latest build
   fn <- paste(tempfile(), '.download', sep='') #Temporary folder
@@ -140,8 +141,7 @@ download_austraits <- function(url, filename, path) {
   
   if (res == 0) { #Warning and timeout hygiene
     w <- getOption('warn') #save option
-    on.exit(options(warn = w,
-                    timeout = o)) #set options back to original
+    on.exit(options(warn = w)) #set options back to original
     options('warn'=-1)  #Deal with warnings
     
     file.rename(fn, paste0(path,"/",filename)) #Copy tmp file to new folder
