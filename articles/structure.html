@@ -83,7 +83,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Structure of AusTraits data compilation</h1>
             
-            <h4 data-toc-skip class="date">2022-05-01</h4>
+            <h4 data-toc-skip class="date">2022-05-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/structure.Rmd" class="external-link"><code>vignettes/structure.Rmd</code></a></small>
       <div class="hidden name"><code>structure.Rmd</code></div>
@@ -93,7 +93,7 @@
     
     
 <p>This document describes the structure of the AusTraits compilation.</p>
-<p>As an on-going collaborative community resource we would appreciate your contribution on any of.</p>
+<p>As an on-going collaborative community resource we would appreciate your contribution on any of the following:</p>
 <ul>
 <li>
 <strong>Reporting Errors</strong>: If you notice a possible error in AusTraits, please get in contact. <!-- [post an issue on GitHub](https://github.com/traitecoevo/austraits.build/issues). -->
@@ -710,13 +710,13 @@ Their role in the study
 <div class="section level2">
 <h2 id="dataset-ids">Dataset IDs<a class="anchor" aria-label="anchor" href="#dataset-ids"></a>
 </h2>
-<p>The core organising unit behind AusTraits is the <code>dataset_id</code>. Records are organisation as coming from a particular study, defined by the <code>dataset_id</code>. Our preferred format for <code>dataset_id</code> is surname of the first author of any corresponding publication, followed by the year, as <code>surname_year</code>. E.g. <code>Falster_2005</code>. Wherever there are multiple studies with the same id, we add a suffix <code>_2</code>, <code>_3</code> etc. E.g.<code>Falster_2005</code>, <code>Falster_2005_2</code>.</p>
+<p>The core organising unit behind AusTraits is the <code>dataset_id</code>. Records are organised as coming from a particular study, defined by the <code>dataset_id</code>. Our preferred format for <code>dataset_id</code> is the surname of the first author of any corresponding publication, followed by the year, as <code>surname_year</code>. E.g. <code>Falster_2005</code>. Wherever there are multiple studies with the same id, we add a suffix <code>_2</code>, <code>_3</code> etc. E.g.<code>Falster_2005</code>, <code>Falster_2005_2</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="observation-ids">Observation IDs<a class="anchor" aria-label="anchor" href="#observation-ids"></a>
 </h2>
 <p>As well as a <code>dataset_id</code>, each trait measurement has an associated <code>observation_id</code>. Observation IDs bind together related measurements within any dataset, and thereby allow transformation between long (e.g. with variables <code>trait_name</code> and <code>value</code>) and wide (e.g. with traits as columns) formats.</p>
-<p>Generally, <code>observation_id</code> has the format <code>dataset_id_XX</code> where <code>XX</code> is a unique number within each dataset. For example, if multiple traits were collected on the same individual, the <code>observation_id</code> allows us to gather these together. For floras, which report a species averages, the <code>observation_id</code> is assigned at the species level.</p>
+<p>Generally, <code>observation_id</code> has the format <code>dataset_id_XX</code> where <code>XX</code> is a unique number within each dataset. For example, if multiple traits were collected on the same individual, the <code>observation_id</code> allows us to gather these together. For floras reporting species averages, the <code>observation_id</code> is assigned at the species level.</p>
 <p>For datasets that arrive in wide format we assume each row has a unique <code>observation_id</code>. For datasets that arrive in long format, the <code>observation_id</code> is assigned based on a specified grouping variable. This variable can be specified in the <code>metadata.yml</code> file under the section <code>variable_match</code>. If missing, <code>observation_id</code> is assigned based on <code>species_name</code>.</p>
 </div>
 <div class="section level2">
@@ -733,13 +733,13 @@ Their role in the study
 <h2 id="value_types">Values and Value types<a class="anchor" aria-label="anchor" href="#value_types"></a>
 </h2>
 <p>Each record in the table of trait data has an associated <code>value</code> and <code>value_type</code>.</p>
-<p>Traits are either <code>numeric</code> or <code>categorical</code>. For traits with numerical values, the recorded value has been converted into standardised units and we have check that the value can be converted into a number and lies within the allowable range. For categorical variables, we only include records that are defined in the definitions. Moreover, we use a format whereby</p>
+<p>Traits are either <code>numeric</code> or <code>categorical</code>. For traits with numerical values, the recorded value has been converted into standardised units and we have checked that the value can be converted into a number and lies within the allowable range. For categorical variables, we only include records that are defined in the definitions. Moreover, we use a format whereby:</p>
 <ul>
 <li>we use <code>_</code> for multi-word terms, e.g. <code>semi_deciduous</code>
 </li>
 <li>use a space for situations where there are two possible values for that trait, e.g. <code>annual biennial</code> for something which is either annual or biennial</li>
 </ul>
-<p>Each trait measurement also an associated <code>value_type</code>, which gives <code>A categorical variable describing the type of trait value recorded.</code>. Possible values are:</p>
+<p>Each trait measurement also has an associated <code>value_type</code>, which gives <code>A categorical variable describing the type of trait value recorded.</code>. Possible values are:</p>
 <table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
 <thead><tr>
 <th style="text-align:left;">
@@ -894,17 +894,17 @@ Value type is not currently known
 <h2 id="taxonomic">Taxonomy<a class="anchor" aria-label="anchor" href="#taxonomic"></a>
 </h2>
 <p>The latest version of AusTraits contains records for over 28640 different taxa. We have attempted to align species names with known taxonomic units in the <a href="https://biodiversity.org.au/nsl/services/apc" class="external-link"><code>Australian Plant Census</code> (APC)</a> and/or the <a href="https://biodiversity.org.au/nsl/services/APNI" class="external-link"><code>Australian Plant Names Index</code> (APNI)</a>.</p>
-<p>The table <code>taxa</code> lists all taxa in the database, including additional infomration about the taxa (see Table above).</p>
+<p>The table <code>taxa</code> lists all taxa in the database, including additional information about the taxa (see Table above).</p>
 <p>The <code>traits</code> table reports both the original and the updated taxon name alongside each trait record.</p>
-<p>The table <code>taxanomic_updates</code> provdies details on all taxonomic names changes implemented in aligning with APC and APNI.</p>
+<p>The table <code>taxanomic_updates</code> provides details on all taxonomic name changes implemented when aligning with APC and APNI.</p>
 </div>
 <div class="section level2">
 <h2 id="sources-1">Sources<a class="anchor" aria-label="anchor" href="#sources-1"></a>
 </h2>
-<p>For each dataset in the compilation there is the option to list primary and secondary citations. The primary citation The original study in which data were collected. while the secondary citation is A subsequent study where data were compiled or re-analysed and then made available.. These references are included in two places:</p>
+<p>For each dataset in the compilation there is the option to list primary and secondary citations. The primary citation is The original study in which data were collected. while the secondary citation is A subsequent study where data were compiled or re-analysed and then made available.. These references are included in two places:</p>
 <ol style="list-style-type: decimal">
 <li>Within the table <a href="#methods">methods</a>, where we provide a formatted version of each.</li>
-<li>In the element <a href="#sources">sources</a>, where we provided bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the <span id="methods">methods</span>.</li>
+<li>In the element <a href="#sources">sources</a>, where we provide bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the <span id="methods">methods</span>.</li>
 </ol>
 </div>
   </div>
