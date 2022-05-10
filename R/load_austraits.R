@@ -125,6 +125,13 @@ create_metadata <- function(res){
 #' @param path file path to where AusTraits will be downloaded
 
 download_austraits <- function(url, filename, path) {
+  # Get user timeout option
+  o <- getOption('timeout')
+  
+  # Set max timeout
+  options(timeout = max(300, getOption("timeout"))) 
+  on.exit(options(timeout = o)) #Set options back to original
+  
   #Download latest build
   fn <- paste(tempfile(), '.download', sep='') #Temporary folder
   
@@ -132,9 +139,9 @@ download_austraits <- function(url, filename, path) {
   
   res <- utils::download.file(url=url, destfile=fn, method="auto", quiet = FALSE, mode = "wb", cacheOK = TRUE)
   
-  if (res == 0) { #Warning hygiene
+  if (res == 0) { #Warning and timeout hygiene
     w <- getOption('warn') #save option
-    on.exit(options('warn' = w)) #set it back
+    on.exit(options(warn = w)) #set options back to original
     options('warn'=-1)  #Deal with warnings
     
     file.rename(fn, paste0(path,"/",filename)) #Copy tmp file to new folder

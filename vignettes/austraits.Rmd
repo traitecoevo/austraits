@@ -24,10 +24,13 @@ library(dplyr)
 library(stringr)
 library(austraits)
 
-austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
+austraits <- austraits:::austraits_lite
+austraits$build_info$version <- "0.0.0.900"
+class(austraits) <- "austraits"
 ```
 
-The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail. 
+The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
+**Note that we are using a reduced subset of v.3.0.2, so the number of records and species will not be match your values**
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 
@@ -54,20 +57,10 @@ You can check out different versions and their associated DOI of AusTraits by us
 get_versions(path = "data/austraits")
 ```
 
-```{r, echo=FALSE}
-get_versions(path = "ignore/data/austraits")
-```
-
 The AusTraits object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
 
 ```{r}
-class(austraits)
-
-# The names of the different lists in `austraits`
-names(austraits)
-
-# The structure of the `traits` table only
-str(austraits$traits)
+austraits
 ```
 
 ## Descriptive summaries of traits and taxa
@@ -99,18 +92,18 @@ In most cases, users would like to extract a subset of `austraits` for their own
 Filtering **one particular study** and assigning it to an object
 
 ```{r, extract_study}
-data_zanne_09 <- extract_dataset(austraits, "Zanne_2009")
+subset_data <- extract_dataset(austraits, "Falster_2005_2")
 
-data_zanne_09$traits %>% head()
+subset_data$traits %>% head()
 ```
 
 Filtering **multiple studies by two different lead authors**  and assigning it to an object
 
 ```{r, extract_studies}
-data_falster_studies <- extract_dataset(austraits, 
-                                        dataset_id = c("Falster_2003","Zanne_2009"))
+subset_multi_studies <- extract_dataset(austraits, 
+                                        dataset_id = c("Thompson_2001","Ilic_2000"))
  
-data_falster_studies$traits %>% head()
+subset_multi_studies$traits %>% head()
 ```
 
 Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
@@ -161,7 +154,6 @@ head(data_leaf$traits)
 ## Join data from other tables and elements
 
 Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
-
 There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
 
 ```{r, join_}
@@ -213,7 +205,9 @@ data_wide_bound <- data_falster_studies$traits %>%
 data_wide_bound$value # The trait values table
 
 # Check out the 'bounded' trait values
-data_wide_bound$value$huber_value[!is.na(data_wide_bound$value$huber_value)] %>% head()
+data_wide_bound$value %>% 
+  select(-c(1:5)) %>% #Excluding values that are not traits so we can see which columns contains bounded values
+  filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
 ```
 
 If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then: 

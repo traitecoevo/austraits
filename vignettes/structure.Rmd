@@ -31,12 +31,12 @@ if(knitr::is_html_output()) {
   my_kable_styling <- austraits::my_kable_styling_pdf
 }
 
-austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
+austraits <- austraits:::austraits_lite
+austraits$build_info$version <- "0.0.0.900"
+class(austraits) <- "austraits"
 ```
 
-This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 
-Note that the information provided below is based on the information provided within the file `definitions.yml`. 
-
+This document describes the structure of the AusTraits compilation.
 
 As an on-going collaborative community resource we would appreciate your contribution on any of the following: 
 
@@ -141,7 +141,7 @@ AusTraits does not include intra-individual observations. When multiple measurem
 
 ## Taxonomy {#taxonomic}
 
-Version `r desc::desc_get_field("Version")` of AusTraits contains records for `r austraits$traits$species_name %>% unique() %>% length()` different taxa. We have attempted to align species names with known taxonomic units in the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and/or the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). 
+The latest version of AusTraits contains records for over 28640 different taxa. We have attempted to align species names with known taxonomic units in the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and/or the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). 
 
 The table `taxa` lists all taxa in the database, including additional information about the taxa (see Table above). 
 
