@@ -29,10 +29,11 @@ austraits$build_info$version <- "0.0.0.900"
 class(austraits) <- "austraits"
 ```
 
-The `austraits` package is designed to aid users to access data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. **Note that we are using a reduced subset of v.3.0.2, so the number of records and species will not be match your values**
+The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
+**Note that we are using a reduced subset of v.3.0.2, so the number of records and species will not be match your values**
 
 ## Getting started
-`austraits` is still under development. To install the current version from GitHub 
+`austraits` is still under development. To install the current version from GitHub: 
 
 ```{r setup, eval = FALSE}
 #install.packages("remotes")
@@ -50,7 +51,7 @@ By default, `load_austraits` will download AusTraits to a specified path e.g. `d
 austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 ```
 
-You can check out different versions and their associated DOI of the AusTraits by using: 
+You can check out different versions and their associated DOI of AusTraits by using: 
 
 ```{r, eval = FALSE}
 get_versions(path = "data/austraits")
@@ -152,8 +153,7 @@ head(data_leaf$traits)
 
 ## Join data from other tables and elements
 
-Once users have extracted the data they want, they may want to merge in other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information or spatial data for their analyses. This is where the `join_` functions come in. 
-
+Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
 There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
 
 ```{r, join_}
@@ -175,7 +175,7 @@ There are five `join_` functions in total, each designed to append specific info
 
 ## Visualising data by site
 
-`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
+`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
 
 ```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
 data_wood_dens <- data_wood_dens %>% join_sites()
@@ -184,7 +184,7 @@ plot_site_locations(data_wood_dens$traits)
 
 ## Visualising data distribution and variance
 
-`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specific whether to create seperate beeswarm plots at the level of taxonomic family or for each `dataset_id`
+`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id`
 
 ```{r, beeswarm, fig.align = "center", fig.width=6, fig.height=7}
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
@@ -193,9 +193,9 @@ austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 
 ### Pivotting from long to wide format
 
-The table of traits in AusTraits comes in long format, where data for all traits are in two columns called `trait_name` and `value`. You can convert to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. This will produce 5 separate lists (`value`, `unit`, `date`, `value_type` and `replicates`). The trait values are stored in the `value` list.
+The table of traits in AusTraits comes in long format, where data for all traits are in two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. This will produce 5 separate lists (`value`, `unit`, `date`, `value_type` and `replicates`). The trait values are stored in the `value` list.
 
-Note that in some cases, there are *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In this circumstances, we suggest using `bind_trait_values` which joins multiple observations together into a string.
+Note that in some cases, there are *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In these circumstances, we suggest using `bind_trait_values` which joins multiple observations together into a string.
 
 ```{r, pivot}
 data_wide_bound <- data_falster_studies$traits %>%
@@ -210,7 +210,7 @@ data_wide_bound$value %>%
   filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
 ```
 
-If you would like to revert the bounded trait values, you have to `trait_pivot_longer` first then: 
+If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then: 
 
 ```{r}
 data_wide_bound %>% 
@@ -218,7 +218,7 @@ data_wide_bound %>%
   separate_trait_values(., austraits$definitions)
 ```
 
-Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computers means with the multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
+Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
 
 ```{r, pivot_summarised}
 data_wide_summarised <- data_falster_studies$traits %>%
