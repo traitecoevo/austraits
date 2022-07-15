@@ -31,7 +31,7 @@ You can install the stable version of `austraits` from
 
 ``` r
 #install.packages("remotes")
-remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
+remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
 
 library(austraits) 
 ```
@@ -49,7 +49,14 @@ that uses our functions as well as some `tidyverse` functions to create
 some commonly used data output formats. We highly recommend starting
 here before jumping into the database!
 
+If you prefer to view the vignettes in R, we recommend installing the
+package again with `build_vignettes = TRUE`
+
 ``` r
+remotes::install_github("traitecoevo/austraits", 
+                        dependencies = TRUE, upgrade = "ask", 
+                        build_vignettes = TRUE)
+
 vignette("austraits")
 ```
 

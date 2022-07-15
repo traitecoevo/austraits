@@ -51,7 +51,7 @@ The package is not on CRAN yet and is still under active development. You can in
 
 ```{r setup, results = 'hide', eval = FALSE}
 #install.packages("remotes")
-remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
+remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
 
 library(austraits) 
 ```
@@ -60,7 +60,13 @@ library(austraits)
 
 In our website, we have also included information about the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html), [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) and some [tutorials](https://traitecoevo.github.io/austraits/articles/austraits.html) that uses our functions as well as some `tidyverse` functions to create some commonly used data output formats. We highly recommend starting here before jumping into the database! 
 
+If you prefer to view the vignettes in R, we recommend installing the package with `build_vignettes = TRUE`. 
+
 ```{r, eval = FALSE}
+remotes::install_github("traitecoevo/austraits", 
+                        dependencies = TRUE, upgrade = "ask", 
+                        build_vignettes = TRUE)
+
 vignette("austraits")
 ```
 
