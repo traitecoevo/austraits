@@ -30,14 +30,15 @@ class(austraits) <- "austraits"
 ```
 
 The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
-**Note that we are using a reduced subset of v.3.0.2, so the number of records and species will not be match your values**
+
+**Note that we are using a reduced subset of v.3.0.2, so the version number and number of records and species will not be match your values**
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 
 
 ```{r setup, eval = FALSE}
 #install.packages("remotes")
-remotes::install_github("traitecoevo/austraits", build_vignettes = TRUE)
+remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
 
 # Load the austraits package
 library(austraits)
