@@ -10,12 +10,9 @@ trait_subset <- extract_trait(austraits, trait_names = trait)
 
 test_that("extracted dataset has some structure as austraits build", {
   expect_equal(length(austraits), length(subset))
-  expect_equal(class(austraits), class(subset))
-  expect_equal(names(austraits), names(subset))
-  expect_named(austraits, names(subset))
+  expect_equal(sort(names(austraits)), sort(names(subset)))
   expect_equal(length(austraits), length(trait_subset))
-  expect_equal(class(austraits), class(trait_subset))
-  expect_equal(names(austraits), names(trait_subset))
+  expect_equal(sort(names(austraits)), sort(names(trait_subset)))
   expect_named(austraits, names(trait_subset))  
 })
 
