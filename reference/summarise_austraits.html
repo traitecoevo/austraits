@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -68,31 +68,36 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">summarise_austraits</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">var</span><span class="op">)</span>
-
-<span class="fu">summarise_austraits_traits</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">var</span><span class="op">)</span>
-
-<span class="fu">summarise_austraits_taxa</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">var</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">summarise_austraits</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">var</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">summarise_austraits_traits</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">var</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">summarise_austraits_taxa</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">var</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>austraits</dt>
 <dd><p>A large list of tibbles built from austraits</p></dd>
+
+
 <dt>var</dt>
 <dd><p>variable you use wish to see summary of (trait_name, genus, family)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>dataframe of unique levels of variable with counts and percentage</p>
+    
+
+<p>dataframe of unique levels of variable with counts and percentage</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">summarise_austraits</span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"trait_name"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">summarise_austraits</span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"family"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">summarise_austraits</span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"trait_name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">summarise_austraits</span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"family"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -107,7 +112,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

@@ -18,7 +18,7 @@ This function concatenates multiple values into a single cell"><!-- mathjax --><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -70,17 +70,20 @@ This function concatenates multiple values into a single cell</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">bind_trait_values</span><span class="op">(</span><span class="va">trait_data</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_trait_values</span><span class="op">(</span><span class="va">trait_data</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>trait_data</dt>
 <dd><p>The trait data frame generated from austraits - see example</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>tibble that is condensed down where multiple observations in value, value_type and replicates are collapsed down and separated by '--'</p>
+    
+
+<p>tibble that is condensed down where multiple observations in value, value_type and replicates are collapsed down and separated by '--'</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -89,12 +92,12 @@ This function concatenates multiple values into a single cell</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">traits</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span>
-<span class="r-in"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dataset_id</span> <span class="op">==</span> <span class="st">"Falster_2005_1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">traits</span></span>
-<span class="r-in"><span class="va">traits_bind</span> <span class="op">&lt;-</span> <span class="fu">bind_trait_values</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">traits</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
+<span class="r-in"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dataset_id</span> <span class="op">==</span> <span class="st">"Falster_2005_1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">traits</span></span></span>
+<span class="r-in"><span><span class="va">traits_bind</span> <span class="op">&lt;-</span> <span class="fu">bind_trait_values</span><span class="op">(</span><span class="va">traits</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -109,7 +112,7 @@ This function concatenates multiple values into a single cell</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

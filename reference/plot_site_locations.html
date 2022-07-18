@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -68,21 +68,28 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_site_locations</span><span class="op">(</span><span class="va">traits</span>, feature <span class="op">=</span> <span class="st">"trait_name"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_site_locations</span><span class="op">(</span><span class="va">traits</span>, feature <span class="op">=</span> <span class="st">"trait_name"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>traits</dt>
 <dd><p>trait dataframe generated from austraits with site details appended. See join_all and examples</p></dd>
+
+
 <dt>feature</dt>
 <dd><p>grouping/classification categories e.g trait_name, collection_type</p></dd>
+
+
 <dt>...</dt>
 <dd><p>arguments passed to ggplot()</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>ggplot of sites</p>
+    
+
+<p>ggplot of sites</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -91,15 +98,15 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">#All traits from a given study</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_dataset.html">extract_dataset</a></span><span class="op">(</span>dataset_id <span class="op">=</span> <span class="st">"Falster_2003"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_all.html">join_all</a></span><span class="op">(</span><span class="op">)</span> </span>
-<span class="r-in"><span class="va">data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_site_locations</span><span class="op">(</span><span class="st">"trait_name"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">#Single trait</span></span>
-<span class="r-in"><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_trait.html">extract_trait</a></span><span class="op">(</span>trait_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_all.html">join_all</a></span><span class="op">(</span><span class="op">)</span> </span>
-<span class="r-in"><span class="va">data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_site_locations</span><span class="op">(</span><span class="st">"trait_name"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">#All traits from a given study</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_dataset.html">extract_dataset</a></span><span class="op">(</span>dataset_id <span class="op">=</span> <span class="st">"Falster_2003"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_all.html">join_all</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_site_locations</span><span class="op">(</span><span class="st">"trait_name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Single trait</span></span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_trait.html">extract_trait</a></span><span class="op">(</span>trait_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_all.html">join_all</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_site_locations</span><span class="op">(</span><span class="st">"trait_name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -114,7 +121,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

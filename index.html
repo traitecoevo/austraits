@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -92,43 +92,48 @@
 </h3>
 <p>The package is not on CRAN yet and is still under active development. You can install the stable version of <code>austraits</code> from <a href="https://github.com/traitecoevo/austraits" class="external-link">GitHub</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="take-a-good-look-at-our-vignettes-">Take a good look at our vignettes! 👀<a class="anchor" aria-label="anchor" href="#take-a-good-look-at-our-vignettes-"></a>
 </h3>
 <p>In our website, we have also included information about the <a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure of the database</a>, <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions of the traits</a> and some <a href="https://traitecoevo.github.io/austraits/articles/austraits.html">tutorials</a> that uses our functions as well as some <code>tidyverse</code> functions to create some commonly used data output formats. We highly recommend starting here before jumping into the database!</p>
+<p>If you prefer to view the vignettes in R, we recommend installing the package again with <code>build_vignettes = TRUE</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, </span>
+<span>                        dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span>, </span>
+<span>                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="show-us-some-support-">Show us some support 💚<a class="anchor" aria-label="anchor" href="#show-us-some-support-"></a>
 </h3>
 <p>Please consider citing <code>austraits</code>, we would super appreciate it!</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite austraits in publications use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated</span>
-<span class="co">#&gt;   plant trait database for the Australian flora. Sci Data 8, 254</span>
-<span class="co">#&gt;   (2021). https://doi.org/10.1038/s41597-021-01006-6</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Article{,</span>
-<span class="co">#&gt;     title = {AusTraits, a curated plant trait database for the Australian flora},</span>
-<span class="co">#&gt;     author = {Daniel Falster and Rachael Gallagher and Elizabeth Wenk et al.},</span>
-<span class="co">#&gt;     journal = {Scientific Data},</span>
-<span class="co">#&gt;     year = {2021},</span>
-<span class="co">#&gt;     volume = {8},</span>
-<span class="co">#&gt;     number = {1},</span>
-<span class="co">#&gt;     pages = {254 - 274},</span>
-<span class="co">#&gt;     url = {https://doi.org/10.1038/s41597-021-01006-6},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite austraits in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated</span></span>
+<span><span class="co">#&gt;   plant trait database for the Australian flora. Sci Data 8, 254</span></span>
+<span><span class="co">#&gt;   (2021). https://doi.org/10.1038/s41597-021-01006-6</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Article{,</span></span>
+<span><span class="co">#&gt;     title = {AusTraits, a curated plant trait database for the Australian flora},</span></span>
+<span><span class="co">#&gt;     author = {Daniel Falster and Rachael Gallagher and Elizabeth Wenk et al.},</span></span>
+<span><span class="co">#&gt;     journal = {Scientific Data},</span></span>
+<span><span class="co">#&gt;     year = {2021},</span></span>
+<span><span class="co">#&gt;     volume = {8},</span></span>
+<span><span class="co">#&gt;     number = {1},</span></span>
+<span><span class="co">#&gt;     pages = {254 - 274},</span></span>
+<span><span class="co">#&gt;     url = {https://doi.org/10.1038/s41597-021-01006-6},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="behind-the-scenes-">Behind the scenes 🛠<a class="anchor" aria-label="anchor" href="#behind-the-scenes-"></a>
@@ -178,15 +183,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/traitecoevo/austraits/actions/workflows/R-CMD-check.yml" class="external-link"><img src="https://github.com/traitecoevo/austraits/actions/workflows/R-CMD-check.yml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/traitecoevo/austraits" class="external-link"><img src="https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44" alt="codecov"></a></li>
-<li><a href="https://doi.org/10.1038/s41597-021-01006-6" class="external-link"><img src="https://img.shields.io/badge/doi-10.1038/s41597--021--01006--6-blue.svg"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -199,7 +196,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>
