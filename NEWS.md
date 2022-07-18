@@ -1,5 +1,6 @@
-# austraits 1.1.0
+# austraits 1.1.1
 
-* Improved `load_austraits`
-* Streamlined vignettes
+* Improved vignette building process
+* Improved extract_ functions
+* Rebuilt website
 
