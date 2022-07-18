@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.9</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Structure of AusTraits data compilation</h1>
             
-            <h4 data-toc-skip class="date">2022-04-29</h4>
+            <h4 data-toc-skip class="date">2022-07-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/structure.Rmd" class="external-link"><code>vignettes/structure.Rmd</code></a></small>
       <div class="hidden name"><code>structure.Rmd</code></div>
@@ -92,19 +92,29 @@
 
     
     
-<p>This document describes the structure of the AusTraits compilation.</p>
-<p>As an on-going collaborative community resource we would appreciate your contribution on any of.</p>
+<p>This document describes the structure of the AusTraits
+compilation.</p>
+<p>As an on-going collaborative community resource we would appreciate
+your contribution on any of the following:</p>
 <ul>
 <li>
-<strong>Reporting Errors</strong>: If you notice a possible error in AusTraits, please get in contact. <!-- [post an issue on GitHub](https://github.com/traitecoevo/austraits.build/issues). -->
+<strong>Reporting Errors</strong>: If you notice a possible error in
+AusTraits, please get in contact.
+<!-- [post an issue on GitHub](https://github.com/traitecoevo/austraits.build/issues). -->
 </li>
 <li>
-<strong>Refining documentation:</strong> We welcome additions and edits that make using the existing data or adding new data easier for the community.</li>
+<strong>Refining documentation:</strong> We welcome additions and
+edits that make using the existing data or adding new data easier for
+the community.</li>
 <li>
-<strong>Contributing new data</strong>: We gladly accept new data contributions to AusTraits. For full instructions on preparing data for inclusion in AusTraits, , please get in contact. <!-- please got to https://github.com/traitecoevo/austraits.build.  -->
+<strong>Contributing new data</strong>: We gladly accept new data
+contributions to AusTraits. For full instructions on preparing data for
+inclusion in AusTraits, , please get in contact.
+<!-- please got to https://github.com/traitecoevo/austraits.build.  -->
 </li>
 </ul>
-<p>AusTraits is essentially a series of linked components, which cross link against each other::</p>
+<p>AusTraits is essentially a series of linked components, which cross
+link against each other::</p>
 <pre><code>austraits
 ├── traits
 ├── sites
@@ -115,7 +125,12 @@
 ├── contributors
 ├── sources
 └── build_info</code></pre>
-<p>These include all the data and contextual information submitted with each contributed dataset. It is essential that users of AusTraits data are confident the data have the meaning they expect it to and were collected using methods they trust. As such, each dataset within Austraits must include descriptions of the study, sites, and methods used as well as the data itself.</p>
+<p>These include all the data and contextual information submitted with
+each contributed dataset. It is essential that users of AusTraits data
+are confident the data have the meaning they expect it to and were
+collected using methods they trust. As such, each dataset within
+Austraits must include descriptions of the study, sites, and methods
+used as well as the data itself.</p>
 <div class="section level2">
 <h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
 </h2>
@@ -123,9 +138,10 @@
 <div class="section level3">
 <h3 id="traits">traits<a class="anchor" aria-label="anchor" href="#traits"></a>
 </h3>
-<p><strong>Description:</strong> A table containing measurements of plant traits.</p>
+<p><strong>Description:</strong> A table containing measurements of
+plant traits.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -140,7 +156,10 @@ value
 dataset_id
 </td>
 <td style="text-align:left;">
-Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. <code>Falster_2005</code>.
+Primary identifier for each study contributed into AusTraits; most often
+these are scientific papers, books, or online resources. By default
+should be name of first author and year of publication,
+e.g. <code>Falster_2005</code>.
 </td>
 </tr>
 <tr>
@@ -148,7 +167,8 @@ Primary identifier for each study contributed into AusTraits; most often these a
 taxon_name
 </td>
 <td style="text-align:left;">
-Currently accepted name of taxon in the Australian Plant Census or, for unplaced species, in the Australian Plant Names Index.
+Currently accepted name of taxon in the Australian Plant Census or, for
+unplaced species, in the Australian Plant Names Index.
 </td>
 </tr>
 <tr>
@@ -156,7 +176,8 @@ Currently accepted name of taxon in the Australian Plant Census or, for unplaced
 site_name
 </td>
 <td style="text-align:left;">
-Name of site where individual was sampled. Cross-references between similar columns in <code>sites</code> and <code>traits</code>.
+Name of site where individual was sampled. Cross-references between
+similar columns in <code>sites</code> and <code>traits</code>.
 </td>
 </tr>
 <tr>
@@ -164,7 +185,9 @@ Name of site where individual was sampled. Cross-references between similar colu
 context_name
 </td>
 <td style="text-align:left;">
-Name of contextual senario where individual was sampled. Cross-references between similar columns in <code>contexts</code> and <code>traits</code>.
+Name of contextual senario where individual was sampled.
+Cross-references between similar columns in <code>contexts</code> and
+<code>traits</code>.
 </td>
 </tr>
 <tr>
@@ -172,7 +195,10 @@ Name of contextual senario where individual was sampled. Cross-references betwee
 observation_id
 </td>
 <td style="text-align:left;">
-A unique identifier for the observation, useful for joining traits coming from the same <code>observation_id</code>. These are assigned automatically, based on the <code>dataset_id</code> and row number of the raw data.
+A unique identifier for the observation, useful for joining traits
+coming from the same <code>observation_id</code>. These are assigned
+automatically, based on the <code>dataset_id</code> and row number of
+the raw data.
 </td>
 </tr>
 <tr>
@@ -180,7 +206,8 @@ A unique identifier for the observation, useful for joining traits coming from t
 trait_name
 </td>
 <td style="text-align:left;">
-Name of trait sampled. Allowable values specified in the table <code>traits</code>.
+Name of trait sampled. Allowable values specified in the table
+<code>traits</code>.
 </td>
 </tr>
 <tr>
@@ -196,7 +223,8 @@ Measured value.
 unit
 </td>
 <td style="text-align:left;">
-Units of the sampled trait value after aligning with AusTraits standards.
+Units of the sampled trait value after aligning with AusTraits
+standards.
 </td>
 </tr>
 <tr>
@@ -204,7 +232,8 @@ Units of the sampled trait value after aligning with AusTraits standards.
 date
 </td>
 <td style="text-align:left;">
-Date sample was taken, in the format <code>yyyy-mm-dd</code>, but with days and months only when specified.
+Date sample was taken, in the format <code>yyyy-mm-dd</code>, but with
+days and months only when specified.
 </td>
 </tr>
 <tr>
@@ -220,7 +249,15 @@ A categorical variable describing the type of trait value recorded.
 replicates
 </td>
 <td style="text-align:left;">
-Number of replicate measurements that comprise the data points for the trait for each measurement. A numeric value (or range) is ideal and appropriate if the value type is a <code>mean</code>, <code>median</code>, <code>min</code> or <code>max</code>. For these value types, if replication is unknown the entry should be <code>unknown</code>. If the value type is <code>raw_value</code> the replicate value should be 1. If the value type is <code>expert_mean</code>, <code>expert_min</code>, or <code>expert_max</code> the replicate value should be <code>.na</code>.
+Number of replicate measurements that comprise the data points for the
+trait for each measurement. A numeric value (or range) is ideal and
+appropriate if the value type is a <code>mean</code>,
+<code>median</code>, <code>min</code> or <code>max</code>. For these
+value types, if replication is unknown the entry should be
+<code>unknown</code>. If the value type is <code>raw_value</code> the
+replicate value should be 1. If the value type is
+<code>expert_mean</code>, <code>expert_min</code>, or
+<code>expert_max</code> the replicate value should be <code>.na</code>.
 </td>
 </tr>
 <tr>
@@ -237,9 +274,13 @@ Name given to taxon in the original data supplied by the authors
 <div class="section level3">
 <h3 id="sites">sites<a class="anchor" aria-label="anchor" href="#sites"></a>
 </h3>
-<p><strong>Description:</strong> A table containing observations of site characteristics associated with information in <code>traits</code>. Cross referencing between the two dataframes is possible using combinations of the variables <code>dataset_id</code>, <code>site_name</code>.</p>
+<p><strong>Description:</strong> A table containing observations of site
+characteristics associated with information in <code>traits</code>.
+Cross referencing between the two dataframes is possible using
+combinations of the variables <code>dataset_id</code>,
+<code>site_name</code>.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -254,7 +295,10 @@ value
 dataset_id
 </td>
 <td style="text-align:left;">
-Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. <code>Falster_2005</code>.
+Primary identifier for each study contributed into AusTraits; most often
+these are scientific papers, books, or online resources. By default
+should be name of first author and year of publication,
+e.g. <code>Falster_2005</code>.
 </td>
 </tr>
 <tr>
@@ -262,7 +306,8 @@ Primary identifier for each study contributed into AusTraits; most often these a
 site_name
 </td>
 <td style="text-align:left;">
-Name of site where individual was sampled. Cross-references between similar columns in <code>sites</code> and <code>traits</code>.
+Name of site where individual was sampled. Cross-references between
+similar columns in <code>sites</code> and <code>traits</code>.
 </td>
 </tr>
 <tr>
@@ -270,7 +315,10 @@ Name of site where individual was sampled. Cross-references between similar colu
 site_property
 </td>
 <td style="text-align:left;">
-The site characteristic being recorded. Name should include units of measurement, e.g. <code>longitude (deg)</code>. Ideally we have at least these variables for each site - <code>longitude (deg)</code>, <code>latitude (deg)</code>, <code>description</code>.
+The site characteristic being recorded. Name should include units of
+measurement, e.g. <code>longitude (deg)</code>. Ideally we have at least
+these variables for each site - <code>longitude (deg)</code>,
+<code>latitude (deg)</code>, <code>description</code>.
 </td>
 </tr>
 <tr>
@@ -287,9 +335,13 @@ Measured value.
 <div class="section level3">
 <h3 id="contexts">contexts<a class="anchor" aria-label="anchor" href="#contexts"></a>
 </h3>
-<p><strong>Description:</strong> A table containing observations of contextual characteristics associated with information in <code>traits</code>. Cross referencing between the two dataframes is possible using combinations of the variables <code>dataset_id</code>, <code>context_name</code>.</p>
+<p><strong>Description:</strong> A table containing observations of
+contextual characteristics associated with information in
+<code>traits</code>. Cross referencing between the two dataframes is
+possible using combinations of the variables <code>dataset_id</code>,
+<code>context_name</code>.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -304,7 +356,10 @@ value
 dataset_id
 </td>
 <td style="text-align:left;">
-Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. <code>Falster_2005</code>.
+Primary identifier for each study contributed into AusTraits; most often
+these are scientific papers, books, or online resources. By default
+should be name of first author and year of publication,
+e.g. <code>Falster_2005</code>.
 </td>
 </tr>
 <tr>
@@ -312,7 +367,9 @@ Primary identifier for each study contributed into AusTraits; most often these a
 context_name
 </td>
 <td style="text-align:left;">
-Name of contextual senario where individual was sampled. Cross-references between similar columns in <code>contexts</code> and <code>traits</code>.
+Name of contextual senario where individual was sampled.
+Cross-references between similar columns in <code>contexts</code> and
+<code>traits</code>.
 </td>
 </tr>
 <tr>
@@ -320,7 +377,8 @@ Name of contextual senario where individual was sampled. Cross-references betwee
 context_property
 </td>
 <td style="text-align:left;">
-The contextual characteristic being recorded. Name should include units of measurement, e.g. <code>elevation (m)</code>.
+The contextual characteristic being recorded. Name should include units
+of measurement, e.g. <code>elevation (m)</code>.
 </td>
 </tr>
 <tr>
@@ -337,9 +395,10 @@ Measured value.
 <div class="section level3">
 <h3 id="methods">methods<a class="anchor" aria-label="anchor" href="#methods"></a>
 </h3>
-<p><strong>Description:</strong> A table containing details on methods with which data were collected, including time frame and source.</p>
+<p><strong>Description:</strong> A table containing details on methods
+with which data were collected, including time frame and source.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -354,7 +413,10 @@ value
 dataset_id
 </td>
 <td style="text-align:left;">
-Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. <code>Falster_2005</code>.
+Primary identifier for each study contributed into AusTraits; most often
+these are scientific papers, books, or online resources. By default
+should be name of first author and year of publication,
+e.g. <code>Falster_2005</code>.
 </td>
 </tr>
 <tr>
@@ -362,7 +424,8 @@ Primary identifier for each study contributed into AusTraits; most often these a
 trait_name
 </td>
 <td style="text-align:left;">
-Name of trait sampled. Allowable values specified in the table <code>traits</code>.
+Name of trait sampled. Allowable values specified in the table
+<code>traits</code>.
 </td>
 </tr>
 <tr>
@@ -370,7 +433,11 @@ Name of trait sampled. Allowable values specified in the table <code>traits</cod
 methods
 </td>
 <td style="text-align:left;">
-A textual description of the methods used to collect the trait data. Whenever available, methods are taken near-verbatim from referenced source. Methods can include descriptions such as ‘measured on botanical collections’,‘data from the literature’, or a detailed description of the field or lab methods used to collect the data.
+A textual description of the methods used to collect the trait data.
+Whenever available, methods are taken near-verbatim from referenced
+source. Methods can include descriptions such as ‘measured on botanical
+collections’,‘data from the literature’, or a detailed description of
+the field or lab methods used to collect the data.
 </td>
 </tr>
 <tr>
@@ -402,7 +469,11 @@ A 1-2 sentence description of the purpose of the study.
 collection_type
 </td>
 <td style="text-align:left;">
-A field to indicate where the majority of plants on which traits were measured were collected - in the <code>field</code>, <code>lab</code>, <code>glasshouse</code>, <code>botanical collection</code>, or <code>literature</code>. The latter should only be used when the data were sourced from the literature and the collection type is unknown.
+A field to indicate where the majority of plants on which traits were
+measured were collected - in the <code>field</code>, <code>lab</code>,
+<code>glasshouse</code>, <code>botanical collection</code>, or
+<code>literature</code>. The latter should only be used when the data
+were sourced from the literature and the collection type is unknown.
 </td>
 </tr>
 <tr>
@@ -410,7 +481,8 @@ A field to indicate where the majority of plants on which traits were measured w
 sample_age_class
 </td>
 <td style="text-align:left;">
-A field to indicate if the study was completed on <code>adult</code> or <code>juvenile</code> plants.
+A field to indicate if the study was completed on <code>adult</code> or
+<code>juvenile</code> plants.
 </td>
 </tr>
 <tr>
@@ -418,7 +490,11 @@ A field to indicate if the study was completed on <code>adult</code> or <code>ju
 sampling_strategy
 </td>
 <td style="text-align:left;">
-A written description of how study sites were selected and how study individuals were selected. When available, this information is lifted verbatim from a published manuscript. For botanical collections, this field ideally indicates which records were ‘sampled’ to measure a specific trait.
+A written description of how study sites were selected and how study
+individuals were selected. When available, this information is lifted
+verbatim from a published manuscript. For botanical collections, this
+field ideally indicates which records were ‘sampled’ to measure a
+specific trait.
 </td>
 </tr>
 <tr>
@@ -426,7 +502,8 @@ A written description of how study sites were selected and how study individuals
 source_primary_citation
 </td>
 <td style="text-align:left;">
-Citation for primary source. This detail is generated from the primary source in the metadata.
+Citation for primary source. This detail is generated from the primary
+source in the metadata.
 </td>
 </tr>
 <tr>
@@ -434,7 +511,8 @@ Citation for primary source. This detail is generated from the primary source in
 source_primary_key
 </td>
 <td style="text-align:left;">
-Citation key for primary source in <code>sources</code>. The key is typically of format <code>Surname_year</code>.
+Citation key for primary source in <code>sources</code>. The key is
+typically of format <code>Surname_year</code>.
 </td>
 </tr>
 <tr>
@@ -442,7 +520,8 @@ Citation key for primary source in <code>sources</code>. The key is typically of
 source_secondary_citation
 </td>
 <td style="text-align:left;">
-Citations for secondary source. This detail is generated from the secondary source in the metadata.
+Citations for secondary source. This detail is generated from the
+secondary source in the metadata.
 </td>
 </tr>
 <tr>
@@ -450,7 +529,8 @@ Citations for secondary source. This detail is generated from the secondary sour
 source_secondary_key
 </td>
 <td style="text-align:left;">
-Citation key for secondary source in <code>sources</code>. The key is typically of format <code>Surname_year</code>.
+Citation key for secondary source in <code>sources</code>. The key is
+typically of format <code>Surname_year</code>.
 </td>
 </tr>
 </tbody>
@@ -459,14 +539,18 @@ Citation key for secondary source in <code>sources</code>. The key is typically 
 <div class="section level3">
 <h3 id="excluded_data">excluded_data<a class="anchor" aria-label="anchor" href="#excluded_data"></a>
 </h3>
-<p><strong>Description:</strong> A table of data that did not pass quality test and so were excluded from the master dataset.</p>
+<p><strong>Description:</strong> A table of data that did not pass
+quality test and so were excluded from the master dataset.</p>
 </div>
 <div class="section level3">
 <h3 id="taxonomic_updates">taxonomic_updates<a class="anchor" aria-label="anchor" href="#taxonomic_updates"></a>
 </h3>
-<p><strong>Description:</strong> A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).</p>
+<p><strong>Description:</strong> A table of all taxonomic changes
+implemented in the construction of AusTraits. Changes are determined by
+comapring against the APC (Australian Plant Census) and APNI (Australian
+Plant Names Index).</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -481,7 +565,10 @@ value
 dataset_id
 </td>
 <td style="text-align:left;">
-Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. <code>Falster_2005</code>.
+Primary identifier for each study contributed into AusTraits; most often
+these are scientific papers, books, or online resources. By default
+should be name of first author and year of publication,
+e.g. <code>Falster_2005</code>.
 </td>
 </tr>
 <tr>
@@ -497,7 +584,9 @@ Name given to taxon in the original data supplied by the authors
 cleaned_name
 </td>
 <td style="text-align:left;">
-Name of the taxon after implementing any changes encoded for this taxon in the metadata file in the specified correpsonding <code>dataset_id</code>.
+Name of the taxon after implementing any changes encoded for this taxon
+in the metadata file in the specified correpsonding
+<code>dataset_id</code>.
 </td>
 </tr>
 <tr>
@@ -505,7 +594,8 @@ Name of the taxon after implementing any changes encoded for this taxon in the m
 taxonIDClean
 </td>
 <td style="text-align:left;">
-Where it could be indentified, the <code>taxonID</code> of the cleaned_name for this taxon in the APC.
+Where it could be indentified, the <code>taxonID</code> of the
+cleaned_name for this taxon in the APC.
 </td>
 </tr>
 <tr>
@@ -513,7 +603,8 @@ Where it could be indentified, the <code>taxonID</code> of the cleaned_name for 
 taxonomicStatusClean
 </td>
 <td style="text-align:left;">
-Taxonomic status of the taxon identified by <code>taxonIDClean</code> in the APC.
+Taxonomic status of the taxon identified by <code>taxonIDClean</code> in
+the APC.
 </td>
 </tr>
 <tr>
@@ -521,7 +612,8 @@ Taxonomic status of the taxon identified by <code>taxonIDClean</code> in the APC
 alternativeTaxonomicStatusClean
 </td>
 <td style="text-align:left;">
-The status of alternative records with the name <code>cleaned_name</code> in the APC.
+The status of alternative records with the name
+<code>cleaned_name</code> in the APC.
 </td>
 </tr>
 <tr>
@@ -537,7 +629,8 @@ ID of the accepted name for taxon in the APC or APNI.
 taxon_name
 </td>
 <td style="text-align:left;">
-Currently accepted name of taxon in the Australian Plant Census or, for unplaced species, in the Australian Plant Names Index.
+Currently accepted name of taxon in the Australian Plant Census or, for
+unplaced species, in the Australian Plant Names Index.
 </td>
 </tr>
 </tbody>
@@ -546,9 +639,12 @@ Currently accepted name of taxon in the Australian Plant Census or, for unplaced
 <div class="section level3">
 <h3 id="taxa">taxa<a class="anchor" aria-label="anchor" href="#taxa"></a>
 </h3>
-<p><strong>Description:</strong> A table containing details on taxa associated with information in <code>traits</code>. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.</p>
+<p><strong>Description:</strong> A table containing details on taxa
+associated with information in <code>traits</code>. This information has
+been sourced from the APC (Australian Plant Census) and APNI (Australian
+Plant Names Index) and is released under a CC-BY3 license.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -563,7 +659,8 @@ value
 taxon_name
 </td>
 <td style="text-align:left;">
-Currently accepted name of taxon in the Australian Plant Census or, for unplaced species, in the Australian Plant Names Index.
+Currently accepted name of taxon in the Australian Plant Census or, for
+unplaced species, in the Australian Plant Names Index.
 </td>
 </tr>
 <tr>
@@ -644,14 +741,17 @@ Source of taxonomic information.
 <div class="section level3">
 <h3 id="definitions">definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
 </h3>
-<p><strong>Description:</strong> A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.</p>
+<p><strong>Description:</strong> A copy of the definitions for all
+tables and terms. Information included here was used to process data and
+generate any documentation for the study.</p>
 </div>
 <div class="section level3">
 <h3 id="contributors">contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
 </h3>
-<p><strong>Description:</strong> A table of people contributing to each study.</p>
+<p><strong>Description:</strong> A table of people contributing to each
+study.</p>
 <p><strong>Content:</strong></p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -666,7 +766,10 @@ value
 dataset_id
 </td>
 <td style="text-align:left;">
-Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. <code>Falster_2005</code>.
+Primary identifier for each study contributed into AusTraits; most often
+these are scientific papers, books, or online resources. By default
+should be name of first author and year of publication,
+e.g. <code>Falster_2005</code>.
 </td>
 </tr>
 <tr>
@@ -699,48 +802,96 @@ Their role in the study
 <div class="section level3">
 <h3 id="sources">sources<a class="anchor" aria-label="anchor" href="#sources"></a>
 </h3>
-<p><strong>Description:</strong> Bibtex entries for all primary and secondary sources in the compilation.</p>
+<p><strong>Description:</strong> Bibtex entries for all primary and
+secondary sources in the compilation.</p>
 </div>
 <div class="section level3">
 <h3 id="build_info">build_info<a class="anchor" aria-label="anchor" href="#build_info"></a>
 </h3>
-<p><strong>Description:</strong> A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.</p>
+<p><strong>Description:</strong> A description of the computing
+environment used to create this version of the dataset, including
+version number, git commit and R session_info.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="dataset-ids">Dataset IDs<a class="anchor" aria-label="anchor" href="#dataset-ids"></a>
 </h2>
-<p>The core organising unit behind AusTraits is the <code>dataset_id</code>. Records are organisation as coming from a particular study, defined by the <code>dataset_id</code>. Our preferred format for <code>dataset_id</code> is surname of the first author of any corresponding publication, followed by the year, as <code>surname_year</code>. E.g. <code>Falster_2005</code>. Wherever there are multiple studies with the same id, we add a suffix <code>_2</code>, <code>_3</code> etc. E.g.<code>Falster_2005</code>, <code>Falster_2005_2</code>.</p>
+<p>The core organising unit behind AusTraits is the
+<code>dataset_id</code>. Records are organised as coming from a
+particular study, defined by the <code>dataset_id</code>. Our preferred
+format for <code>dataset_id</code> is the surname of the first author of
+any corresponding publication, followed by the year, as
+<code>surname_year</code>. E.g. <code>Falster_2005</code>. Wherever
+there are multiple studies with the same id, we add a suffix
+<code>_2</code>, <code>_3</code> etc. E.g.<code>Falster_2005</code>,
+<code>Falster_2005_2</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="observation-ids">Observation IDs<a class="anchor" aria-label="anchor" href="#observation-ids"></a>
 </h2>
-<p>As well as a <code>dataset_id</code>, each trait measurement has an associated <code>observation_id</code>. Observation IDs bind together related measurements within any dataset, and thereby allow transformation between long (e.g. with variables <code>trait_name</code> and <code>value</code>) and wide (e.g. with traits as columns) formats.</p>
-<p>Generally, <code>observation_id</code> has the format <code>dataset_id_XX</code> where <code>XX</code> is a unique number within each dataset. For example, if multiple traits were collected on the same individual, the <code>observation_id</code> allows us to gather these together. For floras, which report a species averages, the <code>observation_id</code> is assigned at the species level.</p>
-<p>For datasets that arrive in wide format we assume each row has a unique <code>observation_id</code>. For datasets that arrive in long format, the <code>observation_id</code> is assigned based on a specified grouping variable. This variable can be specified in the <code>metadata.yml</code> file under the section <code>variable_match</code>. If missing, <code>observation_id</code> is assigned based on <code>species_name</code>.</p>
+<p>As well as a <code>dataset_id</code>, each trait measurement has an
+associated <code>observation_id</code>. Observation IDs bind together
+related measurements within any dataset, and thereby allow
+transformation between long (e.g. with variables <code>trait_name</code>
+and <code>value</code>) and wide (e.g. with traits as columns)
+formats.</p>
+<p>Generally, <code>observation_id</code> has the format
+<code>dataset_id_XX</code> where <code>XX</code> is a unique number
+within each dataset. For example, if multiple traits were collected on
+the same individual, the <code>observation_id</code> allows us to gather
+these together. For floras reporting species averages, the
+<code>observation_id</code> is assigned at the species level.</p>
+<p>For datasets that arrive in wide format we assume each row has a
+unique <code>observation_id</code>. For datasets that arrive in long
+format, the <code>observation_id</code> is assigned based on a specified
+grouping variable. This variable can be specified in the
+<code>metadata.yml</code> file under the section
+<code>variable_match</code>. If missing, <code>observation_id</code> is
+assigned based on <code>species_name</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="site-names">Site names<a class="anchor" aria-label="anchor" href="#site-names"></a>
 </h2>
-<p>As well as <code>dataset_id</code> and <code>observation_id</code>, where appropriate, trait values are associated with a <code>site_name</code>. Unique combinations of <code>dataset_id</code> and <code>site_name</code> can be used to cross-match against the sites table, which provide further details on the site sampled.</p>
+<p>As well as <code>dataset_id</code> and <code>observation_id</code>,
+where appropriate, trait values are associated with a
+<code>site_name</code>. Unique combinations of <code>dataset_id</code>
+and <code>site_name</code> can be used to cross-match against the sites
+table, which provide further details on the site sampled.</p>
 </div>
 <div class="section level2">
 <h2 id="context-names">Context names<a class="anchor" aria-label="anchor" href="#context-names"></a>
 </h2>
-<p>As well as <code>dataset_id</code>, <code>observation_id</code>, and <code>site_name</code>, where appropriate, trait values are associated with a <code>context_name</code>. Unique combinations of <code>dataset_id</code> and <code>context_name</code> can be used to cross-match against the context table, which provide further details on the context sampled.</p>
+<p>As well as <code>dataset_id</code>, <code>observation_id</code>, and
+<code>site_name</code>, where appropriate, trait values are associated
+with a <code>context_name</code>. Unique combinations of
+<code>dataset_id</code> and <code>context_name</code> can be used to
+cross-match against the context table, which provide further details on
+the context sampled.</p>
 </div>
 <div class="section level2">
 <h2 id="value_types">Values and Value types<a class="anchor" aria-label="anchor" href="#value_types"></a>
 </h2>
-<p>Each record in the table of trait data has an associated <code>value</code> and <code>value_type</code>.</p>
-<p>Traits are either <code>numeric</code> or <code>categorical</code>. For traits with numerical values, the recorded value has been converted into standardised units and we have check that the value can be converted into a number and lies within the allowable range. For categorical variables, we only include records that are defined in the definitions. Moreover, we use a format whereby</p>
+<p>Each record in the table of trait data has an associated
+<code>value</code> and <code>value_type</code>.</p>
+<p>Traits are either <code>numeric</code> or <code>categorical</code>.
+For traits with numerical values, the recorded value has been converted
+into standardised units and we have checked that the value can be
+converted into a number and lies within the allowable range. For
+categorical variables, we only include records that are defined in the
+definitions. Moreover, we use a format whereby:</p>
 <ul>
-<li>we use <code>_</code> for multi-word terms, e.g. <code>semi_deciduous</code>
+<li>we use <code>_</code> for multi-word terms,
+e.g. <code>semi_deciduous</code>
 </li>
-<li>use a space for situations where there are two possible values for that trait, e.g. <code>annual biennial</code> for something which is either annual or biennial</li>
+<li>use a space for situations where there are two possible values for
+that trait, e.g. <code>annual biennial</code> for something which is
+either annual or biennial</li>
 </ul>
-<p>Each trait measurement also an associated <code>value_type</code>, which gives <code>A categorical variable describing the type of trait value recorded.</code>. Possible values are:</p>
-<table class="table table table-striped table-hover table-condensed table-responsive" style="margin-left:30px; width: auto !important; ">
+<p>Each trait measurement also has an associated
+<code>value_type</code>, which gives
+<code>A categorical variable describing the type of trait value recorded.</code>.
+Possible values are:</p>
+<table class="table">
 <thead><tr>
 <th style="text-align:left;">
 key
@@ -763,7 +914,8 @@ Value is a direct measurement
 site_min
 </td>
 <td style="text-align:left;">
-Value is the minimum of measurements on multiple individuals of the taxon at a single site
+Value is the minimum of measurements on multiple individuals of the
+taxon at a single site
 </td>
 </tr>
 <tr>
@@ -771,7 +923,8 @@ Value is the minimum of measurements on multiple individuals of the taxon at a s
 site_mean
 </td>
 <td style="text-align:left;">
-Value is the mean or median of measurements on multiple individuals of the taxon at a single site
+Value is the mean or median of measurements on multiple individuals of
+the taxon at a single site
 </td>
 </tr>
 <tr>
@@ -779,7 +932,8 @@ Value is the mean or median of measurements on multiple individuals of the taxon
 site_max
 </td>
 <td style="text-align:left;">
-Value is the maximum of measurements on multiple individuals of the taxon at a single site
+Value is the maximum of measurements on multiple individuals of the
+taxon at a single site
 </td>
 </tr>
 <tr>
@@ -787,7 +941,8 @@ Value is the maximum of measurements on multiple individuals of the taxon at a s
 multisite_min
 </td>
 <td style="text-align:left;">
-Value is the minimum of measurements on multiple individuals of the taxon across multiple sites
+Value is the minimum of measurements on multiple individuals of the
+taxon across multiple sites
 </td>
 </tr>
 <tr>
@@ -795,7 +950,8 @@ Value is the minimum of measurements on multiple individuals of the taxon across
 multisite_mean
 </td>
 <td style="text-align:left;">
-Value is the mean or median of measurements on multiple individuals of the taxon across multiple sites
+Value is the mean or median of measurements on multiple individuals of
+the taxon across multiple sites
 </td>
 </tr>
 <tr>
@@ -803,7 +959,8 @@ Value is the mean or median of measurements on multiple individuals of the taxon
 multisite_max
 </td>
 <td style="text-align:left;">
-Value is the maximum of measurements on multiple individuals of the taxon across multiple sites
+Value is the maximum of measurements on multiple individuals of the
+taxon across multiple sites
 </td>
 </tr>
 <tr>
@@ -811,7 +968,11 @@ Value is the maximum of measurements on multiple individuals of the taxon across
 expert_min
 </td>
 <td style="text-align:left;">
-Value is the minimum observed for a taxon across its range or in this particular dataset, as estimated by an expert based on their knowledge of the taxon. Data fitting this category include estimates from flora that represent a taxon’s entire range, and values for categorical variables obtained from a reference book, or identified by an expert.
+Value is the minimum observed for a taxon across its range or in this
+particular dataset, as estimated by an expert based on their knowledge
+of the taxon. Data fitting this category include estimates from flora
+that represent a taxon’s entire range, and values for categorical
+variables obtained from a reference book, or identified by an expert.
 </td>
 </tr>
 <tr>
@@ -819,7 +980,11 @@ Value is the minimum observed for a taxon across its range or in this particular
 expert_mean
 </td>
 <td style="text-align:left;">
-Value is the mean observed for a taxon across its range or in this particular dataset, as estimated by an expert based on their knowledge of the taxon. Data fitting this category include estimates from flora that represent a taxon’s entire range, and values for categorical variables obtained from a reference book, or identified by an expert.
+Value is the mean observed for a taxon across its range or in this
+particular dataset, as estimated by an expert based on their knowledge
+of the taxon. Data fitting this category include estimates from flora
+that represent a taxon’s entire range, and values for categorical
+variables obtained from a reference book, or identified by an expert.
 </td>
 </tr>
 <tr>
@@ -827,7 +992,11 @@ Value is the mean observed for a taxon across its range or in this particular da
 expert_max
 </td>
 <td style="text-align:left;">
-Value is the maximum observed for a taxon across its range or in this particular dataset, as estimated by an expert based on their knowledge of the taxon. Data fitting this category include estimates from flora that represent a taxon’s entire range, and values for categorical variables obtained from a reference book, or identified by an expert.
+Value is the maximum observed for a taxon across its range or in this
+particular dataset, as estimated by an expert based on their knowledge
+of the taxon. Data fitting this category include estimates from flora
+that represent a taxon’s entire range, and values for categorical
+variables obtained from a reference book, or identified by an expert.
 </td>
 </tr>
 <tr>
@@ -835,7 +1004,8 @@ Value is the maximum observed for a taxon across its range or in this particular
 experiment_min
 </td>
 <td style="text-align:left;">
-Value is the minimum of measurements from an experimental study either in the field or a glasshouse
+Value is the minimum of measurements from an experimental study either
+in the field or a glasshouse
 </td>
 </tr>
 <tr>
@@ -843,7 +1013,8 @@ Value is the minimum of measurements from an experimental study either in the fi
 experiment_mean
 </td>
 <td style="text-align:left;">
-Value is the mean or median of measurements from an experimental study either in the field or a glasshouse
+Value is the mean or median of measurements from an experimental study
+either in the field or a glasshouse
 </td>
 </tr>
 <tr>
@@ -851,7 +1022,8 @@ Value is the mean or median of measurements from an experimental study either in
 experiment_max
 </td>
 <td style="text-align:left;">
-Value is the maximum of measurements from an experimental study either in the field or a glasshouse
+Value is the maximum of measurements from an experimental study either
+in the field or a glasshouse
 </td>
 </tr>
 <tr>
@@ -859,7 +1031,8 @@ Value is the maximum of measurements from an experimental study either in the fi
 individual_mean
 </td>
 <td style="text-align:left;">
-Value is a mean of replicate measurements on an individual (usually for experimental ecophysiology studies)
+Value is a mean of replicate measurements on an individual (usually for
+experimental ecophysiology studies)
 </td>
 </tr>
 <tr>
@@ -867,7 +1040,8 @@ Value is a mean of replicate measurements on an individual (usually for experime
 individual_max
 </td>
 <td style="text-align:left;">
-Value is a maximum of replicate measurements on an individual (usually for experimental ecophysiology studies)
+Value is a maximum of replicate measurements on an individual (usually
+for experimental ecophysiology studies)
 </td>
 </tr>
 <tr>
@@ -875,7 +1049,8 @@ Value is a maximum of replicate measurements on an individual (usually for exper
 literature_source
 </td>
 <td style="text-align:left;">
-Value is a site or multi-site mean that has been sourced from an unknown literature source
+Value is a site or multi-site mean that has been sourced from an unknown
+literature source
 </td>
 </tr>
 <tr>
@@ -888,23 +1063,40 @@ Value type is not currently known
 </tr>
 </tbody>
 </table>
-<p>AusTraits does not include intra-individual observations. When multiple measurements per individual are submitted to AusTraits, we take the mean of the values and record the value_type as <code>individual_mean</code>.</p>
+<p>AusTraits does not include intra-individual observations. When
+multiple measurements per individual are submitted to AusTraits, we take
+the mean of the values and record the value_type as
+<code>individual_mean</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="taxonomic">Taxonomy<a class="anchor" aria-label="anchor" href="#taxonomic"></a>
 </h2>
-<p>The latest version of AusTraits contains records for over 28640 different taxa. We have attempted to align species names with known taxonomic units in the <a href="https://biodiversity.org.au/nsl/services/apc" class="external-link"><code>Australian Plant Census</code> (APC)</a> and/or the <a href="https://biodiversity.org.au/nsl/services/APNI" class="external-link"><code>Australian Plant Names Index</code> (APNI)</a>.</p>
-<p>The table <code>taxa</code> lists all taxa in the database, including additional infomration about the taxa (see Table above).</p>
-<p>The <code>traits</code> table reports both the original and the updated taxon name alongside each trait record.</p>
-<p>The table <code>taxanomic_updates</code> provdies details on all taxonomic names changes implemented in aligning with APC and APNI.</p>
+<p>The latest version of AusTraits contains records for over 28640
+different taxa. We have attempted to align species names with known
+taxonomic units in the <a href="https://biodiversity.org.au/nsl/services/apc" class="external-link"><code>Australian Plant Census</code>
+(APC)</a> and/or the <a href="https://biodiversity.org.au/nsl/services/APNI" class="external-link"><code>Australian Plant Names Index</code>
+(APNI)</a>.</p>
+<p>The table <code>taxa</code> lists all taxa in the database, including
+additional information about the taxa (see Table above).</p>
+<p>The <code>traits</code> table reports both the original and the
+updated taxon name alongside each trait record.</p>
+<p>The table <code>taxanomic_updates</code> provides details on all
+taxonomic name changes implemented when aligning with APC and APNI.</p>
 </div>
 <div class="section level2">
 <h2 id="sources-1">Sources<a class="anchor" aria-label="anchor" href="#sources-1"></a>
 </h2>
-<p>For each dataset in the compilation there is the option to list primary and secondary citations. The primary citation The original study in which data were collected. while the secondary citation is A subsequent study where data were compiled or re-analysed and then made available.. These references are included in two places:</p>
+<p>For each dataset in the compilation there is the option to list
+primary and secondary citations. The primary citation is The original
+study in which data were collected. while the secondary citation is A
+subsequent study where data were compiled or re-analysed and then made
+available.. These references are included in two places:</p>
 <ol style="list-style-type: decimal">
-<li>Within the table <a href="#methods">methods</a>, where we provide a formatted version of each.</li>
-<li>In the element <a href="#sources">sources</a>, where we provided bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the <span id="methods">methods</span>.</li>
+<li>Within the table <a href="#methods">methods</a>, where we provide a
+formatted version of each.</li>
+<li>In the element <a href="#sources">sources</a>, where we provide
+bibtex versions of all sources which can be imported into your reference
+library. The keys for these references are listed within the <span id="methods">methods</span>.</li>
 </ol>
 </div>
   </div>
@@ -926,7 +1118,7 @@ Value type is not currently known
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
