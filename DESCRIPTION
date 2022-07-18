@@ -38,9 +38,9 @@ Imports:
     jsonlite,
     utils,
     httr,
-    magrittr
+    magrittr,
+    janitor
 Suggests: 
-    janitor,
     ggplot2,
     raster,
     knitr,
