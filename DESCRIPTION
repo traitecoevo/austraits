@@ -42,7 +42,6 @@ Imports:
     janitor
 Suggests: 
     ggplot2,
-    raster,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),

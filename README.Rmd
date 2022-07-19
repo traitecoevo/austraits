@@ -47,7 +47,7 @@ library(dplyr)
 
 ### Installation
 
-The package is not on CRAN yet and is still under active development. You can install the stable version of `austraits` from [GitHub](https://github.com/traitecoevo/austraits):
+The package is not on CRAN yet and is still under active development. For the current stable release of `austraits`, which has full capabilities of the functions used in vignettes (e.g. plotting functions), use: 
 
 ```{r setup, results = 'hide', eval = FALSE}
 #install.packages("remotes")
@@ -55,6 +55,13 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 
 library(austraits) 
 ```
+
+Otherwise, for a lightweight installation where dependencies for plotting and the vignettes will not be installed, use:
+
+```{r light, results = 'hide', eval = FALSE}
+remotes::install_github("traitecoevo/austraits", upgrade = "ask")
+```
+
 
 ### Take a good look at our vignettes! `r emo::ji("eyes")`
 

@@ -26,14 +26,22 @@ meta-data
 ### Installation
 
 The package is not on CRAN yet and is still under active development.
-You can install the stable version of `austraits` from
-[GitHub](https://github.com/traitecoevo/austraits):
+For the current stable release of `austraits`, which has full
+capabilities of the functions used in vignettes (e.g. plotting
+functions), use:
 
 ``` r
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
 
 library(austraits) 
+```
+
+Otherwise, for a lightweight installation where dependencies for
+plotting and the vignettes will not be installed, use:
+
+``` r
+remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 ```
 
 ### Take a good look at our vignettes! 👀
@@ -50,7 +58,7 @@ some commonly used data output formats. We highly recommend starting
 here before jumping into the database!
 
 If you prefer to view the vignettes in R, we recommend installing the
-package again with `build_vignettes = TRUE`
+package with `build_vignettes = TRUE`.
 
 ``` r
 remotes::install_github("traitecoevo/austraits", 
