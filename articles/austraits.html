@@ -372,7 +372,7 @@
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_all.html">join_sites</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;"></p>
+<p><img src="./reference/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualising-data-distribution-and-variance">Visualising data distribution and variance<a class="anchor" aria-label="anchor" href="#visualising-data-distribution-and-variance"></a>
@@ -380,10 +380,10 @@
 <p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a> for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each <code>dataset_id</code></p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"family"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
+<p><img src="./reference/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"dataset_id"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
+<p><img src="./reference/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="pivotting-from-long-to-wide-format">Pivotting from long to wide format<a class="anchor" aria-label="anchor" href="#pivotting-from-long-to-wide-format"></a>
 </h3>
