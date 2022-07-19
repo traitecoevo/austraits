@@ -137,7 +137,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   } else {
     p1 <- p1 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum))
     p2 <- p2 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
-      xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
+      ggplot2::xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
     
   }
   

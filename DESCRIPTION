@@ -1,6 +1,7 @@
 Package: austraits
 Title: Helpful functions to access, summarise and wrangle austraits data
-Version: 1.1.0
+Version: 1.1.1
+
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
@@ -22,7 +23,7 @@ Encoding: UTF-8
 Language: en
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Depends: 
     R (>= 4.0.0),
     RefManageR
@@ -38,11 +39,10 @@ Imports:
     jsonlite,
     utils,
     httr,
-    magrittr
+    magrittr,
+    janitor
 Suggests: 
-    janitor,
     ggplot2,
-    raster,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),

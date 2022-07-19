@@ -21,7 +21,6 @@
 plot_site_locations <- function(traits, feature="trait_name", ...){
   
   au_map <- australia_map_raster %>%
-    raster::as.data.frame(xy = T) %>% 
     dplyr::mutate(australia = as.factor(.data$australia))
   
   #Create site data

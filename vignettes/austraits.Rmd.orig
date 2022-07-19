@@ -1,0 +1,232 @@
+---
+title: "austraits"
+author: "Fonti Kar, Daniel Falster"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+  toc: yes
+vignette: >
+  %\VignetteIndexEntry{austraits}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  comment = "#>",
+  fig.path = "man/figures/"
+)
+
+library(dplyr)
+library(stringr)
+library(austraits)
+
+austraits <- austraits:::austraits_lite
+austraits$build_info$version <- "0.0.0.900"
+class(austraits) <- "austraits"
+```
+
+The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
+
+**Note that we are using a reduced subset of v.3.0.2, so the version number and number of records and species will not be match your values**
+
+## Getting started
+`austraits` is still under development. To install the current version from GitHub: 
+
+```{r setup, eval = FALSE}
+#install.packages("remotes")
+remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
+
+# Load the austraits package
+library(austraits)
+```
+
+### Loading AusTraits database
+
+By default, `load_austraits` will download AusTraits to a specified path e.g. `data/austraits` and will reload it from this location in the future. You can set `update = TRUE` so the austrait versions are downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note that `load_austraits` will happily accept a DOI of a particular version.
+
+```{r, load_data, eval = FALSE}
+austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+```
+
+You can check out different versions and their associated DOI of AusTraits by using: 
+
+```{r, eval = FALSE}
+get_versions(path = "data/austraits")
+```
+
+The AusTraits object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
+
+```{r}
+austraits
+```
+
+## Descriptive summaries of traits and taxa
+
+AusTraits contains `r length(unique(austraits$traits$trait_name))` plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
+
+Have a look at what trait or taxa we have with: 
+
+```{r}
+summarise_austraits(austraits, "trait_name") %>% head()
+
+summarise_austraits(austraits, "family") %>% head()
+
+summarise_austraits(austraits, "genus") %>% head()
+```
+
+Interested in a specific trait? Try `lookup_trait`
+
+```{r}
+lookup_trait(austraits, "leaf") %>% head()
+```
+
+## Extracting data
+
+In most cases, users would like to extract a subset of `austraits` for their own research purposes.`extract_dataset` subsets a particular study, whereas `extract_trait`subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See `?extract_dataset` and `?extract_trait` for more details
+
+### Extracting by study
+
+Filtering **one particular study** and assigning it to an object
+
+```{r, extract_study}
+subset_data <- extract_dataset(austraits, "Falster_2005_2")
+
+subset_data$traits %>% head()
+```
+
+Filtering **multiple studies by two different lead authors**  and assigning it to an object
+
+```{r, extract_studies}
+subset_multi_studies <- extract_dataset(austraits, 
+                                        dataset_id = c("Thompson_2001","Ilic_2000"))
+ 
+subset_multi_studies$traits %>% head()
+```
+
+Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
+
+```{r, extract_Falster_studies}
+# First, we need to identify all studies with an id that includes "Falster"
+
+( dataset_ids <- austraits$methods$dataset_id %>% unique() %>% subset(., grepl("Falster",.))) 
+
+# Then we extract
+data_falster_studies <- extract_dataset(austraits, dataset_ids)
+
+data_falster_studies$traits %>% head()
+```
+
+### Extracting by taxonomic level
+
+```{r extract_taxa}
+# By family 
+proteaceae <- extract_taxa(austraits, family = "Proteaceae")
+# Checking that only taxa in Proteaceae have been extracted
+proteaceae$taxa$family %>% unique()
+
+# By genus 
+acacia <- extract_taxa(austraits, genus = "Acacia")
+# Checking that only taxa in Acacia have been extracted
+acacia$traits$taxon_name %>% unique() %>% head()
+```
+
+### Extracting by trait
+
+Filtering **one particular trait** and assigning it to an object
+
+```{r, extract_trait}
+data_wood_dens <- extract_trait(austraits, "wood_density")
+
+head(data_wood_dens$traits)
+```
+
+Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf' in the trait name** and assigning it to an object. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
+
+```{r}
+data_leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
+
+head(data_leaf$traits)
+```
+
+## Join data from other tables and elements
+
+Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
+There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
+
+```{r, join_}
+# Join taxonomic information 
+(data_leaf %>% join_taxonomy)$traits %>% head()
+
+# Join methodological information 
+(data_leaf %>% join_methods)$traits %>% head()
+
+# Join site based information 
+(data_leaf %>% join_sites)$traits %>% head()
+
+# Join context information 
+(data_leaf %>% join_contexts)$traits %>% head()
+
+# Alternatively users can join *all* information 
+(data_leaf %>% join_all)$traits %>% head()
+```
+
+## Visualising data by site
+
+`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
+
+```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
+data_wood_dens <- data_wood_dens %>% join_sites()
+plot_site_locations(data_wood_dens$traits)
+```
+
+## Visualising data distribution and variance
+
+`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id`
+
+```{r, beeswarm, fig.align = "center", fig.width=6, fig.height=7}
+austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
+austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
+```
+
+### Pivotting from long to wide format
+
+The table of traits in AusTraits comes in long format, where data for all traits are in two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. This will produce 5 separate lists (`value`, `unit`, `date`, `value_type` and `replicates`). The trait values are stored in the `value` list.
+
+Note that in some cases, there are *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In these circumstances, we suggest using `bind_trait_values` which joins multiple observations together into a string.
+
+```{r, pivot}
+data_wide_bound <- data_falster_studies$traits %>%
+  bind_trait_values() %>% # Joining multiple obs with `--`
+  trait_pivot_wider() #Pivot wide
+
+data_wide_bound$value # The trait values table
+
+# Check out the 'bounded' trait values
+data_wide_bound$value %>% 
+  select(-c(1:5)) %>% #Excluding values that are not traits so we can see which columns contains bounded values
+  filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
+```
+
+If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then: 
+
+```{r}
+data_wide_bound %>% 
+  trait_pivot_longer() %>% 
+  separate_trait_values(., austraits$definitions)
+```
+
+Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
+
+```{r, pivot_summarised}
+data_wide_summarised <- data_falster_studies$traits %>%
+  summarise_trait_means() %>% 
+  trait_pivot_wider()
+
+data_wide_summarised$value %>% head()
+```
+

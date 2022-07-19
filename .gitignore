@@ -49,4 +49,5 @@ ignore/
 
 data/austraits/
 
-
+#
+*.pdf
