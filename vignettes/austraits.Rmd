@@ -14,10 +14,10 @@ editor_options:
 ---
 
 
-
 The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
 
 **Note that we are using a reduced subset of v.3.0.2, so the version number and number of records and species will not be match your values**
+
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 
@@ -163,7 +163,7 @@ subset_data$traits %>% head()
 #> 5 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002…
 #> 6 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… leaf_area  1761  mm2   2002…
 #> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
-```
+
 
 Filtering **multiple studies by two different lead authors**  and assigning it to an object
 
@@ -186,7 +186,7 @@ subset_multi_studies$traits %>% head()
 #> 5 Ilic_2000  Acacia amp… <NA>      <NA>         Ilic_2000_0005 wood_dens… 0.568 mg/m… <NA> 
 #> 6 Ilic_2000  Acacia ane… <NA>      <NA>         Ilic_2000_0006 wood_dens… 1.035 mg/m… <NA> 
 #> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
-```
+
 
 Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
 
@@ -483,6 +483,7 @@ data_wide_bound$value %>%
 #> 10 <NA>       3401      <NA>              0.34                 0.00023142… 11.1            
 #> # … with 45 more rows, and 6 more variables: seed_mass <chr>, specific_leaf_area <chr>,
 #> #   wood_density <chr>, fire_response <chr>, plant_height <chr>, original_name <chr>
+
 ```
 
 If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then: 

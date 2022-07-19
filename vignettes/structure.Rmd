@@ -8,8 +8,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
-
 This document describes the structure of the AusTraits compilation.
 
 As an on-going collaborative community resource we would appreciate your contribution on any of the following: 
