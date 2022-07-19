@@ -40,4 +40,9 @@ extract_dataset <- function(austraits, dataset_id) {
   assertthat::are_equal(sort(names(austraits)), sort(names(ret)))
   
   ret[names(austraits)]
+  
+  # Assign class
+  attr(ret, "class") <- "austraits"
+  
+  ret
 }

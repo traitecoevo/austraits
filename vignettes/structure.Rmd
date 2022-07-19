@@ -1,6 +1,6 @@
 ---
 title: Structure of AusTraits data compilation
-date: "`r Sys.Date()`"
+date: "2022-07-18"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Structure of AusTraits data compilation}
@@ -8,38 +8,9 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  results = "asis",
-  echo=FALSE, 
-  message=FALSE, 
-  warning=FALSE
-  )
+This document describes the structure of the AusTraits compilation.
 
-library(austraits)
-library(dplyr)
-library(readr)
-library(stringr)
-
-# default for table format
-if(knitr::is_html_output()) {
-  options(knitr.table.format = "html")
-  my_kable_styling <- austraits::my_kable_styling_html  
-} else {
-  options(knitr.table.format = "latex")
-  my_kable_styling <- austraits::my_kable_styling_pdf
-}
-
-austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
-```
-
-This document describes the structure of the AusTraits compilation, corresponding to **Version `r austraits$definitions$austraits$elements$build_info$elements$version$value`** of the dataset. 
-Note that the information provided below is based on the information provided within the file `definitions.yml`. 
-
-
-As an on-going collaborative community resource we would appreciate your contribution on any of. 
+As an on-going collaborative community resource we would appreciate your contribution on any of the following: 
 
 - **Reporting Errors**: If you notice a possible error in AusTraits, please get in contact.
  <!-- [post an issue on GitHub](https://github.com/traitecoevo/austraits.build/issues). -->
@@ -68,47 +39,373 @@ These include all the data and contextual information submitted with each contri
 
 The core components are defined as follows.
 
-```{r}
-print_defintions_element <- function(elements) {
-  if(elements$type == "character") {
-    sprintf("**Content:** %s\n", elements$value) %>% 
-      writeLines()
-  }
-  
-  if(elements$type == "table") {
-    
-    sprintf("**Content:** \n") %>% 
-      writeLines()
+### traits {#traits}
 
-    elements$elements %>% 
-      list1_to_df() %>%
-      my_kable_styling() %>% 
-      writeLines()
-  }
-}
+**Description:** A table containing measurements of plant traits.
 
-for(v in names(austraits)) {
-  elements <- austraits$definitions$austraits$elements[[v]]
-  
-  sprintf("### %s {#%s}\n\n**Description:** %s.\n", v, v, elements$description) %>% str_replace_all("\\.\\.", "\\.") %>% 
-    writeLines()
-  
-  elements %>%
-    print_defintions_element()
+**Content:** 
 
-  writeLines(c(""))
-}
-```
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> dataset_id </td>
+   <td style="text-align:left;"> Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. `Falster_2005`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxon_name </td>
+   <td style="text-align:left;"> Currently accepted name of taxon in the Australian Plant Census or, for unplaced species, in the Australian Plant Names Index. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> site_name </td>
+   <td style="text-align:left;"> Name of site where individual was sampled. Cross-references between similar columns in `sites` and `traits`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> context_name </td>
+   <td style="text-align:left;"> Name of contextual senario where individual was sampled. Cross-references between similar columns in `contexts` and `traits`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> observation_id </td>
+   <td style="text-align:left;"> A unique identifier for the observation, useful for joining traits coming from the same `observation_id`. These are assigned automatically, based on the `dataset_id` and row number of the raw data. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> trait_name </td>
+   <td style="text-align:left;"> Name of trait sampled. Allowable values specified in the table `traits`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> value </td>
+   <td style="text-align:left;"> Measured value. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> unit </td>
+   <td style="text-align:left;"> Units of the sampled trait value after aligning with AusTraits standards. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> date </td>
+   <td style="text-align:left;"> Date sample was taken, in the format `yyyy-mm-dd`, but with days and months only when specified. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> value_type </td>
+   <td style="text-align:left;"> A categorical variable describing the type of trait value recorded. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> replicates </td>
+   <td style="text-align:left;"> Number of replicate measurements that comprise the data points for the trait for each measurement. A numeric value (or range) is ideal and appropriate if the value type is a `mean`, `median`, `min` or  `max`. For these value types, if replication is unknown the entry should be `unknown`. If the value type is `raw_value` the replicate value should be 1. If the value type is `expert_mean`, `expert_min`, or `expert_max` the replicate value should be `.na`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> original_name </td>
+   <td style="text-align:left;"> Name given to taxon in the original data supplied by the authors </td>
+  </tr>
+</tbody>
+</table>
+
+### sites {#sites}
+
+**Description:** A table containing observations of site characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `site_name`.
+
+**Content:** 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> dataset_id </td>
+   <td style="text-align:left;"> Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. `Falster_2005`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> site_name </td>
+   <td style="text-align:left;"> Name of site where individual was sampled. Cross-references between similar columns in `sites` and `traits`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> site_property </td>
+   <td style="text-align:left;"> The site characteristic being recorded. Name should include units of measurement, e.g. `longitude (deg)`. Ideally we have at least these variables for each site - `longitude (deg)`, `latitude (deg)`, `description`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> value </td>
+   <td style="text-align:left;"> Measured value. </td>
+  </tr>
+</tbody>
+</table>
+
+### contexts {#contexts}
+
+**Description:** A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `context_name`.
+
+**Content:** 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> dataset_id </td>
+   <td style="text-align:left;"> Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. `Falster_2005`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> context_name </td>
+   <td style="text-align:left;"> Name of contextual senario where individual was sampled. Cross-references between similar columns in `contexts` and `traits`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> context_property </td>
+   <td style="text-align:left;"> The contextual characteristic being recorded. Name should include units of measurement, e.g. `elevation (m)`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> value </td>
+   <td style="text-align:left;"> Measured value. </td>
+  </tr>
+</tbody>
+</table>
+
+### methods {#methods}
+
+**Description:** A table containing details on methods with which data were collected, including time frame and source.
+
+**Content:** 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> dataset_id </td>
+   <td style="text-align:left;"> Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. `Falster_2005`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> trait_name </td>
+   <td style="text-align:left;"> Name of trait sampled. Allowable values specified in the table `traits`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> methods </td>
+   <td style="text-align:left;"> A textual description of the methods used to collect the trait data. Whenever available, methods are taken near-verbatim from referenced source. Methods can include descriptions such as 'measured on botanical collections','data from the literature', or a detailed description of the field or lab methods used to collect the data. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> year_collected_start </td>
+   <td style="text-align:left;"> The year data collection commenced. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> year_collected_end </td>
+   <td style="text-align:left;"> The year data collection was completed. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> description </td>
+   <td style="text-align:left;"> A 1-2 sentence description of the purpose of the study. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> collection_type </td>
+   <td style="text-align:left;"> A field to indicate where the majority of plants on which traits were measured were collected -  in the `field`, `lab`, `glasshouse`, `botanical collection`, or `literature`. The latter should only be used when the data were sourced from the literature and the collection type is unknown. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sample_age_class </td>
+   <td style="text-align:left;"> A field to indicate if the study was completed on `adult` or `juvenile` plants. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> sampling_strategy </td>
+   <td style="text-align:left;"> A written description of how study sites were selected and how study individuals were selected. When available, this information is lifted verbatim from a published manuscript. For botanical collections, this field ideally indicates which records were 'sampled' to measure a specific trait. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> source_primary_citation </td>
+   <td style="text-align:left;"> Citation for primary source. This detail is generated from the primary source in the metadata. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> source_primary_key </td>
+   <td style="text-align:left;"> Citation key for primary source in `sources`. The key is typically of format `Surname_year`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> source_secondary_citation </td>
+   <td style="text-align:left;"> Citations for secondary source. This detail is generated from the secondary source in the metadata. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> source_secondary_key </td>
+   <td style="text-align:left;"> Citation key for secondary source in `sources`.  The key is typically of format `Surname_year`. </td>
+  </tr>
+</tbody>
+</table>
+
+### excluded_data {#excluded_data}
+
+**Description:** A table of data that did not pass quality test and so were excluded from the master dataset.
+
+
+### taxonomic_updates {#taxonomic_updates}
+
+**Description:** A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
+
+**Content:** 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> dataset_id </td>
+   <td style="text-align:left;"> Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. `Falster_2005`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> original_name </td>
+   <td style="text-align:left;"> Name given to taxon in the original data supplied by the authors </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> cleaned_name </td>
+   <td style="text-align:left;"> Name of the taxon after implementing any changes encoded for this taxon in the metadata file in the specified correpsonding `dataset_id`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxonIDClean </td>
+   <td style="text-align:left;"> Where it could be indentified, the `taxonID` of the cleaned_name for this taxon in the APC. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxonomicStatusClean </td>
+   <td style="text-align:left;"> Taxonomic status of the taxon identified by `taxonIDClean` in the APC. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> alternativeTaxonomicStatusClean </td>
+   <td style="text-align:left;"> The status of alternative records with the name `cleaned_name` in the APC. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> acceptedNameUsageID </td>
+   <td style="text-align:left;"> ID of the accepted name for taxon in the APC or APNI. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxon_name </td>
+   <td style="text-align:left;"> Currently accepted name of taxon in the Australian Plant Census or, for unplaced species, in the Australian Plant Names Index. </td>
+  </tr>
+</tbody>
+</table>
+
+### taxa {#taxa}
+
+**Description:** A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.
+
+**Content:** 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> taxon_name </td>
+   <td style="text-align:left;"> Currently accepted name of taxon in the Australian Plant Census or, for unplaced species, in the Australian Plant Names Index. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> source </td>
+   <td style="text-align:left;"> Source of taxnonomic information, either APC or APNI. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> acceptedNameUsageID </td>
+   <td style="text-align:left;"> Identifier for the accepted name of the taxon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scientificNameAuthorship </td>
+   <td style="text-align:left;"> Authority for accepted of the taxon indicated under taxon_name. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxonRank </td>
+   <td style="text-align:left;"> Rank of the taxon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxonomicStatus </td>
+   <td style="text-align:left;"> Taxonomic status of the taxon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> family </td>
+   <td style="text-align:left;"> Family of the taxon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> genus </td>
+   <td style="text-align:left;"> Genus of the taxon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> taxonDistribution </td>
+   <td style="text-align:left;"> Known distribution of the taxon. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ccAttributionIRI </td>
+   <td style="text-align:left;"> Source of taxonomic information. </td>
+  </tr>
+</tbody>
+</table>
+
+### definitions {#definitions}
+
+**Description:** A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.
+
+
+### contributors {#contributors}
+
+**Description:** A table of people contributing to each study.
+
+**Content:** 
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> dataset_id </td>
+   <td style="text-align:left;"> Primary identifier for each study contributed into AusTraits; most often these are scientific papers, books, or online resources. By default should be name of first author and year of publication, e.g. `Falster_2005`. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> name </td>
+   <td style="text-align:left;"> Name of contributor </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> institution </td>
+   <td style="text-align:left;"> Last known institution or affiliation </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> role </td>
+   <td style="text-align:left;"> Their role in the study </td>
+  </tr>
+</tbody>
+</table>
+
+### sources {#sources}
+
+**Description:** Bibtex entries for all primary and secondary sources in the compilation.
+
+
+### build_info {#build_info}
+
+**Description:** A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.
 
 ## Dataset IDs
 
-The core organising unit behind AusTraits is the `dataset_id`. Records are organisation as coming from a particular study, defined by the  `dataset_id`. Our preferred format for `dataset_id` is surname of the first author of any corresponding publication, followed by the year, as `surname_year`. E.g. `Falster_2005`. Wherever there are multiple studies with the same id, we add a suffix `_2`, `_3` etc. E.g.`Falster_2005`, `Falster_2005_2`.
+The core organising unit behind AusTraits is the `dataset_id`. Records are organised as coming from a particular study, defined by the `dataset_id`. Our preferred format for `dataset_id` is the surname of the first author of any corresponding publication, followed by the year, as `surname_year`. E.g. `Falster_2005`. Wherever there are multiple studies with the same id, we add a suffix `_2`, `_3` etc. E.g.`Falster_2005`, `Falster_2005_2`.
 
 ## Observation IDs
 
-As well as a `dataset_id`, each trait measurement has an associated `observation_id`.  Observation IDs bind together related measurements within any dataset, and thereby allow transformation between long  (e.g. with variables `trait_name` and `value`) and wide (e.g. with traits as columns) formats.
+As well as a `dataset_id`, each trait measurement has an associated `observation_id`.  Observation IDs bind together related measurements within any dataset, and thereby allow transformation between long (e.g. with variables `trait_name` and `value`) and wide (e.g. with traits as columns) formats.
 
-Generally, `observation_id` has the format `dataset_id_XX` where `XX` is a unique number within each dataset. For example, if multiple traits were collected on the same individual, the `observation_id` allows us to gather these together. For floras, which report a species averages, the `observation_id` is assigned at the species level.
+Generally, `observation_id` has the format `dataset_id_XX` where `XX` is a unique number within each dataset. For example, if multiple traits were collected on the same individual, the `observation_id` allows us to gather these together. For floras reporting species averages, the `observation_id` is assigned at the species level.
 
 For datasets that arrive in wide format we assume each row has a unique `observation_id`. For datasets that arrive in long format, the `observation_id` is assigned based on a specified grouping variable. This variable can be specified in the `metadata.yml` file under the section `variable_match`. If missing, `observation_id` is assigned based on `species_name`. 
 
@@ -124,35 +421,107 @@ As well as `dataset_id`, `observation_id`, and `site_name`, where appropriate, t
 
 Each record in the table of trait data has an associated `value` and `value_type`. 
 
-Traits are either `numeric` or `categorical`. For traits with numerical values, the recorded value has been converted into standardised units and we have check that the value can be converted into a number and lies within the allowable range.  For categorical variables, we only include records that are defined in the definitions. Moreover, we use a format whereby
+Traits are either `numeric` or `categorical`. For traits with numerical values, the recorded value has been converted into standardised units and we have checked that the value can be converted into a number and lies within the allowable range.  For categorical variables, we only include records that are defined in the definitions. Moreover, we use a format whereby:
 
 - we use `_` for multi-word terms, e.g. `semi_deciduous`
 - use a space for situations where there are two possible values for that trait, e.g. `annual biennial` for something which is either annual or biennial 
 
-Each trait measurement also an associated `value_type`, which gives ``r austraits$definitions$value_type$description``. Possible values are:
+Each trait measurement also has an associated `value_type`, which gives `A categorical variable describing the type of trait value recorded.`. Possible values are:
 
-```{r value_type}
-austraits$definitions$value_type$values %>% 
-  list1_to_df()  %>% 
-  my_kable_styling() %>% 
-  writeLines()
-```
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> key </th>
+   <th style="text-align:left;"> value </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> raw_value </td>
+   <td style="text-align:left;"> Value is a direct measurement </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> site_min </td>
+   <td style="text-align:left;"> Value is the minimum of measurements on multiple individuals of the taxon at a single site </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> site_mean </td>
+   <td style="text-align:left;"> Value is the mean or median of measurements on multiple individuals of the taxon at a single site </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> site_max </td>
+   <td style="text-align:left;"> Value is the maximum of measurements on multiple individuals of the taxon at a single site </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> multisite_min </td>
+   <td style="text-align:left;"> Value is the minimum of measurements on multiple individuals of the taxon across multiple sites </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> multisite_mean </td>
+   <td style="text-align:left;"> Value is the mean or median of measurements on multiple individuals of the taxon across multiple sites </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> multisite_max </td>
+   <td style="text-align:left;"> Value is the maximum of measurements on multiple individuals of the taxon across multiple sites </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> expert_min </td>
+   <td style="text-align:left;"> Value is the minimum observed for a taxon across its range or in this particular dataset, as estimated by an expert based on their knowledge of the taxon. Data fitting this category include estimates from flora that represent a taxon's entire range, and values for categorical variables obtained from a reference book, or identified by an expert. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> expert_mean </td>
+   <td style="text-align:left;"> Value is the mean observed for a taxon across its range or in this particular dataset, as estimated by an expert based on their knowledge of the taxon. Data fitting this category include estimates from flora that represent a taxon's entire range, and values for categorical variables obtained from a reference book, or identified by an expert. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> expert_max </td>
+   <td style="text-align:left;"> Value is the maximum observed for a taxon across its range or in this particular dataset, as estimated by an expert based on their knowledge of the taxon. Data fitting this category include estimates from flora that represent a taxon's entire range, and values for categorical variables obtained from a reference book, or identified by an expert. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> experiment_min </td>
+   <td style="text-align:left;"> Value is the minimum of measurements from an experimental study either in the field or a glasshouse </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> experiment_mean </td>
+   <td style="text-align:left;"> Value is the mean or median of measurements from an experimental study either in the field or a glasshouse </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> experiment_max </td>
+   <td style="text-align:left;"> Value is the maximum of measurements from an experimental study either in the field or a glasshouse </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> individual_mean </td>
+   <td style="text-align:left;"> Value is a mean of replicate measurements on an individual (usually for experimental ecophysiology studies) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> individual_max </td>
+   <td style="text-align:left;"> Value is a maximum of replicate measurements on an individual (usually for experimental ecophysiology studies) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> literature_source </td>
+   <td style="text-align:left;"> Value is a site or multi-site mean that has been sourced from an unknown literature source </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> unknown </td>
+   <td style="text-align:left;"> Value type is not currently known </td>
+  </tr>
+</tbody>
+</table>
 
 AusTraits does not include intra-individual observations. When multiple measurements per individual are submitted to AusTraits, we take the mean of the values and record the value_type as `individual_mean`.
 
 ## Taxonomy {#taxonomic}
 
-Version `r desc::desc_get_field("Version")` of AusTraits contains records for `r austraits$traits$species_name %>% unique() %>% length()` different taxa. We have attempted to align species names with known taxonomic units in the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and/or the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). 
+The latest version of AusTraits contains records for over 28640 different taxa. We have attempted to align species names with known taxonomic units in the [`Australian Plant Census` (APC)](https://biodiversity.org.au/nsl/services/apc) and/or the [`Australian Plant Names Index` (APNI)](https://biodiversity.org.au/nsl/services/APNI). 
 
-The table `taxa` lists all taxa in the database, including additional infomration about the taxa (see Table above). 
+The table `taxa` lists all taxa in the database, including additional information about the taxa (see Table above). 
 
 The `traits` table reports both the original and the updated taxon name alongside each trait record.
 
-The table `taxanomic_updates` provdies details on all taxonomic names changes implemented in aligning with APC and APNI.
+The table `taxanomic_updates` provides details on all taxonomic name changes implemented when aligning with APC and APNI.
 
 ## Sources
 
-For each dataset in the compilation there is the option to list primary and secondary citations. The primary citation `r austraits$definitions$metadata$elements$source$values$primary` while the secondary citation is `r austraits$definitions$metadata$elements$source$values$secondary`. These references are included in two places:
+For each dataset in the compilation there is the option to list primary and secondary citations. The primary citation is The original study in which data were collected. while the secondary citation is A subsequent study where data were compiled or re-analysed and then made available.. These references are included in two places:
 
 1. Within the table [methods](#methods), where we provide a formatted version of each.
-2. In the element [sources](#sources), where we provided bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the [methods]{#methods}. 
+2. In the element [sources](#sources), where we provide bibtex versions of all sources which can be imported into your reference library. The keys for these references are listed within the [methods]{#methods}. 

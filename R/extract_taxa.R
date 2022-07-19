@@ -69,6 +69,9 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL){
     ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]])
   })
   
+  # Assign class
+  attr(ret, "class") <- "austraits"
+  
   ret
 }
 

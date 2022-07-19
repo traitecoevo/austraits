@@ -61,4 +61,9 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   ret[["sources"]] <- austraits$sources[keys]
   
   ret[names(austraits)]
+  
+  # Assign class
+  attr(ret, "class") <- "austraits"
+  
+  ret
 }
