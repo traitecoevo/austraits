@@ -1,7 +1,7 @@
 ---
 title: "austraits"
 author: "Fonti Kar, Daniel Falster"
-date: "2022-07-18"
+date: "2022-07-19"
 output: 
   rmarkdown::html_vignette:
   toc: yes
@@ -154,15 +154,15 @@ subset_data$traits %>% head()
 
 ```
 #> # A tibble: 6 × 12
-#>   dataset_id    taxon_name site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>         <chr>      <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr> <fct>     
-#> 1 Falster_2005… Acacia lo… Myall_La… <NA>         Falster_2005_… fire_resp… fire… <NA>  2002… expert_me…
-#> 2 Falster_2005… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002… site_mean 
-#> 3 Falster_2005… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002… site_mean 
-#> 4 Falster_2005… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002… site_mean 
-#> 5 Falster_2005… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002… site_mean 
-#> 6 Falster_2005… Acacia lo… Myall_La… <NA>         Falster_2005_… leaf_area  1761  mm2   2002… site_mean 
-#> # … with 2 more variables: replicates <chr>, original_name <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr>
+#> 1 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… fire_resp… fire… <NA>  2002…
+#> 2 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#> 3 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#> 4 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#> 5 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#> 6 Falster_20… Acacia lo… Myall_La… <NA>         Falster_2005_… leaf_area  1761  mm2   2002…
+#> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
 ```
 
 Filtering **multiple studies by two different lead authors**  and assigning it to an object
@@ -177,15 +177,15 @@ subset_multi_studies$traits %>% head()
 
 ```
 #> # A tibble: 6 × 12
-#>   dataset_id taxon_name    site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>      <chr>         <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr> <fct>     
-#> 1 Ilic_2000  Acacia acrad… <NA>      <NA>         Ilic_2000_0001 wood_dens… 0.904 mg/m… <NA>  unknown   
-#> 2 Ilic_2000  Acacia acumi… <NA>      <NA>         Ilic_2000_0002 wood_dens… 0.895 mg/m… <NA>  unknown   
-#> 3 Ilic_2000  Acacia acumi… <NA>      <NA>         Ilic_2000_0003 wood_dens… 1.008 mg/m… <NA>  unknown   
-#> 4 Ilic_2000  Acacia adsur… <NA>      <NA>         Ilic_2000_0004 wood_dens… 0.887 mg/m… <NA>  unknown   
-#> 5 Ilic_2000  Acacia ampli… <NA>      <NA>         Ilic_2000_0005 wood_dens… 0.568 mg/m… <NA>  unknown   
-#> 6 Ilic_2000  Acacia aneura <NA>      <NA>         Ilic_2000_0006 wood_dens… 1.035 mg/m… <NA>  unknown   
-#> # … with 2 more variables: replicates <chr>, original_name <chr>
+#>   dataset_id taxon_name  site_name context_name observation_id trait_name value unit  date 
+#>   <chr>      <chr>       <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr>
+#> 1 Ilic_2000  Acacia acr… <NA>      <NA>         Ilic_2000_0001 wood_dens… 0.904 mg/m… <NA> 
+#> 2 Ilic_2000  Acacia acu… <NA>      <NA>         Ilic_2000_0002 wood_dens… 0.895 mg/m… <NA> 
+#> 3 Ilic_2000  Acacia acu… <NA>      <NA>         Ilic_2000_0003 wood_dens… 1.008 mg/m… <NA> 
+#> 4 Ilic_2000  Acacia ads… <NA>      <NA>         Ilic_2000_0004 wood_dens… 0.887 mg/m… <NA> 
+#> 5 Ilic_2000  Acacia amp… <NA>      <NA>         Ilic_2000_0005 wood_dens… 0.568 mg/m… <NA> 
+#> 6 Ilic_2000  Acacia ane… <NA>      <NA>         Ilic_2000_0006 wood_dens… 1.035 mg/m… <NA> 
+#> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
 ```
 
 Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
@@ -210,15 +210,15 @@ data_falster_studies$traits %>% head()
 
 ```
 #> # A tibble: 6 × 12
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle 66.1  degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle 71.7  degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA>  expert_me…
-#> # … with 2 more variables: replicates <chr>, original_name <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle 66.1  degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle 71.7  degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA> 
+#> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
 ```
 
 ### Extracting by taxonomic level
@@ -243,8 +243,8 @@ acacia$traits$taxon_name %>% unique() %>% head()
 ```
 
 ```
-#> [1] "Acacia myrtifolia" "Acacia suaveolens" "Acacia floribunda" "Acacia celsa"      "Acacia longifolia"
-#> [6] "Acacia terminalis"
+#> [1] "Acacia myrtifolia" "Acacia suaveolens" "Acacia floribunda" "Acacia celsa"     
+#> [5] "Acacia longifolia" "Acacia terminalis"
 ```
 
 ### Extracting by trait
@@ -260,15 +260,15 @@ head(data_wood_dens$traits)
 
 ```
 #> # A tibble: 6 × 12
-#>   dataset_id    taxon_name site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>         <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2005… Acacia ce… Atherton  <NA>         Falster_2005_… wood_dens… 0.498 mg/m… 2002… site_mean 
-#> 2 Falster_2005… Acronychi… Atherton  <NA>         Falster_2005_… wood_dens… 0.525 mg/m… 2002… site_mean 
-#> 3 Falster_2005… Alphitoni… Atherton  <NA>         Falster_2005_… wood_dens… 0.413 mg/m… 2002… site_mean 
-#> 4 Falster_2005… Glochidio… Atherton  <NA>         Falster_2005_… wood_dens… 0.566 mg/m… 2002… site_mean 
-#> 5 Falster_2005… Homalanth… Atherton  <NA>         Falster_2005_… wood_dens… 0.319 mg/m… 2002… site_mean 
-#> 6 Falster_2005… Melicope … Atherton  <NA>         Falster_2005_… wood_dens… 0.346 mg/m… 2002… site_mean 
-#> # … with 2 more variables: replicates <chr>, original_name <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia ce… Atherton  <NA>         Falster_2005_… wood_dens… 0.498 mg/m… 2002…
+#> 2 Falster_20… Acronychi… Atherton  <NA>         Falster_2005_… wood_dens… 0.525 mg/m… 2002…
+#> 3 Falster_20… Alphitoni… Atherton  <NA>         Falster_2005_… wood_dens… 0.413 mg/m… 2002…
+#> 4 Falster_20… Glochidio… Atherton  <NA>         Falster_2005_… wood_dens… 0.566 mg/m… 2002…
+#> 5 Falster_20… Homalanth… Atherton  <NA>         Falster_2005_… wood_dens… 0.319 mg/m… 2002…
+#> 6 Falster_20… Melicope … Atherton  <NA>         Falster_2005_… wood_dens… 0.346 mg/m… 2002…
+#> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
 ```
 
 Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf' in the trait name** and assigning it to an object. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
@@ -282,15 +282,15 @@ head(data_leaf$traits)
 
 ```
 #> # A tibble: 6 × 12
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> # … with 2 more variables: replicates <chr>, original_name <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
 ```
 
 ## Join data from other tables and elements
@@ -306,16 +306,16 @@ There are five `join_` functions in total, each designed to append specific info
 
 ```
 #> # A tibble: 6 × 16
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> # … with 6 more variables: replicates <chr>, original_name <chr>, family <chr>, genus <chr>,
-#> #   taxonRank <chr>, acceptedNameUsageID <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> # … with 7 more variables: value_type <fct>, replicates <chr>, original_name <chr>,
+#> #   family <chr>, genus <chr>, taxonRank <chr>, acceptedNameUsageID <chr>
 ```
 
 ```r
@@ -325,16 +325,17 @@ There are five `join_` functions in total, each designed to append specific info
 
 ```
 #> # A tibble: 6 × 16
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> # … with 6 more variables: replicates <chr>, original_name <chr>, methods <chr>,
-#> #   year_collected_start <chr>, year_collected_end <chr>, collection_type <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> # … with 7 more variables: value_type <fct>, replicates <chr>, original_name <chr>,
+#> #   methods <chr>, year_collected_start <chr>, year_collected_end <chr>,
+#> #   collection_type <chr>
 ```
 
 ```r
@@ -344,16 +345,16 @@ There are five `join_` functions in total, each designed to append specific info
 
 ```
 #> # A tibble: 6 × 14
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> # … with 4 more variables: replicates <chr>, original_name <chr>, `latitude (deg)` <chr>,
-#> #   `longitude (deg)` <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> # … with 5 more variables: value_type <fct>, replicates <chr>, original_name <chr>,
+#> #   `latitude (deg)` <chr>, `longitude (deg)` <chr>
 ```
 
 ```r
@@ -363,15 +364,15 @@ There are five `join_` functions in total, each designed to append specific info
 
 ```
 #> # A tibble: 6 × 12
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> # … with 2 more variables: replicates <chr>, original_name <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> # … with 3 more variables: value_type <fct>, replicates <chr>, original_name <chr>
 ```
 
 ```r
@@ -381,17 +382,18 @@ There are five `join_` functions in total, each designed to append specific info
 
 ```
 #> # A tibble: 6 × 22
-#>   dataset_id   taxon_name  site_name context_name observation_id trait_name value unit  date  value_type
-#>   <chr>        <chr>       <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr> <fct>     
-#> 1 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA>  site_mean 
-#> 2 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  site_mean 
-#> 3 Falster_2003 Acacia myr… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> 4 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA>  site_mean 
-#> 5 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  site_mean 
-#> 6 Falster_2003 Acacia sua… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA>  expert_me…
-#> # … with 12 more variables: replicates <chr>, original_name <chr>, `latitude (deg)` <chr>,
-#> #   `longitude (deg)` <chr>, family <chr>, genus <chr>, taxonRank <chr>, acceptedNameUsageID <chr>,
-#> #   methods <chr>, year_collected_start <chr>, year_collected_end <chr>, collection_type <chr>
+#>   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#>   <chr>       <chr>      <chr>     <chr>        <chr>          <chr>      <dbl> <chr> <chr>
+#> 1 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle  66.1 degr… <NA> 
+#> 2 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#> 3 Falster_20… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> 4 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle  71.7 degr… <NA> 
+#> 5 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#> 6 Falster_20… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp…  NA   <NA>  <NA> 
+#> # … with 13 more variables: value_type <fct>, replicates <chr>, original_name <chr>,
+#> #   `latitude (deg)` <chr>, `longitude (deg)` <chr>, family <chr>, genus <chr>,
+#> #   taxonRank <chr>, acceptedNameUsageID <chr>, methods <chr>, year_collected_start <chr>,
+#> #   year_collected_end <chr>, collection_type <chr>
 ```
 
 ## Visualising data by site
@@ -404,7 +406,7 @@ data_wood_dens <- data_wood_dens %>% join_sites()
 plot_site_locations(data_wood_dens$traits)
 ```
 
-<img src="../man/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;" />
+<img src="man/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;" />
 
 ## Visualising data distribution and variance
 
@@ -415,13 +417,13 @@ plot_site_locations(data_wood_dens$traits)
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
 ```
 
-<img src="../man/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
+<img src="man/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
 
 ```r
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 ```
 
-<img src="../man/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
+<img src="man/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
 
 ### Pivotting from long to wide format
 
@@ -440,21 +442,22 @@ data_wide_bound$value # The trait values table
 
 ```
 #> # A tibble: 103 × 17
-#>    dataset_id   taxon_name   site_name context_name observation_id leaf_angle leaf_area leaf_compoundne…
-#>    <chr>        <chr>        <chr>     <chr>        <chr>          <chr>      <chr>     <chr>           
-#>  1 Falster_2003 Acacia myrt… Ku-ring-… <NA>         Falster_2003_… 66.1       319       simple          
-#>  2 Falster_2003 Acacia suav… Ku-ring-… <NA>         Falster_2003_… 71.7       562       simple          
-#>  3 Falster_2003 Angophora h… Ku-ring-… <NA>         Falster_2003_… 50.8       1590      simple          
-#>  4 Falster_2003 Banksia mar… Ku-ring-… <NA>         Falster_2003_… 53.1       198       simple          
-#>  5 Falster_2003 Banksia obl… Ku-ring-… <NA>         Falster_2003_… 45         1061      simple          
-#>  6 Falster_2003 Boronia pin… Ku-ring-… <NA>         Falster_2003_… 43.9       151       simple          
-#>  7 Falster_2003 Conospermum… Ku-ring-… <NA>         Falster_2003_… 72.3       1363      simple          
-#>  8 Falster_2003 Epacris pul… Ku-ring-… <NA>         Falster_2003_… 42.9       5         simple          
-#>  9 Falster_2003 Eriostemon … Ku-ring-… <NA>         Falster_2003_… 62.1       102       simple          
-#> 10 Falster_2003 Corymbia gu… Ku-ring-… <NA>         Falster_2003_… 59.3       1111      simple          
-#> # … with 93 more rows, and 9 more variables: branch_mass_fraction <chr>, huber_value <chr>,
-#> #   leaf_N_per_dry_mass <chr>, seed_mass <chr>, specific_leaf_area <chr>, wood_density <chr>,
-#> #   fire_response <chr>, plant_height <chr>, original_name <chr>
+#>    dataset_id   taxon_name       site_name context_name observation_id leaf_angle leaf_area
+#>    <chr>        <chr>            <chr>     <chr>        <chr>          <chr>      <chr>    
+#>  1 Falster_2003 Acacia myrtifol… Ku-ring-… <NA>         Falster_2003_… 66.1       319      
+#>  2 Falster_2003 Acacia suaveole… Ku-ring-… <NA>         Falster_2003_… 71.7       562      
+#>  3 Falster_2003 Angophora hispi… Ku-ring-… <NA>         Falster_2003_… 50.8       1590     
+#>  4 Falster_2003 Banksia margina… Ku-ring-… <NA>         Falster_2003_… 53.1       198      
+#>  5 Falster_2003 Banksia oblongi… Ku-ring-… <NA>         Falster_2003_… 45         1061     
+#>  6 Falster_2003 Boronia pinnata  Ku-ring-… <NA>         Falster_2003_… 43.9       151      
+#>  7 Falster_2003 Conospermum lon… Ku-ring-… <NA>         Falster_2003_… 72.3       1363     
+#>  8 Falster_2003 Epacris pulchel… Ku-ring-… <NA>         Falster_2003_… 42.9       5        
+#>  9 Falster_2003 Eriostemon aust… Ku-ring-… <NA>         Falster_2003_… 62.1       102      
+#> 10 Falster_2003 Corymbia gummif… Ku-ring-… <NA>         Falster_2003_… 59.3       1111     
+#> # … with 93 more rows, and 10 more variables: leaf_compoundness <chr>,
+#> #   branch_mass_fraction <chr>, huber_value <chr>, leaf_N_per_dry_mass <chr>,
+#> #   seed_mass <chr>, specific_leaf_area <chr>, wood_density <chr>, fire_response <chr>,
+#> #   plant_height <chr>, original_name <chr>
 ```
 
 ```r
@@ -466,20 +469,20 @@ data_wide_bound$value %>%
 
 ```
 #> # A tibble: 55 × 12
-#>    leaf_angle leaf_area leaf_compoundness branch_mass_fraction huber_value    leaf_N_per_dry_… seed_mass
-#>    <chr>      <chr>     <chr>             <chr>                <chr>          <chr>            <chr>    
-#>  1 <NA>       2786      <NA>              0.67                 0.00033590863… 21.4             10.3     
-#>  2 <NA>       14302     <NA>              0.48                 0.00013227513… 24.3             <NA>     
-#>  3 <NA>       6820      <NA>              0.42                 0.00023041474… 16.3             27.2     
-#>  4 <NA>       3209      <NA>              0.41                 0.00050175614… 13.7             10.41    
-#>  5 <NA>       10682     <NA>              0.47                 0.00046816479… 22               7        
-#>  6 <NA>       6955      <NA>              0.58                 0.00023803856… 26.8             1.61     
-#>  7 <NA>       5228      <NA>              0.58                 0.00059311981… 16.4             176.1    
-#>  8 <NA>       6806      <NA>              0.42                 0.00016644474… 15.4             8.35     
-#>  9 <NA>       11157     <NA>              0                    0.00020092425… 17.9             23.09    
-#> 10 <NA>       3401      <NA>              0.34                 0.00023142791… 11.1             <NA>     
-#> # … with 45 more rows, and 5 more variables: specific_leaf_area <chr>, wood_density <chr>,
-#> #   fire_response <chr>, plant_height <chr>, original_name <chr>
+#>    leaf_angle leaf_area leaf_compoundness branch_mass_fraction huber_value leaf_N_per_dry_…
+#>    <chr>      <chr>     <chr>             <chr>                <chr>       <chr>           
+#>  1 <NA>       2786      <NA>              0.67                 0.00033590… 21.4            
+#>  2 <NA>       14302     <NA>              0.48                 0.00013227… 24.3            
+#>  3 <NA>       6820      <NA>              0.42                 0.00023041… 16.3            
+#>  4 <NA>       3209      <NA>              0.41                 0.00050175… 13.7            
+#>  5 <NA>       10682     <NA>              0.47                 0.00046816… 22              
+#>  6 <NA>       6955      <NA>              0.58                 0.00023803… 26.8            
+#>  7 <NA>       5228      <NA>              0.58                 0.00059311… 16.4            
+#>  8 <NA>       6806      <NA>              0.42                 0.00016644… 15.4            
+#>  9 <NA>       11157     <NA>              0                    0.00020092… 17.9            
+#> 10 <NA>       3401      <NA>              0.34                 0.00023142… 11.1            
+#> # … with 45 more rows, and 6 more variables: seed_mass <chr>, specific_leaf_area <chr>,
+#> #   wood_density <chr>, fire_response <chr>, plant_height <chr>, original_name <chr>
 ```
 
 If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then: 
@@ -493,19 +496,20 @@ data_wide_bound %>%
 
 ```
 #> # A tibble: 691 × 12
-#>    dataset_id   taxon_name site_name context_name observation_id trait_name value unit  date  value_type
-#>    <chr>        <chr>      <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr> <fct>     
-#>  1 Falster_2003 Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle 66.1  degr… <NA>  <NA>      
-#>  2 Falster_2003 Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA>  <NA>      
-#>  3 Falster_2003 Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA>  <NA>      
-#>  4 Falster_2003 Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle 71.7  degr… <NA>  <NA>      
-#>  5 Falster_2003 Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA>  <NA>      
-#>  6 Falster_2003 Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA>  <NA>      
-#>  7 Falster_2003 Angophora… Ku-ring-… <NA>         Falster_2003_… leaf_angle 50.8  degr… <NA>  <NA>      
-#>  8 Falster_2003 Angophora… Ku-ring-… <NA>         Falster_2003_… leaf_area  1590  mm2   <NA>  <NA>      
-#>  9 Falster_2003 Angophora… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA>  <NA>      
-#> 10 Falster_2003 Banksia m… Ku-ring-… <NA>         Falster_2003_… leaf_angle 53.1  degr… <NA>  <NA>      
-#> # … with 681 more rows, and 2 more variables: replicates <chr>, original_name <chr>
+#>    dataset_id taxon_name site_name context_name observation_id trait_name value unit  date 
+#>    <chr>      <chr>      <chr>     <chr>        <chr>          <chr>      <chr> <chr> <chr>
+#>  1 Falster_2… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_angle 66.1  degr… <NA> 
+#>  2 Falster_2… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_area  319   mm2   <NA> 
+#>  3 Falster_2… Acacia my… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA> 
+#>  4 Falster_2… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_angle 71.7  degr… <NA> 
+#>  5 Falster_2… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_area  562   mm2   <NA> 
+#>  6 Falster_2… Acacia su… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA> 
+#>  7 Falster_2… Angophora… Ku-ring-… <NA>         Falster_2003_… leaf_angle 50.8  degr… <NA> 
+#>  8 Falster_2… Angophora… Ku-ring-… <NA>         Falster_2003_… leaf_area  1590  mm2   <NA> 
+#>  9 Falster_2… Angophora… Ku-ring-… <NA>         Falster_2003_… leaf_comp… simp… <NA>  <NA> 
+#> 10 Falster_2… Banksia m… Ku-ring-… <NA>         Falster_2003_… leaf_angle 53.1  degr… <NA> 
+#> # … with 681 more rows, and 3 more variables: value_type <fct>, replicates <chr>,
+#> #   original_name <chr>
 ```
 
 Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
@@ -521,16 +525,17 @@ data_wide_summarised$value %>% head()
 
 ```
 #> # A tibble: 6 × 17
-#>   dataset_id   taxon_name    site_name context_name observation_id leaf_angle leaf_area leaf_compoundne…
-#>   <chr>        <chr>         <chr>     <chr>        <chr>               <dbl>     <dbl>            <dbl>
-#> 1 Falster_2003 Acacia myrti… Ku-ring-… <NA>         Falster_2003_…       66.1       319               NA
-#> 2 Falster_2003 Acacia suave… Ku-ring-… <NA>         Falster_2003_…       71.7       562               NA
-#> 3 Falster_2003 Angophora hi… Ku-ring-… <NA>         Falster_2003_…       50.8      1590               NA
-#> 4 Falster_2003 Banksia marg… Ku-ring-… <NA>         Falster_2003_…       53.1       198               NA
-#> 5 Falster_2003 Banksia oblo… Ku-ring-… <NA>         Falster_2003_…       45        1061               NA
-#> 6 Falster_2003 Boronia pinn… Ku-ring-… <NA>         Falster_2003_…       43.9       151               NA
-#> # … with 9 more variables: branch_mass_fraction <dbl>, leaf_N_per_dry_mass <dbl>, seed_mass <dbl>,
-#> #   specific_leaf_area <dbl>, wood_density <dbl>, huber_value <dbl>, fire_response <dbl>,
-#> #   plant_height <dbl>, original_name <chr>
+#>   dataset_id   taxon_name        site_name context_name observation_id leaf_angle leaf_area
+#>   <chr>        <chr>             <chr>     <chr>        <chr>               <dbl>     <dbl>
+#> 1 Falster_2003 Acacia myrtifolia Ku-ring-… <NA>         Falster_2003_…       66.1       319
+#> 2 Falster_2003 Acacia suaveolens Ku-ring-… <NA>         Falster_2003_…       71.7       562
+#> 3 Falster_2003 Angophora hispida Ku-ring-… <NA>         Falster_2003_…       50.8      1590
+#> 4 Falster_2003 Banksia marginata Ku-ring-… <NA>         Falster_2003_…       53.1       198
+#> 5 Falster_2003 Banksia oblongif… Ku-ring-… <NA>         Falster_2003_…       45        1061
+#> 6 Falster_2003 Boronia pinnata   Ku-ring-… <NA>         Falster_2003_…       43.9       151
+#> # … with 10 more variables: leaf_compoundness <dbl>, branch_mass_fraction <dbl>,
+#> #   leaf_N_per_dry_mass <dbl>, seed_mass <dbl>, specific_leaf_area <dbl>,
+#> #   wood_density <dbl>, huber_value <dbl>, fire_response <dbl>, plant_height <dbl>,
+#> #   original_name <chr>
 ```
 
