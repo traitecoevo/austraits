@@ -90,19 +90,22 @@
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
-<p>The package is not on CRAN yet and is still under active development. You can install the stable version of <code>austraits</code> from <a href="https://github.com/traitecoevo/austraits" class="external-link">GitHub</a>:</p>
+<p>The package is not on CRAN yet and is still under active development. For the current stable release of <code>austraits</code>, which has full capabilities of the functions used in vignettes (e.g. plotting functions), use:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </span></code></pre></div>
+<p>Otherwise, for a lightweight installation where dependencies for plotting and the vignettes will not be installed, use:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="take-a-good-look-at-our-vignettes-">Take a good look at our vignettes! 👀<a class="anchor" aria-label="anchor" href="#take-a-good-look-at-our-vignettes-"></a>
 </h3>
 <p>In our website, we have also included information about the <a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure of the database</a>, <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions of the traits</a> and some <a href="https://traitecoevo.github.io/austraits/articles/austraits.html">tutorials</a> that uses our functions as well as some <code>tidyverse</code> functions to create some commonly used data output formats. We highly recommend starting here before jumping into the database!</p>
-<p>If you prefer to view the vignettes in R, we recommend installing the package again with <code>build_vignettes = TRUE</code></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>If you prefer to view the vignettes in R, we recommend installing the package with <code>build_vignettes = TRUE</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, </span>
 <span>                        dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span>, </span>
 <span>                        build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -113,7 +116,7 @@
 <h3 id="show-us-some-support-">Show us some support 💚<a class="anchor" aria-label="anchor" href="#show-us-some-support-"></a>
 </h3>
 <p>Please consider citing <code>austraits</code>, we would super appreciate it!</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; To cite austraits in publications use:</span></span>
