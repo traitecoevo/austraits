@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -82,9 +82,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>austraits</h1>
-                        <h4 data-toc-skip class="author">Fonti Kar, Daniel Falster</h4>
+                        <h4 data-toc-skip class="author">Fonti Kar,
+Daniel Falster</h4>
             
-            <h4 data-toc-skip class="date">2022-04-29</h4>
+            <h4 data-toc-skip class="date">2022-07-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/HEAD/vignettes/austraits.Rmd" class="external-link"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="hidden name"><code>austraits.Rmd</code></div>
@@ -93,27 +94,46 @@
 
     
     
-<p>The <code>austraits</code> package is designed to aid users to access data from <a href="https://zenodo.org/record/5112001" class="external-link">AusTraits</a>, a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below we included a tutorial to illustrate how to use these functions in greater detail. <strong>Note that we are using a reduced subset of v.3.0.2, so the number of records and species will not be match your values</strong></p>
+<p>The <code>austraits</code> package is designed to aid users in
+accessing data from <a href="https://zenodo.org/record/5112001" class="external-link">AusTraits</a>, a curated plant
+trait database for the Australian flora. This package contains several
+core functions to wrangle and visualise data. Below, we include a
+tutorial to illustrate how to use these functions in greater detail.</p>
+<p><strong>Note that we are using a reduced subset of v.3.0.2, so the
+version number and number of records and species will not be match your
+values</strong></p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p><code>austraits</code> is still under development. To install the current version from GitHub</p>
+<p><code>austraits</code> is still under development. To install the
+current version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span>
 
 <span class="co"># Load the austraits package</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span></code></pre></div>
 <div class="section level3">
 <h3 id="loading-austraits-database">Loading AusTraits database<a class="anchor" aria-label="anchor" href="#loading-austraits-database"></a>
 </h3>
-<p>By default, <code>load_austraits</code> will download AusTraits to a specified path e.g. <code>data/austraits</code> and will reload it from this location in the future. You can set <code>update = TRUE</code> so the austrait versions are downloaded fresh from <a href="https://zenodo.org/record/3568429" class="external-link">Zenodo</a>. Note that <code>load_austraits</code> will happily accept a DOI of a particular version.</p>
+<p>By default, <code>load_austraits</code> will download AusTraits to a
+specified path e.g. <code>data/austraits</code> and will reload it from
+this location in the future. You can set <code>update = TRUE</code> so
+the austrait versions are downloaded fresh from <a href="https://zenodo.org/record/3568429" class="external-link">Zenodo</a>. Note that
+<code>load_austraits</code> will happily accept a DOI of a particular
+version.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.0.2"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></code></pre></div>
-<p>You can check out different versions and their associated DOI of the AusTraits by using:</p>
+<p>You can check out different versions and their associated DOI of
+AusTraits by using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/get_versions.html">get_versions</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></code></pre></div>
-<p>The AusTraits object is a very <em>long</em> list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this <a href="https://www.tutorialspoint.com/r/r_lists.htm" class="external-link">tutorial</a>. To learn more about the structure of <code>austraits</code>, check out the <a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure of the database</a>.</p>
+<p>The AusTraits object is a very <em>long</em> list with various of
+elements. If you are not familiar with working with lists in R, we
+recommend having a quick look at this <a href="https://www.tutorialspoint.com/r/r_lists.htm" class="external-link">tutorial</a>. To
+learn more about the structure of <code>austraits</code>, check out the
+<a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure
+of the database</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">austraits</span></code></pre></div>
 <pre><code><span class="co">#&gt; This is version 0.0.0.900 of austraits!</span>
@@ -140,7 +160,8 @@
 <div class="section level2">
 <h2 id="descriptive-summaries-of-traits-and-taxa">Descriptive summaries of traits and taxa<a class="anchor" aria-label="anchor" href="#descriptive-summaries-of-traits-and-taxa"></a>
 </h2>
-<p>AusTraits contains 33 plant traits. Check out <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions of the traits</a> to learn more about how each trait is defined.</p>
+<p>AusTraits contains 33 plant traits. Check out <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions
+of the traits</a> to learn more about how each trait is defined.</p>
 <p>Have a look at what trait or taxa we have with:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/summarise_austraits.html">summarise_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"trait_name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -172,318 +193,359 @@
 <p>Interested in a specific trait? Try <code>lookup_trait</code></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/lookup_trait.html">lookup_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"leaf"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; [1] "leaf_angle"              "leaf_area"              </span>
-<span class="co">#&gt; [3] "leaf_compoundness"       "leaf_N_per_dry_mass"    </span>
-<span class="co">#&gt; [5] "specific_leaf_area"      "leaf_cell_wall_fraction"</span></code></pre>
+<pre><code><span class="co">#&gt; [1] "leaf_angle"              "leaf_area"               "leaf_compoundness"      </span>
+<span class="co">#&gt; [4] "leaf_N_per_dry_mass"     "specific_leaf_area"      "leaf_cell_wall_fraction"</span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="extracting-data">Extracting data<a class="anchor" aria-label="anchor" href="#extracting-data"></a>
 </h2>
-<p>In most cases, users would like to extract a subset of <code>austraits</code> for their own research purposes.<code>extract_dataset</code> subsets a particular study, whereas <code>extract_trait</code>subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See <code><a href="../reference/extract_dataset.html">?extract_dataset</a></code> and <code><a href="../reference/extract_trait.html">?extract_trait</a></code> for more details</p>
+<p>In most cases, users would like to extract a subset of
+<code>austraits</code> for their own research
+purposes.<code>extract_dataset</code> subsets a particular study,
+whereas <code>extract_trait</code>subsets by certain traits. Note that
+the other tables and elements of the AusTraits data are extracted too,
+not just the main trait table. See <code><a href="../reference/extract_dataset.html">?extract_dataset</a></code> and
+<code><a href="../reference/extract_trait.html">?extract_trait</a></code> for more details</p>
 <div class="section level3">
 <h3 id="extracting-by-study">Extracting by study<a class="anchor" aria-label="anchor" href="#extracting-by-study"></a>
 </h3>
-<p>Filtering <strong>one particular study</strong> and assigning it to an object</p>
+<p>Filtering <strong>one particular study</strong> and assigning it to
+an object</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">subset_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"Falster_2005_2"</span><span class="op">)</span>
 
 <span class="va">subset_data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_200… Acacia lo… Myall_La… <span style="color: #BB0000;">NA</span>           Falster_2005_… fire_resp… fire…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_200… Acacia lo… Myall_La… <span style="color: #BB0000;">NA</span>           Falster_2005_… huber_val… 0.00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_200… Acacia lo… Myall_La… <span style="color: #BB0000;">NA</span>           Falster_2005_… huber_val… 0.00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_200… Acacia lo… Myall_La… <span style="color: #BB0000;">NA</span>           Falster_2005_… huber_val… 0.00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_200… Acacia lo… Myall_La… <span style="color: #BB0000;">NA</span>           Falster_2005_… huber_val… 0.00…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_200… Acacia lo… Myall_La… <span style="color: #BB0000;">NA</span>           Falster_2005_… leaf_area  1761 </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Filtering <strong>multiple studies by two different lead authors</strong> and assigning it to an object</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">subset_multi_studies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, 
-                                        dataset_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Thompson_2001"</span>,<span class="st">"Ilic_2000"</span><span class="op">)</span><span class="op">)</span>
- 
-<span class="va">subset_multi_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id taxon_name   site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Ilic_2000  Acacia acra… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>           Ilic_2000_0001 wood_dens… 0.904</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Ilic_2000  Acacia acum… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>           Ilic_2000_0002 wood_dens… 0.895</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Ilic_2000  Acacia acum… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>           Ilic_2000_0003 wood_dens… 1.008</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Ilic_2000  Acacia adsu… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>           Ilic_2000_0004 wood_dens… 0.887</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Ilic_2000  Acacia ampl… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>           Ilic_2000_0005 wood_dens… 0.568</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Ilic_2000  Acacia aneu… <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>           Ilic_2000_0006 wood_dens… 1.035</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Filtering <strong>multiple studies by same lead author</strong> (e.g. Falster) and assigning it to an object.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># First, we need to identify all studies with an id that includes "Falster"</span>
+<pre><code>#&gt; # A tibble: 6 × 12
+#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… fire_resp… fire… &lt;NA&gt;  2002…
+#&gt; 2 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 3 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 4 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 5 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 6 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… leaf_area  1761  mm2   2002…
+#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;
 
-<span class="op">(</span> <span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">methods</span><span class="op">$</span><span class="va">dataset_id</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Falster"</span>,<span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
+
+Filtering **multiple studies by two different lead authors**  and assigning it to an object
+
+
+```r
+subset_multi_studies &lt;- extract_dataset(austraits, 
+                                        dataset_id = c("Thompson_2001","Ilic_2000"))
+ 
+subset_multi_studies$traits %&gt;% head()</code></pre>
+<pre><code>#&gt; # A tibble: 6 × 12
+#&gt;   dataset_id taxon_name  site_name context_name observation_id trait_name value unit  date 
+#&gt;   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1 Ilic_2000  Acacia acr… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0001 wood_dens… 0.904 mg/m… &lt;NA&gt; 
+#&gt; 2 Ilic_2000  Acacia acu… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0002 wood_dens… 0.895 mg/m… &lt;NA&gt; 
+#&gt; 3 Ilic_2000  Acacia acu… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0003 wood_dens… 1.008 mg/m… &lt;NA&gt; 
+#&gt; 4 Ilic_2000  Acacia ads… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0004 wood_dens… 0.887 mg/m… &lt;NA&gt; 
+#&gt; 5 Ilic_2000  Acacia amp… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0005 wood_dens… 0.568 mg/m… &lt;NA&gt; 
+#&gt; 6 Ilic_2000  Acacia ane… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0006 wood_dens… 1.035 mg/m… &lt;NA&gt; 
+#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;
+
+
+Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
+
+
+```r
+# First, we need to identify all studies with an id that includes "Falster"
+
+( dataset_ids &lt;- austraits$methods$dataset_id %&gt;% unique() %&gt;% subset(., grepl("Falster",.))) </code></pre>
 <pre><code><span class="co">#&gt; [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2"</span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Then we extract</span>
 <span class="va">data_falster_studies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">dataset_ids</span><span class="op">)</span>
 
 <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle 66.1 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp… simp…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle 71.7 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp… simp…</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<pre><code><span class="co">#&gt; # A tibble: 6 × 12</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 66.1  degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp… simp… &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 71.7  degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp… simp… &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="extracting-by-taxonomic-level">Extracting by taxonomic level<a class="anchor" aria-label="anchor" href="#extracting-by-taxonomic-level"></a>
 </h3>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># By family </span>
 <span class="va">proteaceae</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_taxa.html">extract_taxa</a></span><span class="op">(</span><span class="va">austraits</span>, family <span class="op">=</span> <span class="st">"Proteaceae"</span><span class="op">)</span>
 <span class="co"># Checking that only taxa in Proteaceae have been extracted</span>
 <span class="va">proteaceae</span><span class="op">$</span><span class="va">taxa</span><span class="op">$</span><span class="va">family</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; [1] "Proteaceae"</span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># By genus </span>
 <span class="va">acacia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_taxa.html">extract_taxa</a></span><span class="op">(</span><span class="va">austraits</span>, genus <span class="op">=</span> <span class="st">"Acacia"</span><span class="op">)</span>
 <span class="co"># Checking that only taxa in Acacia have been extracted</span>
 <span class="va">acacia</span><span class="op">$</span><span class="va">traits</span><span class="op">$</span><span class="va">taxon_name</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; [1] "Acacia myrtifolia" "Acacia suaveolens" "Acacia floribunda"</span>
-<span class="co">#&gt; [4] "Acacia celsa"      "Acacia longifolia" "Acacia terminalis"</span></code></pre>
+<pre><code><span class="co">#&gt; [1] "Acacia myrtifolia" "Acacia suaveolens" "Acacia floribunda" "Acacia celsa"     </span>
+<span class="co">#&gt; [5] "Acacia longifolia" "Acacia terminalis"</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="extracting-by-trait">Extracting by trait<a class="anchor" aria-label="anchor" href="#extracting-by-trait"></a>
 </h3>
-<p>Filtering <strong>one particular trait</strong> and assigning it to an object</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<p>Filtering <strong>one particular trait</strong> and assigning it to
+an object</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"wood_density"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_200… Acacia ce… Atherton  <span style="color: #BB0000;">NA</span>           Falster_2005_… wood_dens… 0.498</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_200… Acronychi… Atherton  <span style="color: #BB0000;">NA</span>           Falster_2005_… wood_dens… 0.525</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_200… Alphitoni… Atherton  <span style="color: #BB0000;">NA</span>           Falster_2005_… wood_dens… 0.413</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_200… Glochidio… Atherton  <span style="color: #BB0000;">NA</span>           Falster_2005_… wood_dens… 0.566</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_200… Homalanth… Atherton  <span style="color: #BB0000;">NA</span>           Falster_2005_… wood_dens… 0.319</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_200… Melicope … Atherton  <span style="color: #BB0000;">NA</span>           Falster_2005_… wood_dens… 0.346</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Combining <code>lookup_trait</code> with <code>extract_trait</code> to obtain <strong>all traits with ‘leaf’ in the trait name</strong> and assigning it to an object. Note we use the <code>.</code> notation to pass on the <code>lookup_trait</code> results to <code>extract_trait</code></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 6 × 12</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia ce… Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.498 mg/m… 2002…</span>
+<span class="co">#&gt; 2 Falster_20… Acronychi… Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.525 mg/m… 2002…</span>
+<span class="co">#&gt; 3 Falster_20… Alphitoni… Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.413 mg/m… 2002…</span>
+<span class="co">#&gt; 4 Falster_20… Glochidio… Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.566 mg/m… 2002…</span>
+<span class="co">#&gt; 5 Falster_20… Homalanth… Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.319 mg/m… 2002…</span>
+<span class="co">#&gt; 6 Falster_20… Melicope … Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.346 mg/m… 2002…</span>
+<span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></code></pre>
+<p>Combining <code>lookup_trait</code> with <code>extract_trait</code>
+to obtain <strong>all traits with ‘leaf’ in the trait name</strong> and
+assigning it to an object. Note we use the <code>.</code> notation to
+pass on the <code>lookup_trait</code> results to
+<code>extract_trait</code></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_leaf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_trait.html">lookup_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"leaf"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">.</span><span class="op">)</span> 
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_leaf</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<pre><code><span class="co">#&gt; # A tibble: 6 × 12</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  66.1 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  71.7 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></code></pre>
 </div>
 </div>
 <div class="section level2">
 <h2 id="join-data-from-other-tables-and-elements">Join data from other tables and elements<a class="anchor" aria-label="anchor" href="#join-data-from-other-tables-and-elements"></a>
 </h2>
-<p>Once users have extracted the data they want, they may want to merge in other study details into the main <code>traits</code> dataframe for their analyses. For example, users may require taxonomic information or spatial data for their analyses. This is where the <code>join_</code> functions come in.</p>
-<p>There are five <code>join_</code> functions in total, each designed to append specific information from other tables and elements in the <code>austraits</code> object. Their suffixes refer to the type of information that is joined, e.g. <code>join_taxonomy</code> appends taxonomic information to the <code>traits</code> dataframe. See <code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<p>Once users have extracted the data they want, they may want to merge
+other study details into the main <code>traits</code> dataframe for
+their analyses. For example, users may require taxonomic information for
+a phylogenetic analysis. This is where the <code>join_</code> functions
+come in. There are five <code>join_</code> functions in total, each
+designed to append specific information from other tables and elements
+in the <code>austraits</code> object. Their suffixes refer to the type
+of information that is joined, e.g. <code>join_taxonomy</code> appends
+taxonomic information to the <code>traits</code> dataframe. See
+<code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join taxonomic information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 16</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 9 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 6 × 16</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  66.1 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  71.7 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 7 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   family &lt;chr&gt;, genus &lt;chr&gt;, taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;</span></code></pre>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join methodological information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 16</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 9 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;, methods &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 6 × 16</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  66.1 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  71.7 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 7 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   methods &lt;chr&gt;, year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;,</span>
+<span class="co">#&gt; #   collection_type &lt;chr&gt;</span></code></pre>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join site based information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 7 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 6 × 14</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  66.1 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  71.7 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 5 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></code></pre>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Join context information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_contexts</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 12</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 6 × 12</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  66.1 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  71.7 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></code></pre>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Alternatively users can join *all* information </span>
 <span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_all</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 22</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle  71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp…  <span style="color: #BB0000;">NA</span>  </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 15 more variables: unit &lt;chr&gt;, date &lt;chr&gt;, value_type &lt;fct&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   replicates &lt;chr&gt;, original_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `longitude (deg)` &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, taxonRank &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   acceptedNameUsageID &lt;chr&gt;, methods &lt;chr&gt;, year_collected_start &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></span></code></pre>
+<pre><code><span class="co">#&gt; # A tibble: 6 × 22</span>
+<span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt; 1 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  66.1 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 2 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 3 Falster_20… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 4 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle  71.7 degr… &lt;NA&gt; </span>
+<span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 13 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,</span>
+<span class="co">#&gt; #   taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;, methods &lt;chr&gt;, year_collected_start &lt;chr&gt;,</span>
+<span class="co">#&gt; #   year_collected_end &lt;chr&gt;, collection_type &lt;chr&gt;</span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="visualising-data-by-site">Visualising data by site<a class="anchor" aria-label="anchor" href="#visualising-data-by-site"></a>
 </h2>
-<p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points, the more warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longitude information into the trait dataframe before plotting</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<p><code>plot_site_locations</code> graphically summarises where trait
+data was collected from and how much data is available. The legend
+refers to the number of neighbouring points: the warmer the colour, the
+more data that is available. This function only works for studies that
+are geo-referenced. Users must first use <code>join_sites</code> to
+append latitude and longitude information into the trait dataframe
+before plotting</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_all.html">join_sites</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></code></pre></div>
-<p><img src="austraits_files/figure-html/site_plot-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="../reference/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualising-data-distribution-and-variance">Visualising data distribution and variance<a class="anchor" aria-label="anchor" href="#visualising-data-distribution-and-variance"></a>
 </h2>
-<p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a> for specific traits to help users visualise the variance of the data. Users can specific whether to create seperate beeswarm plots at the level of taxonomic family or for each <code>dataset_id</code></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a> for
+specific traits to help users visualise the variance of the data. Users
+can specify whether to create separate beeswarm plots at the level of
+taxonomic family or for each <code>dataset_id</code></p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"family"</span><span class="op">)</span></code></pre></div>
-<p><img src="austraits_files/figure-html/beeswarm-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<p><img src="../reference/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"dataset_id"</span><span class="op">)</span></code></pre></div>
-<p><img src="austraits_files/figure-html/beeswarm-2.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="../reference/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="pivotting-from-long-to-wide-format">Pivotting from long to wide format<a class="anchor" aria-label="anchor" href="#pivotting-from-long-to-wide-format"></a>
 </h3>
-<p>The table of traits in AusTraits comes in long format, where data for all traits are in two columns called <code>trait_name</code> and <code>value</code>. You can convert to wide format, where each trait is in a separate column, using the function <code>trait_pivot_wider</code>. This will produce 5 separate lists (<code>value</code>, <code>unit</code>, <code>date</code>, <code>value_type</code> and <code>replicates</code>). The trait values are stored in the <code>value</code> list.</p>
-<p>Note that in some cases, there are <em>multiple observations</em> for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In this circumstances, we suggest using <code>bind_trait_values</code> which joins multiple observations together into a string.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<p>The table of traits in AusTraits comes in long format, where data for
+all traits are in two columns called <code>trait_name</code> and
+<code>value</code>. You can convert this to wide format, where each
+trait is in a separate column, using the function
+<code>trait_pivot_wider</code>. This will produce 5 separate lists
+(<code>value</code>, <code>unit</code>, <code>date</code>,
+<code>value_type</code> and <code>replicates</code>). The trait values
+are stored in the <code>value</code> list.</p>
+<p>Note that in some cases, there are <em>multiple observations</em> for
+some traits, e.g. huber values. This can prevent pivoting from long
+format to wide. In these circumstances, we suggest using
+<code>bind_trait_values</code> which joins multiple observations
+together into a string.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wide_bound</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/bind_trait_values.html">bind_trait_values</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Joining multiple obs with `--`</span>
   <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#Pivot wide</span>
 
 <span class="va">data_wide_bound</span><span class="op">$</span><span class="va">value</span> <span class="co"># The trait values table</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 103 × 17</span></span>
-<span class="co">#&gt;    dataset_id   taxon_name      site_name context_name observation_id leaf_angle</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Falster_2003 Acacia myrtifo… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 66.1      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Falster_2003 Acacia suaveol… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 71.7      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Falster_2003 Angophora hisp… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 50.8      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Falster_2003 Banksia margin… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 53.1      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Falster_2003 Banksia oblong… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 45        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Falster_2003 Boronia pinnata Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 43.9      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Falster_2003 Conospermum lo… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 72.3      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Falster_2003 Epacris pulche… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 42.9      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Falster_2003 Eriostemon aus… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 62.1      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Falster_2003 Corymbia gummi… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… 59.3      </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 93 more rows, and 11 more variables: leaf_area &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   leaf_compoundness &lt;chr&gt;, branch_mass_fraction &lt;chr&gt;, huber_value &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   leaf_N_per_dry_mass &lt;chr&gt;, seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   wood_density &lt;chr&gt;, fire_response &lt;chr&gt;, plant_height &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   original_name &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 103 × 17</span>
+<span class="co">#&gt;    dataset_id   taxon_name       site_name context_name observation_id leaf_angle leaf_area</span>
+<span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 Falster_2003 Acacia myrtifol… Ku-ring-… &lt;NA&gt;         Falster_2003_… 66.1       319      </span>
+<span class="co">#&gt;  2 Falster_2003 Acacia suaveole… Ku-ring-… &lt;NA&gt;         Falster_2003_… 71.7       562      </span>
+<span class="co">#&gt;  3 Falster_2003 Angophora hispi… Ku-ring-… &lt;NA&gt;         Falster_2003_… 50.8       1590     </span>
+<span class="co">#&gt;  4 Falster_2003 Banksia margina… Ku-ring-… &lt;NA&gt;         Falster_2003_… 53.1       198      </span>
+<span class="co">#&gt;  5 Falster_2003 Banksia oblongi… Ku-ring-… &lt;NA&gt;         Falster_2003_… 45         1061     </span>
+<span class="co">#&gt;  6 Falster_2003 Boronia pinnata  Ku-ring-… &lt;NA&gt;         Falster_2003_… 43.9       151      </span>
+<span class="co">#&gt;  7 Falster_2003 Conospermum lon… Ku-ring-… &lt;NA&gt;         Falster_2003_… 72.3       1363     </span>
+<span class="co">#&gt;  8 Falster_2003 Epacris pulchel… Ku-ring-… &lt;NA&gt;         Falster_2003_… 42.9       5        </span>
+<span class="co">#&gt;  9 Falster_2003 Eriostemon aust… Ku-ring-… &lt;NA&gt;         Falster_2003_… 62.1       102      </span>
+<span class="co">#&gt; 10 Falster_2003 Corymbia gummif… Ku-ring-… &lt;NA&gt;         Falster_2003_… 59.3       1111     </span>
+<span class="co">#&gt; # … with 93 more rows, and 10 more variables: leaf_compoundness &lt;chr&gt;,</span>
+<span class="co">#&gt; #   branch_mass_fraction &lt;chr&gt;, huber_value &lt;chr&gt;, leaf_N_per_dry_mass &lt;chr&gt;,</span>
+<span class="co">#&gt; #   seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;, wood_density &lt;chr&gt;, fire_response &lt;chr&gt;,</span>
+<span class="co">#&gt; #   plant_height &lt;chr&gt;, original_name &lt;chr&gt;</span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Check out the 'bounded' trait values</span>
 <span class="va">data_wide_bound</span><span class="op">$</span><span class="va">value</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co">#Excluding values that are not traits so we can see which columns contains bounded values</span>
   <span class="fu">filter_all</span><span class="op">(</span>.vars_predicate <span class="op">=</span> <span class="fu">any_vars</span><span class="op">(</span><span class="fu">str_detect</span><span class="op">(</span><span class="va">.</span>, <span class="st">"--"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 55 × 12</span></span>
-<span class="co">#&gt;    leaf_angle leaf_area leaf_compoundness branch_mass_fraction huber_value      </span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="color: #BB0000;">NA</span>         2786      <span style="color: #BB0000;">NA</span>                0.67                 0.00033590863285…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="color: #BB0000;">NA</span>         14302     <span style="color: #BB0000;">NA</span>                0.48                 0.00013227513227…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="color: #BB0000;">NA</span>         6820      <span style="color: #BB0000;">NA</span>                0.42                 0.00023041474654…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="color: #BB0000;">NA</span>         3209      <span style="color: #BB0000;">NA</span>                0.41                 0.00050175614651…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="color: #BB0000;">NA</span>         10682     <span style="color: #BB0000;">NA</span>                0.47                 0.00046816479400…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="color: #BB0000;">NA</span>         6955      <span style="color: #BB0000;">NA</span>                0.58                 0.00023803856224…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> <span style="color: #BB0000;">NA</span>         5228      <span style="color: #BB0000;">NA</span>                0.58                 0.00059311981020…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> <span style="color: #BB0000;">NA</span>         6806      <span style="color: #BB0000;">NA</span>                0.42                 0.00016644474034…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> <span style="color: #BB0000;">NA</span>         11157     <span style="color: #BB0000;">NA</span>                0                    0.00020092425155…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> <span style="color: #BB0000;">NA</span>         3401      <span style="color: #BB0000;">NA</span>                0.34                 0.00023142791020…</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 45 more rows, and 7 more variables: leaf_N_per_dry_mass &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;, wood_density &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   fire_response &lt;chr&gt;, plant_height &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>If you would like to revert the bounded trait values, you have to <code>trait_pivot_longer</code> first then:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 55 × 12</span>
+<span class="co">#&gt;    leaf_angle leaf_area leaf_compoundness branch_mass_fraction huber_value leaf_N_per_dry_…</span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;                &lt;chr&gt;       &lt;chr&gt;           </span>
+<span class="co">#&gt;  1 &lt;NA&gt;       2786      &lt;NA&gt;              0.67                 0.00033590… 21.4            </span>
+<span class="co">#&gt;  2 &lt;NA&gt;       14302     &lt;NA&gt;              0.48                 0.00013227… 24.3            </span>
+<span class="co">#&gt;  3 &lt;NA&gt;       6820      &lt;NA&gt;              0.42                 0.00023041… 16.3            </span>
+<span class="co">#&gt;  4 &lt;NA&gt;       3209      &lt;NA&gt;              0.41                 0.00050175… 13.7            </span>
+<span class="co">#&gt;  5 &lt;NA&gt;       10682     &lt;NA&gt;              0.47                 0.00046816… 22              </span>
+<span class="co">#&gt;  6 &lt;NA&gt;       6955      &lt;NA&gt;              0.58                 0.00023803… 26.8            </span>
+<span class="co">#&gt;  7 &lt;NA&gt;       5228      &lt;NA&gt;              0.58                 0.00059311… 16.4            </span>
+<span class="co">#&gt;  8 &lt;NA&gt;       6806      &lt;NA&gt;              0.42                 0.00016644… 15.4            </span>
+<span class="co">#&gt;  9 &lt;NA&gt;       11157     &lt;NA&gt;              0                    0.00020092… 17.9            </span>
+<span class="co">#&gt; 10 &lt;NA&gt;       3401      &lt;NA&gt;              0.34                 0.00023142… 11.1            </span>
+<span class="co">#&gt; # … with 45 more rows, and 6 more variables: seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;,</span>
+<span class="co">#&gt; #   wood_density &lt;chr&gt;, fire_response &lt;chr&gt;, plant_height &lt;chr&gt;, original_name &lt;chr&gt;</span></code></pre>
+<p>If you would like to revert the bounded trait values, you have to use
+<code>trait_pivot_longer</code> first, then:</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wide_bound</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/trait_pivot_longer.html">trait_pivot_longer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/separate_trait_values.html">separate_trait_values</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">austraits</span><span class="op">$</span><span class="va">definitions</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 691 × 12</span></span>
-<span class="co">#&gt;    dataset_id  taxon_name site_name context_name observation_id trait_name value</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Falster_20… Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle 66.1 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Falster_20… Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  319  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Falster_20… Acacia my… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp… simp…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Falster_20… Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle 71.7 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Falster_20… Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  562  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Falster_20… Acacia su… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp… simp…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Falster_20… Angophora… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle 50.8 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Falster_20… Angophora… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_area  1590 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Falster_20… Angophora… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_comp… simp…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Falster_20… Banksia m… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_… leaf_angle 53.1 </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 681 more rows, and 5 more variables: unit &lt;chr&gt;, date &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Alternatively, if you don’t want to bind the trait values, you can give <code>summarise_trait_means</code> a go, which computers means with the multiple observations. Note that this method condenses the traits table and you won’t be able to revert it back unless you <code>load_austraits</code> again</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<pre><code><span class="co">#&gt; # A tibble: 691 × 12</span>
+<span class="co">#&gt;    dataset_id taxon_name site_name context_name observation_id trait_name value unit  date </span>
+<span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Falster_2… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 66.1  degr… &lt;NA&gt; </span>
+<span class="co">#&gt;  2 Falster_2… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  319   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt;  3 Falster_2… Acacia my… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp… simp… &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt;  4 Falster_2… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 71.7  degr… &lt;NA&gt; </span>
+<span class="co">#&gt;  5 Falster_2… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span>
+<span class="co">#&gt;  6 Falster_2… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp… simp… &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt;  7 Falster_2… Angophora… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 50.8  degr… &lt;NA&gt; </span>
+<span class="co">#&gt;  8 Falster_2… Angophora… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  1590  mm2   &lt;NA&gt; </span>
+<span class="co">#&gt;  9 Falster_2… Angophora… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp… simp… &lt;NA&gt;  &lt;NA&gt; </span>
+<span class="co">#&gt; 10 Falster_2… Banksia m… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 53.1  degr… &lt;NA&gt; </span>
+<span class="co">#&gt; # … with 681 more rows, and 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;,</span>
+<span class="co">#&gt; #   original_name &lt;chr&gt;</span></code></pre>
+<p>Alternatively, if you don’t want to bind the trait values, you can
+give <code>summarise_trait_means</code> a go, which computes means with
+multiple observations. Note that this method condenses the traits table
+and you won’t be able to revert it back unless you
+<code>load_austraits</code> again</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data_wide_summarised</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/summarise_trait_means.html">summarise_trait_means</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">data_wide_summarised</span><span class="op">$</span><span class="va">value</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 17</span></span>
-<span class="co">#&gt;   dataset_id   taxon_name       site_name context_name observation_id leaf_angle</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Falster_2003 Acacia myrtifol… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       66.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Falster_2003 Acacia suaveole… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       71.7</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Falster_2003 Angophora hispi… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       50.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Falster_2003 Banksia margina… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       53.1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Falster_2003 Banksia oblongi… Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       45  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Falster_2003 Boronia pinnata  Ku-ring-… <span style="color: #BB0000;">NA</span>           Falster_2003_…       43.9</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 11 more variables: leaf_area &lt;dbl&gt;, leaf_compoundness &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   branch_mass_fraction &lt;dbl&gt;, leaf_N_per_dry_mass &lt;dbl&gt;, seed_mass &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   specific_leaf_area &lt;dbl&gt;, wood_density &lt;dbl&gt;, huber_value &lt;dbl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   fire_response &lt;dbl&gt;, plant_height &lt;dbl&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<pre><code><span class="co">#&gt; # A tibble: 6 × 17</span>
+<span class="co">#&gt;   dataset_id   taxon_name        site_name context_name observation_id leaf_angle leaf_area</span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Falster_2003 Acacia myrtifolia Ku-ring-… &lt;NA&gt;         Falster_2003_…       66.1       319</span>
+<span class="co">#&gt; 2 Falster_2003 Acacia suaveolens Ku-ring-… &lt;NA&gt;         Falster_2003_…       71.7       562</span>
+<span class="co">#&gt; 3 Falster_2003 Angophora hispida Ku-ring-… &lt;NA&gt;         Falster_2003_…       50.8      1590</span>
+<span class="co">#&gt; 4 Falster_2003 Banksia marginata Ku-ring-… &lt;NA&gt;         Falster_2003_…       53.1       198</span>
+<span class="co">#&gt; 5 Falster_2003 Banksia oblongif… Ku-ring-… &lt;NA&gt;         Falster_2003_…       45        1061</span>
+<span class="co">#&gt; 6 Falster_2003 Boronia pinnata   Ku-ring-… &lt;NA&gt;         Falster_2003_…       43.9       151</span>
+<span class="co">#&gt; # … with 10 more variables: leaf_compoundness &lt;dbl&gt;, branch_mass_fraction &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   leaf_N_per_dry_mass &lt;dbl&gt;, seed_mass &lt;dbl&gt;, specific_leaf_area &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   wood_density &lt;dbl&gt;, huber_value &lt;dbl&gt;, fire_response &lt;dbl&gt;, plant_height &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   original_name &lt;chr&gt;</span></code></pre>
 </div>
 </div>
   </div>
@@ -505,7 +567,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
