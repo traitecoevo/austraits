@@ -406,7 +406,7 @@ data_wood_dens <- data_wood_dens %>% join_sites()
 plot_site_locations(data_wood_dens$traits)
 ```
 
-<img src="man/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;" />
+<img src="./man/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;" />
 
 ## Visualising data distribution and variance
 
@@ -417,13 +417,13 @@ plot_site_locations(data_wood_dens$traits)
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
 ```
 
-<img src="man/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
+<img src="./man/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
 
 ```r
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 ```
 
-<img src="man/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
+<img src="./man/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
 
 ### Pivotting from long to wide format
 
