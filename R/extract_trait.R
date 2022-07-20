@@ -40,22 +40,24 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   if(!is.null(taxon_names))
     ret[["excluded_data"]] <- ret[["excluded_data"]] %>% dplyr::filter(.data$taxon_name %in% taxon_names)
   
-  
   ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(.data$dataset_id %in% ids)
   
   ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(.data$dataset_id %in%ids, .data$trait_name %in% ret[["traits"]][["trait_name"]])
   
-  ret[["definitions"]] <- austraits[["definitions"]]
+  ret[["definitions"]] <- austraits[["definitions"]][trait_names]
+
   ret[["build_info"]] <- austraits[["build_info"]]
   
   # if numeric, convert to numeric
-  if(!is.na(ret[["traits"]][["unit"]][1])){
+  if(length(ret$traits$unit) > 0 & !(ret$traits$unit %>% is.na() %>% any())){
     suppressWarnings(ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]]))
   }
   
 
-  keys <- dplyr::union(ret$methods$source_primary_key, 
-                       ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
+  keys <- dplyr::union(
+    ret$methods$source_primary_key, 
+    ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()
+    ) %>% 
     unique() %>% stats::na.omit() %>% as.character()
   
   ret[["sources"]] <- austraits$sources[keys]

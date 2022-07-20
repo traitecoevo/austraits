@@ -21,6 +21,12 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # Subset data to this trait
   austraits_trait <- extract_trait(austraits, plant_trait_name)
+
+  if(austraits$build_info$version > "3.0.2" )
+    definitions <- austraits$definitions
+  else {
+    definitions <- austraits$definitions$traits$elements
+  }
   
   my_shapes = c("_min" = 60, "_mean" = 16, "_max" =62, "unknown" = 18)
   
@@ -47,6 +53,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # define grouping variable, ordered by group-level by mean values
   # use log_value where possible
+  
   if(min(data$value, na.rm=TRUE) > 0 ) {
     data$value2 <- log10(data$value)
   } else {
@@ -66,7 +73,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   }
   
   # Check range on x-axis
-  vals <- austraits_trait$definitions$traits$elements[[plant_trait_name]]$values
+  vals <- definitions[[plant_trait_name]]$values
   range <- (vals$maximum/vals$minimum)
   
   # Check range on y-axis
@@ -138,6 +145,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     p1 <- p1 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum))
     p2 <- p2 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
       ggplot2::xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
+      ggplot2::xlab(paste(plant_trait_name, " (", data$unit[1], ")"))
     
   }
   
