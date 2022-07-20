@@ -188,39 +188,47 @@
 <code class="sourceCode R"><span><span class="va">subset_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"Falster_2005_2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">subset_data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; # A tibble: 6 × 12</span></span>
-<span><span class="co">#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… fire_resp… fire… &lt;NA&gt;  2002…</span></span>
-<span><span class="co">#&gt; 2 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…</span></span>
-<span><span class="co">#&gt; 3 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…</span></span>
-<span><span class="co">#&gt; 4 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…</span></span>
-<span><span class="co">#&gt; 5 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…</span></span>
-<span><span class="co">#&gt; 6 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… leaf_area  1761  mm2   2002…</span></span>
-<span><span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Filtering <strong>multiple studies by two different lead authors</strong> and assigning it to an object</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">subset_multi_studies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, </span>
-<span>                                        dataset_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Thompson_2001"</span>,<span class="st">"Ilic_2000"</span><span class="op">)</span><span class="op">)</span></span>
-<span> </span>
-<span><span class="va">subset_multi_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; # A tibble: 6 × 12</span></span>
-<span><span class="co">#&gt;   dataset_id taxon_name  site_name context_name observation_id trait_name value unit  date </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 Ilic_2000  Acacia acr… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0001 wood_dens… 0.904 mg/m… &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 2 Ilic_2000  Acacia acu… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0002 wood_dens… 0.895 mg/m… &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 3 Ilic_2000  Acacia acu… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0003 wood_dens… 1.008 mg/m… &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 4 Ilic_2000  Acacia ads… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0004 wood_dens… 0.887 mg/m… &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 5 Ilic_2000  Acacia amp… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0005 wood_dens… 0.568 mg/m… &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 6 Ilic_2000  Acacia ane… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0006 wood_dens… 1.035 mg/m… &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Filtering <strong>multiple studies by same lead author</strong> (e.g. Falster) and assigning it to an object.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># First, we need to identify all studies with an id that includes "Falster"</span></span>
-<span></span>
-<span><span class="op">(</span> <span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">austraits</span><span class="op">$</span><span class="va">methods</span><span class="op">$</span><span class="va">dataset_id</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"Falster"</span>,<span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<pre><code>#&gt; # A tibble: 6 × 12
+#&gt;   dataset_id  taxon_name site_name context_name observation_id trait_name value unit  date 
+#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… fire_resp… fire… &lt;NA&gt;  2002…
+#&gt; 2 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 3 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 4 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 5 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… huber_val… 0.00… mm2_… 2002…
+#&gt; 6 Falster_20… Acacia lo… Myall_La… &lt;NA&gt;         Falster_2005_… leaf_area  1761  mm2   2002…
+#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;
+
+
+Filtering **multiple studies by two different lead authors**  and assigning it to an object
+
+
+```r
+subset_multi_studies &lt;- extract_dataset(austraits, 
+                                        dataset_id = c("Thompson_2001","Ilic_2000"))
+ 
+subset_multi_studies$traits %&gt;% head()</code></pre>
+<pre><code>#&gt; # A tibble: 6 × 12
+#&gt;   dataset_id taxon_name  site_name context_name observation_id trait_name value unit  date 
+#&gt;   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+#&gt; 1 Ilic_2000  Acacia acr… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0001 wood_dens… 0.904 mg/m… &lt;NA&gt; 
+#&gt; 2 Ilic_2000  Acacia acu… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0002 wood_dens… 0.895 mg/m… &lt;NA&gt; 
+#&gt; 3 Ilic_2000  Acacia acu… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0003 wood_dens… 1.008 mg/m… &lt;NA&gt; 
+#&gt; 4 Ilic_2000  Acacia ads… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0004 wood_dens… 0.887 mg/m… &lt;NA&gt; 
+#&gt; 5 Ilic_2000  Acacia amp… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0005 wood_dens… 0.568 mg/m… &lt;NA&gt; 
+#&gt; 6 Ilic_2000  Acacia ane… &lt;NA&gt;      &lt;NA&gt;         Ilic_2000_0006 wood_dens… 1.035 mg/m… &lt;NA&gt; 
+#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;
+
+
+Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
+
+
+```r
+# First, we need to identify all studies with an id that includes "Falster"
+
+( dataset_ids &lt;- austraits$methods$dataset_id %&gt;% unique() %&gt;% subset(., grepl("Falster",.))) </code></pre>
 <pre><code><span><span class="co">#&gt; [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2"</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Then we extract</span></span>
 <span><span class="va">data_falster_studies</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">dataset_ids</span><span class="op">)</span></span>
 <span></span>
@@ -239,13 +247,13 @@
 <div class="section level3">
 <h3 id="extracting-by-taxonomic-level">Extracting by taxonomic level<a class="anchor" aria-label="anchor" href="#extracting-by-taxonomic-level"></a>
 </h3>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># By family </span></span>
 <span><span class="va">proteaceae</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_taxa.html">extract_taxa</a></span><span class="op">(</span><span class="va">austraits</span>, family <span class="op">=</span> <span class="st">"Proteaceae"</span><span class="op">)</span></span>
 <span><span class="co"># Checking that only taxa in Proteaceae have been extracted</span></span>
 <span><span class="va">proteaceae</span><span class="op">$</span><span class="va">taxa</span><span class="op">$</span><span class="va">family</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [1] "Proteaceae"</span></span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># By genus </span></span>
 <span><span class="va">acacia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_taxa.html">extract_taxa</a></span><span class="op">(</span><span class="va">austraits</span>, genus <span class="op">=</span> <span class="st">"Acacia"</span><span class="op">)</span></span>
 <span><span class="co"># Checking that only taxa in Acacia have been extracted</span></span>
@@ -257,7 +265,7 @@
 <h3 id="extracting-by-trait">Extracting by trait<a class="anchor" aria-label="anchor" href="#extracting-by-trait"></a>
 </h3>
 <p>Filtering <strong>one particular trait</strong> and assigning it to an object</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"wood_density"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
@@ -272,7 +280,7 @@
 <span><span class="co">#&gt; 6 Falster_20… Melicope … Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.346 mg/m… 2002…</span></span>
 <span><span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>Combining <code>lookup_trait</code> with <code>extract_trait</code> to obtain <strong>all traits with ‘leaf’ in the trait name</strong> and assigning it to an object. Note we use the <code>.</code> notation to pass on the <code>lookup_trait</code> results to <code>extract_trait</code></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_leaf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_trait.html">lookup_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"leaf"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">.</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data_leaf</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
@@ -292,7 +300,7 @@
 <h2 id="join-data-from-other-tables-and-elements">Join data from other tables and elements<a class="anchor" aria-label="anchor" href="#join-data-from-other-tables-and-elements"></a>
 </h2>
 <p>Once users have extracted the data they want, they may want to merge other study details into the main <code>traits</code> dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the <code>join_</code> functions come in. There are five <code>join_</code> functions in total, each designed to append specific information from other tables and elements in the <code>austraits</code> object. Their suffixes refer to the type of information that is joined, e.g. <code>join_taxonomy</code> appends taxonomic information to the <code>traits</code> dataframe. See <code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join taxonomic information </span></span>
 <span><span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 6 × 16</span></span>
@@ -306,7 +314,7 @@
 <span><span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; # … with 7 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   family &lt;chr&gt;, genus &lt;chr&gt;, taxonRank &lt;chr&gt;, acceptedNameUsageID &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join methodological information </span></span>
 <span><span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 6 × 16</span></span>
@@ -321,7 +329,7 @@
 <span><span class="co">#&gt; # … with 7 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   methods &lt;chr&gt;, year_collected_start &lt;chr&gt;, year_collected_end &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   collection_type &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join site based information </span></span>
 <span><span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_sites</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 6 × 14</span></span>
@@ -335,7 +343,7 @@
 <span><span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; # … with 5 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join context information </span></span>
 <span><span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_contexts</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 6 × 12</span></span>
@@ -348,7 +356,7 @@
 <span><span class="co">#&gt; 5 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_area  562   mm2   &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; 6 Falster_20… Acacia su… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_comp…  NA   &lt;NA&gt;  &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Alternatively users can join *all* information </span></span>
 <span><span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_all</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 6 × 22</span></span>
@@ -369,7 +377,7 @@
 <h2 id="visualising-data-by-site">Visualising data by site<a class="anchor" aria-label="anchor" href="#visualising-data-by-site"></a>
 </h2>
 <p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longitude information into the trait dataframe before plotting</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_all.html">join_sites</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;"></p>
@@ -378,10 +386,10 @@
 <h2 id="visualising-data-distribution-and-variance">Visualising data distribution and variance<a class="anchor" aria-label="anchor" href="#visualising-data-distribution-and-variance"></a>
 </h2>
 <p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a> for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each <code>dataset_id</code></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"family"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"dataset_id"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/beeswarm-2.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
 <div class="section level3">
@@ -389,7 +397,7 @@
 </h3>
 <p>The table of traits in AusTraits comes in long format, where data for all traits are in two columns called <code>trait_name</code> and <code>value</code>. You can convert this to wide format, where each trait is in a separate column, using the function <code>trait_pivot_wider</code>. This will produce 5 separate lists (<code>value</code>, <code>unit</code>, <code>date</code>, <code>value_type</code> and <code>replicates</code>). The trait values are stored in the <code>value</code> list.</p>
 <p>Note that in some cases, there are <em>multiple observations</em> for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In these circumstances, we suggest using <code>bind_trait_values</code> which joins multiple observations together into a string.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_bound</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/bind_trait_values.html">bind_trait_values</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Joining multiple obs with `--`</span></span>
 <span>  <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span> <span class="co">#Pivot wide</span></span>
@@ -412,7 +420,7 @@
 <span><span class="co">#&gt; #   branch_mass_fraction &lt;chr&gt;, huber_value &lt;chr&gt;, leaf_N_per_dry_mass &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;, wood_density &lt;chr&gt;, fire_response &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   plant_height &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check out the 'bounded' trait values</span></span>
 <span><span class="va">data_wide_bound</span><span class="op">$</span><span class="va">value</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co">#Excluding values that are not traits so we can see which columns contains bounded values</span></span>
@@ -433,7 +441,7 @@
 <span><span class="co">#&gt; # … with 45 more rows, and 6 more variables: seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   wood_density &lt;chr&gt;, fire_response &lt;chr&gt;, plant_height &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>If you would like to revert the bounded trait values, you have to use <code>trait_pivot_longer</code> first, then:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_bound</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/trait_pivot_longer.html">trait_pivot_longer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/separate_trait_values.html">separate_trait_values</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">austraits</span><span class="op">$</span><span class="va">definitions</span><span class="op">)</span></span></code></pre></div>
@@ -453,7 +461,7 @@
 <span><span class="co">#&gt; # … with 681 more rows, and 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   original_name &lt;chr&gt;</span></span></code></pre>
 <p>Alternatively, if you don’t want to bind the trait values, you can give <code>summarise_trait_means</code> a go, which computes means with multiple observations. Note that this method condenses the traits table and you won’t be able to revert it back unless you <code>load_austraits</code> again</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_summarised</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/summarise_trait_means.html">summarise_trait_means</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span></span>
