@@ -1,7 +1,4 @@
 
-# austraits 1.1.1
+# austraits 1.1.2
 
-* Improved vignette building process
-* Improved extract_ functions
-* Rebuilt website
-
+* Minor bug fix in `extract_trait`
