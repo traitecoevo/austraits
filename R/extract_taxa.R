@@ -65,9 +65,12 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL){
   ret[["build_info"]] <- austraits[["build_info"]]
   
   # if numeric, convert to numeric
-  suppressWarnings(if(!is.na(ret[["traits"]][["unit"]][1])){
-    ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]])
-  })
+  suppressWarnings(
+    y[["traits"]][["value"]] <- ifelse(! is.na(ret[["traits"]][["unit"]]), 
+                                       as.numeric(ret[["traits"]][["value"]]),
+                                       ret[["traits"]][["value"]])
+    
+  )
   
   # Assign class
   attr(ret, "class") <- "austraits"
