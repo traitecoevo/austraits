@@ -66,7 +66,7 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL){
   
   # if numeric, convert to numeric
   suppressWarnings(
-    y[["traits"]][["value"]] <- ifelse(! is.na(ret[["traits"]][["unit"]]), 
+    ret[["traits"]][["value"]] <- ifelse(! is.na(ret[["traits"]][["unit"]]), 
                                        as.numeric(ret[["traits"]][["value"]]),
                                        ret[["traits"]][["value"]])
     
