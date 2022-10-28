@@ -2,7 +2,7 @@
 #'
 #' @param austraits austraits data object
 #'
-#' @return A single wide table with collapsed contexts and sites text and with 
+#' @return A single wide table with collapsed contexts and locations text and with 
 #' some cols renamed for alignment with other resources
 #' @export
 #'
@@ -32,7 +32,7 @@ as_wide_table <- function(austraits){
   # ) %>% 
   #   dplyr::select(trait_name, tissue, trait_category)
   # 
-  # Function to collapse columns in sites and contexts into single column
+  # Function to collapse columns in locations and contexts into single column
   process_table <- function(data) {
     
     # worker function called intop worklfow below
@@ -47,7 +47,7 @@ as_wide_table <- function(austraits){
     
     data %>% 
       tidyr::pivot_wider(names_from = .data$property, values_from = .data$value) %>% 
-      tidyr::nest(data=-dplyr::any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
+      tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
   }
@@ -83,11 +83,11 @@ as_wide_table <- function(austraits){
     dplyr::rename(c("dataset_description" = "description"))  
   
   # collapse into one column
-  austraits$sites <- 
-    austraits$sites %>% 
+  austraits$locations <- 
+    austraits$locations %>% 
     dplyr::filter(.data$value!="unkown") %>% 
-    # next line is a fix -- one dataset in 3.0.2 has value "site_name"
-    dplyr::mutate(site_property = gsub("site_name", "name", .data$site_property)) %>%
+    # next line is a fix -- one dataset in 3.0.2 has value "location_name"
+    dplyr::mutate(site_property = gsub("location_name", "name", .data$site_property)) %>%
     dplyr::rename(c("property" = "site_property")) %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table)
@@ -100,7 +100,7 @@ as_wide_table <- function(austraits){
   austraits_wide <- 
     austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "context_name"), austraits$contexts) %>%
-    dplyr::left_join(by=c("dataset_id", "site_name"), austraits$sites) %>%
+    dplyr::left_join(by=c("dataset_id", "location_name"), austraits$locations) %>%
     dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods) %>%
     dplyr::left_join(by=c("taxon_name"), austraits$taxa) %>%
 
@@ -115,8 +115,8 @@ as_wide_table <- function(austraits){
     # More stuff you can filter on
     .data$date, .data$collection_type, .data$sample_age_class, .data$sampling_strategy, 
     
-    #stuff relating to sites
-    .data$`latitude (deg)`, .data$`longitude (deg)`, .data$site_name, .data$site,
+    #stuff relating to locations
+    .data$`latitude (deg)`, .data$`longitude (deg)`, .data$location_name, .data$site,
     
     #stuff relating to contexts and methods
     .data$context_name, .data$context, .data$methods, .data$original_name,
