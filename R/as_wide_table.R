@@ -3,7 +3,7 @@
 #' @param austraits austraits data object
 #'
 #' @return A single wide table with collapsed contexts and sites text and with 
-#' some cols renamed for alignment with other reosurces
+#' some cols renamed for alignment with other resources
 #' @export
 #'
 #' @examples

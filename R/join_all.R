@@ -61,12 +61,12 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
 #' @rdname join_all
 join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
-    austraits$sites %>% 
+    austraits$locations %>% 
     dplyr::filter(.data$site_property %in%  vars) %>% 
     tidyr::pivot_wider(names_from = .data$site_property, values_from = .data$value)
   
   austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "site_name"), sites)
+    dplyr::left_join(by=c("dataset_id", "location_name"), sites)
   
   austraits
 }
