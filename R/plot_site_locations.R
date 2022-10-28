@@ -26,7 +26,7 @@ plot_site_locations <- function(traits, feature="trait_name", ...){
   #Create site data
   sites <- 
     traits %>%
-    dplyr::select(.data$site_name, .data$`latitude (deg)`, .data$`longitude (deg)`, !!feature) %>%
+    dplyr::select(.data$location_name, .data$`latitude (deg)`, .data$`longitude (deg)`, !!feature) %>%
     tidyr::drop_na() %>%
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
     dplyr::filter(
