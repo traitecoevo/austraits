@@ -3,6 +3,8 @@
 \name{join_all}
 \alias{join_all}
 \alias{join_taxonomy}
+\alias{join_taxonomy1}
+\alias{join_taxonomy2}
 \alias{join_methods}
 \alias{join_sites}
 \alias{join_contexts}
@@ -13,6 +15,16 @@ join_all(austraits)
 join_taxonomy(
   austraits,
   vars = c("family", "genus", "taxonRank", "acceptedNameUsageID")
+)
+
+join_taxonomy1(
+  austraits,
+  vars = c("family", "genus", "taxonRank", "acceptedNameUsageID")
+)
+
+join_taxonomy2(
+  austraits,
+  vars = c("family", "genus", "taxon_rank", "accepted_name_usage_id")
 )
 
 join_methods(

@@ -1,4 +1,4 @@
-#' @title Produce site maps 
+#' @title Produce maps of trait values 
 #' @description Plot location where trait data was collected from
 #' @param traits trait dataframe generated from austraits with site details appended. See join_all and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type
@@ -9,16 +9,16 @@
 #' \dontrun{
 #' #All traits from a given study
 #' data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_all() 
-#' data$traits %>% plot_site_locations("trait_name")
+#' data$traits %>% plot_locations("trait_name")
 #' 
 #' #Single trait
 #' data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_all() 
-#' data$traits %>% plot_site_locations("trait_name")
+#' data$traits %>% plot_locations("trait_name")
 #' }
 #' @export
 #' @importFrom rlang .data
 
-plot_site_locations <- function(traits, feature="trait_name", ...){
+plot_locations <- function(traits, feature="trait_name", ...){
   
   au_map <- australia_map_raster %>%
     dplyr::mutate(australia = as.factor(.data$australia))

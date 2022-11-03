@@ -27,6 +27,7 @@
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 
+
 join_all <- function(austraits) {
   austraits %>% 
     join_sites() %>% 
@@ -34,12 +35,35 @@ join_all <- function(austraits) {
     join_methods()
 }
 
+#' @export
+#' @importFrom rlang .data
+#' @rdname join_all
+
+join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
+  # Switch for different versions
+  version <- austraits$build_info$version
+  
+  switch (version,
+          '3.0.2.9000' = join_taxonomy2(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")),
+          '3.0.2' = join_taxonomy1(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID"))
+  )
+  
+}
 
 #' @importFrom rlang .data
-#' @export
 #' @rdname join_all
-#' 
-join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
+
+join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
+  austraits$traits <- austraits$traits %>%
+    dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
+  
+  austraits
+}
+
+#' @importFrom rlang .data
+#' @rdname join_all
+
+join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")) {
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
   

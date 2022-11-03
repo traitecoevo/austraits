@@ -10,8 +10,8 @@ as_wide_table(austraits)
 \item{austraits}{austraits data object}
 }
 \value{
-A single wide table with collapsed contexts and sites text and with
-some cols renamed for alignment with other reosurces
+A single wide table with collapsed contexts and locations text and with
+some cols renamed for alignment with other resources
 }
 \description{
 Create a single wide table from the AusTraits data object
