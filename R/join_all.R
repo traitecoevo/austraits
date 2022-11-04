@@ -41,7 +41,7 @@ join_all <- function(austraits) {
 
 join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
   # Switch for different versions
-  version <- austraits$build_info$version
+  version <- austraits$build_info$version %>% as.character()
   
   switch (version,
           '3.0.2.9000' = join_taxonomy2(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")),
@@ -103,14 +103,37 @@ join_methods2 <- function(austraits, vars =  c("methods")){
 #' @export
 #' @importFrom rlang .data
 #' @rdname join_all
+#' 
 join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+# Switch for different versions
+version <- austraits$build_info$version %>% as.character()
+
+switch (version,
+        '3.0.2.9000' = join_sites2(austraits, vars =  c("longitude (deg)","latitude (deg)")),
+        '3.0.2' = join_sites1(austraits, vars =  c("longitude (deg)","latitude (deg)"))
+)
+}
+
+join_sites1 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+  sites <- 
+    austraits$sites %>% 
+    dplyr::filter(.data$site_property %in%  vars) %>% 
+    tidyr::pivot_wider(names_from = .data$site_property, values_from = .data$value)
+  
+  austraits$traits <- austraits$traits %>%
+    dplyr::left_join(by=c("dataset_id", "site_name"), sites)
+  
+  austraits
+}
+
+join_sites2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
     austraits$locations %>% 
     dplyr::filter(.data$location_property %in%  vars) %>% 
-    tidyr::pivot_wider(names_from = .data$location_property, values_from = .data$value)
+    tidyr::pivot_wider(names_from = .data$location_property)
   
   austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "location_name"), sites)
+    dplyr::left_join(by=c("dataset_id", "location_id"), sites)
   
   austraits
 }
