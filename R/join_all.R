@@ -73,7 +73,27 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 #' @importFrom rlang .data
 #' @export
 #' @rdname join_all
-join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")){
+#' 
+
+join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+  # Switch for different versions
+  version <- austraits$build_info$version %>% as.character()
+  
+  switch (version,
+          '3.0.2.9000' = join_methods2(austraits, vars =  c("methods")),
+          '3.0.2' = join_methods1(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type"))
+  )
+  
+}
+
+join_methods1 <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")){
+  austraits$traits <- austraits$traits %>%
+    dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods %>% dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)))
+  
+  austraits
+}
+
+join_methods2 <- function(austraits, vars =  c("methods")){
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods %>% dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)))
   
