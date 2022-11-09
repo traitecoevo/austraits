@@ -39,13 +39,13 @@ join_all <- function(austraits) {
 #' @importFrom rlang .data
 #' @rdname join_all
 
-join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
+join_taxonomy <- function(austraits, ...) {
   # Switch for different versions
   version <- austraits$build_info$version %>% as.character()
   
   switch (version,
-          '3.0.2.9000' = join_taxonomy2(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")),
-          '3.0.2' = join_taxonomy1(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID"))
+          '3.0.2.9000' = join_taxonomy2(austraits, ...),
+          '3.0.2' = join_taxonomy1(austraits, ...)
   )
   
 }
@@ -100,11 +100,14 @@ join_methods2 <- function(austraits, vars =  c("methods")){
   austraits
 }
 
+
+
 #' @export
 #' @importFrom rlang .data
 #' @rdname join_all
-#' 
-join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+#' @aliases join_sites
+
+ join_locations <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
 # Switch for different versions
 version <- austraits$build_info$version %>% as.character()
 
