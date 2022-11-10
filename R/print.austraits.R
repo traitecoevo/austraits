@@ -8,6 +8,7 @@
 #' @export
 
 print.austraits <- function(x, ...){
+  
   # Setting up
   version <- x$build_info$version %>% as.character()
   nrecords <- nrow(x$traits)
@@ -21,7 +22,9 @@ print.austraits <- function(x, ...){
          nrecords, "records",
          "for", nspecies, "species and",
          ntraits, "traits.\n")
-         
+  
+  if(package_version(version) <= '3.0.2'){
+  
   cat("\nThis object is a 'list' with the following components:\n\n",
   x$definitions$austraits$elements %>%
   purrr::map(~.x[["description"]]) %>% 
@@ -29,6 +32,16 @@ print.austraits <- function(x, ...){
   sprintf("- `%s`: %s", names(.), .) %>%
   paste(collapse="\n")
   )
+  } else{
+    cat("\nThis object is a 'list' with the following components:\n\n",
+        x$schema$austraits$elements %>%
+          purrr::map(~.x[["description"]]) %>% 
+          as.vector() %>% 
+          sprintf("- `%s`: %s", names(.), .) %>%
+          paste(collapse="\n")
+    )
+  }
+
   
   cat("\n\nTo access a component, try using the $ e.g. austraits$traits")  
 }
