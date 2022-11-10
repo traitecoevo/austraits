@@ -44,13 +44,16 @@ join_taxonomy <- function(austraits, ...) {
   version <- austraits$build_info$version %>% as.character()
   
   switch (version,
-          '3.0.2.9000' = join_taxonomy2(austraits, ...),
-          '3.0.2' = join_taxonomy1(austraits, ...)
+          '3.0.2' = join_taxonomy1(austraits, ...),
+          '3.0.1' = join_taxonomy1(austraits, ...),
+          '3.0.0' = join_taxonomy1(austraits, ...),
+          '2.1.0' = join_taxonomy1(austraits, ...),
+          '2.0.0' = join_taxonomy1(austraits, ...),
+          '3.0.2.9000' = join_taxonomy2(austraits, ...)
   )
   
 }
 
-#' @importFrom rlang .data
 #' @rdname join_all
 
 join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
@@ -60,7 +63,6 @@ join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", 
   austraits
 }
 
-#' @importFrom rlang .data
 #' @rdname join_all
 
 join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")) {
