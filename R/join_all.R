@@ -121,6 +121,7 @@ join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)"))
   
   austraits
 }
+
 #' @title  Joining location info for AusTraits versions > 3.0.2
 join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
@@ -137,7 +138,30 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 #' @importFrom rlang .data
 #' @export
 #' @rdname join_all
-join_contexts <- function(austraits, vars =  c("dataset_id","context_name","context_property","value")) {
+
+join_contexts <- function(austraits, ...){
+  # Switch for different versions
+  version <- austraits$build_info$version %>% as.character()
+  
+  switch (version,
+          '3.0.2.9000' = join_contexts2(austraits, ...),
+          '3.0.2' = join_contexts1(austraits, ...),
+          '3.0.1' = join_contexts1(austraits, ...),
+          '3.0.0' = join_contexts1(austraits, ...),
+          '2.1.0' = join_contexts1(austraits, ...),
+          '2.0.0' = join_contexts1(austraits, ...)
+          
+  )
+}
+
+#' @title  Joining location info for AusTraits versions > 3.0.2
+
+
+
+
+
+#' @title  Joining location info for AusTraits versions <= 3.0.2
+join_contexts1 <- function(austraits, vars =  c("dataset_id","context_name","context_property","value")) {
   
   if(nrow(austraits$contexts) == 0)
     return (austraits)
@@ -152,3 +176,9 @@ join_contexts <- function(austraits, vars =  c("dataset_id","context_name","cont
   
   austraits
 }
+
+
+
+
+
+###
