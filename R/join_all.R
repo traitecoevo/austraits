@@ -93,18 +93,24 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
 #' @rdname join_all
 #' @aliases join_sites
 
- join_locations <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+ join_locations <- function(austraits, ...) {
 # Switch for different versions
 version <- austraits$build_info$version %>% as.character()
 
 switch (version,
-        '3.0.2.9000' = join_sites2(austraits, vars =  c("longitude (deg)","latitude (deg)")),
-        '3.0.2' = join_sites1(austraits, vars =  c("longitude (deg)","latitude (deg)"))
+        '3.0.2.9000' = join_locations2(austraits, ...),
+        '3.0.2' = join_sites(austraits, ...),
+        '3.0.1' = join_sites(austraits, ...),
+        '3.0.0' = join_sites(austraits, ...),
+        '2.1.0' = join_sites(austraits, ...),
+        '2.0.0' = join_sites(austraits, ...)
+        
 )
 }
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
-join_sites1 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+#' @aliases join_locations
+join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
     austraits$sites %>% 
     dplyr::filter(.data$site_property %in%  vars) %>% 
@@ -116,7 +122,7 @@ join_sites1 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")
   austraits
 }
 #' @title  Joining location info for AusTraits versions > 3.0.2
-join_sites2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
     austraits$locations %>% 
     dplyr::filter(.data$location_property %in%  vars) %>% 
