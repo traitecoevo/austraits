@@ -30,7 +30,7 @@
 
 join_all <- function(austraits) {
   austraits %>% 
-    join_sites() %>% 
+    join_locations() %>% 
     join_taxonomy() %>% 
     join_methods()
 }
@@ -91,21 +91,20 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
 #' @export
 #' @importFrom rlang .data
 #' @rdname join_all
-#' @aliases join_sites
 
- join_locations <- function(austraits, ...) {
-# Switch for different versions
-version <- austraits$build_info$version %>% as.character()
-
-switch (version,
-        '3.0.2.9000' = join_locations2(austraits, ...),
-        '3.0.2' = join_sites(austraits, ...),
-        '3.0.1' = join_sites(austraits, ...),
-        '3.0.0' = join_sites(austraits, ...),
-        '2.1.0' = join_sites(austraits, ...),
-        '2.0.0' = join_sites(austraits, ...)
-        
-)
+join_locations <- function(austraits, ...) {
+  # Switch for different versions
+  version <- austraits$build_info$version %>% as.character()
+  
+  switch (version,
+          '3.0.2.9000' = join_locations2(austraits, ...),
+          '3.0.2' = join_sites(austraits, ...),
+          '3.0.1' = join_sites(austraits, ...),
+          '3.0.0' = join_sites(austraits, ...),
+          '2.1.0' = join_sites(austraits, ...),
+          '2.0.0' = join_sites(austraits, ...)
+          
+  )
 }
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
@@ -155,10 +154,28 @@ join_contexts <- function(austraits, ...){
 }
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
-
-
-
-
+join_contexts2 <- function(austraits, ...){
+  traits2 <- austraits$traits
+  
+  for(v in unique(austraits$contexts$link_id)){
+    
+    context_sub <- 
+      austraits$contexts %>%
+      dplyr::select(-dplyr::any_of(c("category", "description"))) %>%
+      dplyr::filter(link_id == v) %>% 
+      tidyr::separate_rows(link_vals) %>% 
+      tidyr::pivot_wider(values_from = value, names_from = context_property) %>%
+      tidyr::pivot_wider(names_from = link_id, values_from = link_vals)
+    
+    traits2 <- 
+      left_join(by = c("dataset_id", v),
+                traits2,
+                context_sub
+      )
+  }
+  austraits$traits <- traits2
+  austraits
+}
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
 join_contexts1 <- function(austraits, vars =  c("dataset_id","context_name","context_property","value")) {
