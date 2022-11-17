@@ -3,10 +3,10 @@
 \name{join_sites}
 \alias{join_sites}
 \alias{join_locations}
-\title{Joining location info for AusTraits versions <= 3.0.2}
+\title{Joining location info for AusTraits versions <= 3.0.2 (Deprecated)}
 \usage{
 join_sites(austraits, vars = c("longitude (deg)", "latitude (deg)"))
 }
 \description{
-Joining location info for AusTraits versions <= 3.0.2
+Joining location info for AusTraits versions <= 3.0.2 (Deprecated)
 }

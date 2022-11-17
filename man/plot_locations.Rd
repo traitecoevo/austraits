@@ -8,7 +8,7 @@
 plot_locations(austraits, feature = "trait_name", ...)
 }
 \arguments{
-\item{austraits}{austraits object with site details appended. See join_site and examples}
+\item{austraits}{austraits object with site details appended. See join_locations and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2}
 

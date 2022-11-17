@@ -4,8 +4,21 @@
 \alias{plot_site_locations}
 \title{Produce location maps of trait values (Deprecated)}
 \usage{
-plot_site_locations(austraits, feature = "trait_name", ...)
+plot_site_locations(traits, feature = "trait_name", ...)
+}
+\arguments{
+\item{traits}{traits table with site details appended. See join_all and examples}
+
+\item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2}
+
+\item{...}{arguments passed to ggplot()}
+}
+\value{
+ggplot of sites
 }
 \description{
-Produce location maps of trait values (Deprecated)
+Plot location where trait data was collected from
+}
+\author{
+Dony Indiarto - d.indiarto@student.unsw.edu.au
 }

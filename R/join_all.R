@@ -57,6 +57,7 @@ join_taxonomy <- function(austraits, ...) {
 }
 
 #' @title  Joining taxonomic info for AusTraits versions <= 3.0.2
+#' @noRd
 
 join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
   austraits$traits <- austraits$traits %>%
@@ -66,6 +67,7 @@ join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", 
 }
 
 #' @title Joining taxonomic info for AusTraits versions > 3.0.2
+#' @noRd
 
 join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")) {
   austraits$traits <- austraits$traits %>%
@@ -78,17 +80,6 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 #' @importFrom rlang .data
 #' @export
 #' @rdname join_all
-
-# join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
-#   austraits$methods %>% 
-#     dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) -> methods
-#   
-#   austraits$traits <- austraits$traits %>%
-#       dplyr::left_join(by=c("dataset_id", "trait_name"),
-#                        methods)
-#     
-#     austraits
-# }
 
 join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
   austraits$methods %>% 
@@ -113,18 +104,20 @@ join_locations <- function(austraits, ...) {
   
   switch (version,
           '3.0.2.9000' = join_locations2(austraits, ...),
-          '3.0.2' = join_sites(austraits, ...),
-          '3.0.1' = join_sites(austraits, ...),
-          '3.0.0' = join_sites(austraits, ...),
-          '2.1.0' = join_sites(austraits, ...),
-          '2.0.0' = join_sites(austraits, ...)
+          '3.0.2' = join_locations1(austraits, ...),
+          '3.0.1' = join_locations1(austraits, ...),
+          '3.0.0' = join_locations1(austraits, ...),
+          '2.1.0' = join_locations1(austraits, ...),
+          '2.0.0' = join_locations1(austraits, ...)
           
   )
 }
 
+
 #' @title  Joining location info for AusTraits versions <= 3.0.2
-#' @aliases join_locations
-join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+#' @noRd
+join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+  
   sites <- 
     austraits$sites %>% 
     dplyr::filter(.data$site_property %in%  vars) %>% 
@@ -136,7 +129,16 @@ join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)"))
   austraits
 }
 
+#' @title  Joining location info for AusTraits versions <= 3.0.2 (Deprecated)
+#' @aliases join_locations
+join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+  .Deprecated("join_locations")
+  
+  join_locations1(austraits, vars =  c("longitude (deg)","latitude (deg)"))
+}
+
 #' @title  Joining location info for AusTraits versions > 3.0.2
+#' @noRd
 join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
     austraits$locations %>% 
@@ -169,6 +171,7 @@ join_contexts <- function(austraits, ...){
 }
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
+#' @noRd
 join_contexts2 <- function(austraits, ...){
   traits2 <- austraits$traits
   
@@ -193,6 +196,7 @@ join_contexts2 <- function(austraits, ...){
 }
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
+#' @noRd
 join_contexts1 <- function(austraits, vars =  c("dataset_id","context_name","context_property","value")) {
   
   if(nrow(austraits$contexts) == 0)
