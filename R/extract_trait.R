@@ -15,16 +15,35 @@
 #' @export
 #' @importFrom rlang .data
 
+
 extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
+  # Switch for different versions
+  version <- austraits$build_info$version %>% as.character()
+  
+  switch (version,
+          '3.0.2.9000' = extract_trait2(austraits, trait_names, taxon_names=NULL),
+          '3.0.2' = extract_trait1(austraits, trait_names, taxon_names=NULL),
+          '3.0.1' = extract_trait1(austraits, trait_names, taxon_names=NULL),
+          '3.0.0' = extract_trait1(austraits, trait_names, taxon_names=NULL),
+          '2.1.0' = extract_trait1(austraits, trait_names, taxon_names=NULL),
+          '2.0.0' = extract_trait1(austraits, trait_names, taxon_names=NULL)
+          
+  )
+}
+
+#' @title Extract specific trait data from austraits object for versions <=3.0.2
+#' @rdname extract_trait
+extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
   
   ret <- austraits
   
   ret[["traits"]] <- austraits[["traits"]] %>% 
     dplyr::filter(.data$trait_name %in% trait_names)
   
-  if(!is.null(taxon_names))
+  if(!is.null(taxon_names)){
     ret[["traits"]] <- ret[["traits"]] %>% 
     dplyr::filter(.data$taxon_name %in% taxon_names)
+  }
   
   ids <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
   
@@ -54,6 +73,61 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   }
   
 
+  keys <- dplyr::union(ret$methods$source_primary_key, 
+                       ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
+    unique() %>% stats::na.omit() %>% as.character()
+  
+  ret[["sources"]] <- austraits$sources[keys]
+  
+  ret[names(austraits)]
+  
+  # Assign class
+  attr(ret, "class") <- "austraits"
+  
+  ret
+}
+
+#' @title Extract specific trait data from austraits object for versions >3.0.2
+#' @rdname extract_trait
+extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
+  
+  ret <- austraits
+  
+  # Traits table
+  ret[["traits"]] <- austraits[["traits"]] %>% 
+    dplyr::filter(.data$trait_name %in% trait_names)
+  
+  # If taxon_name supplied, further filter traits table
+  if(!is.null(taxon_names)){
+    ret[["traits"]] <- ret[["traits"]] %>% 
+    dplyr::filter(.data$taxon_name %in% taxon_names)
+  }
+  
+  dataset_id <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
+  
+  # Dataset specific tables
+  for(v in c("locations", "contexts", "contributors")){
+    ret[[v]] <- austraits[[v]][ austraits[[v]][["dataset_id"]] %in% dataset_id,]
+  }
+  # NB: can't use dplyr::filter in the above as it doesn't behave when the variable name is the same as a column name
+  
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["excluded_data"]] <- austraits[["excluded_data"]]  %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]], .data$trait_name %in% trait_names)
+
+  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(.data$dataset_id %in% dataset_id, .data$trait_name %in% trait_names)
+  
+  # Tables that never change
+  ret[["definitions"]] <- austraits[["definitions"]]
+  ret[["build_info"]] <- austraits[["build_info"]]
+  ret[["schema"]] <- austraits[["schema"]]
+  
+  # if numeric, convert to numeric
+  if(!is.na(ret[["traits"]][["unit"]][1])){
+    suppressWarnings(ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]]))
+  }
+  
+  
   keys <- dplyr::union(ret$methods$source_primary_key, 
                        ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
     unique() %>% stats::na.omit() %>% as.character()
