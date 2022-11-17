@@ -1,4 +1,4 @@
-#' @title Trait distribution
+#' @title Beeswarm Trait distribution 
 #' @description Plots distribution of trait values by a  grouping variable using ggbeeswarm package  
 #'
 #' @param austraits austraits data object
@@ -18,6 +18,8 @@
 #' @importFrom rlang .data
 #
 plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
+  # Determine version
+  version <- austraits$build_info$version %>% as.character()
   
   # Subset data to this trait
   austraits_trait <- extract_trait(austraits, plant_trait_name)
@@ -42,7 +44,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   
   # Define grouping variables and derivatives
   if(!y_axis_category %in% names(data)){
-    stop("incorrect grouping variable")
+    stop("Incorrect grouping variable! Currently implemented for `family` or `dataset_id`")
   }
   
   # define grouping variable, ordered by group-level by mean values
@@ -66,7 +68,15 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   }
   
   # Check range on x-axis
-  vals <- austraits_trait$definitions$traits$elements[[plant_trait_name]]$values
+  if(package_version(version) <= '3.0.2'){
+  vals <- austraits_trait$definitions$traits$elements[[plant_trait_name]]$value
+  }
+  
+  if(package_version(version) > '3.0.2'){
+  vals <- list(minimum = purrr::pluck(austraits_trait, "definitions", plant_trait_name, "allowed_values_min"),
+           maximum = purrr::pluck(austraits_trait, "definitions", plant_trait_name, "allowed_values_max"))
+  }
+  
   range <- (vals$maximum/vals$minimum)
   
   # Check range on y-axis
