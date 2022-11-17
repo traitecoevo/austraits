@@ -79,18 +79,18 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 #' @export
 #' @rdname join_all
 
-join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
-  austraits$methods %>% 
-    dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) -> methods
-  
-  austraits$traits <- austraits$traits %>%
-      dplyr::left_join(by=c("dataset_id", "trait_name"),
-                       methods)
-    
-    austraits
-}
+# join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+#   austraits$methods %>% 
+#     dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) -> methods
+#   
+#   austraits$traits <- austraits$traits %>%
+#       dplyr::left_join(by=c("dataset_id", "trait_name"),
+#                        methods)
+#     
+#     austraits
+# }
 
-join_methods2 <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
   austraits$methods %>% 
     dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) %>% 
     distinct() -> methods
