@@ -5,6 +5,7 @@
 #' @param austraits - A large list of tibbles built from austraits
 #' @param family - character string of family
 #' @param genus - character string of genus
+#' @param taxon_name - character string of taxon name
 #' @return A large list of tibbles containing all austraits information for specificied taxa
 #'
 #' @examples 
@@ -16,12 +17,12 @@
 #' @export
 #' @importFrom rlang .data abort
 #' 
-extract_taxa <- function(austraits, family = NULL, genus = NULL){
+extract_taxa1 <- function(austraits, family = NULL, genus = NULL){
   
   ret <- austraits
   
   if(missing(family) & missing(genus)){
-    abort("Either `family` or `genus` must be supplied!")
+    abort("Either `family`, `genus`, must be supplied!")
   }
   
   if(! missing(family) & ! missing(genus)){
@@ -53,6 +54,9 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL){
   ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
   
   ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  # Fix formatting for dataset ids
+  ret$taxonomic_updates <-
+    tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
   
   ret[["excluded_data"]] <- austraits[["excluded_data"]] %>% dplyr::filter(.data$taxon_name %in% target_taxa)
   
