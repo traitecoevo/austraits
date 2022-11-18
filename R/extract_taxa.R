@@ -17,29 +17,33 @@
 #' @export
 #' @importFrom rlang .data abort
 #' 
-extract_taxa1 <- function(austraits, family = NULL, genus = NULL){
+extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
   
   ret <- austraits
   
-  if(missing(family) & missing(genus)){
-    abort("Either `family`, `genus`, must be supplied!")
+  if(missing(family) & missing(genus) & missing(taxon_name)){
+    abort("Either `family`, `genus` or `taxon_name`, must be supplied!")
   }
   
   if(! missing(family) & ! missing(genus)){
-    abort("Can extract one level of taxa at a time! - supply either `family` or `genus`, not both")
+    abort("Can extract one level of taxa at a time! - supply either `family` or `genus` or `taxon_name`")
   }
   
   if( ! is.null(family) ){
   # Retrieving all taxon name that falls under family
   target_in <- stringr::str_which(austraits$taxa$family, family)
+  target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
   }
   
   if( ! is.null(genus) ){
-    # Retrieving all taxon name that falls under family
+    # Retrieving all taxon name that falls under genus
     target_in <- stringr::str_which(austraits$taxa$genus, genus)
+    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
   }
   
-  target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
+  if( ! is.null(taxon_name)){
+    target_taxa <- taxon_name
+  }
   
   # Extract data for target_sp
   ret[["traits"]] <- ret[["traits"]] %>% 
