@@ -54,6 +54,10 @@ extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
   ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
   ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
   
+  ret$taxonomic_updates <-
+    tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
+  
+  
   ret[["excluded_data"]] <- austraits[["excluded_data"]][austraits[["excluded_data"]][["trait_name"]] %in% trait_names,]
   
   if(!is.null(taxon_names))
@@ -113,6 +117,11 @@ extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
   
   ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
   ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  
+  # Fix formating for datasets
+  ret$taxonomic_updates <-
+    tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
+  
   ret[["excluded_data"]] <- austraits[["excluded_data"]]  %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]], .data$trait_name %in% trait_names)
 
   ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(.data$dataset_id %in% dataset_id, .data$trait_name %in% trait_names)

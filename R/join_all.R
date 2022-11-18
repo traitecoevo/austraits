@@ -10,7 +10,7 @@
 #' austraits$traits
 #' 
 #' #Append sites data
-#' (austraits %>% join_sites)$traits
+#' (austraits %>% join_locations)$traits
 #'
 #' #Append contexts
 #' (austraits %>% join_contexts)$traits
@@ -58,6 +58,7 @@ join_taxonomy <- function(austraits, ...) {
 
 #' @title  Joining taxonomic info for AusTraits versions <= 3.0.2
 #' @noRd
+#' @keywords internal
 
 join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
   austraits$traits <- austraits$traits %>%
@@ -68,6 +69,7 @@ join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", 
 
 #' @title Joining taxonomic info for AusTraits versions > 3.0.2
 #' @noRd
+#' @keywords internal
 
 join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")) {
   austraits$traits <- austraits$traits %>%
@@ -116,6 +118,7 @@ join_locations <- function(austraits, ...) {
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
 #' @noRd
+#' @keywords internal
 join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   
   sites <- 
@@ -139,6 +142,7 @@ join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)"))
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
 #' @noRd
+#' @keywords internal
 join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
     austraits$locations %>% 
@@ -172,6 +176,7 @@ join_contexts <- function(austraits, ...){
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
 #' @noRd
+#' @keywords internal
 join_contexts2 <- function(austraits, ...){
   traits2 <- austraits$traits
   
@@ -197,6 +202,8 @@ join_contexts2 <- function(austraits, ...){
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
 #' @noRd
+#' @keywords internal
+
 join_contexts1 <- function(austraits, vars =  c("dataset_id","context_name","context_property","value")) {
   
   if(nrow(austraits$contexts) == 0)
@@ -213,8 +220,3 @@ join_contexts1 <- function(austraits, vars =  c("dataset_id","context_name","con
   austraits
 }
 
-
-
-
-
-###

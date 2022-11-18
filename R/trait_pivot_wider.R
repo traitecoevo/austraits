@@ -5,7 +5,7 @@
 #' This function converts the data into wide format so that each trait in it's own column. 
 #' Note that some studies have multiple rows of data for each observation_id, so this function will create four lists (value, unit, value_type,date and replicates) with the identifying columns as well as trait data arranged in columns. 
 #' @usage trait_pivot_wider(data)
-#' @param data The traits table from austraits list
+#' @param traits The traits table from austraits list
 #' @return list of five tibbles in wide format
 #'
 #' @examples 
@@ -19,7 +19,15 @@
 #' @export
 #' @importFrom rlang .data
 
-trait_pivot_wider <- function(data){
+trait_pivot_wider <- function(traits){
+  # Determine version using col names of traits table
+  
+  
+  # Switch how traits are pivoted wider based on version
+}
+
+
+trait_pivot_wider2 <- function(traits){
   
   check_obs <- data %>% 
     dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
@@ -39,6 +47,31 @@ trait_pivot_wider <- function(data){
   
   ret
 }
+
+trait_pivot_wider1 <- function(traits){
+  
+  check_obs <- data %>% 
+    dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
+    dplyr::summarise(dplyr::n()) %>% 
+    dplyr::filter(`dplyr::n()` > 1) %>%
+    dplyr::select(.data$trait_name, .data$observation_id)
+  
+  if(nrow(check_obs) >1){
+    rlang::abort("There are multiple data points for the same observation - try summarise_trait_means() before widening!")
+  }
+  
+  vars <- c("value", "unit", "date", "value_type", "replicates")
+  
+  ret  <- purrr::map(vars, piv_wide, data = data)
+  
+  names(ret) <- vars
+  
+  ret
+}
+
+#' Helper function to pivot wider for AusTraits <= v3.0.2
+#' @keywords internal
+#' @noRd
 
 piv_wide <- function(data, var_to_spread){
   ret <- data %>% 

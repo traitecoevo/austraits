@@ -37,7 +37,7 @@ Function to append all study information (method, location, taxonomic, context) 
 austraits$traits
 
 #Append sites data
-(austraits \%>\% join_sites)$traits
+(austraits \%>\% join_locations)$traits
 
 #Append contexts
 (austraits \%>\% join_contexts)$traits
