@@ -30,14 +30,14 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NU
   }
   
   if( ! is.null(family) ){
-  # Retrieving all taxon name that falls under family
-  target_in <- stringr::str_which(austraits$taxa$family, family)
-  target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
+    # Retrieving all taxon name that falls under family
+    target_in <- stringr::str_which(austraits$taxa$family, paste(family, collapse = "|"))
+    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
   }
   
   if( ! is.null(genus) ){
     # Retrieving all taxon name that falls under genus
-    target_in <- stringr::str_which(austraits$taxa$genus, genus)
+    target_in <- stringr::str_which(austraits$taxa$genus, paste(genus, collapse = "|"))
     target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
   }
   
