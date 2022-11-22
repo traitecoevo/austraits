@@ -9,7 +9,7 @@
 #' \dontrun{
 #' #All traits from a given study
 #' data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_all() 
-#' data$traits %>% plot_locations("trait_name")
+#' data %>% plot_locations("trait_name")
 #' 
 #' #Single trait
 #' data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_all() 
