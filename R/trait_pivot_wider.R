@@ -21,7 +21,7 @@
 
 trait_pivot_wider <- function(traits){
   # Determine version using col names of traits table
-  if(any(str_detect(names(austraits$traits), "entity"))){
+  if(any(str_detect(names(traits), "entity"))){
     version = "newer"
   } else(
     version = "older"
@@ -37,23 +37,33 @@ trait_pivot_wider <- function(traits){
 trait_pivot_wider2 <- function(traits){ # UNDER CONSTRUCTION
   data <- traits
   
-  check_obs <- data %>% 
-    dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
-    dplyr::summarise(dplyr::n()) %>% 
-    dplyr::filter(`dplyr::n()` > 1) %>%
-    dplyr::select(.data$trait_name, .data$observation_id)
+  meta_data_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_record", "basis_of_value")
   
-  if(nrow(check_obs) >1){
-    rlang::abort("There are multiple data points for the same observation - try summarise_trait_means() before widening!")
+  # Option to remove methods for users that have join_methods to the traits table?
+  
+  # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
+  data %>% 
+    select(.data$taxon_name, .data$trait_name, .data$value_type, .data$value, .data$observation_id, .data$method_id) %>% 
+    group_by(.data$taxon_name, .data$observation_id, .data$method_id) %>% 
+    summarise(n_value_type = length(unique(.data$value_type))) %>% 
+    arrange(.data$observation_id) %>% 
+    filter(n_value_type > 1) -> check_value_type
+  
+  if(nrow(check_value_type) > 1){
+    meta_data_cols <- c(meta_data_cols, "value_type")
+    traits %>% 
+      select(- all_of(meta_data_cols)) %>% 
+      group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id) %>% 
+      pivot_wider(names_from = trait_name,
+                  values_from = value) 
+  } else{
+    
+    traits %>% 
+      select(- all_of(meta_data_cols)) %>% 
+      group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id, value_type) %>% 
+      pivot_wider(names_from = trait_name,
+                  values_from = value) 
   }
-  
-  vars <- c("value", "unit", "date", "value_type", "replicates")
-  
-  ret  <- purrr::map(vars, piv_wide, data = data)
-  
-  names(ret) <- vars
-  
-  ret
 }
 
 trait_pivot_wider1 <- function(traits){
