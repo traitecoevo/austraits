@@ -21,13 +21,21 @@
 
 trait_pivot_wider <- function(traits){
   # Determine version using col names of traits table
-  
+  if(any(str_detect(names(austraits$traits), "entity"))){
+    version = "newer"
+  } else(
+    version = "older"
+  )
   
   # Switch how traits are pivoted wider based on version
+  switch (version,
+          'newer' = trait_pivot_wider2(traits),
+          'older' = trait_pivot_wider1(traits))
 }
 
 
-trait_pivot_wider2 <- function(traits){
+trait_pivot_wider2 <- function(traits){ # UNDER CONSTRUCTION
+  data <- traits
   
   check_obs <- data %>% 
     dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
@@ -49,6 +57,7 @@ trait_pivot_wider2 <- function(traits){
 }
 
 trait_pivot_wider1 <- function(traits){
+  data <- traits
   
   check_obs <- data %>% 
     dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
