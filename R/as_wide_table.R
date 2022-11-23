@@ -16,27 +16,25 @@
 #' @importFrom utils methods
 
 as_wide_table <- function(austraits){
+  # Switch for different versions
+  version <- austraits$build_info$version %>% as.character()
   
+  switch (version,
+          '3.0.2.9000' = as_wide_table2(austraits),
+          '3.0.2' = as_wide_table1(austraits),
+          '3.0.1' = as_wide_table1(austraits),
+          '3.0.0' = as_wide_table1(austraits),
+          '2.1.0' = as_wide_table1(austraits),
+          '2.0.0' = as_wide_table1(austraits)
+  )
+
 }
 
+#' Turning entire AusTraits object into wide table >3.0.2
+#' @noRd
+#' @keyword internal
 as_wide_table2 <- function(austraits){
 
-
-  ################################################################################
-  # TODO: this updated with next zenodo release
-  # Load the trait classification doc - classifies the tissue type and type of trait based on the trait_name data field
-  # Exclude this for now -- will be added to definitions file in future release
-  # trait_class = read.csv("data-raw/Trait_classifications_v3.csv")
-  # trait_class[is.na(trait_class)] = ""
-  # trait_class <- trait_class %>% as_tibble()
-  # 
-  # we only need two extra columns from the trait class table - collapsing two category and other_tags cols and renaming them for clarity
-  # x2 <- 
-  #   trait_class %>% dplyr::mutate(
-  #   trait_category = str_c(category, "; ", other_tags) %>% gsub("; $", "", .)
-  # ) %>% 
-  #   dplyr::select(trait_name, tissue, trait_category)
-  # 
   # Function to collapse columns in locations and contexts into single column
   process_table <- function(data) {
     
@@ -138,6 +136,9 @@ as_wide_table2 <- function(austraits){
   austraits_wide
 }
 
+#' Turning entire AusTraits object into wide table <=3.0.2
+#' @noRd
+#' @keyword internal
 as_wide_table1 <- function(austraits){
   
   
@@ -209,7 +210,7 @@ as_wide_table1 <- function(austraits){
   # collapse into one column
   austraits$sites <- 
     austraits$sites %>% 
-    dplyr::filter(.data$value!="unkown") %>% 
+    dplyr::filter(.data$value!="unknown") %>% 
     # next line is a fix -- one dataset in 3.0.2 has value "site_name"
     dplyr::mutate(site_property = gsub("site_name", "name", .data$site_property)) %>%
     dplyr::rename(c("property" = "site_property")) %>%
