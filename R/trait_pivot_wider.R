@@ -34,12 +34,10 @@ trait_pivot_wider <- function(traits){
 }
 
 
-trait_pivot_wider2 <- function(traits){ # UNDER CONSTRUCTION
+trait_pivot_wider2 <- function(traits){ 
   data <- traits
   
   meta_data_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_record", "basis_of_value")
-  
-  # Option to remove methods for users that have join_methods to the traits table?
   
   # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
   data %>% 
@@ -51,6 +49,7 @@ trait_pivot_wider2 <- function(traits){ # UNDER CONSTRUCTION
   
   if(nrow(check_value_type) > 1){
     meta_data_cols <- c(meta_data_cols, "value_type")
+    
     traits %>% 
       select(- all_of(meta_data_cols)) %>% 
       group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id) %>% 

@@ -18,6 +18,10 @@ extract_taxa(austraits, family, genus)
 \item{genus}{\itemize{
 \item character string of genus
 }}
+
+\item{taxon_name}{\itemize{
+\item character string of taxon name
+}}
 }
 \value{
 A large list of tibbles containing all austraits information for specificied taxa
