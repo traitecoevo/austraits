@@ -159,7 +159,7 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 #' @export
 #' @rdname join_all
 
-join_contexts <- function(austraits, ...){
+join_contexts <- function(austraits){
   # Switch for different versions
   version <- austraits$build_info$version %>% as.character()
   
@@ -200,18 +200,17 @@ join_contexts2 <- function(austraits, ...){
   austraits
 }
 
-#' @title  Joining location info for AusTraits versions <= 3.0.2
+#' @title  Joining contexts info for AusTraits versions <= 3.0.2
 #' @noRd
 #' @keywords internal
 
-join_contexts1 <- function(austraits, vars =  c("dataset_id","context_name","context_property","value")) {
+join_contexts1 <- function(austraits) {
   
   if(nrow(austraits$contexts) == 0)
     return (austraits)
   
   contexts <- 
     austraits$contexts %>% 
-    dplyr::filter(.data$context_property %in%  vars) %>% 
     tidyr::pivot_wider(names_from = .data$context_property, values_from = .data$value)
   
   austraits$traits <- austraits$traits %>%
