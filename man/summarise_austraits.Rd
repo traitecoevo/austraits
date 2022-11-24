@@ -2,15 +2,9 @@
 % Please edit documentation in R/summarise_austraits.R
 \name{summarise_austraits}
 \alias{summarise_austraits}
-\alias{summarise_austraits_traits}
-\alias{summarise_austraits_taxa}
 \title{Summarise counts for a particular variable of interest}
 \usage{
 summarise_austraits(austraits, var)
-
-summarise_austraits_traits(austraits, var)
-
-summarise_austraits_taxa(austraits, var)
 }
 \arguments{
 \item{austraits}{A large list of tibbles built from austraits}

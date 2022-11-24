@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_taxa.R
 \name{extract_taxa}
 \alias{extract_taxa}
-\title{Extract data for specific taxa}
+\title{Extract data for one specific taxa}
 \usage{
 extract_taxa(austraits, family, genus)
 }

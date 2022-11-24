@@ -26,7 +26,8 @@ summarise_austraits <- function(austraits, var){
   )
 }
 
-#' @rdname summarise_austraits
+#' @noRd
+#' @keywords internal
          
 summarise_austraits_traits <-function(austraits, var) {
 
@@ -56,7 +57,8 @@ summarise_austraits_traits <-function(austraits, var) {
   ret %>% dplyr::select(1, dplyr::starts_with("n_"), .data$percent_total)
 }
 
-#' @rdname summarise_austraits
+#' @noRd
+#' @keywords internal
 
 summarise_austraits_taxa <-function(austraits, var) {
   
