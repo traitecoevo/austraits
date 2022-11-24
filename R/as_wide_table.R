@@ -58,9 +58,9 @@ as_wide_table2 <- function(austraits){
     # TODO: this section can be removed for next release
     # Some studies have multiple records per traits. This breaks things when joining
     # For now select first
-    dplyr::group_by(.data$dataset_id, .data$trait_name) %>% 
-    dplyr::slice(1) %>%
-    dplyr:: ungroup() %>%
+    # dplyr::group_by(.data$dataset_id, .data$trait_name) %>% 
+    # dplyr::slice(1) %>%
+    # dplyr:: ungroup() %>%
     #----------
     dplyr::rename(c("dataset_description" = "description"))  
   
