@@ -32,7 +32,7 @@ as_wide_table <- function(austraits){
 
 #' Turning entire AusTraits object into wide table >3.0.2
 #' @noRd
-#' @keyword internal
+#' @keywords internal
 as_wide_table2 <- function(austraits){
 
   # Function to collapse columns in locations and contexts into single column
@@ -117,7 +117,7 @@ as_wide_table2 <- function(austraits){
 
 #' Turning entire AusTraits object into wide table <=3.0.2
 #' @noRd
-#' @keyword internal
+#' @keywords  internal
 as_wide_table1 <- function(austraits){
   
   

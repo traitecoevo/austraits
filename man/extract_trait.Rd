@@ -2,15 +2,9 @@
 % Please edit documentation in R/extract_trait.R
 \name{extract_trait}
 \alias{extract_trait}
-\alias{extract_trait1}
-\alias{extract_trait2}
 \title{Extract data for specific traits}
 \usage{
 extract_trait(austraits, trait_names, taxon_names)
-
-extract_trait1(austraits, trait_names, taxon_names = NULL)
-
-extract_trait2(austraits, trait_names, taxon_names = NULL)
 }
 \arguments{
 \item{austraits}{\itemize{
