@@ -159,7 +159,7 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 #' @export
 #' @rdname join_all
 
-join_contexts <- function(austraits){
+join_contexts <- function(austraits,...){
   # Switch for different versions
   version <- austraits$build_info$version %>% as.character()
   
@@ -177,7 +177,7 @@ join_contexts <- function(austraits){
 #' @title  Joining location info for AusTraits versions > 3.0.2
 #' @noRd
 #' @keywords internal
-join_contexts2 <- function(austraits, ...){
+join_contexts2 <- function(austraits, collapse_context = FALSE){
   traits2 <- austraits$traits
   
   for(v in unique(austraits$contexts$link_id)){
@@ -195,6 +195,15 @@ join_contexts2 <- function(austraits, ...){
                 traits2,
                 context_sub
       )
+  }
+  
+  if(collapse_context == TRUE){
+    traits2 %>% 
+      dplyr::select(-names(austraits$traits)) %>% collapse_cols() -> context_text
+
+    traits2 %>% 
+      dplyr::mutate(context = context_text) %>% 
+      dplyr::select(names(austraits$traits), context) -> traits2
   }
   austraits$traits <- traits2
   austraits

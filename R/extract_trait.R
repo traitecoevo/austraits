@@ -32,7 +32,8 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
 }
 
 #' @title Extract specific trait data from austraits object for versions <=3.0.2
-#' @rdname extract_trait
+#' @noRd
+#' @keywords internal
 extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
   
   ret <- austraits
@@ -92,7 +93,8 @@ extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
 }
 
 #' @title Extract specific trait data from austraits object for versions >3.0.2
-#' @rdname extract_trait
+#' @noRd
+#' @keywords internal
 extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
   
   ret <- austraits
