@@ -26,7 +26,7 @@ reference:
   - starts_with("extract")
   - starts_with("trait_pivot")
   - summarise_trait_means
-  - join_all
+  - starts_with("join")
   - ends_with("trait_values")
   - as_wide_table
 - title: Quick data visualisations
@@ -43,7 +43,7 @@ navbar:
     - traits
     - reference
     - news
-    right: github
+    right: [search, github]
   components:
     home:
       icon: fas fa-home fa-lg
