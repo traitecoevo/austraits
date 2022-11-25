@@ -6,7 +6,7 @@
 -   `austraits$sites` renamed to `austraits$locations`
 -   `plot_site_locations` is deprecated, use `plot_locations`
 -   `join_sites` is deprecated, use `join_locations`
--   The following functions have been updated to work with AusTraits \> v3.0.2, as well \<=3.0.2
+-   The following functions have been updated to work with AusTraits > v3.0.2, as well <=3.0.2
     - `join_taxonomy`
     - `join_locations`
     - `join_contexts`

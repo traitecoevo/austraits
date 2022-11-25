@@ -52,6 +52,7 @@ join_taxonomy <- function(austraits, ...) {
           '3.0.0' = join_taxonomy1(austraits, ...),
           '2.1.0' = join_taxonomy1(austraits, ...),
           '2.0.0' = join_taxonomy1(austraits, ...),
+          '0.0.0.900' = join_taxonomy1(austraits, ...)
 
   )
   
@@ -111,7 +112,8 @@ join_locations <- function(austraits, ...) {
           '3.0.1' = join_locations1(austraits, ...),
           '3.0.0' = join_locations1(austraits, ...),
           '2.1.0' = join_locations1(austraits, ...),
-          '2.0.0' = join_locations1(austraits, ...)
+          '2.0.0' = join_locations1(austraits, ...),
+          '0.0.0.900' = join_locations1(austraits, ...)
           
   )
 }
@@ -174,7 +176,8 @@ join_contexts <- function(austraits,...){
           '3.0.1' = join_contexts1(austraits, ...),
           '3.0.0' = join_contexts1(austraits, ...),
           '2.1.0' = join_contexts1(austraits, ...),
-          '2.0.0' = join_contexts1(austraits, ...)
+          '2.0.0' = join_contexts1(austraits, ...),
+          '0.0.0.900' = join_locations1(austraits, ...)
           
   )
 }
