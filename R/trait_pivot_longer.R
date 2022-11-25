@@ -74,10 +74,10 @@ trait_pivot_longer1 <- function(wide_data) {
     )
   
   ret <- ret %>% 
-    dplyr::mutate(value = dplyr::na_if(.data$value, y = "NA")) %>%
-    dplyr::filter(!is.na(.data$value)) %>%
+    dplyr::mutate(value = dplyr::na_if(value, y = "NA")) %>%
+    dplyr::filter(!is.na(value)) %>%
     dplyr::distinct() %>% 
-    dplyr::arrange(.data$observation_id, .data$trait_name) %>%
+    dplyr::arrange(observation_id, trait_name) %>%
     dplyr::select(tidyselect::all_of(id_variables))
   
   ret

@@ -26,9 +26,9 @@ bind_trait_values <- function(trait_data) {
     if(nrow(.data) > 1) {
       return(
         .data %>% 
-          dplyr::mutate(value = bind_x(.data$value),
-                        value_type = bind_x(.data$value_type),
-                        replicates = bind_x(.data$replicates)) %>%
+          dplyr::mutate(value = bind_x(value),
+                        value_type = bind_x(value_type),
+                        replicates = bind_x(replicates)) %>%
           dplyr::filter(dplyr::row_number()==1) 
       )
     }
@@ -36,8 +36,8 @@ bind_trait_values <- function(trait_data) {
   }
   
   trait_data  %>% 
-    dplyr::group_by(.data$observation_id, .data$trait_name) %>% 
+    dplyr::group_by(observation_id, trait_name) %>% 
     bind_values_worker() %>% 
     dplyr::ungroup() %>% 
-    dplyr::arrange(.data$observation_id, .data$trait_name, .data$value_type)
+    dplyr::arrange(observation_id, trait_name, value_type)
 }

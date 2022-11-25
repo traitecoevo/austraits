@@ -37,7 +37,7 @@ plot_locations <- function(aus_traits, feature="trait_name", ...){
 #' @noRd
 plot_locations1 <- function(aus_traits, feature, ...){
   au_map <- australia_map_raster %>%
-    dplyr::mutate(australia = as.factor(.data$australia))
+    dplyr::mutate(australia = as.factor(australia))
   
   if( is.null(dim(aus_traits)) ){
     traits <- aus_traits$traits
@@ -47,21 +47,21 @@ plot_locations1 <- function(aus_traits, feature, ...){
   #Create site data
   sites <- 
     traits %>%
-    dplyr::select(.data$site_name, .data$`latitude (deg)`, .data$`longitude (deg)`, !!feature) %>%
+    dplyr::select(site_name, `latitude (deg)`, `longitude (deg)`, !!feature) %>%
     tidyr::drop_na() %>%
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
     dplyr::filter(
-      .data$`latitude (deg)` > (-45), .data$`latitude (deg)` < (-9.5),
-      .data$`longitude (deg)` > (110), .data$`longitude (deg)` < (153))
+      `latitude (deg)` > (-45), `latitude (deg)` < (-9.5),
+      `longitude (deg)` > (110), `longitude (deg)` < (153))
   
   #Create site map  
   site_map <- 
     ggplot2::ggplot() +
-    ggplot2::geom_raster(data = au_map, ggplot2::aes(x = .data$x, y = .data$y, fill = .data$australia), show.legend = FALSE) +
+    ggplot2::geom_raster(data = au_map, ggplot2::aes(x = x, y = y, fill = australia), show.legend = FALSE) +
     # Add trait data
     ggpointdensity::geom_pointdensity(
       data = sites,
-      ggplot2::aes(y = .data$`latitude (deg)`, x = .data$`longitude (deg)`),
+      ggplot2::aes(y = `latitude (deg)`, x = `longitude (deg)`),
       inherit.aes = FALSE,
       show.legend = TRUE,
       adjust = 1,
@@ -94,7 +94,7 @@ plot_locations1 <- function(aus_traits, feature, ...){
 #' @noRd
 plot_locations2 <- function(aus_traits, feature, ...){
   au_map <- australia_map_raster %>%
-    dplyr::mutate(australia = as.factor(.data$australia))
+    dplyr::mutate(australia = as.factor(australia))
   
   if( is.null(dim(aus_traits)) ){
   traits <- aus_traits$traits
@@ -105,21 +105,21 @@ plot_locations2 <- function(aus_traits, feature, ...){
   #Create site data
   sites <- 
     traits %>%
-    dplyr::select(.data$location_name, .data$`latitude (deg)`, .data$`longitude (deg)`, !!feature) %>%
+    dplyr::select(location_name, `latitude (deg)`, `longitude (deg)`, !!feature) %>%
     tidyr::drop_na() %>%
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
     dplyr::filter(
-      .data$`latitude (deg)` > (-45), .data$`latitude (deg)` < (-9.5),
-      .data$`longitude (deg)` > (110), .data$`longitude (deg)` < (153))
+      `latitude (deg)` > (-45), `latitude (deg)` < (-9.5),
+      `longitude (deg)` > (110), `longitude (deg)` < (153))
   
   #Create site map  
   site_map <- 
     ggplot2::ggplot() +
-    ggplot2::geom_raster(data = au_map, ggplot2::aes(x = .data$x, y = .data$y, fill = .data$australia), show.legend = FALSE) +
+    ggplot2::geom_raster(data = au_map, ggplot2::aes(x = x, y = y, fill = australia), show.legend = FALSE) +
     # Add trait data
     ggpointdensity::geom_pointdensity(
       data = sites,
-      ggplot2::aes(y = .data$`latitude (deg)`, x = .data$`longitude (deg)`),
+      ggplot2::aes(y = `latitude (deg)`, x = `longitude (deg)`),
       inherit.aes = FALSE,
       show.legend = TRUE,
       adjust = 1,

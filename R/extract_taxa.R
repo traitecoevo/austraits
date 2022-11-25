@@ -46,13 +46,13 @@ extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
   if( ! is.null(family) ){
     # Retrieving all taxon name that falls under family
     target_in <- stringr::str_which(austraits$taxa$family, paste(family, collapse = "|"))
-    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
+    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(taxon_name) 
   }
   
   if( ! is.null(genus) ){
     # Retrieving all taxon name that falls under genus
     target_in <- stringr::str_which(austraits$taxa$genus, paste(genus, collapse = "|"))
-    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
+    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(taxon_name) 
   }
   
   if( ! is.null(taxon_name)){
@@ -61,7 +61,7 @@ extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
   
   # Extract data for target_sp
   ret[["traits"]] <- ret[["traits"]] %>% 
-    dplyr::filter(.data$taxon_name %in% target_taxa)
+    dplyr::filter(taxon_name %in% target_taxa)
   
   dataset_id <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
   
@@ -71,14 +71,14 @@ extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
   }
   # NB: can't use dplyr::filter in the above as it doesn't behave when the variable name is the same as a column name
   
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% target_taxa)
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% target_taxa)
   
-  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% target_taxa)
+  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(taxon_name %in% target_taxa)
   # Fix formatting for dataset ids
   ret$taxonomic_updates <-
     tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
   
-  ret[["excluded_data"]] <- austraits[["excluded_data"]] %>% dplyr::filter(.data$taxon_name %in% target_taxa)
+  ret[["excluded_data"]] <- austraits[["excluded_data"]] %>% dplyr::filter(taxon_name %in% target_taxa)
 
   ret[["definitions"]] <- austraits[["definitions"]]
   
@@ -113,13 +113,13 @@ extract_taxa1 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
   if( ! is.null(family) ){
     # Retrieving all taxon name that falls under family
     target_in <- stringr::str_which(austraits$taxa$family, paste(family, collapse = "|"))
-    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
+    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(taxon_name) 
   }
   
   if( ! is.null(genus) ){
     # Retrieving all taxon name that falls under genus
     target_in <- stringr::str_which(austraits$taxa$genus, paste(genus, collapse = "|"))
-    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(.data$taxon_name) 
+    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(taxon_name) 
   }
   
   if( ! is.null(taxon_name)){
@@ -128,26 +128,26 @@ extract_taxa1 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
   
   # Extract data for target_sp
   ret[["traits"]] <- ret[["traits"]] %>% 
-    dplyr::filter(.data$taxon_name %in% target_taxa)
+    dplyr::filter(taxon_name %in% target_taxa)
   
   ids <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
   
-  ret[["sites"]] <- austraits[["sites"]] %>% dplyr::filter(.data$site_name %in% ret[["traits"]][["site_name"]], .data$dataset_id %in% ids)
+  ret[["sites"]] <- austraits[["sites"]] %>% dplyr::filter(site_name %in% ret[["traits"]][["site_name"]], dataset_id %in% ids)
   
-  ret[["contexts"]] <- austraits[["contexts"]] %>% dplyr::filter(.data$context_name %in% ret[["traits"]][["context_name"]], .data$dataset_id %in% ids)
+  ret[["contexts"]] <- austraits[["contexts"]] %>% dplyr::filter(context_name %in% ret[["traits"]][["context_name"]], dataset_id %in% ids)
   
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
   
-  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
   # Fix formatting for dataset ids
   ret$taxonomic_updates <-
     tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
   
-  ret[["excluded_data"]] <- austraits[["excluded_data"]] %>% dplyr::filter(.data$taxon_name %in% target_taxa)
+  ret[["excluded_data"]] <- austraits[["excluded_data"]] %>% dplyr::filter(taxon_name %in% target_taxa)
   
-  ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(.data$dataset_id %in% ids)
+  ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(dataset_id %in% ids)
   
-  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(.data$dataset_id %in%ids)
+  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(dataset_id %in%ids)
   
   ret[["definitions"]] <- austraits[["definitions"]]
   

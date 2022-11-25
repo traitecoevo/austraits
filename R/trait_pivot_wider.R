@@ -42,10 +42,10 @@ trait_pivot_wider2 <- function(traits){
   
   # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
   data %>% 
-    select(.data$taxon_name, .data$trait_name, .data$value_type, .data$value, .data$observation_id, .data$method_id) %>% 
-    group_by(.data$taxon_name, .data$observation_id, .data$method_id) %>% 
-    summarise(n_value_type = length(unique(.data$value_type))) %>% 
-    arrange(.data$observation_id) %>% 
+    select(taxon_name, trait_name, value_type, value, observation_id, method_id) %>% 
+    group_by(taxon_name, observation_id, method_id) %>% 
+    summarise(n_value_type = length(unique(value_type))) %>% 
+    arrange(observation_id) %>% 
     filter(n_value_type > 1) -> check_value_type
   
   if(nrow(check_value_type) > 1){
@@ -70,10 +70,10 @@ trait_pivot_wider1 <- function(traits){
   data <- traits
   
   check_obs <- data %>% 
-    dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
+    dplyr::group_by(trait_name, observation_id) %>% 
     dplyr::summarise(dplyr::n()) %>% 
     dplyr::filter(`dplyr::n()` > 1) %>%
-    dplyr::select(.data$trait_name, .data$observation_id)
+    dplyr::select(trait_name, observation_id)
   
   if(nrow(check_obs) >1){
     rlang::abort("There are multiple data points for the same observation - try summarise_trait_means() before widening!")
@@ -94,9 +94,9 @@ trait_pivot_wider1 <- function(traits){
 
 piv_wide <- function(data, var_to_spread){
   ret <- data %>% 
-    dplyr::select(.data$dataset_id:.data$trait_name, {{var_to_spread}}, .data$original_name) %>% 
-    tidyr::pivot_wider(id_cols = c(.data$dataset_id:.data$observation_id, .data$original_name), names_from = .data$trait_name, values_from = {{var_to_spread}}) %>% 
-    dplyr::select(-.data$original_name, .data$original_name) # Moving original name to the end
+    dplyr::select(dataset_id:trait_name, {{var_to_spread}}, original_name) %>% 
+    tidyr::pivot_wider(id_cols = c(dataset_id:observation_id, original_name), names_from = trait_name, values_from = {{var_to_spread}}) %>% 
+    dplyr::select(-original_name, original_name) # Moving original name to the end
   
   ret
 }

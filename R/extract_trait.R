@@ -39,21 +39,21 @@ extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
   ret <- austraits
   
   ret[["traits"]] <- austraits[["traits"]] %>% 
-    dplyr::filter(.data$trait_name %in% trait_names)
+    dplyr::filter(trait_name %in% trait_names)
   
   if(!is.null(taxon_names)){
     ret[["traits"]] <- ret[["traits"]] %>% 
-    dplyr::filter(.data$taxon_name %in% taxon_names)
+    dplyr::filter(taxon_name %in% taxon_names)
   }
   
   ids <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
   
-  ret[["sites"]] <- austraits[["sites"]] %>% dplyr::filter(.data$site_name %in% ret[["traits"]][["site_name"]], .data$dataset_id %in% ids)
+  ret[["sites"]] <- austraits[["sites"]] %>% dplyr::filter(site_name %in% ret[["traits"]][["site_name"]], dataset_id %in% ids)
   
-  ret[["contexts"]] <- austraits[["contexts"]] %>% dplyr::filter(.data$context_name %in% ret[["traits"]][["context_name"]], .data$dataset_id %in% ids)
+  ret[["contexts"]] <- austraits[["contexts"]] %>% dplyr::filter(context_name %in% ret[["traits"]][["context_name"]], dataset_id %in% ids)
   
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
-  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
   
   ret$taxonomic_updates <-
     tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
@@ -62,12 +62,12 @@ extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
   ret[["excluded_data"]] <- austraits[["excluded_data"]][austraits[["excluded_data"]][["trait_name"]] %in% trait_names,]
   
   if(!is.null(taxon_names))
-    ret[["excluded_data"]] <- ret[["excluded_data"]] %>% dplyr::filter(.data$taxon_name %in% taxon_names)
+    ret[["excluded_data"]] <- ret[["excluded_data"]] %>% dplyr::filter(taxon_name %in% taxon_names)
   
   
-  ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(.data$dataset_id %in% ids)
+  ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(dataset_id %in% ids)
   
-  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(.data$dataset_id %in%ids, .data$trait_name %in% ret[["traits"]][["trait_name"]])
+  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(dataset_id %in%ids, trait_name %in% ret[["traits"]][["trait_name"]])
   
   ret[["definitions"]] <- austraits[["definitions"]]
   ret[["build_info"]] <- austraits[["build_info"]]
@@ -101,12 +101,12 @@ extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
   
   # Traits table
   ret[["traits"]] <- austraits[["traits"]] %>% 
-    dplyr::filter(.data$trait_name %in% trait_names)
+    dplyr::filter(trait_name %in% trait_names)
   
   # If taxon_name supplied, further filter traits table
   if(!is.null(taxon_names)){
     ret[["traits"]] <- ret[["traits"]] %>% 
-    dplyr::filter(.data$taxon_name %in% taxon_names)
+    dplyr::filter(taxon_name %in% taxon_names)
   }
   
   dataset_id <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
@@ -117,16 +117,16 @@ extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
   }
   # NB: can't use dplyr::filter in the above as it doesn't behave when the variable name is the same as a column name
   
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
-  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
   
   # Fix formating for datasets
   ret$taxonomic_updates <-
     tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
   
-  ret[["excluded_data"]] <- austraits[["excluded_data"]]  %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]], .data$trait_name %in% trait_names)
+  ret[["excluded_data"]] <- austraits[["excluded_data"]]  %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]], trait_name %in% trait_names)
 
-  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(.data$dataset_id %in% dataset_id, .data$trait_name %in% trait_names)
+  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(dataset_id %in% dataset_id, trait_name %in% trait_names)
   
   # Tables that never change
   ret[["definitions"]] <- austraits[["definitions"]]

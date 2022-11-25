@@ -40,7 +40,7 @@ extract_dataset1 <- function(austraits, dataset_id){
     ret[[v]] <- austraits[[v]][ austraits[[v]][["dataset_id"]] %in% dataset_id,]
   # NB: can't use dplyr::filter in the above as it doesn't behave when the variable name is the same as a column name
   
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
   
   ret[["definitions"]] <- austraits[["definitions"]]
   ret[["build_info"]] <- austraits[["build_info"]]
@@ -77,7 +77,7 @@ extract_dataset2 <- function(austraits, dataset_id){
     ret[[v]] <- austraits[[v]][ austraits[[v]][["dataset_id"]] %in% dataset_id,]
   # NB: can't use dplyr::filter in the above as it doesn't behave when the variable name is the same as a column name
   
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(.data$taxon_name %in% ret[["traits"]][["taxon_name"]])
+  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
   
   ret[["definitions"]] <- austraits[["definitions"]]
   ret[["build_info"]] <- austraits[["build_info"]]

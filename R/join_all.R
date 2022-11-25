@@ -124,8 +124,8 @@ join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (de
   
   sites <- 
     austraits$sites %>% 
-    dplyr::filter(.data$site_property %in%  vars) %>% 
-    tidyr::pivot_wider(names_from = .data$site_property, values_from = .data$value)
+    dplyr::filter(site_property %in%  vars) %>% 
+    tidyr::pivot_wider(names_from = site_property, values_from = value)
   
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "site_name"), sites)
@@ -151,8 +151,8 @@ join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)"))
 join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   sites <- 
     austraits$locations %>% 
-    dplyr::filter(.data$location_property %in%  vars) %>% 
-    tidyr::pivot_wider(names_from = .data$location_property)
+    dplyr::filter(location_property %in%  vars) %>% 
+    tidyr::pivot_wider(names_from = location_property)
   
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "location_id"), sites)
@@ -225,7 +225,7 @@ join_contexts1 <- function(austraits) {
   
   contexts <- 
     austraits$contexts %>% 
-    tidyr::pivot_wider(names_from = .data$context_property, values_from = .data$value)
+    tidyr::pivot_wider(names_from = context_property, values_from = value)
   
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "context_name"), contexts)
