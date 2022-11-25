@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1.9000</span>
       </span>
     </div>
 
@@ -78,11 +78,12 @@
 
       
 
-      </header><script src="austraits_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>austraits</h1>
-                        <h4 data-toc-skip class="author">Fonti Kar, Daniel Falster</h4>
+                        <h4 data-toc-skip class="author">Fonti Kar,
+Daniel Falster</h4>
             
             <h4 data-toc-skip class="date">2022-07-19</h4>
       
@@ -93,12 +94,19 @@
 
     
     
-<p>The <code>austraits</code> package is designed to aid users in accessing data from <a href="https://zenodo.org/record/5112001" class="external-link">AusTraits</a>, a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.</p>
-<p><strong>Note that we are using a reduced subset of v.3.0.2, so the version number and number of records and species will not be match your values</strong></p>
+<p>The <code>austraits</code> package is designed to aid users in
+accessing data from <a href="https://zenodo.org/record/5112001" class="external-link">AusTraits</a>, a curated plant
+trait database for the Australian flora. This package contains several
+core functions to wrangle and visualise data. Below, we include a
+tutorial to illustrate how to use these functions in greater detail.</p>
+<p><strong>Note that we are using a reduced subset of v.3.0.2, so the
+version number and number of records and species will not be match your
+values</strong></p>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p><code>austraits</code> is still under development. To install the current version from GitHub:</p>
+<p><code>austraits</code> is still under development. To install the
+current version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span></span>
@@ -108,13 +116,24 @@
 <div class="section level3">
 <h3 id="loading-austraits-database">Loading AusTraits database<a class="anchor" aria-label="anchor" href="#loading-austraits-database"></a>
 </h3>
-<p>By default, <code>load_austraits</code> will download AusTraits to a specified path e.g. <code>data/austraits</code> and will reload it from this location in the future. You can set <code>update = TRUE</code> so the austrait versions are downloaded fresh from <a href="https://zenodo.org/record/3568429" class="external-link">Zenodo</a>. Note that <code>load_austraits</code> will happily accept a DOI of a particular version.</p>
+<p>By default, <code>load_austraits</code> will download AusTraits to a
+specified path e.g. <code>data/austraits</code> and will reload it from
+this location in the future. You can set <code>update = TRUE</code> so
+the austrait versions are downloaded fresh from <a href="https://zenodo.org/record/3568429" class="external-link">Zenodo</a>. Note that
+<code>load_austraits</code> will happily accept a DOI of a particular
+version.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"3.0.2"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></span></code></pre></div>
-<p>You can check out different versions and their associated DOI of AusTraits by using:</p>
+<p>You can check out different versions and their associated DOI of
+AusTraits by using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_versions.html">get_versions</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></span></code></pre></div>
-<p>The AusTraits object is a very <em>long</em> list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this <a href="https://www.tutorialspoint.com/r/r_lists.htm" class="external-link">tutorial</a>. To learn more about the structure of <code>austraits</code>, check out the <a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure of the database</a>.</p>
+<p>The AusTraits object is a very <em>long</em> list with various of
+elements. If you are not familiar with working with lists in R, we
+recommend having a quick look at this <a href="https://www.tutorialspoint.com/r/r_lists.htm" class="external-link">tutorial</a>. To
+learn more about the structure of <code>austraits</code>, check out the
+<a href="https://traitecoevo.github.io/austraits/articles/structure.html">structure
+of the database</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; This is version 0.0.0.900 of austraits!</span></span>
@@ -141,7 +160,8 @@
 <div class="section level2">
 <h2 id="descriptive-summaries-of-traits-and-taxa">Descriptive summaries of traits and taxa<a class="anchor" aria-label="anchor" href="#descriptive-summaries-of-traits-and-taxa"></a>
 </h2>
-<p>AusTraits contains 33 plant traits. Check out <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions of the traits</a> to learn more about how each trait is defined.</p>
+<p>AusTraits contains 33 plant traits. Check out <a href="https://traitecoevo.github.io/austraits/articles/dictionary.html">definitions
+of the traits</a> to learn more about how each trait is defined.</p>
 <p>Have a look at what trait or taxa we have with:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/summarise_austraits.html">summarise_austraits</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"trait_name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -179,11 +199,18 @@
 <div class="section level2">
 <h2 id="extracting-data">Extracting data<a class="anchor" aria-label="anchor" href="#extracting-data"></a>
 </h2>
-<p>In most cases, users would like to extract a subset of <code>austraits</code> for their own research purposes.<code>extract_dataset</code> subsets a particular study, whereas <code>extract_trait</code>subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See <code><a href="../reference/extract_dataset.html">?extract_dataset</a></code> and <code><a href="../reference/extract_trait.html">?extract_trait</a></code> for more details</p>
+<p>In most cases, users would like to extract a subset of
+<code>austraits</code> for their own research
+purposes.<code>extract_dataset</code> subsets a particular study,
+whereas <code>extract_trait</code>subsets by certain traits. Note that
+the other tables and elements of the AusTraits data are extracted too,
+not just the main trait table. See <code><a href="../reference/extract_dataset.html">?extract_dataset</a></code> and
+<code><a href="../reference/extract_trait.html">?extract_trait</a></code> for more details</p>
 <div class="section level3">
 <h3 id="extracting-by-study">Extracting by study<a class="anchor" aria-label="anchor" href="#extracting-by-study"></a>
 </h3>
-<p>Filtering <strong>one particular study</strong> and assigning it to an object</p>
+<p>Filtering <strong>one particular study</strong> and assigning it to
+an object</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">subset_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_dataset.html">extract_dataset</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"Falster_2005_2"</span><span class="op">)</span></span>
 <span></span>
@@ -264,7 +291,8 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <div class="section level3">
 <h3 id="extracting-by-trait">Extracting by trait<a class="anchor" aria-label="anchor" href="#extracting-by-trait"></a>
 </h3>
-<p>Filtering <strong>one particular trait</strong> and assigning it to an object</p>
+<p>Filtering <strong>one particular trait</strong> and assigning it to
+an object</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"wood_density"</span><span class="op">)</span></span>
 <span></span>
@@ -279,7 +307,11 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <span><span class="co">#&gt; 5 Falster_20… Homalanth… Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.319 mg/m… 2002…</span></span>
 <span><span class="co">#&gt; 6 Falster_20… Melicope … Atherton  &lt;NA&gt;         Falster_2005_… wood_dens… 0.346 mg/m… 2002…</span></span>
 <span><span class="co">#&gt; # … with 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>Combining <code>lookup_trait</code> with <code>extract_trait</code> to obtain <strong>all traits with ‘leaf’ in the trait name</strong> and assigning it to an object. Note we use the <code>.</code> notation to pass on the <code>lookup_trait</code> results to <code>extract_trait</code></p>
+<p>Combining <code>lookup_trait</code> with <code>extract_trait</code>
+to obtain <strong>all traits with ‘leaf’ in the trait name</strong> and
+assigning it to an object. Note we use the <code>.</code> notation to
+pass on the <code>lookup_trait</code> results to
+<code>extract_trait</code></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_leaf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_trait.html">lookup_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="st">"leaf"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/extract_trait.html">extract_trait</a></span><span class="op">(</span><span class="va">austraits</span>, <span class="va">.</span><span class="op">)</span> </span>
 <span></span>
@@ -299,7 +331,16 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <div class="section level2">
 <h2 id="join-data-from-other-tables-and-elements">Join data from other tables and elements<a class="anchor" aria-label="anchor" href="#join-data-from-other-tables-and-elements"></a>
 </h2>
-<p>Once users have extracted the data they want, they may want to merge other study details into the main <code>traits</code> dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the <code>join_</code> functions come in. There are five <code>join_</code> functions in total, each designed to append specific information from other tables and elements in the <code>austraits</code> object. Their suffixes refer to the type of information that is joined, e.g. <code>join_taxonomy</code> appends taxonomic information to the <code>traits</code> dataframe. See <code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
+<p>Once users have extracted the data they want, they may want to merge
+other study details into the main <code>traits</code> dataframe for
+their analyses. For example, users may require taxonomic information for
+a phylogenetic analysis. This is where the <code>join_</code> functions
+come in. There are five <code>join_</code> functions in total, each
+designed to append specific information from other tables and elements
+in the <code>austraits</code> object. Their suffixes refer to the type
+of information that is joined, e.g. <code>join_taxonomy</code> appends
+taxonomic information to the <code>traits</code> dataframe. See
+<code><a href="../reference/join_all.html">?join_all</a></code> for more details.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join taxonomic information </span></span>
 <span><span class="op">(</span><span class="va">data_leaf</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -376,16 +417,25 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <div class="section level2">
 <h2 id="visualising-data-by-site">Visualising data by site<a class="anchor" aria-label="anchor" href="#visualising-data-by-site"></a>
 </h2>
-<p><code>plot_site_locations</code> graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use <code>join_sites</code> to append latitude and longitude information into the trait dataframe before plotting</p>
+<p><code>plot_site_locations</code> graphically summarises where trait
+data was collected from and how much data is available. The legend
+refers to the number of neighbouring points: the warmer the colour, the
+more data that is available. This function only works for studies that
+are geo-referenced. Users must first use <code>join_sites</code> to
+append latitude and longitude information into the trait dataframe
+before plotting</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_all.html">join_sites</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">data_wood_dens</span> <span class="op">&lt;-</span> <span class="va">data_wood_dens</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_sites.html">join_sites</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_site_locations.html">plot_site_locations</a></span><span class="op">(</span><span class="va">data_wood_dens</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/site_plot-1.png" title="plot of chunk site_plot" alt="plot of chunk site_plot" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="visualising-data-distribution-and-variance">Visualising data distribution and variance<a class="anchor" aria-label="anchor" href="#visualising-data-distribution-and-variance"></a>
 </h2>
-<p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a> for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each <code>dataset_id</code></p>
+<p><code>plot_trait_distribution</code> creates histograms and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a> for
+specific traits to help users visualise the variance of the data. Users
+can specify whether to create separate beeswarm plots at the level of
+taxonomic family or for each <code>dataset_id</code></p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span><span class="st">"wood_density"</span>, <span class="st">"family"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="../reference/figures/beeswarm-1.png" title="plot of chunk beeswarm" alt="plot of chunk beeswarm" style="display: block; margin: auto;"></p>
@@ -395,8 +445,19 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <div class="section level3">
 <h3 id="pivotting-from-long-to-wide-format">Pivotting from long to wide format<a class="anchor" aria-label="anchor" href="#pivotting-from-long-to-wide-format"></a>
 </h3>
-<p>The table of traits in AusTraits comes in long format, where data for all traits are in two columns called <code>trait_name</code> and <code>value</code>. You can convert this to wide format, where each trait is in a separate column, using the function <code>trait_pivot_wider</code>. This will produce 5 separate lists (<code>value</code>, <code>unit</code>, <code>date</code>, <code>value_type</code> and <code>replicates</code>). The trait values are stored in the <code>value</code> list.</p>
-<p>Note that in some cases, there are <em>multiple observations</em> for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In these circumstances, we suggest using <code>bind_trait_values</code> which joins multiple observations together into a string.</p>
+<p>The table of traits in AusTraits comes in long format, where data for
+all traits are in two columns called <code>trait_name</code> and
+<code>value</code>. You can convert this to wide format, where each
+trait is in a separate column, using the function
+<code>trait_pivot_wider</code>. This will produce 5 separate lists
+(<code>value</code>, <code>unit</code>, <code>date</code>,
+<code>value_type</code> and <code>replicates</code>). The trait values
+are stored in the <code>value</code> list.</p>
+<p>Note that in some cases, there are <em>multiple observations</em> for
+some traits, e.g. huber values. This can prevent pivoting from long
+format to wide. In these circumstances, we suggest using
+<code>bind_trait_values</code> which joins multiple observations
+together into a string.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_bound</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/bind_trait_values.html">bind_trait_values</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="co"># Joining multiple obs with `--`</span></span>
@@ -440,7 +501,8 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <span><span class="co">#&gt; 10 &lt;NA&gt;       3401      &lt;NA&gt;              0.34                 0.00023142… 11.1            </span></span>
 <span><span class="co">#&gt; # … with 45 more rows, and 6 more variables: seed_mass &lt;chr&gt;, specific_leaf_area &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   wood_density &lt;chr&gt;, fire_response &lt;chr&gt;, plant_height &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
-<p>If you would like to revert the bounded trait values, you have to use <code>trait_pivot_longer</code> first, then:</p>
+<p>If you would like to revert the bounded trait values, you have to use
+<code>trait_pivot_longer</code> first, then:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_bound</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/trait_pivot_longer.html">trait_pivot_longer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
@@ -460,7 +522,11 @@ Filtering **multiple studies by same lead author** (e.g. Falster) and assigning 
 <span><span class="co">#&gt; 10 Falster_2… Banksia m… Ku-ring-… &lt;NA&gt;         Falster_2003_… leaf_angle 53.1  degr… &lt;NA&gt; </span></span>
 <span><span class="co">#&gt; # … with 681 more rows, and 3 more variables: value_type &lt;fct&gt;, replicates &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   original_name &lt;chr&gt;</span></span></code></pre>
-<p>Alternatively, if you don’t want to bind the trait values, you can give <code>summarise_trait_means</code> a go, which computes means with multiple observations. Note that this method condenses the traits table and you won’t be able to revert it back unless you <code>load_austraits</code> again</p>
+<p>Alternatively, if you don’t want to bind the trait values, you can
+give <code>summarise_trait_means</code> a go, which computes means with
+multiple observations. Note that this method condenses the traits table
+and you won’t be able to revert it back unless you
+<code>load_austraits</code> again</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_summarised</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/summarise_trait_means.html">summarise_trait_means</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
