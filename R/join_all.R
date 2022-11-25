@@ -196,7 +196,7 @@ join_contexts2 <- function(austraits, collapse_context = FALSE){
       tidyr::pivot_wider(names_from = link_id, values_from = link_vals)
     
     traits2 <- 
-      left_join(by = c("dataset_id", v),
+      dplyr::left_join(by = c("dataset_id", v),
                 traits2,
                 context_sub
       )
