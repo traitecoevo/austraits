@@ -21,7 +21,7 @@
 plot_locations <- function(aus_traits, feature="trait_name", ...){
   # Setting up
   ## Determine version using col names of traits table
-  if(any(str_detect(names(aus_traits), "location"))){
+  if(any(stringr::str_detect(names(aus_traits), "location"))){
     version = "newer"
   } else(
     version = "older"
