@@ -3,7 +3,6 @@
 #' @description trait_pivot_longer "gathers" wide format data into a "tidy" format
 #' This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name.
 #' In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
-#' @usage trait_pivot_longer(data)
 #' @param wide_data output from trait_pivot_wider. For <= v3.0.2 list object containing wide data generated,For > v3.0.2 a tibble of wide data  
 #' @return A tibble in long format
 #' @details 

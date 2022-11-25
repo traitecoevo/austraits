@@ -1,11 +1,10 @@
 #' @title Extract data for one specific taxa
 #'
 #' @description Function to subset of all data associated with a particular dataset from austraits
-#' @usage extract_taxa(austraits, family, genus)
-#' @param austraits - A large list of tibbles built from austraits
-#' @param family - character string of family
-#' @param genus - character string of genus
-#' @param taxon_name - character string of taxon name
+#' @param austraits austraits list object
+#' @param family character string of family
+#' @param genus character string of genus
+#' @param taxon_name character string of taxon name
 #' @return A large list of tibbles containing all austraits information for specificied taxa
 #'
 #' @examples 

@@ -4,7 +4,7 @@
 \alias{trait_pivot_longer}
 \title{Pivot wide format AusTrait data into a long format}
 \usage{
-trait_pivot_longer(data)
+trait_pivot_longer(wide_data)
 }
 \arguments{
 \item{wide_data}{output from trait_pivot_wider. For <= v3.0.2 list object containing wide data generated,For > v3.0.2 a tibble of wide data}

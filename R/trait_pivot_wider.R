@@ -1,13 +1,14 @@
 #' @title Pivot long format austrait data into a wide format
 #'
-#' @description trait_pivot_wider "widens" long format data ("tidy data")
-#' austraits data is organised in a long format where observations are on different rows and the type of observation is denoted by trait name
+#' @description `trait_pivot_wider` "widens" long format data ("tidy data")
+#' 
+#' AusTraits data is organised in a long format where observations are on different rows and the type of observation is denoted by various identifying columns (e.g trait_name, dataset_id, observation_id etc.)
 #' This function converts the data into wide format so that each trait in it's own column. 
-#' Note that some studies have multiple rows of data for each observation_id, so this function will create four lists (value, unit, value_type,date and replicates) with the identifying columns as well as trait data arranged in columns. 
-#' @usage trait_pivot_wider(data)
-#' @param traits The traits table from austraits list
+#' @param traits The traits table from austraits list object
 #' @return list of five tibbles in wide format
-#'
+#' @details 
+#' - For AusTraits <=v3.0.2, some studies have multiple rows of data for each observation_id, so `trait_pivot_wider` will return four lists (value, unit, value_type, date and replicates) with the identifying columns and trait data arranged in columns.  
+#' - For AusTraits >3.0.2, `trait_pivot_wider` will return a single widen tibble, note that some meta-data columns (unit, replicates, measurement_remarks, basis_of_record, basis_of_value) will be excluded to produce a useful wide tibble.
 #' @examples 
 #' \dontrun{
 #' data <- austraits$traits %>% filter(dataset_id == "Falster_2003")
