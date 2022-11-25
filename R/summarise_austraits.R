@@ -11,7 +11,7 @@
 #' summarise_austraits(austraits, "trait_name")
 #' summarise_austraits(austraits, "family")
 #' }
-#' @importFrom rlang .data
+
 
 summarise_austraits <- function(austraits, var){
   

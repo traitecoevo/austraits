@@ -10,7 +10,7 @@
 #' data <- austraits$traits %>% filter(dataset_id == "Falster_2003")
 #' data %>% summarise_trait_means()
 #' }
-#' @importFrom rlang .data
+
 
 summarise_trait_means <- function(trait_data){
   suppressWarnings(

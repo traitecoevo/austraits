@@ -5,7 +5,7 @@
 #' @param ... arguments passed to `vars` to subset the columns
 #' @return austraits list object, but with additional variables appended to `traits` dataframe
 #' @rdname join_all
-#' @importFrom rlang .data
+
 #' @examples
 #' \dontrun{
 #' austraits$traits
@@ -38,7 +38,7 @@ join_all <- function(austraits) {
 
 #' @title Joining taxonomic information to traits table
 #' @export
-#' @importFrom rlang .data
+
 #' @rdname join_all
 
 join_taxonomy <- function(austraits, ...) {
@@ -80,7 +80,7 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 }
 
 #' @title Joining methodological information to traits table
-#' @importFrom rlang .data
+
 #' @export
 #' @rdname join_all
 
@@ -98,7 +98,7 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
 
 #' @title Joining location information to traits table
 #' @export
-#' @importFrom rlang .data
+
 #' @rdname join_all
 
 join_locations <- function(austraits, ...) {
@@ -160,7 +160,7 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
   austraits
 }
 
-#' @importFrom rlang .data
+
 #' @export
 #' @rdname join_all
 

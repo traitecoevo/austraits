@@ -15,7 +15,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 #
 plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
   # Determine version

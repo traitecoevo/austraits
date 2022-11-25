@@ -16,7 +16,7 @@
 #' data$traits %>% plot_locations("trait_name")
 #' }
 #' @export
-#' @importFrom rlang .data
+
 
 plot_locations <- function(aus_traits, feature="trait_name", ...){
   # Setting up

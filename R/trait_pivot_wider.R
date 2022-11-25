@@ -18,7 +18,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 
 trait_pivot_wider <- function(traits){
   # Determine version using col names of traits table

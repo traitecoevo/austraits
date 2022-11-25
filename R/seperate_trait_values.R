@@ -16,7 +16,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 #' 
 separate_trait_values <- function(data, definitions) {
   

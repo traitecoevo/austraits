@@ -10,7 +10,7 @@
 #' clean_NA(c("NA", 1, 2, 3))) %>% is.na()
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
-#' @importFrom rlang .data
+
 #' @noRd
 
 clean_NA <- function(x) {

@@ -24,7 +24,7 @@
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @author Fonti Kar - fonti.kar@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 #
 trait_pivot_longer <- function(wide_data){
   # Determine version using col names of traits table

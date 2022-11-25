@@ -12,7 +12,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 
 extract_dataset <- function(austraits, dataset_id) {
   # Switch for different versions

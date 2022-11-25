@@ -15,7 +15,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 
 bind_trait_values <- function(trait_data) {
   

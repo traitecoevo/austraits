@@ -14,7 +14,7 @@
 #' }
 #' @author Fonti Kar - f.kar@unsw.edu.au
 #' @export
-#' @importFrom rlang .data abort
+ abort
 #' 
 
 extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){

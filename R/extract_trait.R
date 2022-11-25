@@ -13,7 +13,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom rlang .data
+
 
 
 extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
