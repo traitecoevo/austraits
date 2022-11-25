@@ -132,8 +132,12 @@ join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (de
   austraits
 }
 
-#' @title  Joining location info for AusTraits versions <= 3.0.2 (Deprecated)
-#' @aliases join_locations
+#' @title  Joining location info for AusTraits versions <= 3.0.2
+#' @description `r lifecycle::badge('deprecated')`
+#' 
+#' Joining location info for AusTraits versions <= 3.0.2
+#' @inheritParams join_locations
+
 join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   .Deprecated("join_locations")
   

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_locations.R
 \name{plot_site_locations}
 \alias{plot_site_locations}
-\title{Produce location maps of trait values (Deprecated)}
+\title{Produce location maps of trait values}
 \usage{
 plot_site_locations(traits, feature = "trait_name", ...)
 }
@@ -17,6 +17,8 @@ plot_site_locations(traits, feature = "trait_name", ...)
 ggplot of sites
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 Plot location where trait data was collected from
 }
 \author{

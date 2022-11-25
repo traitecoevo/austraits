@@ -2,7 +2,6 @@
 % Please edit documentation in R/plot_locations.R
 \name{plot_locations}
 \alias{plot_locations}
-\alias{plot_site_locations}
 \title{Produce location maps of trait values}
 \usage{
 plot_locations(aus_traits, feature = "trait_name", ...)

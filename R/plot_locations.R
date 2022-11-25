@@ -17,7 +17,6 @@
 #' }
 #' @export
 #' @importFrom rlang .data
-#' @aliases plot_site_locations
 
 plot_locations <- function(aus_traits, feature="trait_name", ...){
   # Setting up
@@ -149,13 +148,18 @@ plot_locations2 <- function(aus_traits, feature, ...){
   suppressWarnings(print(site_map))
 }
 
-#' Produce location maps of trait values (Deprecated)
-#' @description Plot location where trait data was collected from
+
+#' Produce location maps of trait values 
+#'
+#' @description `r lifecycle::badge('deprecated')`
+#'
+#'Plot location where trait data was collected from
 #' @param traits  traits table with site details appended. See join_all and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type for <= v3.0.2
 #' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
+#' 
 plot_site_locations <- function(traits, feature="trait_name", ...){
   .Deprecated("plot_locations")
   
