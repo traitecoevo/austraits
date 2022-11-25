@@ -13,6 +13,5 @@ join_sites(austraits, vars = c("longitude (deg)", "latitude (deg)"))
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
 Joining location info for AusTraits versions <= 3.0.2
 }

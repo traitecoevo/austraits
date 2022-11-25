@@ -18,16 +18,11 @@
 
 extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = extract_trait2(austraits, trait_names, taxon_names),
-          '3.0.2' = extract_trait1(austraits, trait_names, taxon_names),
-          '3.0.1' = extract_trait1(austraits, trait_names, taxon_names),
-          '3.0.0' = extract_trait1(austraits, trait_names, taxon_names),
-          '2.1.0' = extract_trait1(austraits, trait_names, taxon_names),
-          '2.0.0' = extract_trait1(austraits, trait_names, taxon_names)
-          
+          'new' = extract_trait2(austraits, trait_names, taxon_names),
+          'old' = extract_trait1(austraits, trait_names, taxon_names),
   )
 }
 

@@ -16,15 +16,11 @@
 
 as_wide_table <- function(austraits){
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = as_wide_table2(austraits),
-          '3.0.2' = as_wide_table1(austraits),
-          '3.0.1' = as_wide_table1(austraits),
-          '3.0.0' = as_wide_table1(austraits),
-          '2.1.0' = as_wide_table1(austraits),
-          '2.0.0' = as_wide_table1(austraits)
+          'new' = as_wide_table2(austraits),
+          'old' = as_wide_table1(austraits),
   )
 
 }

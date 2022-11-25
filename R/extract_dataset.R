@@ -16,16 +16,11 @@
 
 extract_dataset <- function(austraits, dataset_id) {
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = extract_dataset2(austraits, dataset_id),
-          '3.0.2' = extract_dataset1(austraits, dataset_id),
-          '3.0.1' = extract_dataset(austraits, dataset_id),
-          '3.0.0' = extract_dataset(austraits, dataset_id),
-          '2.1.0' = extract_dataset(austraits, dataset_id),
-          '2.0.0' = extract_dataset(austraits, dataset_id)
-          
+          'new' = extract_dataset2(austraits, dataset_id),
+          'old' = extract_dataset1(austraits, dataset_id),
   )
 }
 

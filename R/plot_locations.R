@@ -159,7 +159,8 @@ plot_locations2 <- function(aus_traits, feature, ...){
 #' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
-#' 
+#' @export
+
 plot_site_locations <- function(traits, feature="trait_name", ...){
   .Deprecated("plot_locations")
   

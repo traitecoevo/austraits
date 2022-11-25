@@ -17,15 +17,11 @@
 
 extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = extract_taxa2(austraits,  family, genus, taxon_name),
-          '3.0.2' = extract_taxa1(austraits, family, genus, taxon_name),
-          '3.0.1' = extract_taxa1(austraits, family, genus, taxon_name),
-          '3.0.0' = extract_taxa1(austraits, family, genus, taxon_name),
-          '2.1.0' = extract_taxa1(austraits, family, genus, taxon_name),
-          '2.0.0' = extract_taxa1(austraits, family, genus, taxon_name)
+          'new' = extract_taxa2(austraits, family, genus, taxon_name),
+          'old' = extract_taxa1(austraits, family, genus, taxon_name),
   )
 }
 

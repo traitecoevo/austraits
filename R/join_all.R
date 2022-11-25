@@ -43,19 +43,12 @@ join_all <- function(austraits) {
 
 join_taxonomy <- function(austraits, ...) {
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = join_taxonomy2(austraits, ...),
-          '3.0.2' = join_taxonomy1(austraits, ...),
-          '3.0.1' = join_taxonomy1(austraits, ...),
-          '3.0.0' = join_taxonomy1(austraits, ...),
-          '2.1.0' = join_taxonomy1(austraits, ...),
-          '2.0.0' = join_taxonomy1(austraits, ...),
-          '0.0.0.900' = join_taxonomy1(austraits, ...)
-
+          'new' = join_taxonomy2(austraits, ...),
+          'old' = join_taxonomy1(austraits, ...),
   )
-  
 }
 
 #' @title  Joining taxonomic info for AusTraits versions <= 3.0.2
@@ -104,17 +97,11 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
 
 join_locations <- function(austraits, ...) {
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = join_locations2(austraits, ...),
-          '3.0.2' = join_locations1(austraits, ...),
-          '3.0.1' = join_locations1(austraits, ...),
-          '3.0.0' = join_locations1(austraits, ...),
-          '2.1.0' = join_locations1(austraits, ...),
-          '2.0.0' = join_locations1(austraits, ...),
-          '0.0.0.900' = join_locations1(austraits, ...)
-          
+          'new' = join_locations2(austraits, ...),
+          'old' = join_locations1(austraits, ...),
   )
 }
 
@@ -137,9 +124,9 @@ join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
 #' @description `r lifecycle::badge('deprecated')`
-#' 
 #' Joining location info for AusTraits versions <= 3.0.2
 #' @inheritParams join_locations
+#' @export
 
 join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   .Deprecated("join_locations")
@@ -168,17 +155,11 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 
 join_contexts <- function(austraits,...){
   # Switch for different versions
-  version <- austraits$build_info$version %>% as.character()
+  version <- what_version(austraits)
   
   switch (version,
-          '3.0.2.9000' = join_contexts2(austraits, ...),
-          '3.0.2' = join_contexts1(austraits, ...),
-          '3.0.1' = join_contexts1(austraits, ...),
-          '3.0.0' = join_contexts1(austraits, ...),
-          '2.1.0' = join_contexts1(austraits, ...),
-          '2.0.0' = join_contexts1(austraits, ...),
-          '0.0.0.900' = join_locations1(austraits, ...)
-          
+          'new' = join_contexts2(austraits, ...),
+          'old' = join_contexts1(austraits, ...),
   )
 }
 
