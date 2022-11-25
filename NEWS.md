@@ -1,4 +1,4 @@
-# austraits 2.1.0
+# austraits 2.1.1
 
 -   Minor bug fix in `extract_trait`
 -   Minor bug fix in `as_wide_table`
