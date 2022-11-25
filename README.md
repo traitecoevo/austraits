@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# austraits <img src="man/figures/hexlogo.png" align="right" alt="" width="120" />
+# austraits <img src="man/figures/austraits_hex.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -95,7 +95,7 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🛠
+### Behind the scenes 🔧
 
 Check out
 [austraits.build](http://traitecoevo.github.io/austraits.build/), if you

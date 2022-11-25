@@ -14,8 +14,6 @@
 #' }
 #' @author Fonti Kar - f.kar@unsw.edu.au
 #' @export
- abort
-#' 
 
 extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
   # Switch for different versions

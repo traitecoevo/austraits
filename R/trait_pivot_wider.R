@@ -18,7 +18,10 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-
+#' @importFrom dplyr select group_by arrange filter
+#' @importFrom tidyr pivot_wider pivot_longer
+#' @importFrom tidyselect all_of
+#' @importFrom stringr str_detect
 
 trait_pivot_wider <- function(traits){
   # Determine version using col names of traits table
@@ -35,6 +38,9 @@ trait_pivot_wider <- function(traits){
 }
 
 
+#' Pivot wider for >v3.0.2
+#' @noRd
+#' @keywords internal
 trait_pivot_wider2 <- function(traits){ 
   data <- traits
   
@@ -66,6 +72,9 @@ trait_pivot_wider2 <- function(traits){
   }
 }
 
+#' Pivot wider for <=v3.0.2
+#' @noRd
+#' @keywords internal
 trait_pivot_wider1 <- function(traits){
   data <- traits
   
