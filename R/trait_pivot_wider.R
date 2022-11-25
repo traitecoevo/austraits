@@ -46,7 +46,7 @@ trait_pivot_wider2 <- function(traits){
     group_by(taxon_name, observation_id, method_id) %>% 
     summarise(n_value_type = length(unique(value_type))) %>% 
     arrange(observation_id) %>% 
-    filter(n_value_type > 1) -> check_value_type
+    dplyr::filter(n_value_type > 1) -> check_value_type
   
   if(nrow(check_value_type) > 1){
     meta_data_cols <- c(meta_data_cols, "value_type")
