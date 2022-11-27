@@ -18,7 +18,7 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom dplyr select group_by arrange filter
+#' @importFrom dplyr select group_by arrange filter summarise
 #' @importFrom tidyr pivot_wider pivot_longer
 #' @importFrom tidyselect all_of
 #' @importFrom stringr str_detect
