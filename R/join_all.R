@@ -66,7 +66,7 @@ join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", 
 #' @noRd
 #' @keywords internal
 
-join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "accepted_name_usage_id")) {
+join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
   

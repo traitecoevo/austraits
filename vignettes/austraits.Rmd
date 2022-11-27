@@ -441,13 +441,13 @@ The table of traits in AusTraits comes in **long** format, where data for all tr
 
 The function operates differently depending on the version of AusTraits
 
-### Pivot wider <=3.0.2 {.tabset}
+### Pivot wider <=3.0.2 
 
 In AusTraits <=3.0.2, some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to collapse multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
 
 Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
 
-#### `bind_trait_values`
+#### bind_trait_values
 
 
 ```r
