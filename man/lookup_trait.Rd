@@ -9,7 +9,7 @@ lookup_trait(austraits, term)
 \arguments{
 \item{austraits}{austraits list}
 
-\item{term}{charcter string for trait search term}
+\item{term}{character string for trait search term}
 }
 \value{
 vector containing traits that contains search term

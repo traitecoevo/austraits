@@ -3,7 +3,6 @@ library(stringr)
 austraits <- austraits_lite
 
 test_that("Error triggered", {
-  expect_error(austraits %>% extract_taxa(family = "Rubiaceae", genus = "Macadamia"))
   expect_error(austraits %>% extract_taxa())
 })
 
@@ -26,3 +25,28 @@ test_that("Output is correct", {
   test_prot <- austraits %>% extract_taxa(family = family)
   expect_equal(test_prot$taxa$family %>% unique(), family)
   })
+
+
+test_that("Dataframe is extracted correctly", {
+  austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
+  
+  # Extract Veronica first
+  veronica <- extract_taxa(austraits, genus = "Veronica")
+  
+  # Filter to lifespan traits using dplyr
+  veronica_lifespan <- veronica$traits %>%
+    dplyr::filter(trait_name == "lifespan")
+  
+  # Extract trait after
+  veronica |>  extract_trait("lifespan") -> genus_first
+  
+  # Extract trait first
+  austraits |> extract_trait("lifespan") -> lifespan
+  
+  # Extract taxa after
+  lifespan |> extract_taxa(genus = "Veronica") -> trait_first
+  
+  expect_setequal(trait_first$traits$value, veronica_lifespan$value)
+  expect_setequal(trait_first$traits$value, genus_first$traits$value)
+  expect_setequal(veronica_lifespan$value, genus_first$traits$value)
+})
