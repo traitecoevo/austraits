@@ -20,7 +20,7 @@ print.austraits <- function(x, ...){
          "of austraits!\n", 
          "\nThis object contains a total of",
          nrecords, "records",
-         "for", nspecies, "species and",
+         "for", nspecies, "taxa and",
          ntraits, "traits.\n")
   
   if(package_version(version) <= '3.0.2'){
