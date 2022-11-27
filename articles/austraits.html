@@ -456,8 +456,8 @@ this to wide format, where each trait is in a separate column, using the
 function <code>trait_pivot_wider</code>.</p>
 <p>The function operates differently depending on the version of
 AusTraits</p>
-<div class="section level3 tabset">
-<h3 class="tabset" id="pivot-wider-3-0-2">Pivot wider &lt;=3.0.2<a class="anchor" aria-label="anchor" href="#pivot-wider-3-0-2"></a>
+<div class="section level3">
+<h3 id="pivot-wider-3-0-2">Pivot wider &lt;=3.0.2<a class="anchor" aria-label="anchor" href="#pivot-wider-3-0-2"></a>
 </h3>
 <p>In AusTraits &lt;=3.0.2, some studies will have <em>multiple
 observations</em> for some traits, e.g. huber values. This can prevent
@@ -471,8 +471,7 @@ multiple observations. Note that this method condenses the traits table
 and you won’t be able to revert it back unless you
 <code>load_austraits</code> again</p>
 <div class="section level4">
-<h4 id="bind_trait_values">
-<code>bind_trait_values</code><a class="anchor" aria-label="anchor" href="#bind_trait_values"></a>
+<h4 id="bind_trait_values">bind_trait_values<a class="anchor" aria-label="anchor" href="#bind_trait_values"></a>
 </h4>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_wide_bound</span> <span class="op">&lt;-</span> <span class="va">data_falster_studies</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
