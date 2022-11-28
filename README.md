@@ -1,7 +1,6 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# austraits <img src="man/figures/hexlogo.png" align="right" alt="" width="120" />
+# austraits <img src="man/figures/austraits_hex.png" align="right" width="120"/>
 
 <!-- badges: start -->
 
@@ -9,6 +8,7 @@
 [![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 [![](https://img.shields.io/badge/doi-10.1038/s41597--021--01006--6-blue.svg)](https://doi.org/10.1038/s41597-021-01006-6)
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+
 <!-- badges: end -->
 
 `austraits` allow users to access, explore and wrangle data from the
@@ -95,7 +95,7 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🛠
+### Behind the scenes 🔧
 
 Check out
 [austraits.build](http://traitecoevo.github.io/austraits.build/), if you

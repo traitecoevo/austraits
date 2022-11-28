@@ -2,7 +2,7 @@
 #' @param ... arguments passed on to kableExtra::kable, kableExtra::kable_styling
 #' @keywords internal
 #' @export
-#' @importFrom rlang .data
+
 my_kable_styling_html <- function(...) {
     kableExtra::kable(...) %>%
     kableExtra::kable_styling(..., 

@@ -32,7 +32,7 @@ class(austraits) <- "austraits"
 
 The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
 
-**Note that we are using a reduced subset of v.3.0.2, so the version number and number of records and species will not be match your values**
+**Note that we are using a reduced subset of v.3.0.2, so the number of records and taxa will not be match your values**
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 
@@ -74,7 +74,7 @@ Have a look at what trait or taxa we have with:
 ```{r}
 summarise_austraits(austraits, "trait_name") %>% head()
 
-summarise_austraits(austraits, "family") %>% head()
+summarise_austraits(austraits, var =  "family") %>% head()
 
 summarise_austraits(austraits, "genus") %>% head()
 ```
@@ -193,11 +193,19 @@ austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 ```
 
-### Pivotting from long to wide format
+## Pivotting from long to wide format 
 
-The table of traits in AusTraits comes in long format, where data for all traits are in two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. This will produce 5 separate lists (`value`, `unit`, `date`, `value_type` and `replicates`). The trait values are stored in the `value` list.
+The table of traits in AusTraits comes in **long** format, where data for all trait information are denoted by two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. 
 
-Note that in some cases, there are *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. In these circumstances, we suggest using `bind_trait_values` which joins multiple observations together into a string.
+The function operates differently depending on the version of AusTraits
+
+### Pivot wider <=3.0.2 {.tabset}
+
+In AusTraits <=3.0.2, some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to collapse multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
+
+Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
+
+#### `bind_trait_values`
 
 ```{r, pivot}
 data_wide_bound <- data_falster_studies$traits %>%
@@ -212,7 +220,7 @@ data_wide_bound$value %>%
   filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
 ```
 
-If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then: 
+If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then call `separate_trait_values`: 
 
 ```{r}
 data_wide_bound %>% 
@@ -220,7 +228,7 @@ data_wide_bound %>%
   separate_trait_values(., austraits$definitions)
 ```
 
-Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
+#### `summarise_trait_means`
 
 ```{r, pivot_summarised}
 data_wide_summarised <- data_falster_studies$traits %>%

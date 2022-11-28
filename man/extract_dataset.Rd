@@ -2,9 +2,15 @@
 % Please edit documentation in R/extract_dataset.R
 \name{extract_dataset}
 \alias{extract_dataset}
+\alias{extract_dataset1}
+\alias{extract_dataset2}
 \title{Extract all data for a particular dataset}
 \usage{
 extract_dataset(austraits, dataset_id)
+
+extract_dataset1(austraits, dataset_id)
+
+extract_dataset2(austraits, dataset_id)
 }
 \arguments{
 \item{austraits}{\itemize{

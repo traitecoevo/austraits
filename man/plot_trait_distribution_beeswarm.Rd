@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_trait_distribution_beeswarm.R
 \name{plot_trait_distribution_beeswarm}
 \alias{plot_trait_distribution_beeswarm}
-\title{Trait distribution}
+\title{Beeswarm Trait distribution}
 \usage{
 plot_trait_distribution_beeswarm(
   austraits,

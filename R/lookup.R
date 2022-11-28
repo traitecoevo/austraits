@@ -1,7 +1,7 @@
 #' Look up a particular trait term
 #'
 #' @param austraits austraits list
-#' @param term charcter string for trait search term 
+#' @param term character string for trait search term 
 #'
 #' @return vector containing traits that contains search term
 #' @export
@@ -14,7 +14,7 @@ lookup_trait <- function(austraits, term){
   
   all_traits <- austraits$traits$trait_name %>% unique()
 
-   ret <-  all_traits[stringr::str_detect(all_traits, term)]
+   ret <-  stringr::str_subset(all_traits, term)
   
   if(length(ret) == 0){
     stop(paste0("No traits found containing ", term, " !"))

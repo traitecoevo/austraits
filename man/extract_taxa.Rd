@@ -2,22 +2,18 @@
 % Please edit documentation in R/extract_taxa.R
 \name{extract_taxa}
 \alias{extract_taxa}
-\title{Extract data for specific taxa}
+\title{Extract data for one specific taxa}
 \usage{
-extract_taxa(austraits, family, genus)
+extract_taxa(austraits, family = NULL, genus = NULL, taxon_name = NULL)
 }
 \arguments{
-\item{austraits}{\itemize{
-\item A large list of tibbles built from austraits
-}}
+\item{austraits}{austraits list object}
 
-\item{family}{\itemize{
-\item character string of family
-}}
+\item{family}{character string of family}
 
-\item{genus}{\itemize{
-\item character string of genus
-}}
+\item{genus}{character string of genus}
+
+\item{taxon_name}{character string of taxon name}
 }
 \value{
 A large list of tibbles containing all austraits information for specificied taxa
