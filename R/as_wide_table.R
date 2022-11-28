@@ -42,22 +42,15 @@ as_wide_table2 <- function(austraits){
   ################################################################################
   # Define and adapt each table in the list of austraits to prepare for the wide table format 
 
-  # The contexts table needs the contexts collapsed to one context name per site
+    # The contexts table needs the contexts collapsed to one context name per site
   austraits %>% 
     join_contexts(collapse_context = TRUE) -> austraits
 
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
     austraits$methods %>% 
-    #  -----------
-    # TODO: this section can be removed for next release
-    # Some studies have multiple records per traits. This breaks things when joining
-    # For now select first
-    # dplyr::group_by(dataset_id, trait_name) %>% 
-    # dplyr::slice(1) %>%
-    # dplyr:: ungroup() %>%
-    #----------
-    dplyr::rename(c("dataset_description" = "description"))  
+    dplyr::rename(c("dataset_description" = "description"))  %>% 
+    dplyr::distinct()
   
   # collapse into one column
   austraits$locations <- 
@@ -70,7 +63,8 @@ as_wide_table2 <- function(austraits){
   # rename taxonomic_reference field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(c("taxonNameValidation" = "taxonomic_reference"))
+    dplyr::rename(c("taxonNameValidation" = "taxonomic_reference")) %>% 
+    dplyr::distinct()
   
   austraits_wide <- 
     austraits$traits %>% 
