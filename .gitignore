@@ -44,6 +44,7 @@ doc/*.html
 .Renviron
 inst/doc
 /doc/
+/docs/
 /Meta/
 ignore/
 
