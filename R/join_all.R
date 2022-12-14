@@ -167,34 +167,52 @@ join_contexts <- function(austraits,...){
 #' @noRd
 #' @keywords internal
 join_contexts2 <- function(austraits, collapse_context = FALSE){
-  traits2 <- austraits$traits
-  
-  for(v in unique(austraits$contexts$link_id)){
-    
-    context_sub <- 
-      austraits$contexts %>%
-      dplyr::select(-dplyr::any_of(c("category", "description"))) %>%
-      dplyr::filter(link_id == v) %>% 
-      tidyr::separate_rows(link_vals) %>% 
-      tidyr::pivot_wider(values_from = value, names_from = context_property) %>%
-      tidyr::pivot_wider(names_from = link_id, values_from = link_vals)
-    
-    traits2 <- 
-      dplyr::left_join(by = c("dataset_id", v),
-                traits2,
-                context_sub
-      )
-  }
-  
-  if(collapse_context == TRUE){
-    traits2 %>% 
-      dplyr::select(-names(austraits$traits)) %>% collapse_cols() -> context_text
 
-    traits2 %>% 
-      dplyr::mutate(context = context_text) %>% 
-      dplyr::select(names(austraits$traits), context) -> traits2
+  traits2 <- split(austraits$traits, austraits$traits$dataset_id)
+  contexts2 <- split(austraits$contexts, austraits$contexts$dataset_id)
+  
+  traits_vars <- names(austraits$traits)
+
+  problem_studies <- c("Hall_1981")
+
+  for(id in names(traits2)) {
+  
+    if(!is.null(contexts2[[id]][1]) & ! (id %in% problem_studies)) {
+    
+      context_ids <- 
+        unique(contexts2[[id]]$link_id)
+  
+      for(v in context_ids[!is.na(context_ids)]) {
+        
+        context_sub <- 
+          contexts2[[id]] %>%
+          dplyr::select(-dplyr::any_of(c("category", "description"))) %>%
+          dplyr::filter(link_id == v) %>% 
+          tidyr::separate_rows(link_vals) %>% 
+          tidyr::pivot_wider(values_from = value, names_from = context_property) %>%
+          tidyr::pivot_wider(names_from = link_id, values_from = link_vals)
+        
+        traits2[[id]] <- 
+          dplyr::left_join(by = c("dataset_id", v),
+                    traits2[[id]],
+                    context_sub
+          )
+      }
+      
+      if(collapse_context == TRUE){
+        context_text <-
+          traits2[[id]] %>% 
+          dplyr::select(-traits_vars) %>% collapse_cols()
+
+        traits2[[id]] <- traits2[[id]] %>% 
+          dplyr::mutate(context = context_text) %>% 
+          dplyr::select(traits_vars, context)
+      }
+    }
   }
-  austraits$traits <- traits2
+
+  austraits$traits <- traits2 %>% dplyr::bind_rows()
+
   austraits
 }
 
