@@ -5,6 +5,7 @@
 #' @param var variable you use wish to see summary of (trait_name, genus, family)
 #'
 #' @return dataframe of unique levels of variable with counts and percentage
+#' @importFrom dplyr tibble
 #' @export
 #' @examples
 #' \dontrun{
@@ -54,7 +55,7 @@ summarise_austraits_traits <-function(austraits, var) {
   ret <- dplyr::left_join(ret, sum_stats, by = "trait_name")
   
   # Organise
-  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total)
+  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total) %>% tibble()
 }
 
 #' @noRd
@@ -92,6 +93,6 @@ summarise_austraits_taxa <-function(austraits, var) {
   ret <- dplyr::left_join(ret, sum_stats, by = var)
   
   # Organise
-  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total)
+  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total) %>% tibble()
   
 }
