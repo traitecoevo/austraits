@@ -1,7 +1,7 @@
 ---
 title: "austraits"
 author: "Fonti Kar, Daniel Falster"
-date: "2022-11-26"
+date: "2023-01-05"
 output: 
   rmarkdown::html_vignette:
   toc: yes
@@ -15,9 +15,9 @@ editor_options:
 
 
 
-The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
+The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to explore, wrangle and visualise data. Below we have prepared a short vignette illustrating these. 
 
-**Note that we are using a reduced subset of v.3.0.2, so the number of records and taxa will not be match your values**
+The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The vignette below is written for version 4.0.0 and newer. The same vignette for versions 3.0.2 and older can be found under the Articles tab. 
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 
@@ -31,46 +31,64 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits)
 ```
 
-### Loading AusTraits database
+## AusTraits is version controlled
 
-By default, `load_austraits` will download AusTraits to a specified path e.g. `data/austraits` and will reload it from this location in the future. You can set `update = TRUE` so the austrait versions are downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note that `load_austraits` will happily accept a DOI of a particular version.
-
-
-```r
-austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
-```
-
-You can check out different versions and their associated DOI of AusTraits by using: 
-
+AusTraits is always updating and ingesting new data. Each release is tracked and provided with a unique version number. You can check out different versions and their associated DOI of AusTraits by using: 
 
 ```r
 get_versions(path = "data/austraits")
 ```
 
-The AusTraits object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
+```
+#> # A tibble: 6 × 3
+#>   date       version doi                   
+#>   <chr>      <chr>   <chr>                 
+#> 1 2022-11-27 4.0.0   10.5281/zenodo.7368074
+#> 2 2021-07-14 3.0.2   10.5281/zenodo.5112001
+#> 3 2021-07-14 3.0.1   10.5281/zenodo.5099552
+#> 4 2021-07-14 3.0.0   10.5281/zenodo.5099545
+#> 5 2020-12-11 2.1.0   10.5281/zenodo.4316550
+#> 6 2020-07-08 2.0.0   10.5281/zenodo.4316516
+```
+
+## Loading AusTraits database 
+
+You can load any version of AusTraits with `load_austraits`. By default, `load_austraits` will download AusTraits to a specified path e.g. `data/austraits` and will reload it from this location in subsequent sessions. `load_austraits` will also accept a DOI of a particular version.
 
 
 ```r
-austraits
+austraits_4.0.0 <- load_austraits(version = "4.0.0", path = "data/austraits")
+```
+
+
+In R, the AusTraits database arranged as a very *long* list with multiple of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
+
+Calling the AusTraits object will print out a quick summary of the database and meta-data descriptions of each table in the long list.
+
+
+```r
+austraits_4.0.0
 ```
 
 ```
-#> This is version 0.0.0.900 of austraits!
+#> This is version 4.0.0 of austraits!
 #>  
-#> This object contains a total of 5859 records for 1245 species and 33 traits.
+#> This object contains a total of 1257443 records for 34028 taxa and 470 traits.
 #> 
 #> This object is a 'list' with the following components:
 #> 
-#>  - `traits`: A table containing measurements of plant traits.
-#> - `sites`: A table containing observations of site characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `site_name`.
-#> - `contexts`: A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `context_name`.
-#> - `methods`: A table containing details on methods with which data were collected, including time frame and source.
-#> - `excluded_data`: A table of data that did not pass quality test and so were excluded from the master dataset.
-#> - `taxa`: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.
-#> - `definitions`: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.
-#> - `sources`: Bibtex entries for all primary and secondary sources in the compilation.
+#>  - `traits`: A table containing measurements of traits.
+#> - `locations`: A table containing observations of location/site characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `location_name`.
+#> - `contexts`: A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`, and `link_vals`.
+#> - `methods`: A table containing details on methods with which data were collected, including time frame and source. Cross referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.
+#> - `excluded_data`: A table of data that did not pass quality tests and so were excluded from the master dataset. The structure is identical to that presented in the `traits` table, only with an extra column called `error` indicating why the record was excluded. Common reasons are missing_unit_conversions, missing_value, and unsupported_trait_value.
+#> - `taxonomic_updates`: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comparing the originally submitted taxon name against the taxonomic names listed in the taxonomic reference files, best placed in a subfolder in the `config` folder . Cross referencing with the `traits` table is possible using combinations of the variables `dataset_id` and `taxon_name`.
+#> - `taxa`: A table containing details on taxa associated with information in `traits`. Whenever possible, this information is sourced from curated taxon lists that include identifiers for each taxon. The information compiled in this table is released under a CC-BY3 license. Cross referencing between the two dataframes is possible using combinations of the variable `taxon_name`.
 #> - `contributors`: A table of people contributing to each study.
-#> - `taxonomic_updates`: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
+#> - `sources`: Bibtex entries for all primary and secondary sources in the compilation.
+#> - `definitions`: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.
+#> - `schema`: A copy of the schema for all tables and terms. Information included here was used to process data and generate any documentation for the study.
+#> - `metadata`: Metadata associated with the dataset, including title, creators, license, subject, funding sources.
 #> - `build_info`: A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.
 #> 
 #> To access a component, try using the $ e.g. austraits$traits
@@ -78,485 +96,488 @@ austraits
 
 ## Descriptive summaries of traits and taxa
 
-AusTraits contains 33 plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
+AusTraits contains over 470 plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
 
-Have a look at what trait or taxa we have with: 
+Users can explore AusTraits and see how much data we have for certain traits or  taxonomic groups  using the `summarise_` functions
+
+### Summarise by trait name
+
+
+```r
+summarise_austraits(austraits_4.0.0, "trait_name") %>% head()
+```
+
+```
+#>                     trait_name n_records n_dataset n_taxa percent_total
+#>        accessory_cost_fraction        47         1     47      3.74e-05
+#>            accessory_cost_mass        47         1     47      3.74e-05
+#>  atmospheric_CO2_concentration       785         3    113      6.24e-04
+#>           bark_Al_per_dry_mass        70         1     10      5.57e-05
+#>          bark_ash_per_dry_mass        63         1     10      5.01e-05
+#>            bark_B_per_dry_mass        70         1     10      5.57e-05
+```
+
+### Summarise by taxonomic levels
 
 
 ```r
-summarise_austraits(austraits, "trait_name") %>% head()
-```
-
-```
-#>            trait_name n_records n_dataset n_taxa percent_total
-#>  branch_mass_fraction        45         1     45      0.007680
-#>     fire_cued_seeding         5         1      5      0.000853
-#>         fire_response        73         2     72      0.012500
-#>        flowering_time        31         1     31      0.005290
-#>           huber_value       193         2     57      0.032900
-#>            leaf_angle        38         1     38      0.006490
-```
-
-```r
-summarise_austraits(austraits, var =  "family") %>% head()
+summarise_austraits(austraits_4.0.0, var =  "family") %>% head()
 ```
 
 ```
 #>         family n_records n_dataset n_taxa percent_total
-#>    Acanthaceae         1         1      1      0.000171
-#>     Akaniaceae         3         1      1      0.000512
-#>  Anacardiaceae        20         2      7      0.003410
-#>     Annonaceae        15         2      5      0.002560
-#>       Apiaceae        17         1      2      0.002900
-#>    Apocynaceae        32         3      9      0.005460
+#>    Acanthaceae      2399        38    151      1.88e-03
+#>    Achariaceae       104        11      4      8.15e-05
+#>  Actinidiaceae        88        10      3      6.90e-05
+#>  Agapanthaceae        47         6      3      3.68e-05
+#>      Aizoaceae      2695        45    108      2.11e-03
+#>     Akaniaceae        71        12      1      5.56e-05
 ```
 
 ```r
-summarise_austraits(austraits, "genus") %>% head()
+summarise_austraits(austraits_4.0.0, "genus") %>% head()
 ```
 
 ```
-#>       genus n_records n_dataset n_taxa percent_total
-#>      Acacia       184         4     77      0.031400
-#>   Aceratium         5         1      3      0.000854
-#>      Ackama        10         1      2      0.001710
-#>   Acradenia         3         1      2      0.000512
-#>  Acronychia        21         3      7      0.003590
-#>   Actinotus        10         1      1      0.001710
+#>         genus n_records n_dataset n_taxa percent_total
+#>   (Dockrillia         2         1      1      1.57e-06
+#>        Abelia         6         2      1      4.70e-06
+#>   Abelmoschus       107        10      8      8.37e-05
+#>  Abildgaardia        65         5      3      5.09e-05
+#>   Abrodictyum        65         7      3      5.09e-05
+#>        Abroma        35         5      2      2.74e-05
 ```
 
-Interested in a specific trait? Try `lookup_trait`
+## Search for trait
+
+If you are interested in a specific trait? Try `lookup_trait`
 
 
 ```r
-lookup_trait(austraits, "leaf") %>% head()
+lookup_trait(austraits_4.0.0, "leaf") %>% head()
 ```
 
 ```
-#> [1] "leaf_angle"              "leaf_area"               "leaf_compoundness"      
-#> [4] "leaf_N_per_dry_mass"     "specific_leaf_area"      "leaf_cell_wall_fraction"
+#> [1] "leaf_compoundness" "leaf_length"       "leaf_phenology"    "leaf_width"        "leaf_area"        
+#> [6] "leaf_delta13C"
 ```
 
-## Extracting data
+## Extract information from AusTraits 
 
-In most cases, users would like to extract a subset of `austraits` for their own research purposes.`extract_dataset` subsets a particular study, whereas `extract_trait`subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See `?extract_dataset` and `?extract_trait` for more details
+The `extract_` functions can help users to filter down to the data the need. Users can extract data by their search results, the trait name, taxonomic information or by dataset.
 
-### Extracting by study
+### By search results
 
-Filtering **one particular study** and assigning it to an object
+Combining `lookup_trait` with `extract_trait`, users can extract  **all traits with 'leaf' in the trait name**. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
 
 
 ```r
-subset_data <- extract_dataset(austraits, "Falster_2005_2")
+data_leaf <- lookup_trait(austraits_4.0.0, "leaf") %>% extract_trait(austraits_4.0.0, .) 
 
-subset_data$traits %>% head()
+data_leaf$traits
 ```
 
 ```
-#> # A tibble: 6 × 12
-#>   dataset_id    taxon…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>         <chr>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2005… Acacia… Myall_… <NA>    Falste… fire_r… fire… <NA>  2002… expert… <NA>    Acacia…
-#> 2 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 3 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 4 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 5 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 6 Falster_2005… Acacia… Myall_… <NA>    Falste… leaf_a… 1761  mm2   2002… site_m… 4       Acacia…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 330,591 × 24
+#>    dataset_id taxon_name  obser…¹ trait…² value unit  entit…³ value…⁴ basis…⁵ repli…⁶ basis…⁷ life_…⁸ popul…⁹ indiv…˟
+#>    <chr>      <chr>       <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 ABRS_1981  Acanthocar… 0001    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  2 ABRS_1981  Acanthocar… 0001    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  3 ABRS_1981  Acanthocar… 0001    leaf_l… 15    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  4 ABRS_1981  Acanthocar… 0002    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  5 ABRS_1981  Acanthocar… 0002    leaf_l… 4     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  6 ABRS_1981  Acanthocar… 0002    leaf_l… 12    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  7 ABRS_1981  Acanthocar… 0003    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  8 ABRS_1981  Acanthocar… 0003    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  9 ABRS_1981  Acanthocar… 0004    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#> 10 ABRS_1981  Acanthocar… 0004    leaf_l… 20    mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#> # … with 330,581 more rows, 10 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​entity_type,
+#> #   ⁴​value_type, ⁵​basis_of_value, ⁶​replicates, ⁷​basis_of_record, ⁸​life_stage, ⁹​population_id, ˟​individual_id
 ```
 
-Filtering **multiple studies by two different lead authors**  and assigning it to an object
+### By trait name
 
 
 ```r
-subset_multi_studies <- extract_dataset(austraits, 
-                                        dataset_id = c("Thompson_2001","Ilic_2000"))
- 
-subset_multi_studies$traits %>% head()
+leafmass_data <- austraits_4.0.0 %>%
+  extract_trait("leaf_mass_per_area") 
+  
+leafmass_data$trait
 ```
 
 ```
-#> # A tibble: 6 × 12
-#>   dataset_id taxon_name site_…¹ conte…² obser…³ trait…⁴ value unit  date  value…⁵ repli…⁶ origi…⁷
-#>   <chr>      <chr>      <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Ilic_2000  Acacia ac… <NA>    <NA>    Ilic_2… wood_d… 0.904 mg/m… <NA>  unknown unknown Acacia…
-#> 2 Ilic_2000  Acacia ac… <NA>    <NA>    Ilic_2… wood_d… 0.895 mg/m… <NA>  unknown unknown Acacia…
-#> 3 Ilic_2000  Acacia ac… <NA>    <NA>    Ilic_2… wood_d… 1.008 mg/m… <NA>  unknown unknown Acacia…
-#> 4 Ilic_2000  Acacia ad… <NA>    <NA>    Ilic_2… wood_d… 0.887 mg/m… <NA>  unknown unknown Acacia…
-#> 5 Ilic_2000  Acacia am… <NA>    <NA>    Ilic_2… wood_d… 0.568 mg/m… <NA>  unknown unknown Acacia…
-#> 6 Ilic_2000  Acacia an… <NA>    <NA>    Ilic_2… wood_d… 1.035 mg/m… <NA>  unknown unknown Acacia…
-#> # … with abbreviated variable names ¹​site_name, ²​context_name, ³​observation_id, ⁴​trait_name,
-#> #   ⁵​value_type, ⁶​replicates, ⁷​original_name
+#> # A tibble: 27,949 × 24
+#>    dataset_id  taxon_name obser…¹ trait…² value unit  entit…³ value…⁴ basis…⁵ repli…⁶ basis…⁷ life_…⁸ popul…⁹ indiv…˟
+#>    <chr>       <chr>      <chr>   <chr>   <dbl> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 Ahrens_2019 Corymbia … 001     leaf_m…  185. g/m2  indivi… raw     measur… 1       field_… sapling 01      01     
+#>  2 Ahrens_2019 Corymbia … 002     leaf_m…  138. g/m2  indivi… raw     measur… 1       field_… sapling 01      02     
+#>  3 Ahrens_2019 Corymbia … 003     leaf_m…  169. g/m2  indivi… raw     measur… 1       field_… sapling 01      03     
+#>  4 Ahrens_2019 Corymbia … 004     leaf_m…  151. g/m2  indivi… raw     measur… 1       field_… sapling 01      04     
+#>  5 Ahrens_2019 Corymbia … 005     leaf_m…  142. g/m2  indivi… raw     measur… 1       field_… sapling 01      05     
+#>  6 Ahrens_2019 Corymbia … 006     leaf_m…  156. g/m2  indivi… raw     measur… 1       field_… sapling 01      06     
+#>  7 Ahrens_2019 Corymbia … 007     leaf_m…  150. g/m2  indivi… raw     measur… 1       field_… sapling 01      07     
+#>  8 Ahrens_2019 Corymbia … 008     leaf_m…  175. g/m2  indivi… raw     measur… 1       field_… sapling 01      08     
+#>  9 Ahrens_2019 Corymbia … 009     leaf_m…  148. g/m2  indivi… raw     measur… 1       field_… sapling 01      09     
+#> 10 Ahrens_2019 Corymbia … 010     leaf_m…  135. g/m2  indivi… raw     measur… 1       field_… sapling 01      10     
+#> # … with 27,939 more rows, 10 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​entity_type,
+#> #   ⁴​value_type, ⁵​basis_of_value, ⁶​replicates, ⁷​basis_of_record, ⁸​life_stage, ⁹​population_id, ˟​individual_id
 ```
 
-Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
+### By taxonomic information
+
+#### By family
+
+```r
+proteaceae_data <- austraits_4.0.0 %>%
+  extract_taxa(family = "Proteaceae")
+  
+proteaceae_data$trait
+```
+
+```
+#> # A tibble: 91,221 × 24
+#>    dataset_id taxon_name  obser…¹ trait…² value unit  entit…³ value…⁴ basis…⁵ repli…⁶ basis…⁷ life_…⁸ popul…⁹ indiv…˟
+#>    <chr>      <chr>       <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 ABRS_1981  Acidonia m… 0009    leaf_c… comp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  2 ABRS_1981  Acidonia m… 0009    leaf_l… 60    mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  3 ABRS_1981  Acidonia m… 0009    leaf_l… 130   mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  4 ABRS_1981  Acidonia m… 0009    plant_… shrub <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  5 ABRS_1981  Acidonia m… 0009    plant_… 3     m     species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  6 ABRS_1981  Adenanthos… 0015    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  7 ABRS_1981  Adenanthos… 0015    leaf_l… 30    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  8 ABRS_1981  Adenanthos… 0015    leaf_w… 30    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  9 ABRS_1981  Adenanthos… 0015    plant_… shrub <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#> 10 ABRS_1981  Adenanthos… 0015    plant_… 5     m     species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#> # … with 91,211 more rows, 10 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​entity_type,
+#> #   ⁴​value_type, ⁵​basis_of_value, ⁶​replicates, ⁷​basis_of_record, ⁸​life_stage, ⁹​population_id, ˟​individual_id
+```
+
+#### By genus
 
 
 ```r
-# First, we need to identify all studies with an id that includes "Falster"
-
-( dataset_ids <- austraits$methods$dataset_id %>% unique() %>% subset(., grepl("Falster",.))) 
+banksia_data <- austraits_4.0.0 %>%
+  extract_taxa(genus = "Banksia")
+  
+banksia_data$trait
 ```
 
 ```
-#> [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2"
+#> # A tibble: 16,991 × 24
+#>    dataset_id taxon_name  obser…¹ trait…² value unit  entit…³ value…⁴ basis…⁵ repli…⁶ basis…⁷ life_…⁸ popul…⁹ indiv…˟
+#>    <chr>      <chr>       <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 ABRS_1981  Banksia ac… 0358    flower… nyyn… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  2 ABRS_1981  Banksia ac… 0358    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  3 ABRS_1981  Banksia ac… 0358    leaf_l… 40    mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  4 ABRS_1981  Banksia ac… 0358    leaf_l… 90    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  5 ABRS_1981  Banksia ac… 0358    leaf_p… ever… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  6 ABRS_1981  Banksia ac… 0358    leaf_w… 8     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  7 ABRS_1981  Banksia ac… 0358    leaf_w… 30    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  8 ABRS_1981  Banksia ac… 0358    life_h… pere… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  9 ABRS_1981  Banksia ac… 0358    plant_… shrub <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#> 10 ABRS_1981  Banksia ac… 0358    plant_… 2     m     species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#> # … with 16,981 more rows, 10 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​entity_type,
+#> #   ⁴​value_type, ⁵​basis_of_value, ⁶​replicates, ⁷​basis_of_record, ⁸​life_stage, ⁹​population_id, ˟​individual_id
 ```
+
+#### By taxon name
 
 ```r
-# Then we extract
-data_falster_studies <- extract_dataset(austraits, dataset_ids)
-
-data_falster_studies$traits %>% head()
+banksiaserrata_data <- austraits_4.0.0 %>%
+  extract_taxa(taxon_name = "Banksia serrata") 
+  
+banksiaserrata_data$trait
 ```
 
 ```
-#> # A tibble: 6 × 12
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 66.1  degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 71.7  degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 840 × 24
+#>    dataset_id taxon_name  obser…¹ trait…² value unit  entit…³ value…⁴ basis…⁵ repli…⁶ basis…⁷ life_…⁸ popul…⁹ indiv…˟
+#>    <chr>      <chr>       <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 ABRS_1981  Banksia se… 0445    flower… yyyy… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  2 ABRS_1981  Banksia se… 0445    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  3 ABRS_1981  Banksia se… 0445    leaf_l… 70    mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  4 ABRS_1981  Banksia se… 0445    leaf_l… 220   mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  5 ABRS_1981  Banksia se… 0445    leaf_p… ever… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  6 ABRS_1981  Banksia se… 0445    leaf_w… 20    mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  7 ABRS_1981  Banksia se… 0445    leaf_w… 40    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#>  8 ABRS_1981  Banksia se… 0445    life_h… pere… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#>  9 ABRS_1981  Banksia se… 0445    plant_… shru… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>   
+#> 10 ABRS_1981  Banksia se… 0445    plant_… 16    m     species maximum measur… <NA>    preser… adult   <NA>    <NA>   
+#> # … with 830 more rows, 10 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​entity_type,
+#> #   ⁴​value_type, ⁵​basis_of_value, ⁶​replicates, ⁷​basis_of_record, ⁸​life_stage, ⁹​population_id, ˟​individual_id
 ```
 
-### Extracting by taxonomic level
-
-
-```r
-# By family 
-proteaceae <- extract_taxa(austraits, family = "Proteaceae")
-# Checking that only taxa in Proteaceae have been extracted
-proteaceae$taxa$family %>% unique()
-```
-
-```
-#> [1] "Proteaceae"
-```
-
-```r
-# By genus 
-acacia <- extract_taxa(austraits, genus = "Acacia")
-# Checking that only taxa in Acacia have been extracted
-acacia$traits$taxon_name %>% unique() %>% head()
-```
-
-```
-#> [1] "Acacia myrtifolia" "Acacia suaveolens" "Acacia floribunda" "Acacia celsa"     
-#> [5] "Acacia longifolia" "Acacia terminalis"
-```
-
-### Extracting by trait
-
-Filtering **one particular trait** and assigning it to an object
+#### By dataset
 
 
 ```r
-data_wood_dens <- extract_trait(austraits, "wood_density")
-
-head(data_wood_dens$traits)
+Westoby_2014 <- austraits_4.0.0 %>%
+  extract_dataset("Westoby_2014") 
+  
+Westoby_2014$trait
 ```
 
 ```
-#> # A tibble: 6 × 12
-#>   dataset_id    taxon…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>         <chr>   <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2005… Acacia… Athert… <NA>    Falste… wood_d… 0.498 mg/m… 2002… site_m… 3       Acacia…
-#> 2 Falster_2005… Acrony… Athert… <NA>    Falste… wood_d… 0.525 mg/m… 2002… site_m… 3       Acrony…
-#> 3 Falster_2005… Alphit… Athert… <NA>    Falste… wood_d… 0.413 mg/m… 2002… site_m… 3       Alphit…
-#> 4 Falster_2005… Glochi… Athert… <NA>    Falste… wood_d… 0.566 mg/m… 2002… site_m… 3       Glochi…
-#> 5 Falster_2005… Homala… Athert… <NA>    Falste… wood_d… 0.319 mg/m… 2002… site_m… 3       Homala…
-#> 6 Falster_2005… Melico… Athert… <NA>    Falste… wood_d… 0.346 mg/m… 2002… site_m… 3       Melico…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 4,225 × 24
+#>    dataset_id   taxon_n…¹ obser…² trait…³ value unit  entit…⁴ value…⁵ basis…⁶ repli…⁷ basis…⁸ life_…⁹ popul…˟ indiv…˟
+#>    <chr>        <chr>     <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 Westoby_2014 Acacia a… 001     leaf_a… 199.6 mm2   popula… mean    measur… 5       field   adult   04      <NA>   
+#>  2 Westoby_2014 Acacia a… 001     leaf_h… 4.055 mmol… popula… maximum measur… 3       field   adult   04      <NA>   
+#>  3 Westoby_2014 Acacia a… 001     leaf_m… 402.… g/m2  popula… mean    measur… 5       field   adult   04      <NA>   
+#>  4 Westoby_2014 Acacia a… 001     leaf_s… 4.884 10^4… popula… mean    measur… 5       field   adult   04      <NA>   
+#>  5 Westoby_2014 Acacia a… 001     water_… -3.0… MPa   popula… mean    measur… 3       field   adult   04      <NA>   
+#>  6 Westoby_2014 Acacia a… 001     water_… -7.0… MPa   popula… mean    measur… 3       field   adult   04      <NA>   
+#>  7 Westoby_2014 Acacia a… 001     wood_d… 0.837 mg/m… popula… mean    measur… 5       field   adult   04      <NA>   
+#>  8 Westoby_2014 Acacia c… 002     wood_d… 0.945 mg/m… indivi… raw     measur… 1       field   adult   08      01     
+#>  9 Westoby_2014 Acacia c… 003     wood_d… 0.80… mg/m… indivi… raw     measur… 1       field   adult   08      02     
+#> 10 Westoby_2014 Acacia c… 004     wood_d… 0.80… mg/m… indivi… raw     measur… 1       field   adult   08      03     
+#> # … with 4,215 more rows, 10 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, and abbreviated variable names ¹​taxon_name, ²​observation_id, ³​trait_name,
+#> #   ⁴​entity_type, ⁵​value_type, ⁶​basis_of_value, ⁷​replicates, ⁸​basis_of_record, ⁹​life_stage, ˟​population_id,
+#> #   ˟​individual_id
 ```
 
-Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf' in the trait name** and assigning it to an object. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
+
+## Joining information from other tables
+
+AusTraits is a relational database. This means information are stored in different tables and are linked by certain meta-data columns such as `location_id`. Once users have extracted the data they want, they may want to merge other study details into the main `traits` table for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
+
+There are five `join_` functions in total, each designed to append specific information from other tables in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information. See `?join_all` for more details. 
+
+#### Join taxonomic information 
 
 
 ```r
-data_leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
-
-head(data_leaf$traits)
-```
-
-```
-#> # A tibble: 6 × 12
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
-```
-
-## Join data from other tables and elements
-
-Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
-There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
-
-
-```r
-# Join taxonomic information 
 (data_leaf %>% join_taxonomy)$traits %>% head()
 ```
 
 ```
-#> # A tibble: 6 × 16
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 4 more variables: family <chr>, genus <chr>, taxonRank <chr>,
-#> #   acceptedNameUsageID <chr>, and abbreviated variable names ¹​taxon_name, ²​site_name,
-#> #   ³​context_name, ⁴​observation_id, ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 6 × 28
+#>   datas…¹ taxon…² obser…³ trait…⁴ value unit  entit…⁵ value…⁶ basis…⁷ repli…⁸ basis…⁹ life_…˟ popul…˟ indiv…˟ tempo…˟
+#>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#> 1 ABRS_1… Acanth… 0001    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 2 ABRS_1… Acanth… 0001    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 3 ABRS_1… Acanth… 0001    leaf_l… 15    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 4 ABRS_1… Acanth… 0002    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 5 ABRS_1… Acanth… 0002    leaf_l… 4     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 6 ABRS_1… Acanth… 0002    leaf_l… 12    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> # … with 13 more variables: source_id <chr>, location_id <chr>, entity_context_id <chr>, plot_id <chr>,
+#> #   treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>, method_id <chr>, original_name <chr>,
+#> #   family <chr>, genus <chr>, taxon_rank <chr>, establishment_means <chr>, and abbreviated variable names
+#> #   ¹​dataset_id, ²​taxon_name, ³​observation_id, ⁴​trait_name, ⁵​entity_type, ⁶​value_type, ⁷​basis_of_value, ⁸​replicates,
+#> #   ⁹​basis_of_record, ˟​life_stage, ˟​population_id, ˟​individual_id, ˟​temporal_id
 ```
 
+#### Join methodological information 
+
+
 ```r
-# Join methodological information 
 (data_leaf %>% join_methods)$traits %>% head()
 ```
 
 ```
-#> # A tibble: 6 × 16
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 4 more variables: methods <chr>, year_collected_start <chr>, year_collected_end <chr>,
-#> #   collection_type <chr>, and abbreviated variable names ¹​taxon_name, ²​site_name,
-#> #   ³​context_name, ⁴​observation_id, ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 6 × 25
+#>   datas…¹ taxon…² obser…³ trait…⁴ value unit  entit…⁵ value…⁶ basis…⁷ repli…⁸ basis…⁹ life_…˟ popul…˟ indiv…˟ tempo…˟
+#>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#> 1 ABRS_1… Acanth… 0001    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 2 ABRS_1… Acanth… 0001    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 3 ABRS_1… Acanth… 0001    leaf_l… 15    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 4 ABRS_1… Acanth… 0002    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 5 ABRS_1… Acanth… 0002    leaf_l… 4     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 6 ABRS_1… Acanth… 0002    leaf_l… 12    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> # … with 10 more variables: source_id <chr>, location_id <chr>, entity_context_id <chr>, plot_id <chr>,
+#> #   treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>, method_id <chr>, original_name <chr>,
+#> #   methods <chr>, and abbreviated variable names ¹​dataset_id, ²​taxon_name, ³​observation_id, ⁴​trait_name,
+#> #   ⁵​entity_type, ⁶​value_type, ⁷​basis_of_value, ⁸​replicates, ⁹​basis_of_record, ˟​life_stage, ˟​population_id,
+#> #   ˟​individual_id, ˟​temporal_id
 ```
+
+#### Join study specific information 
+
 
 ```r
-# Join site based information 
-(data_leaf %>% join_sites)$traits %>% head()
-```
-
-```
-#> # A tibble: 6 × 14
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 2 more variables: `latitude (deg)` <chr>, `longitude (deg)` <chr>, and abbreviated
-#> #   variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id, ⁵​trait_name,
-#> #   ⁶​value_type, ⁷​replicates, ⁸​original_name
-```
-
-```r
-# Join context information 
 (data_leaf %>% join_contexts)$traits %>% head()
 ```
 
 ```
-#> # A tibble: 6 × 16
-#>   datas…¹ taxon…² site_…³ conte…⁴ obser…⁵ trait…⁶ value unit  date  value…⁷ repli…⁸ origi…⁹ type 
-#>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr>
-#> 1 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia… <NA> 
-#> 2 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia… <NA> 
-#> 3 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia… <NA> 
-#> 4 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia… <NA> 
-#> 5 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia… <NA> 
-#> 6 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia… <NA> 
-#> # … with 3 more variables: description <chr>, leaf_parts <chr>, plant_age <chr>, and abbreviated
-#> #   variable names ¹​dataset_id, ²​taxon_name, ³​site_name, ⁴​context_name, ⁵​observation_id,
-#> #   ⁶​trait_name, ⁷​value_type, ⁸​replicates, ⁹​original_name
+#> # A tibble: 6 × 63
+#>   datas…¹ taxon…² obser…³ trait…⁴ value unit  entit…⁵ value…⁶ basis…⁷ repli…⁸ basis…⁹ life_…˟ popul…˟ indiv…˟ tempo…˟
+#>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#> 1 ABRS_1… Acanth… 0001    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 2 ABRS_1… Acanth… 0001    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 3 ABRS_1… Acanth… 0001    leaf_l… 15    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 4 ABRS_1… Acanth… 0002    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 5 ABRS_1… Acanth… 0002    leaf_l… 4     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 6 ABRS_1… Acanth… 0002    leaf_l… 12    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> # … with 48 more variables: source_id <chr>, location_id <chr>, entity_context_id <chr>, plot_id <chr>,
+#> #   treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>, method_id <chr>, original_name <chr>,
+#> #   `sampling season` <chr>, `measurement CO2` <chr>, `measurement irradiance` <chr>, `repeat observations` <chr>,
+#> #   `fire history` <chr>, `replicate observations` <chr>, `canopy layer` <chr>, `drought treatment` <chr>,
+#> #   `sampling time of day` <chr>, `temperature treatment` <chr>, `CO2 treatment` <chr>,
+#> #   `measurement temperature` <chr>, plots <chr>, `leaf age` <chr>, blocks <chr>,
+#> #   `drought treatment duration` <chr>, `seed age` <chr>, `sapwood sampling method` <chr>, …
 ```
 
+#### Join location information 
+
+
 ```r
-# Alternatively users can join *all* information 
+(data_leaf %>% join_locations)$traits %>% head()
+```
+
+```
+#> # A tibble: 6 × 27
+#>   datas…¹ taxon…² obser…³ trait…⁴ value unit  entit…⁵ value…⁶ basis…⁷ repli…⁸ basis…⁹ life_…˟ popul…˟ indiv…˟ tempo…˟
+#>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#> 1 ABRS_1… Acanth… 0001    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 2 ABRS_1… Acanth… 0001    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 3 ABRS_1… Acanth… 0001    leaf_l… 15    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 4 ABRS_1… Acanth… 0002    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 5 ABRS_1… Acanth… 0002    leaf_l… 4     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 6 ABRS_1… Acanth… 0002    leaf_l… 12    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> # … with 12 more variables: source_id <chr>, location_id <chr>, entity_context_id <chr>, plot_id <chr>,
+#> #   treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>, method_id <chr>, original_name <chr>,
+#> #   location_name <chr>, `latitude (deg)` <chr>, `longitude (deg)` <chr>, and abbreviated variable names
+#> #   ¹​dataset_id, ²​taxon_name, ³​observation_id, ⁴​trait_name, ⁵​entity_type, ⁶​value_type, ⁷​basis_of_value, ⁸​replicates,
+#> #   ⁹​basis_of_record, ˟​life_stage, ˟​population_id, ˟​individual_id, ˟​temporal_id
+```
+
+Alternatively users can join *all* information 
+
+```r
 (data_leaf %>% join_all)$traits %>% head()
 ```
 
 ```
-#> # A tibble: 6 × 22
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 10 more variables: `latitude (deg)` <chr>, `longitude (deg)` <chr>, family <chr>,
-#> #   genus <chr>, taxonRank <chr>, acceptedNameUsageID <chr>, methods <chr>,
-#> #   year_collected_start <chr>, year_collected_end <chr>, collection_type <chr>, and abbreviated
-#> #   variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id, ⁵​trait_name,
-#> #   ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 6 × 32
+#>   datas…¹ taxon…² obser…³ trait…⁴ value unit  entit…⁵ value…⁶ basis…⁷ repli…⁸ basis…⁹ life_…˟ popul…˟ indiv…˟ tempo…˟
+#>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#> 1 ABRS_1… Acanth… 0001    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 2 ABRS_1… Acanth… 0001    leaf_l… 3     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 3 ABRS_1… Acanth… 0001    leaf_l… 15    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 4 ABRS_1… Acanth… 0002    leaf_c… simp… <NA>  species mode    expert… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 5 ABRS_1… Acanth… 0002    leaf_l… 4     mm    species minimum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> 6 ABRS_1… Acanth… 0002    leaf_l… 12    mm    species maximum measur… <NA>    preser… adult   <NA>    <NA>    <NA>   
+#> # … with 17 more variables: source_id <chr>, location_id <chr>, entity_context_id <chr>, plot_id <chr>,
+#> #   treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>, method_id <chr>, original_name <chr>,
+#> #   location_name <chr>, `latitude (deg)` <chr>, `longitude (deg)` <chr>, family <chr>, genus <chr>,
+#> #   taxon_rank <chr>, establishment_means <chr>, methods <chr>, and abbreviated variable names ¹​dataset_id,
+#> #   ²​taxon_name, ³​observation_id, ⁴​trait_name, ⁵​entity_type, ⁶​value_type, ⁷​basis_of_value, ⁸​replicates,
+#> #   ⁹​basis_of_record, ˟​life_stage, ˟​population_id, ˟​individual_id, ˟​temporal_id
 ```
 
-## Visualising data by site
 
-`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
+## Transforming AusTraits into different formats 
+
+The traits table in AusTraits is arranged in **long** format, where every observation is denoted by  meta-data columns such as `entity_type`, `value_type`, `replicates`, `population_id`, `individual_id`, `temporal_id`.
+
+### Pivotting from 'long' to 'wide' format 
+Users can convert this to wide format, where each trait is in a separate column using the function `trait_pivot_wider`. Note that this function will remove some meta-data columns during the pivoting process. 
 
 
 ```r
-data_wood_dens <- data_wood_dens %>% join_sites()
-plot_site_locations(data_wood_dens$traits)
+wide_Westoby_2014 <- Westoby_2014$traits %>% trait_pivot_wider() 
 ```
 
-<img src="man/figures/site_plot-1.png" alt="plot of chunk site_plot" style="display: block; margin: auto;" />
+### Pivot longer
 
-## Visualising data distribution and variance
-
-`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id`
+We can revert back to a wide format dataset using `trait_pivot_longer`, however this process is imperfect as observations can not be fully delineated without the meta-data columns that were removed during `trait_pivot_wider`
 
 
 ```r
-austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
-```
-
-<img src="man/figures/beeswarm-1.png" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
-
-```r
-austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
-```
-
-<img src="man/figures/beeswarm-2.png" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
-
-## Pivotting from long to wide format 
-
-The table of traits in AusTraits comes in **long** format, where data for all trait information are denoted by two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. 
-
-The function operates differently depending on the version of AusTraits
-
-### Pivot wider <=3.0.2 
-
-In AusTraits <=3.0.2, some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to collapse multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
-
-Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
-
-#### bind_trait_values
-
-
-```r
-data_wide_bound <- data_falster_studies$traits %>%
-  bind_trait_values() %>% # Joining multiple obs with `--`
-  trait_pivot_wider() #Pivot wide
-
-data_wide_bound$value # The trait values table
+wide_Westoby_2014 %>% trait_pivot_longer() 
 ```
 
 ```
-#> # A tibble: 103 × 17
-#>    dataset_id   taxon_n…¹ site_…² conte…³ obser…⁴ leaf_…⁵ leaf_…⁶ leaf_…⁷ branc…⁸ huber…⁹ leaf_…˟
-#>    <chr>        <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
-#>  1 Falster_2003 Acacia m… Ku-rin… <NA>    Falste… 66.1    319     simple  <NA>    <NA>    <NA>   
-#>  2 Falster_2003 Acacia s… Ku-rin… <NA>    Falste… 71.7    562     simple  <NA>    <NA>    <NA>   
-#>  3 Falster_2003 Angophor… Ku-rin… <NA>    Falste… 50.8    1590    simple  <NA>    <NA>    <NA>   
-#>  4 Falster_2003 Banksia … Ku-rin… <NA>    Falste… 53.1    198     simple  <NA>    <NA>    <NA>   
-#>  5 Falster_2003 Banksia … Ku-rin… <NA>    Falste… 45      1061    simple  <NA>    <NA>    <NA>   
-#>  6 Falster_2003 Boronia … Ku-rin… <NA>    Falste… 43.9    151     simple  <NA>    <NA>    <NA>   
-#>  7 Falster_2003 Conosper… Ku-rin… <NA>    Falste… 72.3    1363    simple  <NA>    <NA>    <NA>   
-#>  8 Falster_2003 Epacris … Ku-rin… <NA>    Falste… 42.9    5       simple  <NA>    <NA>    <NA>   
-#>  9 Falster_2003 Eriostem… Ku-rin… <NA>    Falste… 62.1    102     simple  <NA>    <NA>    <NA>   
-#> 10 Falster_2003 Corymbia… Ku-rin… <NA>    Falste… 59.3    1111    simple  <NA>    <NA>    <NA>   
-#> # … with 93 more rows, 6 more variables: seed_mass <chr>, specific_leaf_area <chr>,
-#> #   wood_density <chr>, fire_response <chr>, plant_height <chr>, original_name <chr>, and
-#> #   abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​leaf_angle, ⁶​leaf_area, ⁷​leaf_compoundness, ⁸​branch_mass_fraction, ⁹​huber_value,
-#> #   ˟​leaf_N_per_dry_mass
+#> # A tibble: 4,090 × 19
+#> # Groups:   dataset_id, source_id, taxon_name, original_name, observation_id, method_id [516]
+#>    dataset_id taxon…¹ obser…² entit…³ life_…⁴ popul…⁵ indiv…⁶ tempo…⁷ sourc…⁸ locat…⁹ entit…˟ plot_id treat…˟ colle…˟
+#>    <chr>      <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 Westoby_2… Acacia… 001     popula… adult   04      <NA>    <NA>    <NA>    04      <NA>    <NA>    <NA>    2011/2…
+#>  2 Westoby_2… Acacia… 001     popula… adult   04      <NA>    <NA>    <NA>    04      <NA>    <NA>    <NA>    2011/2…
+#>  3 Westoby_2… Acacia… 001     popula… adult   04      <NA>    <NA>    <NA>    04      <NA>    <NA>    <NA>    2011/2…
+#>  4 Westoby_2… Acacia… 001     popula… adult   04      <NA>    <NA>    <NA>    04      <NA>    <NA>    <NA>    2011/2…
+#>  5 Westoby_2… Acacia… 001     popula… adult   04      <NA>    <NA>    <NA>    04      <NA>    <NA>    <NA>    2011/2…
+#>  6 Westoby_2… Acacia… 001     popula… adult   04      <NA>    <NA>    <NA>    04      <NA>    <NA>    <NA>    2011/2…
+#>  7 Westoby_2… Acacia… 002     indivi… adult   08      01      <NA>    <NA>    08      <NA>    <NA>    <NA>    2011/2…
+#>  8 Westoby_2… Acacia… 003     indivi… adult   08      02      <NA>    <NA>    08      <NA>    <NA>    <NA>    2011/2…
+#>  9 Westoby_2… Acacia… 004     indivi… adult   08      03      <NA>    <NA>    08      <NA>    <NA>    <NA>    2011/2…
+#> 10 Westoby_2… Acacia… 005     popula… adult   08      <NA>    <NA>    <NA>    08      <NA>    <NA>    <NA>    2011/2…
+#> # … with 4,080 more rows, 5 more variables: method_id <chr>, original_name <chr>, leaf_area <chr>, trait_name <chr>,
+#> #   value <chr>, and abbreviated variable names ¹​taxon_name, ²​observation_id, ³​entity_type, ⁴​life_stage,
+#> #   ⁵​population_id, ⁶​individual_id, ⁷​temporal_id, ⁸​source_id, ⁹​location_id, ˟​entity_context_id, ˟​treatment_id,
+#> #   ˟​collection_date
 ```
 
-```r
-# Check out the 'bounded' trait values
-data_wide_bound$value %>% 
-  select(-c(1:5)) %>% #Excluding values that are not traits so we can see which columns contains bounded values
-  filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
-```
+### Transform into a single table
 
-```
-#> # A tibble: 55 × 12
-#>    leaf_angle leaf_area leaf_co…¹ branc…² huber…³ leaf_…⁴ seed_…⁵ speci…⁶ wood_…⁷ fire_…⁸ plant…⁹
-#>    <chr>      <chr>     <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
-#>  1 <NA>       2786      <NA>      0.67    0.0003… 21.4    10.3    6.8965… 0.498   <NA>    <NA>   
-#>  2 <NA>       14302     <NA>      0.48    0.0001… 24.3    <NA>    11.764… 0.525   <NA>    <NA>   
-#>  3 <NA>       6820      <NA>      0.42    0.0002… 16.3    27.2    6.7114… 0.413   <NA>    <NA>   
-#>  4 <NA>       3209      <NA>      0.41    0.0005… 13.7    10.41   9.4339… 0.566   <NA>    <NA>   
-#>  5 <NA>       10682     <NA>      0.47    0.0004… 22      7       12.195… 0.319   <NA>    <NA>   
-#>  6 <NA>       6955      <NA>      0.58    0.0002… 26.8    1.61    13.333… 0.346   <NA>    <NA>   
-#>  7 <NA>       5228      <NA>      0.58    0.0005… 16.4    176.1   10.752… 0.352   <NA>    <NA>   
-#>  8 <NA>       6806      <NA>      0.42    0.0001… 15.4    8.35    12.658… 0.397   <NA>    <NA>   
-#>  9 <NA>       11157     <NA>      0       0.0002… 17.9    23.09   9.2592… 0.582   <NA>    <NA>   
-#> 10 <NA>       3401      <NA>      0.34    0.0002… 11.1    <NA>    7.7519… 0.763   <NA>    <NA>   
-#> # … with 45 more rows, 1 more variable: original_name <chr>, and abbreviated variable names
-#> #   ¹​leaf_compoundness, ²​branch_mass_fraction, ³​huber_value, ⁴​leaf_N_per_dry_mass, ⁵​seed_mass,
-#> #   ⁶​specific_leaf_area, ⁷​wood_density, ⁸​fire_response, ⁹​plant_height
-```
-
-If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then call `separate_trait_values`: 
+Users can also transform the entire relational database into one wide table. This approach turns the list structure into one single dataframe. 
 
 
 ```r
-data_wide_bound %>% 
-  trait_pivot_longer() %>% 
-  separate_trait_values(., austraits$definitions)
+Westoby_2014 %>% as_wide_table()
 ```
 
 ```
-#> # A tibble: 691 × 12
-#>    dataset_id   taxon…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>    <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#>  1 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 66.1  degr… <NA>  <NA>    3       Acacia…
-#>  2 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  <NA>    3       Acacia…
-#>  3 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  <NA>    <NA>    Acacia…
-#>  4 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 71.7  degr… <NA>  <NA>    3       Acacia…
-#>  5 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  <NA>    3       Acacia…
-#>  6 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  <NA>    <NA>    Acacia…
-#>  7 Falster_2003 Angoph… Ku-rin… <NA>    Falste… leaf_a… 50.8  degr… <NA>  <NA>    3       Angoph…
-#>  8 Falster_2003 Angoph… Ku-rin… <NA>    Falste… leaf_a… 1590  mm2   <NA>  <NA>    3       Angoph…
-#>  9 Falster_2003 Angoph… Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  <NA>    <NA>    Angoph…
-#> 10 Falster_2003 Banksi… Ku-rin… <NA>    Falste… leaf_a… 53.1  degr… <NA>  <NA>    3       Banksi…
-#> # … with 681 more rows, and abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name,
-#> #   ⁴​observation_id, ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+#> # A tibble: 4,259 × 53
+#>    dataset_id   taxon_n…¹ obser…² trait…³ value unit  entit…⁴ value…⁵ basis…⁶ repli…⁷ basis…⁸ life_…⁹ popul…˟ indiv…˟
+#>    <chr>        <chr>     <chr>   <chr>   <chr> <chr> <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 Westoby_2014 Acacia a… 001     leaf_a… 199.6 mm2   popula… mean    measur… 5       field   adult   04      <NA>   
+#>  2 Westoby_2014 Acacia a… 001     leaf_h… 4.055 mmol… popula… maximum measur… 3       field   adult   04      <NA>   
+#>  3 Westoby_2014 Acacia a… 001     leaf_m… 402.… g/m2  popula… mean    measur… 5       field   adult   04      <NA>   
+#>  4 Westoby_2014 Acacia a… 001     leaf_s… 4.884 10^4… popula… mean    measur… 5       field   adult   04      <NA>   
+#>  5 Westoby_2014 Acacia a… 001     water_… -3.0… MPa   popula… mean    measur… 3       field   adult   04      <NA>   
+#>  6 Westoby_2014 Acacia a… 001     water_… -7.0… MPa   popula… mean    measur… 3       field   adult   04      <NA>   
+#>  7 Westoby_2014 Acacia a… 001     wood_d… 0.837 mg/m… popula… mean    measur… 5       field   adult   04      <NA>   
+#>  8 Westoby_2014 Acacia c… 002     wood_d… 0.945 mg/m… indivi… raw     measur… 1       field   adult   08      01     
+#>  9 Westoby_2014 Acacia c… 003     wood_d… 0.80… mg/m… indivi… raw     measur… 1       field   adult   08      02     
+#> 10 Westoby_2014 Acacia c… 004     wood_d… 0.80… mg/m… indivi… raw     measur… 1       field   adult   08      03     
+#> # … with 4,249 more rows, 39 more variables: temporal_id <chr>, source_id <chr>, location_id <chr>,
+#> #   entity_context_id <chr>, plot_id <chr>, treatment_id <chr>, collection_date <chr>, measurement_remarks <chr>,
+#> #   method_id <chr>, original_name <chr>, context <chr>, `latitude (deg)` <chr>, `longitude (deg)` <chr>,
+#> #   location <chr>, methods <chr>, dataset_description <chr>, sampling_strategy <chr>, source_primary_key <chr>,
+#> #   source_primary_citation <chr>, source_secondary_key <chr>, source_secondary_citation <chr>,
+#> #   source_original_dataset_key <chr>, source_original_dataset_citation <chr>, data_collectors <chr>,
+#> #   assistants <chr>, austraits_curators <chr>, taxonNameValidation <chr>, taxon_rank <chr>, trinomial <chr>, …
 ```
 
-#### `summarise_trait_means`
+## Visualise AusTraits data
+
+### Spatial distribution of trait data
+
+`plot_locations` graphically summarises where trait data was collected from and how much data is available for a particular trait. The legend refers to the number of neighboring points: the warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the traits table before plotting
 
 
 ```r
-data_wide_summarised <- data_falster_studies$traits %>%
-  summarise_trait_means() %>% 
-  trait_pivot_wider()
-
-data_wide_summarised$value %>% head()
+wood_density_data <- austraits_4.0.0 %>% 
+  extract_trait("wood_density") %>% 
+  join_locations()
+  
+wood_density_data %>% 
+  plot_locations(feature = "trait_name")
 ```
 
-```
-#> # A tibble: 6 × 17
-#>   datas…¹ taxon…² site_…³ conte…⁴ obser…⁵ leaf_…⁶ leaf_…⁷ leaf_…⁸ branc…⁹ leaf_…˟ seed_…˟ speci…˟
-#>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1 Falste… Acacia… Ku-rin… <NA>    Falste…    66.1     319      NA      NA      NA      NA      NA
-#> 2 Falste… Acacia… Ku-rin… <NA>    Falste…    71.7     562      NA      NA      NA      NA      NA
-#> 3 Falste… Angoph… Ku-rin… <NA>    Falste…    50.8    1590      NA      NA      NA      NA      NA
-#> 4 Falste… Banksi… Ku-rin… <NA>    Falste…    53.1     198      NA      NA      NA      NA      NA
-#> 5 Falste… Banksi… Ku-rin… <NA>    Falste…    45      1061      NA      NA      NA      NA      NA
-#> 6 Falste… Boroni… Ku-rin… <NA>    Falste…    43.9     151      NA      NA      NA      NA      NA
-#> # … with 5 more variables: wood_density <dbl>, huber_value <dbl>, fire_response <dbl>,
-#> #   plant_height <dbl>, original_name <chr>, and abbreviated variable names ¹​dataset_id,
-#> #   ²​taxon_name, ³​site_name, ⁴​context_name, ⁵​observation_id, ⁶​leaf_angle, ⁷​leaf_area,
-#> #   ⁸​leaf_compoundness, ⁹​branch_mass_fraction, ˟​leaf_N_per_dry_mass, ˟​seed_mass,
-#> #   ˟​specific_leaf_area
+<img src="man/figures/unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
+
+### Beeswarm distribution of trait data
+
+`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id` to compare variance between studies.
+
+
+```r
+banksiaserrata_data %>% 
+  plot_trait_distribution_beeswarm("leaf_area", "dataset_id", highlight="Westoby_2014", hide_ids = TRUE) 
 ```
 
+<img src="man/figures/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" style="display: block; margin: auto;" />

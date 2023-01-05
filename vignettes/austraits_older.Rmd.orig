@@ -26,9 +26,9 @@ library(stringr)
 library(austraits)
 ```
 
-The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to explore, wrangle and visualise data. Below we have prepared a short vignette illustrating these. 
+The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to explore, wrangle and visualise data. 
 
-The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The vignette below is written for version 4.0.0 and newer. The same vignette for versions 3.0.2 and older can be found under the Articles tab. 
+The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The tutorial below will illustrate some of the functionalities of the package and is written for version 3.0.2 and older. The tutorial for version 4.0.0 and newer is found at the "Getting Started" tab 
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 
@@ -47,7 +47,8 @@ AusTraits is always updating and ingesting new data. Each release is tracked and
 ```{r, eval=FALSE}
 get_versions(path = "data/austraits")
 ```
-```{r, echo=FALSE}
+
+```{r, echo= FALSE}
 get_versions(path = "../ignore/data/austraits")
 ```
 
@@ -55,11 +56,12 @@ get_versions(path = "../ignore/data/austraits")
 
 You can load any version of AusTraits with `load_austraits`. By default, `load_austraits` will download AusTraits to a specified path e.g. `data/austraits` and will reload it from this location in subsequent sessions. `load_austraits` will also accept a DOI of a particular version.
 
-```{r, load_data2, eval=FALSE}
-austraits_4.0.0 <- load_austraits(version = "4.0.0", path = "data/austraits")
+```{r, load_data, eval=FALSE}
+austraits_3.0.2 <- load_austraits(version = "3.0.2", path = "data/austraits")
 ```
+
 ```{r, echo=FALSE}
-austraits_4.0.0 <- load_austraits(version = "4.0.0", path = "../ignore/data/austraits")
+austraits_3.0.2 <- load_austraits(version = "3.0.2", path = "../ignore/data/austraits")
 ```
 
 In R, the AusTraits database arranged as a very *long* list with multiple of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
@@ -67,27 +69,27 @@ In R, the AusTraits database arranged as a very *long* list with multiple of ele
 Calling the AusTraits object will print out a quick summary of the database and meta-data descriptions of each table in the long list.
 
 ```{r}
-austraits_4.0.0
+austraits_3.0.2
 ```
 
 ## Descriptive summaries of traits and taxa
 
-AusTraits contains over `r length(unique(austraits_4.0.0$traits$trait_name))` plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
+This version of AusTraits contains over `r length(unique(austraits_3.0.2$traits$trait_name))` plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
 
 Users can explore AusTraits and see how much data we have for certain traits or  taxonomic groups  using the `summarise_` functions
 
 ### Summarise by trait name
 
 ```{r}
-summarise_austraits(austraits_4.0.0, "trait_name") %>% head()
+summarise_austraits(austraits_3.0.2, "trait_name") %>% head()
 ```
 
 ### Summarise by taxonomic levels
 
 ```{r}
-summarise_austraits(austraits_4.0.0, var =  "family") %>% head()
+summarise_austraits(austraits_3.0.2, var =  "family") %>% head()
 
-summarise_austraits(austraits_4.0.0, "genus") %>% head()
+summarise_austraits(austraits_3.0.2, "genus") %>% head()
 ```
 
 ## Search for trait
@@ -95,7 +97,7 @@ summarise_austraits(austraits_4.0.0, "genus") %>% head()
 If you are interested in a specific trait? Try `lookup_trait`
 
 ```{r}
-lookup_trait(austraits_4.0.0, "leaf") %>% head()
+lookup_trait(austraits_3.0.2, "leaf") %>% head()
 ```
 
 ## Extract information from AusTraits 
@@ -107,7 +109,7 @@ The `extract_` functions can help users to filter down to the data the need. Use
 Combining `lookup_trait` with `extract_trait`, users can extract  **all traits with 'leaf' in the trait name**. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
 
 ```{r}
-data_leaf <- lookup_trait(austraits_4.0.0, "leaf") %>% extract_trait(austraits_4.0.0, .) 
+data_leaf <- lookup_trait(austraits_3.0.2, "leaf") %>% extract_trait(austraits_3.0.2, .) 
 
 data_leaf$traits
 ```
@@ -115,7 +117,7 @@ data_leaf$traits
 ### By trait name
 
 ```{r}
-leafmass_data <- austraits_4.0.0 %>%
+leafmass_data <- austraits_3.0.2 %>%
   extract_trait("leaf_mass_per_area") 
   
 leafmass_data$trait
@@ -125,7 +127,7 @@ leafmass_data$trait
 
 #### By family
 ```{r}
-proteaceae_data <- austraits_4.0.0 %>%
+proteaceae_data <- austraits_3.0.2 %>%
   extract_taxa(family = "Proteaceae")
   
 proteaceae_data$trait
@@ -134,7 +136,7 @@ proteaceae_data$trait
 #### By genus
 
 ```{r}
-banksia_data <- austraits_4.0.0 %>%
+banksia_data <- austraits_3.0.2 %>%
   extract_taxa(genus = "Banksia")
   
 banksia_data$trait
@@ -142,7 +144,7 @@ banksia_data$trait
 
 #### By taxon name
 ```{r}
-banksiaserrata_data <- austraits_4.0.0 %>%
+banksiaserrata_data <- austraits_3.0.2 %>%
   extract_taxa(taxon_name = "Banksia serrata") 
   
 banksiaserrata_data$trait
@@ -151,7 +153,7 @@ banksiaserrata_data$trait
 #### By dataset
 
 ```{r}
-Westoby_2014 <- austraits_4.0.0 %>%
+Westoby_2014 <- austraits_3.0.2 %>%
   extract_dataset("Westoby_2014") 
   
 Westoby_2014$trait
@@ -193,24 +195,66 @@ Alternatively users can join *all* information
 (data_leaf %>% join_all)$traits %>% head()
 ```
 
-
 ## Transforming AusTraits into different formats 
 
-The traits table in AusTraits is arranged in **long** format, where every observation is denoted by  meta-data columns such as `entity_type`, `value_type`, `replicates`, `population_id`, `individual_id`, `temporal_id`.
+The traits table in AusTraits is arranged in **long** format. In AusTraits versions 3.0.2 and older, some studies will have *multiple observations* for certain traits, e.g. huber values. This can prevent pivoting from long format to wide as observations cannot be uniquely delineated. 
 
-### Pivotting from 'long' to 'wide' format 
-Users can convert this to wide format, where each trait is in a separate column using the function `trait_pivot_wider`. Note that this function will remove some meta-data columns during the pivoting process. 
+As such, we have provided two ways to collapse multiple observations. Once multiple observations have been collapsed down with the above methods, users can convert this to wide format, where each trait is in a separate column using the function `trait_pivot_wider`.
+
+#### Retain all values by binding
+
+The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information during the pivot wider process.
 
 ```{r}
-wide_Westoby_2014 <- Westoby_2014$traits %>% trait_pivot_wider() 
+Westoby_2014_bound <- Westoby_2014$traits %>% bind_trait_values()
+
+# Inspect rows that have bounded values. This part requires dplyr and stringr packages.
+Westoby_2014_bound %>% 
+  dplyr::slice(
+    stringr::str_which(Westoby_2014_bound$value, pattern = "--")) 
+```
+
+#### Condense values by averaging
+
+Alternatively, if you don't want to bind the trait values into a single, you can give `summarise_trait_means` a go, which computes the mean of with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back
+
+```{r}
+Westoby_2014_summarised <- Westoby_2014$traits %>% summarise_trait_means()
+```
+
+### Pivot wider
+
+Once the traits table has been collapsed using the above methods, we can transform it into wide format where each trait is arranged in its own column using `trait_pivot_wider`. This function will produced five tables, the trait values are found in the `value` table. 
+
+#### Bounded values
+```{r, pivot_wide_bound}
+Westoby_2014_bound_wide <- Westoby_2014_bound %>% trait_pivot_wider()
+
+Westoby_2014_bound_wide$value
+```
+
+#### Summarised values
+
+```{r}
+Westoby_2014_summarised_wide <- Westoby_2014_summarised %>% trait_pivot_wider()
+
+Westoby_2014_summarised_wide$value
 ```
 
 ### Pivot longer
 
-We can revert back to a wide format dataset using `trait_pivot_longer`, however this process is imperfect as observations can not be fully delineated without the meta-data columns that were removed during `trait_pivot_wider`
+We can revert back to a long format dataset using `trait_pivot_longer`
 
 ```{r}
-wide_Westoby_2014 %>% trait_pivot_longer() 
+Westoby_2014_long_again <- Westoby_2014_summarised_wide %>% trait_pivot_longer()
+```
+
+For tables that contained values that were bound using `bind_trait_values`. Users can seperate the bounded trait values, using `separate_trait_values`. 
+
+```{r}
+Westoby_2014_bound_wide %>% 
+  trait_pivot_longer() %>% 
+  separate_trait_values(., austraits_3.0.2$definitions)
 ```
 
 ### Transform into a single table
@@ -228,7 +272,7 @@ Westoby_2014 %>% as_wide_table()
 `plot_locations` graphically summarises where trait data was collected from and how much data is available for a particular trait. The legend refers to the number of neighboring points: the warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the traits table before plotting
 
 ```{r, fig.align = "center", fig.width=5, fig.height=5}
-wood_density_data <- austraits_4.0.0 %>% 
+wood_density_data <- austraits_3.0.2 %>% 
   extract_trait("wood_density") %>% 
   join_locations()
   

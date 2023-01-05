@@ -1,0 +1,656 @@
+---
+title: "austraits"
+author: "Fonti Kar, Daniel Falster"
+date: "2023-01-05"
+output: 
+  rmarkdown::html_vignette:
+  toc: yes
+vignette: >
+  %\VignetteIndexEntry{austraits}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to explore, wrangle and visualise data. 
+
+The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The tutorial below will illustrate some of the functionalities of the package and is written for version 3.0.2 and older. The tutorial for version 4.0.0 and newer is found at the "Getting Started" tab 
+
+## Getting started
+`austraits` is still under development. To install the current version from GitHub: 
+
+
+```r
+#install.packages("remotes")
+remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
+
+# Load the austraits package
+library(austraits)
+```
+
+## AusTraits is version controlled
+
+AusTraits is always updating and ingesting new data. Each release is tracked and provided with a unique version number. You can check out different versions and their associated DOI of AusTraits by using: 
+
+```r
+get_versions(path = "data/austraits")
+```
+
+
+```
+#> # A tibble: 6 × 3
+#>   date       version doi                   
+#>   <chr>      <chr>   <chr>                 
+#> 1 2022-11-27 4.0.0   10.5281/zenodo.7368074
+#> 2 2021-07-14 3.0.2   10.5281/zenodo.5112001
+#> 3 2021-07-14 3.0.1   10.5281/zenodo.5099552
+#> 4 2021-07-14 3.0.0   10.5281/zenodo.5099545
+#> 5 2020-12-11 2.1.0   10.5281/zenodo.4316550
+#> 6 2020-07-08 2.0.0   10.5281/zenodo.4316516
+```
+
+## Loading AusTraits database 
+
+You can load any version of AusTraits with `load_austraits`. By default, `load_austraits` will download AusTraits to a specified path e.g. `data/austraits` and will reload it from this location in subsequent sessions. `load_austraits` will also accept a DOI of a particular version.
+
+
+```r
+austraits_3.0.2 <- load_austraits(version = "3.0.2", path = "data/austraits")
+```
+
+
+
+In R, the AusTraits database arranged as a very *long* list with multiple of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
+
+Calling the AusTraits object will print out a quick summary of the database and meta-data descriptions of each table in the long list.
+
+
+```r
+austraits_3.0.2
+```
+
+```
+#> This is version 3.0.2 of austraits!
+#>  
+#> This object contains a total of 997808 records for 28640 taxa and 448 traits.
+#> 
+#> This object is a 'list' with the following components:
+#> 
+#>  - `traits`: A table containing measurements of plant traits.
+#> - `sites`: A table containing observations of site characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `site_name`.
+#> - `contexts`: A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `context_name`.
+#> - `methods`: A table containing details on methods with which data were collected, including time frame and source.
+#> - `excluded_data`: A table of data that did not pass quality test and so were excluded from the master dataset.
+#> - `taxa`: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.
+#> - `definitions`: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.
+#> - `sources`: Bibtex entries for all primary and secondary sources in the compilation.
+#> - `contributors`: A table of people contributing to each study.
+#> - `taxonomic_updates`: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
+#> - `build_info`: A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.
+#> 
+#> To access a component, try using the $ e.g. austraits$traits
+```
+
+## Descriptive summaries of traits and taxa
+
+This version of AusTraits contains over 448 plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
+
+Users can explore AusTraits and see how much data we have for certain traits or  taxonomic groups  using the `summarise_` functions
+
+### Summarise by trait name
+
+
+```r
+summarise_austraits(austraits_3.0.2, "trait_name") %>% head()
+```
+
+```
+#>                     trait_name n_records n_dataset n_taxa percent_total
+#>        accessory_cost_fraction        47         1     47      4.71e-05
+#>            accessory_cost_mass        47         1     47      4.71e-05
+#>           bark_Al_per_dry_mass        70         1     10      7.02e-05
+#>  bark_ash_content_per_dry_mass        63         1     10      6.31e-05
+#>            bark_B_per_dry_mass        70         1     10      7.02e-05
+#>            bark_C_per_dry_mass       240         2     27      2.41e-04
+```
+
+### Summarise by taxonomic levels
+
+
+```r
+summarise_austraits(austraits_3.0.2, var =  "family") %>% head()
+```
+
+```
+#>         family n_records n_dataset n_taxa percent_total
+#>    Acanthaceae      1631        31    102      1.64e-03
+#>    Achariaceae        76         8      2      7.63e-05
+#>  Actinidiaceae        67         7      2      6.73e-05
+#>      Adoxaceae       253        16      6      2.54e-04
+#>  Agapanthaceae         9         1      1      9.04e-06
+#>      Aizoaceae      1692        38     84      1.70e-03
+```
+
+```r
+summarise_austraits(austraits_3.0.2, "genus") %>% head()
+```
+
+```
+#>         genus n_records n_dataset n_taxa percent_total
+#>   Abelmoschus        63         6      4      6.33e-05
+#>  Abildgaardia        50         2      2      5.03e-05
+#>   Abrodictyum        47         2      2      4.73e-05
+#>        Abroma        28         3      2      2.82e-05
+#>   Abrophyllum       104        13      1      1.05e-04
+#>   Abrotanella        88         9      4      8.85e-05
+```
+
+## Search for trait
+
+If you are interested in a specific trait? Try `lookup_trait`
+
+
+```r
+lookup_trait(austraits_3.0.2, "leaf") %>% head()
+```
+
+```
+#> [1] "leaf_area"               "leaf_delta13C"           "leaf_N_per_dry_mass"     "leaf_PRI"               
+#> [5] "specific_leaf_area"      "leaf_dry_matter_content"
+```
+
+## Extract information from AusTraits 
+
+The `extract_` functions can help users to filter down to the data the need. Users can extract data by their search results, the trait name, taxonomic information or by dataset.
+
+### By search results
+
+Combining `lookup_trait` with `extract_trait`, users can extract  **all traits with 'leaf' in the trait name**. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
+
+
+```r
+data_leaf <- lookup_trait(austraits_3.0.2, "leaf") %>% extract_trait(austraits_3.0.2, .) 
+
+data_leaf$traits
+```
+
+```
+#> # A tibble: 310,219 × 12
+#>    dataset_id  taxon_name          site_name context_n…¹ obser…² trait…³    value unit  date  value…⁴ repli…⁵ origi…⁶
+#>    <chr>       <chr>               <chr>     <chr>       <chr>   <chr>      <dbl> <chr> <chr> <fct>   <chr>   <chr>  
+#>  1 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_a…  1.29e+4 mm2   2017… raw_va… 1       Corymb…
+#>  2 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_d… -2.80e+1 per … 2017… raw_va… 1       Corymb…
+#>  3 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_N…  9   e+0 mg/g  2017… raw_va… 1       Corymb…
+#>  4 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_P…  2.26e-2 umol… 2017… raw_va… 1       Corymb…
+#>  5 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… specif…  5.4 e+0 mm2/… 2017… raw_va… 1       Corymb…
+#>  6 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_a…  9.65e+3 mm2   2017… raw_va… 1       Corymb…
+#>  7 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_d… -2.73e+1 per … 2017… raw_va… 1       Corymb…
+#>  8 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_N…  1.6 e+1 mg/g  2017… raw_va… 1       Corymb…
+#>  9 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… leaf_P…  3.69e-2 umol… 2017… raw_va… 1       Corymb…
+#> 10 Ahrens_2019 Corymbia calophylla BOO       <NA>        Ahrens… specif…  7.24e+0 mm2/… 2017… raw_va… 1       Corymb…
+#> # … with 310,209 more rows, and abbreviated variable names ¹​context_name, ²​observation_id, ³​trait_name, ⁴​value_type,
+#> #   ⁵​replicates, ⁶​original_name
+```
+
+### By trait name
+
+
+```r
+leafmass_data <- austraits_3.0.2 %>%
+  extract_trait("leaf_mass_per_area") 
+  
+leafmass_data$trait
+```
+
+```
+#> # A tibble: 0 × 12
+#> # … with 12 variables: dataset_id <chr>, taxon_name <chr>, site_name <chr>, context_name <chr>,
+#> #   observation_id <chr>, trait_name <chr>, value <chr>, unit <chr>, date <chr>, value_type <fct>, replicates <chr>,
+#> #   original_name <chr>
+```
+
+### By taxonomic information
+
+#### By family
+
+```r
+proteaceae_data <- austraits_3.0.2 %>%
+  extract_taxa(family = "Proteaceae")
+  
+proteaceae_data$trait
+```
+
+```
+#> # A tibble: 73,567 × 12
+#>    dataset_id taxon_name     site_name              conte…¹ obser…² trait…³ value unit  date  value…⁴ repli…⁵ origi…⁶
+#>    <chr>      <chr>          <chr>                  <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
+#>  1 ANBG_2019  Banksia        site_at_-33.4475_degS… <NA>    ANBG_2… seed_m… 63.0… mg    2004… site_m… variou… Banksia
+#>  2 ANBG_2019  Banksia        site_at_-33.7542_degS… <NA>    ANBG_2… seed_m… 11.1… mg    2004… site_m… variou… Banksia
+#>  3 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… disper… wings <NA>  2016… expert… <NA>    Banksi…
+#>  4 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… disper… wings <NA>  2017… expert… <NA>    Banksi…
+#>  5 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_s… pyra… <NA>  2016… expert… <NA>    Banksi…
+#>  6 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_s… pyra… <NA>  2017… expert… <NA>    Banksi…
+#>  7 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_t… rough <NA>  2016… expert… <NA>    Banksi…
+#>  8 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_t… rough <NA>  2017… expert… <NA>    Banksi…
+#>  9 ANBG_2019  Banksia armata site_at_-32.5806_degS… <NA>    ANBG_2… seed_m… 10.4… mg    2004… site_m… variou… Banksi…
+#> 10 ANBG_2019  Banksia armata site_at_-33.4467_degS… <NA>    ANBG_2… seed_m… 13.2… mg    2004… site_m… variou… Banksi…
+#> # … with 73,557 more rows, and abbreviated variable names ¹​context_name, ²​observation_id, ³​trait_name, ⁴​value_type,
+#> #   ⁵​replicates, ⁶​original_name
+```
+
+#### By genus
+
+
+```r
+banksia_data <- austraits_3.0.2 %>%
+  extract_taxa(genus = "Banksia")
+  
+banksia_data$trait
+```
+
+```
+#> # A tibble: 14,074 × 12
+#>    dataset_id taxon_name     site_name              conte…¹ obser…² trait…³ value unit  date  value…⁴ repli…⁵ origi…⁶
+#>    <chr>      <chr>          <chr>                  <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
+#>  1 ANBG_2019  Banksia        site_at_-33.4475_degS… <NA>    ANBG_2… seed_m… 63.0… mg    2004… site_m… variou… Banksia
+#>  2 ANBG_2019  Banksia        site_at_-33.7542_degS… <NA>    ANBG_2… seed_m… 11.1… mg    2004… site_m… variou… Banksia
+#>  3 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… disper… wings <NA>  2016… expert… <NA>    Banksi…
+#>  4 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… disper… wings <NA>  2017… expert… <NA>    Banksi…
+#>  5 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_s… pyra… <NA>  2016… expert… <NA>    Banksi…
+#>  6 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_s… pyra… <NA>  2017… expert… <NA>    Banksi…
+#>  7 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_t… rough <NA>  2016… expert… <NA>    Banksi…
+#>  8 ANBG_2019  Banksia aemula site_at_-32.75_degS_a… <NA>    ANBG_2… seed_t… rough <NA>  2017… expert… <NA>    Banksi…
+#>  9 ANBG_2019  Banksia armata site_at_-32.5806_degS… <NA>    ANBG_2… seed_m… 10.4… mg    2004… site_m… variou… Banksi…
+#> 10 ANBG_2019  Banksia armata site_at_-33.4467_degS… <NA>    ANBG_2… seed_m… 13.2… mg    2004… site_m… variou… Banksi…
+#> # … with 14,064 more rows, and abbreviated variable names ¹​context_name, ²​observation_id, ³​trait_name, ⁴​value_type,
+#> #   ⁵​replicates, ⁶​original_name
+```
+
+#### By taxon name
+
+```r
+banksiaserrata_data <- austraits_3.0.2 %>%
+  extract_taxa(taxon_name = "Banksia serrata") 
+  
+banksiaserrata_data$trait
+```
+
+```
+#> # A tibble: 826 × 12
+#>    dataset_id  taxon_name      site_name            conte…¹ obser…² trait…³ value unit  date  value…⁴ repli…⁵ origi…⁶
+#>    <chr>       <chr>           <chr>                <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
+#>  1 ANBG_2019   Banksia serrata site_at_-35.15_degS… <NA>    ANBG_2… disper… wings <NA>  2016… expert… <NA>    Banksi…
+#>  2 ANBG_2019   Banksia serrata site_at_-35.15_degS… <NA>    ANBG_2… disper… wings <NA>  2017… expert… <NA>    Banksi…
+#>  3 ANBG_2019   Banksia serrata site_at_-35.15_degS… <NA>    ANBG_2… seed_s… poin… <NA>  2016… expert… <NA>    Banksi…
+#>  4 ANBG_2019   Banksia serrata site_at_-35.15_degS… <NA>    ANBG_2… seed_s… poin… <NA>  2017… expert… <NA>    Banksi…
+#>  5 ANBG_2019   Banksia serrata site_at_-35.15_degS… <NA>    ANBG_2… seed_t… rough <NA>  2017… expert… <NA>    Banksi…
+#>  6 ANBG_2019   Banksia serrata site_at_-35.15_degS… <NA>    ANBG_2… seed_t… rough <NA>  2016… expert… <NA>    Banksi…
+#>  7 ANBG_2019   Banksia serrata site_at_-35.3711_de… <NA>    ANBG_2… seed_m… 69    mg    2016… site_m… variou… Banksi…
+#>  8 Barlow_1981 Banksia serrata <NA>                 <NA>    Barlow… flower… yyyy… <NA>  <NA>  expert… <NA>    Banksi…
+#>  9 Barlow_1981 Banksia serrata <NA>                 <NA>    Barlow… leaf_c… simp… <NA>  <NA>  expert… <NA>    Banksi…
+#> 10 Barlow_1981 Banksia serrata <NA>                 <NA>    Barlow… leaf_l… 70    mm    <NA>  expert… <NA>    Banksi…
+#> # … with 816 more rows, and abbreviated variable names ¹​context_name, ²​observation_id, ³​trait_name, ⁴​value_type,
+#> #   ⁵​replicates, ⁶​original_name
+```
+
+#### By dataset
+
+
+```r
+Westoby_2014 <- austraits_3.0.2 %>%
+  extract_dataset("Westoby_2014") 
+  
+Westoby_2014$trait
+```
+
+```
+#> # A tibble: 4,225 × 12
+#>    dataset_id   taxon_name      site_name context_name observatio…¹ trait…² value unit  date  value…³ repli…⁴ origi…⁵
+#>    <chr>        <chr>           <chr>     <chr>        <chr>        <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
+#>  1 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… huber_… 8.22… mm2_… <NA>  site_m… 5       Acacia…
+#>  2 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_a… 6575  mm2   <NA>  site_m… 5       Acacia…
+#>  3 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_B… 21.6… mg/kg <NA>  site_m… 5       Acacia…
+#>  4 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_C… 523.2 mg/g  <NA>  site_m… 5       Acacia…
+#>  5 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_C… 3.31… mg/g  <NA>  site_m… 5       Acacia…
+#>  6 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_C… 13.1… mg/kg <NA>  site_m… 5       Acacia…
+#>  7 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_d… 1.96  umol… <NA>  site_m… 5       Acacia…
+#>  8 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_d… 0.02… umol… <NA>  site_m… 5       Acacia…
+#>  9 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_d… -28.… per … <NA>  site_m… 5       Acacia…
+#> 10 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_F… 126.… mg/kg <NA>  site_m… 5       Acacia…
+#> # … with 4,215 more rows, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​value_type, ⁴​replicates,
+#> #   ⁵​original_name
+```
+
+
+## Joining information from other tables
+
+AusTraits is a relational database. This means information are stored in different tables and are linked by certain meta-data columns such as `location_id`. Once users have extracted the data they want, they may want to merge other study details into the main `traits` table for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
+
+There are five `join_` functions in total, each designed to append specific information from other tables in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information. See `?join_all` for more details. 
+
+#### Join taxonomic information 
+
+
+```r
+(data_leaf %>% join_taxonomy)$traits %>% head()
+```
+
+```
+#> # A tibble: 6 × 16
+#>   dataset…¹ taxon…² site_…³ conte…⁴ obser…⁵ trait…⁶    value unit  date  value…⁷ repli…⁸ origi…⁹ family genus taxon…˟
+#>   <chr>     <chr>   <chr>   <chr>   <chr>   <chr>      <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr>  <chr> <chr>  
+#> 1 Ahrens_2… Corymb… BOO     <NA>    Ahrens… leaf_a…  1.29e+4 mm2   2017… raw_va… 1       Corymb… Myrta… Cory… Species
+#> 2 Ahrens_2… Corymb… BOO     <NA>    Ahrens… leaf_d… -2.80e+1 per … 2017… raw_va… 1       Corymb… Myrta… Cory… Species
+#> 3 Ahrens_2… Corymb… BOO     <NA>    Ahrens… leaf_N…  9   e+0 mg/g  2017… raw_va… 1       Corymb… Myrta… Cory… Species
+#> 4 Ahrens_2… Corymb… BOO     <NA>    Ahrens… leaf_P…  2.26e-2 umol… 2017… raw_va… 1       Corymb… Myrta… Cory… Species
+#> 5 Ahrens_2… Corymb… BOO     <NA>    Ahrens… specif…  5.4 e+0 mm2/… 2017… raw_va… 1       Corymb… Myrta… Cory… Species
+#> 6 Ahrens_2… Corymb… BOO     <NA>    Ahrens… leaf_a…  9.65e+3 mm2   2017… raw_va… 1       Corymb… Myrta… Cory… Species
+#> # … with 1 more variable: acceptedNameUsageID <chr>, and abbreviated variable names ¹​dataset_id, ²​taxon_name,
+#> #   ³​site_name, ⁴​context_name, ⁵​observation_id, ⁶​trait_name, ⁷​value_type, ⁸​replicates, ⁹​original_name, ˟​taxonRank
+```
+
+#### Join methodological information 
+
+
+```r
+(data_leaf %>% join_methods)$traits %>% head()
+```
+
+```
+#> # A tibble: 6 × 16
+#>   dataset_id  taxon_name site_…¹ conte…² obser…³ trait…⁴    value unit  date  value…⁵ repli…⁶ origi…⁷ methods year_…⁸
+#>   <chr>       <chr>      <chr>   <chr>   <chr>   <chr>      <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr>   <chr>  
+#> 1 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_a…  1.29e+4 mm2   2017… raw_va… 1       Corymb… Traits… March …
+#> 2 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_d… -2.80e+1 per … 2017… raw_va… 1       Corymb… Traits… March …
+#> 3 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_N…  9   e+0 mg/g  2017… raw_va… 1       Corymb… Traits… March …
+#> 4 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_P…  2.26e-2 umol… 2017… raw_va… 1       Corymb… Traits… March …
+#> 5 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… specif…  5.4 e+0 mm2/… 2017… raw_va… 1       Corymb… Traits… March …
+#> 6 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_a…  9.65e+3 mm2   2017… raw_va… 1       Corymb… Traits… March …
+#> # … with 2 more variables: year_collected_end <chr>, collection_type <chr>, and abbreviated variable names
+#> #   ¹​site_name, ²​context_name, ³​observation_id, ⁴​trait_name, ⁵​value_type, ⁶​replicates, ⁷​original_name,
+#> #   ⁸​year_collected_start
+```
+
+#### Join study specific information 
+
+
+```r
+(data_leaf %>% join_contexts)$traits %>% head()
+```
+
+```
+#> # A tibble: 6 × 56
+#>   datase…¹ taxon…² site_…³ conte…⁴ obser…⁵ trait…⁶    value unit  date  value…⁷ repli…⁸ origi…⁹ type  descr…˟ burn_…˟
+#>   <chr>    <chr>   <chr>   <chr>   <chr>   <chr>      <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr> <chr>   <chr>  
+#> 1 Ahrens_… Corymb… BOO     <NA>    Ahrens… leaf_a…  1.29e+4 mm2   2017… raw_va… 1       Corymb… <NA>  <NA>    <NA>   
+#> 2 Ahrens_… Corymb… BOO     <NA>    Ahrens… leaf_d… -2.80e+1 per … 2017… raw_va… 1       Corymb… <NA>  <NA>    <NA>   
+#> 3 Ahrens_… Corymb… BOO     <NA>    Ahrens… leaf_N…  9   e+0 mg/g  2017… raw_va… 1       Corymb… <NA>  <NA>    <NA>   
+#> 4 Ahrens_… Corymb… BOO     <NA>    Ahrens… leaf_P…  2.26e-2 umol… 2017… raw_va… 1       Corymb… <NA>  <NA>    <NA>   
+#> 5 Ahrens_… Corymb… BOO     <NA>    Ahrens… specif…  5.4 e+0 mm2/… 2017… raw_va… 1       Corymb… <NA>  <NA>    <NA>   
+#> 6 Ahrens_… Corymb… BOO     <NA>    Ahrens… leaf_a…  9.65e+3 mm2   2017… raw_va… 1       Corymb… <NA>  <NA>    <NA>   
+#> # … with 41 more variables: sampling_period <chr>, `branch location` <chr>, Treatment <chr>, Season <chr>,
+#> #   Time <chr>, `growing CO2` <chr>, `growing temperature` <chr>, `measurement month` <chr>, `CO2 treatment` <chr>,
+#> #   `leaf age` <chr>, `days since drought treatment` <chr>, `drought treatment` <chr>, maternal_lineage <chr>,
+#> #   population <chr>, water_treatment <chr>, provenance <chr>, `age at harvest (days)` <chr>,
+#> #   `growing CO2 (ppm)` <chr>, `measurement temperature (C)` <chr>, `reproductive stage` <chr>, sex <chr>,
+#> #   `growing temperature (C)` <chr>, `growth period` <chr>, `measurement PAR (uml m-2 s-1)` <chr>,
+#> #   `Grass Treatment` <chr>, `Nutrient Treatment` <chr>, leaf_parts <chr>, plant_age <chr>, …
+```
+
+#### Join location information 
+
+
+```r
+(data_leaf %>% join_locations)$traits %>% head()
+```
+
+```
+#> # A tibble: 6 × 14
+#>   dataset_id  taxon_name site_…¹ conte…² obser…³ trait…⁴    value unit  date  value…⁵ repli…⁶ origi…⁷ latit…⁸ longi…⁹
+#>   <chr>       <chr>      <chr>   <chr>   <chr>   <chr>      <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr>   <chr>  
+#> 1 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_a…  1.29e+4 mm2   2017… raw_va… 1       Corymb… -34.63… 116.12…
+#> 2 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_d… -2.80e+1 per … 2017… raw_va… 1       Corymb… -34.63… 116.12…
+#> 3 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_N…  9   e+0 mg/g  2017… raw_va… 1       Corymb… -34.63… 116.12…
+#> 4 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_P…  2.26e-2 umol… 2017… raw_va… 1       Corymb… -34.63… 116.12…
+#> 5 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… specif…  5.4 e+0 mm2/… 2017… raw_va… 1       Corymb… -34.63… 116.12…
+#> 6 Ahrens_2019 Corymbia … BOO     <NA>    Ahrens… leaf_a…  9.65e+3 mm2   2017… raw_va… 1       Corymb… -34.63… 116.12…
+#> # … with abbreviated variable names ¹​site_name, ²​context_name, ³​observation_id, ⁴​trait_name, ⁵​value_type,
+#> #   ⁶​replicates, ⁷​original_name, ⁸​`latitude (deg)`, ⁹​`longitude (deg)`
+```
+
+Alternatively users can join *all* information 
+
+```r
+(data_leaf %>% join_all)$traits %>% head()
+```
+
+```
+#> # A tibble: 6 × 22
+#>   datas…¹ taxon…² site_…³ conte…⁴ obser…⁵ trait…⁶    value unit  date  value…⁷ repli…⁸ origi…⁹ latit…˟ longi…˟ family
+#>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>      <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr>   <chr>   <chr> 
+#> 1 Ahrens… Corymb… BOO     <NA>    Ahrens… leaf_a…  1.29e+4 mm2   2017… raw_va… 1       Corymb… -34.63… 116.12… Myrta…
+#> 2 Ahrens… Corymb… BOO     <NA>    Ahrens… leaf_d… -2.80e+1 per … 2017… raw_va… 1       Corymb… -34.63… 116.12… Myrta…
+#> 3 Ahrens… Corymb… BOO     <NA>    Ahrens… leaf_N…  9   e+0 mg/g  2017… raw_va… 1       Corymb… -34.63… 116.12… Myrta…
+#> 4 Ahrens… Corymb… BOO     <NA>    Ahrens… leaf_P…  2.26e-2 umol… 2017… raw_va… 1       Corymb… -34.63… 116.12… Myrta…
+#> 5 Ahrens… Corymb… BOO     <NA>    Ahrens… specif…  5.4 e+0 mm2/… 2017… raw_va… 1       Corymb… -34.63… 116.12… Myrta…
+#> 6 Ahrens… Corymb… BOO     <NA>    Ahrens… leaf_a…  9.65e+3 mm2   2017… raw_va… 1       Corymb… -34.63… 116.12… Myrta…
+#> # … with 7 more variables: genus <chr>, taxonRank <chr>, acceptedNameUsageID <chr>, methods <chr>,
+#> #   year_collected_start <chr>, year_collected_end <chr>, collection_type <chr>, and abbreviated variable names
+#> #   ¹​dataset_id, ²​taxon_name, ³​site_name, ⁴​context_name, ⁵​observation_id, ⁶​trait_name, ⁷​value_type, ⁸​replicates,
+#> #   ⁹​original_name, ˟​`latitude (deg)`, ˟​`longitude (deg)`
+```
+
+## Transforming AusTraits into different formats 
+
+The traits table in AusTraits is arranged in **long** format. In AusTraits versions 3.0.2 and older, some studies will have *multiple observations* for certain traits, e.g. huber values. This can prevent pivoting from long format to wide as observations cannot be uniquely delineated. 
+
+As such, we have provided two ways to collapse multiple observations. Once multiple observations have been collapsed down with the above methods, users can convert this to wide format, where each trait is in a separate column using the function `trait_pivot_wider`.
+
+#### Retain all values by binding
+
+The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information during the pivot wider process.
+
+
+```r
+Westoby_2014_bound <- Westoby_2014$traits %>% bind_trait_values()
+
+# Inspect rows that have bounded values. This part requires dplyr and stringr packages.
+Westoby_2014_bound %>% 
+  dplyr::slice(
+    stringr::str_which(Westoby_2014_bound$value, pattern = "--")) 
+```
+
+```
+#> # A tibble: 78 × 12
+#>    dataset_id   taxon_name         site_name context_name observa…¹ trait…² value unit  date  value…³ repli…⁴ origi…⁵
+#>    <chr>        <chr>              <chr>     <chr>        <chr>     <chr>   <chr> <chr> <chr> <chr>   <chr>   <chr>  
+#>  1 Westoby_2014 Banksia marginata  Bothwell  <NA>         Westoby_… vessel… 3462… coun… <NA>  site_m… 3--3--… Banksi…
+#>  2 Westoby_2014 Banksia marginata  Bothwell  <NA>         Westoby_… vessel… 7.47… um    <NA>  site_m… 3--3--… Banksi…
+#>  3 Westoby_2014 Bossiaea cinerea   Bothwell  <NA>         Westoby_… vessel… 3254… coun… <NA>  site_m… 3--3--… Bossia…
+#>  4 Westoby_2014 Bossiaea cinerea   Bothwell  <NA>         Westoby_… vessel… 7.39… um    <NA>  site_m… 3--3--… Bossia…
+#>  5 Westoby_2014 Cassinia aculeata  Bothwell  <NA>         Westoby_… vessel… 4335… coun… <NA>  site_m… 3--3--… Cassin…
+#>  6 Westoby_2014 Cassinia aculeata  Bothwell  <NA>         Westoby_… vessel… 4.46… um    <NA>  site_m… 3--3--… Cassin…
+#>  7 Westoby_2014 Daviesia latifolia Bothwell  <NA>         Westoby_… vessel… 2132… coun… <NA>  site_m… 3--3--… Davies…
+#>  8 Westoby_2014 Daviesia latifolia Bothwell  <NA>         Westoby_… vessel… 9.70… um    <NA>  site_m… 3--3--… Davies…
+#>  9 Westoby_2014 Epacris impressa   Bothwell  <NA>         Westoby_… vessel… 3418… coun… <NA>  site_m… 3--3--… Epacri…
+#> 10 Westoby_2014 Epacris impressa   Bothwell  <NA>         Westoby_… vessel… 4.09… um    <NA>  site_m… 3--3--… Epacri…
+#> # … with 68 more rows, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​value_type, ⁴​replicates,
+#> #   ⁵​original_name
+```
+
+#### Condense values by averaging
+
+Alternatively, if you don't want to bind the trait values into a single, you can give `summarise_trait_means` a go, which computes the mean of with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back
+
+
+```r
+Westoby_2014_summarised <- Westoby_2014$traits %>% summarise_trait_means()
+```
+
+### Pivot wider
+
+Once the traits table has been collapsed using the above methods, we can transform it into wide format where each trait is arranged in its own column using `trait_pivot_wider`. This function will produced five tables, the trait values are found in the `value` table. 
+
+#### Bounded values
+
+```r
+Westoby_2014_bound_wide <- Westoby_2014_bound %>% trait_pivot_wider()
+
+Westoby_2014_bound_wide$value
+```
+
+```
+#> # A tibble: 301 × 42
+#>    dataset_id taxon…¹ site_…² conte…³ obser…⁴ huber…⁵ leaf_…⁶ leaf_…⁷ leaf_…⁸ leaf_…⁹ leaf_…˟ leaf_…˟ leaf_…˟ leaf_…˟
+#>    <chr>      <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
+#>  1 Westoby_2… Acacia… Bothwe… <NA>    Westob… 8.2265… 6575    21.659… 523.2   3.3136… 13.139… 1.96    0.02361 -28.208
+#>  2 Westoby_2… Aotus … Bothwe… <NA>    Westob… 0.0007… 5.9     22.388… 538.8   1.3897… 3.1327… 3.78    0.02503 -25.908
+#>  3 Westoby_2… Banksi… Bothwe… <NA>    Westob… 0.0002… 114.7   12.673… 505     2.2195… 3.8018… 4.85    0.02918 -28.583
+#>  4 Westoby_2… Bossia… Bothwe… <NA>    Westob… 0.0002… 18.4    13.549… 535     2.4189… 6.6135… 2.53    0.02324 -29.031
+#>  5 Westoby_2… Bursar… Bothwe… <NA>    Westob… <NA>    <NA>    <NA>    <NA>    <NA>    <NA>    <NA>    <NA>    -29.031
+#>  6 Westoby_2… Cassin… Bothwe… <NA>    Westob… 0.0003… 12.4    36.375… 545.8   3.3519… 12.675… 3.74    0.04181 -29.93 
+#>  7 Westoby_2… Davies… Bothwe… <NA>    Westob… 0.0003… 829.2   19.995… 508.1   0.7602… 8.5226… 2.54    0.02112 -27.571
+#>  8 Westoby_2… Epacri… Bothwe… <NA>    Westob… 0.0010… 6.9     48.085… 530     2.6401… 4.6465… 1.55    0.01506 -28.269
+#>  9 Westoby_2… Eucaly… Bothwe… <NA>    Westob… 0.0001… 1576.1  13.561… 564.2   1.9902… 5.3923… 2.64    0.0125  -27.105
+#> 10 Westoby_2… Eucaly… Bothwe… <NA>    Westob… 0.0001… 975.4   14.204… 514.4   3.3375… 6.1708… 2.05    0.01313 -27.363
+#> # … with 291 more rows, 28 more variables: leaf_Fe_per_dry_mass <chr>, leaf_K_per_dry_mass <chr>,
+#> #   leaf_Mg_per_dry_mass <chr>, leaf_Mn_per_dry_mass <chr>, leaf_Mo_per_dry_mass <chr>, leaf_N_per_dry_mass <chr>,
+#> #   leaf_Na_per_dry_mass <chr>, leaf_P_per_dry_mass <chr>, leaf_S_per_dry_mass <chr>,
+#> #   leaf_specific_conductivity <chr>, leaf_Zn_per_dry_mass <chr>, modulus_of_elasticity_xylem <chr>,
+#> #   modulus_of_rupture <chr>, photosynthetic_rate_per_area_saturated <chr>,
+#> #   photosynthetic_rate_per_dry_mass_saturated <chr>, sapwood_specific_conductivity <chr>, specific_leaf_area <chr>,
+#> #   water_potential_midday <chr>, water_potential_predawn <chr>, water_use_efficiency_photosynthetic <chr>, …
+```
+
+#### Summarised values
+
+
+```r
+Westoby_2014_summarised_wide <- Westoby_2014_summarised %>% trait_pivot_wider()
+
+Westoby_2014_summarised_wide$value
+```
+
+```
+#> # A tibble: 301 × 42
+#>    dataset…¹ taxon…² site_…³ conte…⁴ obser…⁵ huber_…⁶ leaf_…⁷ leaf_…⁸ leaf_…⁹ leaf_…˟ leaf_…˟ leaf_…˟ leaf_…˟ leaf_…˟
+#>    <chr>     <chr>   <chr>   <chr>   <chr>      <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 Westoby_… Acacia… Bothwe… <NA>    Westob…  8.23e-5  6575      21.7    523.   3.31    13.1     1.96  0.0236   -28.2
+#>  2 Westoby_… Aotus … Bothwe… <NA>    Westob…  7.35e-4     5.9    22.4    539.   1.39     3.13    3.78  0.0250   -25.9
+#>  3 Westoby_… Banksi… Bothwe… <NA>    Westob…  2.60e-4   115.     12.7    505    2.22     3.80    4.85  0.0292   -28.6
+#>  4 Westoby_… Bossia… Bothwe… <NA>    Westob…  2.20e-4    18.4    13.5    535    2.42     6.61    2.53  0.0232   -29.0
+#>  5 Westoby_… Bursar… Bothwe… <NA>    Westob… NA          NA      NA       NA   NA       NA      NA    NA        -29.0
+#>  6 Westoby_… Cassin… Bothwe… <NA>    Westob…  3.24e-4    12.4    36.4    546.   3.35    12.7     3.74  0.0418   -29.9
+#>  7 Westoby_… Davies… Bothwe… <NA>    Westob…  3.72e-4   829.     20.0    508.   0.760    8.52    2.54  0.0211   -27.6
+#>  8 Westoby_… Epacri… Bothwe… <NA>    Westob…  1.05e-3     6.9    48.1    530    2.64     4.65    1.55  0.0151   -28.3
+#>  9 Westoby_… Eucaly… Bothwe… <NA>    Westob…  1.86e-4  1576.     13.6    564.   1.99     5.39    2.64  0.0125   -27.1
+#> 10 Westoby_… Eucaly… Bothwe… <NA>    Westob…  1.22e-4   975.     14.2    514.   3.34     6.17    2.05  0.0131   -27.4
+#> # … with 291 more rows, 28 more variables: leaf_Fe_per_dry_mass <dbl>, leaf_K_per_dry_mass <dbl>,
+#> #   leaf_Mg_per_dry_mass <dbl>, leaf_Mn_per_dry_mass <dbl>, leaf_Mo_per_dry_mass <dbl>, leaf_N_per_dry_mass <dbl>,
+#> #   leaf_Na_per_dry_mass <dbl>, leaf_P_per_dry_mass <dbl>, leaf_S_per_dry_mass <dbl>,
+#> #   leaf_specific_conductivity <dbl>, leaf_Zn_per_dry_mass <dbl>, modulus_of_elasticity_xylem <dbl>,
+#> #   modulus_of_rupture <dbl>, photosynthetic_rate_per_area_saturated <dbl>,
+#> #   photosynthetic_rate_per_dry_mass_saturated <dbl>, sapwood_specific_conductivity <dbl>, specific_leaf_area <dbl>,
+#> #   water_potential_midday <dbl>, water_potential_predawn <dbl>, water_use_efficiency_photosynthetic <dbl>, …
+```
+
+### Pivot longer
+
+We can revert back to a long format dataset using `trait_pivot_longer`
+
+
+```r
+Westoby_2014_long_again <- Westoby_2014_summarised_wide %>% trait_pivot_longer()
+```
+
+For tables that contained values that were bound using `bind_trait_values`. Users can seperate the bounded trait values, using `separate_trait_values`. 
+
+
+```r
+Westoby_2014_bound_wide %>% 
+  trait_pivot_longer() %>% 
+  separate_trait_values(., austraits_3.0.2$definitions)
+```
+
+```
+#> # A tibble: 4,225 × 12
+#>    dataset_id   taxon_name      site_name context_name observatio…¹ trait…² value unit  date  value…³ repli…⁴ origi…⁵
+#>    <chr>        <chr>           <chr>     <chr>        <chr>        <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
+#>  1 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… huber_… 8.22… mm2_… <NA>  <NA>    5       Acacia…
+#>  2 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_a… 6575  mm2   <NA>  <NA>    5       Acacia…
+#>  3 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_B… 21.6… mg/kg <NA>  <NA>    5       Acacia…
+#>  4 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_C… 523.2 mg/g  <NA>  <NA>    5       Acacia…
+#>  5 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_C… 3.31… mg/g  <NA>  <NA>    5       Acacia…
+#>  6 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_C… 13.1… mg/kg <NA>  <NA>    5       Acacia…
+#>  7 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_d… 1.96  umol… <NA>  <NA>    5       Acacia…
+#>  8 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_d… 0.02… umol… <NA>  <NA>    5       Acacia…
+#>  9 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_d… -28.… per … <NA>  <NA>    5       Acacia…
+#> 10 Westoby_2014 Acacia dealbata Bothwell  <NA>         Westoby_201… leaf_F… 126.… mg/kg <NA>  <NA>    5       Acacia…
+#> # … with 4,215 more rows, and abbreviated variable names ¹​observation_id, ²​trait_name, ³​value_type, ⁴​replicates,
+#> #   ⁵​original_name
+```
+
+### Transform into a single table
+
+Users can also transform the entire relational database into one wide table. This approach turns the list structure into one single dataframe. 
+
+
+```r
+Westoby_2014 %>% as_wide_table()
+```
+
+```
+#> # A tibble: 4,225 × 35
+#>    datase…¹ taxon…² site_…³ conte…⁴ obser…⁵ trait…⁶ trait…⁷ unit  date  value…⁸ repli…⁹ origi…˟ conte…˟ value latit…˟
+#>    <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <fct>   <chr>   <chr>   <chr>   <chr> <chr>  
+#>  1 Westoby… Acacia… Bothwe… <NA>    Westob… huber_… 8.2265… mm2_… <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  2 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_a… 6575    mm2   <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  3 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_B… 21.659… mg/kg <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  4 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_C… 523.2   mg/g  <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  5 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_C… 3.3136… mg/g  <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  6 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_C… 13.139… mg/kg <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  7 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_d… 1.96    umol… <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  8 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_d… 0.02361 umol… <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#>  9 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_d… -28.208 per … <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#> 10 Westoby… Acacia… Bothwe… <NA>    Westob… leaf_F… 126.01… mg/kg <NA>  site_m… 5       Acacia… <NA>    <NA>  -42.387
+#> # … with 4,215 more rows, 20 more variables: `longitude (deg)` <chr>, site <chr>, methods <chr>,
+#> #   dataset_description <chr>, collection_type <chr>, sample_age_class <chr>, sampling_strategy <chr>,
+#> #   source_primary_key <chr>, source_primary_citation <chr>, source_secondary_key <chr>,
+#> #   source_secondary_citation <chr>, taxonNameValidation <chr>, acceptedNameUsageID <chr>,
+#> #   scientificNameAuthorship <chr>, taxonRank <chr>, taxonomicStatus <chr>, family <chr>, taxonDistribution <chr>,
+#> #   ccAttributionIRI <chr>, genus <chr>, and abbreviated variable names ¹​dataset_id, ²​taxon_name, ³​site_name,
+#> #   ⁴​context_name, ⁵​observation_id, ⁶​trait_name, ⁷​trait_value, ⁸​value_type, ⁹​replicates, ˟​original_name, …
+```
+
+## Visualise AusTraits data
+
+### Spatial distribution of trait data
+
+`plot_locations` graphically summarises where trait data was collected from and how much data is available for a particular trait. The legend refers to the number of neighboring points: the warmer the colour, the more data is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the traits table before plotting
+
+
+```r
+wood_density_data <- austraits_3.0.2 %>% 
+  extract_trait("wood_density") %>% 
+  join_locations()
+  
+wood_density_data %>% 
+  plot_locations(feature = "trait_name")
+```
+
+<img src="man/figures/unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
+
+### Beeswarm distribution of trait data
+
+`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id` to compare variance between studies.
+
+
+```r
+banksiaserrata_data %>% 
+  plot_trait_distribution_beeswarm("leaf_area", "dataset_id", highlight="Westoby_2014", hide_ids = TRUE) 
+```
+
+<img src="man/figures/unnamed-chunk-27-1.png" alt="plot of chunk unnamed-chunk-27" style="display: block; margin: auto;" />

@@ -144,6 +144,7 @@ as_wide_table1 <- function(austraits){
     dplyr::rename(c("trait_value" = "value")) 
   
   # The contexts table needs the contexts collapsed to one context name per site
+  if(nrow(austraits$contexts) > 0)
   austraits$contexts <- 
     austraits$contexts %>% 
     dplyr::rename(c("property" = "context_property")) %>%
@@ -185,8 +186,11 @@ as_wide_table1 <- function(austraits){
     dplyr::left_join(by=c("dataset_id", "context_name"), austraits$contexts) %>%
     dplyr::left_join(by=c("dataset_id", "site_name"), austraits$sites) %>%
     dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods) %>%
-    dplyr::left_join(by=c("taxon_name"), austraits$taxa) %>%
+    dplyr::left_join(by=c("taxon_name"), austraits$taxa)
+  
+  if(nrow(austraits$contexts) > 0) 
     
+    austraits_wide %>% 
     # reorder the names to be more intuitive
     dplyr::select(
       
@@ -211,7 +215,7 @@ as_wide_table1 <- function(austraits){
       taxonomicStatus, taxonDistribution, 
       taxonRank, genus, family, acceptedNameUsageID, 
       scientificNameAuthorship, ccAttributionIRI
-    )
+    ) 
   
   austraits_wide
 }
