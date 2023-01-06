@@ -6,11 +6,7 @@
 \usage{
 load_json(path, update)
 }
-\arguments{
-\item{path}{file path to where AusTraits will be downloaded}
-
-\item{update}{if TRUE, AusTraits versions .json will be re-downloaded}
-}
 \description{
 Load the austraits.json
 }
+\keyword{internal}

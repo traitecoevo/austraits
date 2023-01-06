@@ -25,7 +25,9 @@ extract_dataset <- function(austraits, dataset_id) {
 }
 
 #' @title Extract specific dataset from austraits object for versions <=3.0.2
-#' @rdname extract_dataset
+#' @keywords internal
+#' @noRd
+
 extract_dataset1 <- function(austraits, dataset_id){
   austraits$taxonomic_updates <-
     tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
@@ -60,7 +62,8 @@ extract_dataset1 <- function(austraits, dataset_id){
 
 
 #' @title Extract specific dataset from austraits object for versions >3.0.2
-#' @rdname extract_dataset
+#' @keywords internal
+#' @noRd
 
 extract_dataset2 <- function(austraits, dataset_id){
   austraits$taxonomic_updates <-

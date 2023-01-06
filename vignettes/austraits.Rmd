@@ -17,7 +17,7 @@ editor_options:
 
 The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to explore, wrangle and visualise data. Below we have prepared a short vignette illustrating these. 
 
-The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The vignette below is written for version 4.0.0 and newer. The same vignette for versions 3.0.2 and older can be found under the Articles tab. 
+The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The vignette below is written for version 4.0.0 and newer. The same vignette for versions 3.0.2 and older can be found on our website under the Documentation tab
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 

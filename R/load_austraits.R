@@ -82,7 +82,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
 
 #' Load the austraits.json
 #'
-#' @inheritParams load_austraits
+#' @keywords internal
 
 load_json <- function(path, update){
   # Set the directory path to json
@@ -123,6 +123,7 @@ create_metadata <- function(res){
 #' @param url url of download via Zenodo API
 #' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
 #' @param path file path to where AusTraits will be downloaded
+#' @keywords internal
 
 download_austraits <- function(url, filename, path) {
   # Get user timeout option

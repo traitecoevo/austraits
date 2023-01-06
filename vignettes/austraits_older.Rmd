@@ -5,19 +5,13 @@ date: "2023-01-05"
 output: 
   rmarkdown::html_vignette:
   toc: yes
-vignette: >
-  %\VignetteIndexEntry{austraits}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
 ---
 
-
-
 The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to explore, wrangle and visualise data. 
 
-The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The tutorial below will illustrate some of the functionalities of the package and is written for version 3.0.2 and older. The tutorial for version 4.0.0 and newer is found at the "Getting Started" tab 
+The structure of AusTraits has been significantly updated with version 4.0.0. As such, the syntax and output of some functions will differ depending on what version of AusTraits is loaded. The tutorial below will illustrate some of the functionalities of the package and is written for version 3.0.2 and older. The tutorial for version 4.0.0 and newer is found at `Get Started`
 
 ## Getting started
 `austraits` is still under development. To install the current version from GitHub: 

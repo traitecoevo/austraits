@@ -1,15 +1,37 @@
 url: https://traitecoevo.github.io/austraits/
-
-home:
-  title: An R package for accessing the AusTraits database
-  description: Explore and wrangle curated database of plant traits of Australian flora
-
 development:
   mode: release
-
 template:
-  bootswatch: cerulean
+  bootstrap: 5
+  bootswatch: litera
   
+navbar:
+  bg: light
+  type: light
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    reference:
+      text: Functions Index
+      href: reference/index.html
+    articles:
+      text: Documentation
+      menu:
+      - text: About AusTraits
+      - text: Structure of AusTraits
+        href: 'articles/structure.html'
+      - text: Defintions of traits
+        href: articles/dictionary.html
+      - text: -------
+      - text: Version 3.0.2 and older
+      - text: Get Started 
+        href: articles/austraits_older.html
+    intro:
+      text: Get Started (4.0.0 or newer)
+      href: articles/austraits.html
+
+    
 reference:
 - title: Accessing and exploring AusTraits
 - contents:
@@ -19,7 +41,6 @@ reference:
   - summarise_austraits
   - lookup_trait
   - print.austraits
-  - create_metadata
 - title: Wrangling AusTraits
   desc: Functions to extract, pivot and join data
 - contents:
@@ -32,37 +53,11 @@ reference:
 - title: Quick data visualisations
   desc: Plot site or variance distributions
 - contents:
-  - starts_with("plot")
-  
-navbar:
-  structure:
-    left:
-    - home
-    - intro
-    - structure
-    - traits
-    - reference
-    - news
-    right: [search, github]
-  components:
-    home:
-      icon: fas fa-home fa-lg
-      href: index.html
-    reference:
-      text: Functions glossary
-      href: reference/index.html
-    intro:
-      text: Tutorial
-      href: articles/austraits.html
-    structure:
-      text: Structure of AusTraits
-      href: articles/structure.html
-    traits:
-      text: Trait definitions
-      href: articles/dictionary.html
-    news:
-      text: What's new?
-      href: news/index.html
-    github:
-      icon: fab fa-github fa-lg
-      href: https://github.com/traitecoevo/austraits/
+  - plot_locations
+  - plot_trait_distribution_beeswarm
+- title: internal
+  contents:
+  - create_metadata
+  - list1_to_df
+  - starts_with("my_kable")
+  - plot_site_locations

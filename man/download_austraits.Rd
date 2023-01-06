@@ -16,3 +16,4 @@ download_austraits(url, filename, path)
 \description{
 Function for loading .rds AusTraits files
 }
+\keyword{internal}
