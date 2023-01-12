@@ -11,6 +11,7 @@ austraits_lite <- extract_dataset(austraits_all, dataset_id)
 # updated release
 austraits_newrel <- readRDS("ignore/data/austraits/austraits_newrel.rds") 
 attr(austraits_newrel, "class") <- "austraits"
+austraits_newrel$build_info$version <- "4.0.0"
 
 datasets <- c("Crous_2013", "Crous_2019", "Buckton_2019", "Kooyman_2011", "Bloomfield_2018", 
               "Wright_2019", "Westoby_2014", "Vesk_2019", "Leigh_2003", "Prior_2003",
