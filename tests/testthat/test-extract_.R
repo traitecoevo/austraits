@@ -1,12 +1,42 @@
 library(purrr)
+library(stringr)
 
 austraits <- list(austraits_lite,
                   austraits_lite_post)
 
 dataset_id = "Wright_2019"
 trait_name = "leaf_area"
+family = "Rubiaceae"
+genus = "Eucalyptus"
 
-test_extract_str <- function(austraits, dataset_id, trait_name) {
+test_extract_error <- function(austraits){
+  test_that("Error triggered", {
+    expect_error(austraits %>% extract_taxa())
+    expect_error(austraits %>% extract_dataset())
+    expect_error(austraits %>% extract_trait())
+  })
+}
+
+map(austraits, 
+    ~ test_extract_error(.x))
+
+test_extract_runs <- function(austraits, family, genus, dataset_id, trait_name){
+  test_that("Function runs", {
+    expect_visible(austraits %>% extract_taxa(family = family))
+    expect_visible(austraits %>% extract_taxa(genus = genus))
+    expect_visible(extract_dataset(austraits, dataset_id = dataset_id))
+    expect_visible(extract_trait(austraits, trait_names = trait_name))
+  })
+}
+
+pmap(list(austraits = austraits, 
+          family = family, 
+          genus = genus, 
+          dataset_id = dataset_id, 
+          trait_name = trait_name),
+     test_extract_runs)
+
+test_extract_str <- function(austraits, family, genus, dataset_id, trait_name){
   test_that("extracted dataset has some structure as austraits build", {
     subset <- extract_dataset(austraits, dataset_id = dataset_id)
     trait_subset <- extract_trait(austraits, trait_names = trait_name)
@@ -18,11 +48,26 @@ test_extract_str <- function(austraits, dataset_id, trait_name) {
     expect_equal(length(austraits), length(trait_subset))
     expect_equal(sort(names(austraits)), sort(names(trait_subset)))
     expect_named(austraits, names(trait_subset))  
+    
+    expect_type(austraits %>% extract_taxa(family = family), "list")
+    expect_type(austraits %>% extract_taxa(genus = genus), "list")           
+    
+    test_genus <- austraits %>% extract_taxa(genus = genus)
+    expect_equal(test_genus$taxa$genus %>% unique(), genus)
+    expect_equal(word(test_genus$taxa$taxon_name, 1)[1], genus)
+    expect_equal(word(test_genus$traits$taxon_name, 1)[1], genus)
+    
+    test_fam <- austraits %>% extract_taxa(family = family)
+    expect_equal(test_fam$taxa$family %>% unique(), family)
   })
 }
 
-map(austraits, 
-    ~ test_extract_str(.x, dataset_id, trait_name))
+pmap(list(austraits = austraits, 
+          family = family, 
+          genus = genus, 
+          dataset_id = dataset_id, 
+          trait_name = trait_name),
+     test_extract_str)
 
 test_extract_output <- function(austraits, dataset_id, trait_name){
   subset <- extract_dataset(austraits, dataset_id = dataset_id)
@@ -44,3 +89,26 @@ test_extract_output <- function(austraits, dataset_id, trait_name){
 map(austraits, 
     ~ test_extract_output(.x, dataset_id, trait_name))
 
+test_that("Dataframe is extracted correctly", {
+  austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
+  
+  # Extract Veronica first
+  veronica <- extract_taxa(austraits, genus = "Veronica")
+  
+  # Filter to lifespan traits using dplyr
+  veronica_lifespan <- veronica$traits %>%
+    dplyr::filter(trait_name == "lifespan")
+  
+  # Extract trait after
+  veronica |>  extract_trait("lifespan") -> genus_first
+  
+  # Extract trait first
+  austraits |> extract_trait("lifespan") -> lifespan
+  
+  # Extract taxa after
+  lifespan |> extract_taxa(genus = "Veronica") -> trait_first
+  
+  expect_setequal(trait_first$traits$value, veronica_lifespan$value)
+  expect_setequal(trait_first$traits$value, genus_first$traits$value)
+  expect_setequal(veronica_lifespan$value, genus_first$traits$value)
+})
