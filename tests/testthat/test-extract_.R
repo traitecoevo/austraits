@@ -1,59 +1,114 @@
-#Extract a dataset
-# data <- list(austraits = austraits_lite,
-#              austraits_post = austraits_lite_post)
-# test_that("Function works", {
-#   expect_no_error(purrr::map(.x =data,
-#                              .f = ~extract_dataset(., dataset_id = "Falster_2003")))
-# })
+library(purrr)
+library(stringr)
 
-austraits <- austraits_lite
-austraits_post <- austraits_lite_post
+austraits <- list(austraits_lite,
+                  austraits_lite_post)
 
-subset <- extract_dataset(austraits, dataset_id = "Falster_2003")
-subset_post <- extract_dataset(austraits_post, dataset_id = "Bloomfield_2018")
+dataset_id = "Wright_2019"
+trait_name = "leaf_area"
+family = "Rubiaceae"
+genus = "Eucalyptus"
 
-#Extract a trait
-trait_subset <- extract_trait(austraits, trait_names = "wood_density")
-trait_subset_post <- extract_trait(austraits_post, trait_names = "leaf_mass_per_area")
+test_extract_error <- function(austraits){
+  test_that("Error triggered", {
+    expect_error(austraits %>% extract_taxa())
+    expect_error(austraits %>% extract_dataset())
+    expect_error(austraits %>% extract_trait())
+  })
+}
 
-test_that("extracted dataset has some structure as austraits build", {
-  expect_s3_class(austraits, "austraits")
-  expect_equal(length(austraits), length(subset))
-  expect_equal(sort(names(austraits)), sort(names(subset)))
+map(austraits, 
+    ~ test_extract_error(.x))
+
+test_extract_runs <- function(austraits, family, genus, dataset_id, trait_name){
+  test_that("Function runs", {
+    expect_visible(austraits %>% extract_taxa(family = family))
+    expect_visible(austraits %>% extract_taxa(genus = genus))
+    expect_visible(extract_dataset(austraits, dataset_id = dataset_id))
+    expect_visible(extract_trait(austraits, trait_names = trait_name))
+  })
+}
+
+pmap(list(austraits = austraits, 
+          family = family, 
+          genus = genus, 
+          dataset_id = dataset_id, 
+          trait_name = trait_name),
+     test_extract_runs)
+
+test_extract_str <- function(austraits, family, genus, dataset_id, trait_name){
+  test_that("extracted dataset has some structure as austraits build", {
+    subset <- extract_dataset(austraits, dataset_id = dataset_id)
+    trait_subset <- extract_trait(austraits, trait_names = trait_name)
+    
+    expect_s3_class(austraits, "austraits")
+    expect_equal(length(austraits), length(subset))
+    expect_equal(sort(names(austraits)), sort(names(subset)))
+    
+    expect_equal(length(austraits), length(trait_subset))
+    expect_equal(sort(names(austraits)), sort(names(trait_subset)))
+    expect_named(austraits, names(trait_subset))  
+    
+    expect_type(austraits %>% extract_taxa(family = family), "list")
+    expect_type(austraits %>% extract_taxa(genus = genus), "list")           
+    
+    test_genus <- austraits %>% extract_taxa(genus = genus)
+    expect_equal(test_genus$taxa$genus %>% unique(), genus)
+    expect_equal(word(test_genus$taxa$taxon_name, 1)[1], genus)
+    expect_equal(word(test_genus$traits$taxon_name, 1)[1], genus)
+    
+    test_fam <- austraits %>% extract_taxa(family = family)
+    expect_equal(test_fam$taxa$family %>% unique(), family)
+  })
+}
+
+pmap(list(austraits = austraits, 
+          family = family, 
+          genus = genus, 
+          dataset_id = dataset_id, 
+          trait_name = trait_name),
+     test_extract_str)
+
+test_extract_output <- function(austraits, dataset_id, trait_name){
+  subset <- extract_dataset(austraits, dataset_id = dataset_id)
+  trait_subset <- extract_trait(austraits, trait_names = trait_name)
   
-  expect_equal(length(austraits), length(trait_subset))
-  expect_equal(sort(names(austraits)), sort(names(trait_subset)))
-  expect_named(austraits, names(trait_subset))  
+  test_that("extraction of dataset was successful", {
+    expect_match(dataset_id, unique(subset$traits$dataset_id))
+    expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
+    expect_match(trait_name, unique(trait_subset$traits$trait_name))
+    expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name))  
+    
+    expect_match(dataset_id, unique(subset$traits$dataset_id))
+    expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
+    expect_match(trait_name, unique(trait_subset$traits$trait_name))
+    expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name)) 
+  })
+}
+
+map(austraits, 
+    ~ test_extract_output(.x, dataset_id, trait_name))
+
+test_that("Dataframe is extracted correctly", {
+  austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
   
-  expect_s3_class(austraits_post, "austraits")
-  expect_s3_class(austraits_post, "austraits")
-  expect_equal(length(austraits_post), length(subset_post))
-  expect_equal(sort(names(austraits_post)), sort(names(subset_post)))
+  # Extract Veronica first
+  veronica <- extract_taxa(austraits, genus = "Veronica")
   
-  expect_equal(length(austraits_post), length(trait_subset_post))
-  expect_equal(sort(names(austraits_post)), sort(names(trait_subset_post)))
-  expect_named(austraits_post, names(trait_subset_post))
+  # Filter to lifespan traits using dplyr
+  veronica_lifespan <- veronica$traits %>%
+    dplyr::filter(trait_name == "lifespan")
+  
+  # Extract trait after
+  veronica |>  extract_trait("lifespan") -> genus_first
+  
+  # Extract trait first
+  austraits |> extract_trait("lifespan") -> lifespan
+  
+  # Extract taxa after
+  lifespan |> extract_taxa(genus = "Veronica") -> trait_first
+  
+  expect_setequal(trait_first$traits$value, veronica_lifespan$value)
+  expect_setequal(trait_first$traits$value, genus_first$traits$value)
+  expect_setequal(veronica_lifespan$value, genus_first$traits$value)
 })
-
-test_that("extraction of dataset was successful", {
-  expect_match("Falster_2003", unique(subset$traits$dataset_id))
-  expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
-  expect_match("wood_density", unique(trait_subset$traits$trait_name))
-  expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name))  
-  
-  expect_match("Falster_2003", unique(subset$traits$dataset_id))
-  expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
-  expect_match("wood_density", unique(trait_subset$traits$trait_name))
-  expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name)) 
-  
-  expect_match("Bloomfield_2018", unique(subset_post$traits$dataset_id))
-  expect_equal(1, dplyr::n_distinct(subset_post$traits$dataset_id))
-  expect_match("leaf_mass_per_area", unique(trait_subset_post$traits$trait_name))
-  expect_equal(1, dplyr::n_distinct(trait_subset_post$traits$trait_name))  
-  
-  expect_match("Bloomfield_2018", unique(subset_post$traits$dataset_id))
-  expect_equal(1, dplyr::n_distinct(subset_post$traits$dataset_id))
-  expect_match("leaf_mass_per_area", unique(trait_subset_post$traits$trait_name))
-  expect_equal(1, dplyr::n_distinct(trait_subset_post$traits$trait_name))  
-})
-

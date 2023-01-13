@@ -18,10 +18,6 @@
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
-#' @importFrom dplyr select group_by arrange filter summarise
-#' @importFrom tidyr pivot_wider pivot_longer
-#' @importFrom tidyselect all_of
-#' @importFrom stringr str_detect
 
 trait_pivot_wider <- function(traits){
   # Determine version using col names of traits table
@@ -41,6 +37,11 @@ trait_pivot_wider <- function(traits){
 #' Pivot wider for >v3.0.2
 #' @noRd
 #' @keywords internal
+#' @importFrom dplyr select group_by arrange filter summarise
+#' @importFrom tidyr pivot_wider pivot_longer
+#' @importFrom tidyselect all_of
+#' @importFrom stringr str_detect
+
 trait_pivot_wider2 <- function(traits){ 
   data <- traits
   
@@ -52,7 +53,7 @@ trait_pivot_wider2 <- function(traits){
     group_by(taxon_name, observation_id, method_id) %>% 
     summarise(n_value_type = length(unique(value_type))) %>% 
     arrange(observation_id) %>% 
-    dplyr::filter(n_value_type > 1) -> check_value_type
+    filter(n_value_type > 1) -> check_value_type
   
   if(nrow(check_value_type) > 1){
     meta_data_cols <- c(meta_data_cols, "value_type")
