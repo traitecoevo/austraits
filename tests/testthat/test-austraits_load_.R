@@ -14,7 +14,7 @@ test_get_versions <- function(version, path){
   })
 }
 
-map(versions,
+walk(versions,
     ~ test_get_versions(.x, path))
 
 
