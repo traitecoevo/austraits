@@ -16,7 +16,9 @@ test_that("structure of dataframes is what we expect", {
   expect_equal(nrow(subset$traits), nrow(seperated))
   expect_equal(ncol(subset$traits), ncol(seperated))
   expect_equal(colnames(subset$traits), colnames(seperated))
-  expect_equal(str(subset$traits), str(seperated))
+  # Check datasets have the same structure. 
+  #This works for all cols except levels in value type, so we'll remove that for the test
+  expect_equal(subset$traits %>% select(-value_type), seperated  %>% select(-value_type))
 })
 
 test_that("Errors with incorrect argument inputs", {

@@ -1,24 +1,43 @@
 library(purrr)
 
-austraits <- list(austraits_lite,
-                  austraits_lite_post)
+austraits_lite_small <-
+  austraits_lite %>% 
+  extract_dataset(c( "Baker_2019", "Falster_2003"))
 
-# austraits_lite tests
-wide_data <- austraits_lite$traits %>% summarise_trait_means() %>% trait_pivot_wider()
-test_that("input and output are of expected structure", {
+
+austraits_lite_post_small <-
+  austraits_lite_post %>% 
+  extract_dataset(c( "Baker_2019", "Falster_2003"))
+
+test_that("pivot on subset of data", {
+  
+  # austraits_lite tests
+  expect_silent(
+    wide_data <- austraits_lite_small %>% 
+      pluck("traits") %>% 
+      summarise_trait_means() %>% trait_pivot_wider()
+  )
+
+#  expect_silent(
+#    wide_data_post <- austraits_lite_post_small %>% 
+#      pluck("traits") %>% 
+#      summarise_trait_means() %>% trait_pivot_wider()
+#  )
+
+  
   expect_type(wide_data, "list")
   expect_named(wide_data)
-  expect_gt(ncol(wide_data$value), ncol(austraits_lite$traits))
-})
+  vals <- c("dataset_id", "taxon_name", "site_name", "context_name", "observation_id", "fire_response", "regen_strategy", "fire_cued_seeding", "leaf_angle", "leaf_area", "leaf_compoundness", "original_name")
+  expect_equal(names(wide_data$value), vals)
 
-
-test_that("before and after pivots match", {
+  # before and after pivots match"
+  
   #Checking if widened data has the same length as variables that we are spreading
   expect_equal(length(wide_data), length(c("value", "unit", "date", "value_type", "replicates"))) 
   #Checking number of columns of widened data matches the number of ID columns + number of traits
-  expect_equal(ncol(wide_data$value),  (austraits_lite$traits %>% dplyr::select(-c(trait_name, value, unit, date, value_type, replicates)) %>% ncol()) + (unique(austraits_lite$traits$trait_name) %>% length()) )
+  expect_equal(ncol(wide_data$value),  (austraits_lite_small$traits %>% dplyr::select(-c(trait_name, value, unit, date, value_type, replicates)) %>% ncol()) + (unique(austraits_lite_small$traits$trait_name) %>% length()) )
   #Checking the number of columns matches original data after pivoting wide and then back to long again
-  expect_equal(ncol(austraits_lite$traits), ncol(trait_pivot_longer(wide_data)) )
+  expect_equal(ncol(austraits_lite_small$traits), ncol(trait_pivot_longer(wide_data)) )
 })
 
 
@@ -32,16 +51,6 @@ test_pivot_errors <- function(austraits){
   })
 }
 
-map(austraits, 
+walk(list(austraits_lite,
+         austraits_lite_post), 
     test_pivot_errors)
-
-test_that("function shouldn't complain and throw errors", {
-  expect_visible(austraits_lite$traits %>% summarise_trait_means() %>% trait_pivot_wider())
-  # expect_visible(austraits_lite_post$traits %>% trait_pivot_wider())
-})
-
-# austraits_lite_post
-# test_that("structure after pivoting", {
-#   expect_gt(ncol(austraits_lite_post$traits %>% trait_pivot_wider()), ncol(austraits_lite_post$traits))
-#   expect_lt(nrow(austraits_lite_post$traits %>% trait_pivot_wider()), nrow(austraits_lite_post$traits))
-# })

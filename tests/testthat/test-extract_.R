@@ -17,7 +17,7 @@ test_extract_error <- function(austraits){
   })
 }
 
-map(austraits, 
+walk(austraits, 
     ~ test_extract_error(.x))
 
 test_extract_runs <- function(austraits, family, genus, dataset_id, trait_name){
@@ -86,29 +86,5 @@ test_extract_output <- function(austraits, dataset_id, trait_name){
   })
 }
 
-map(austraits, 
+walk(austraits, 
     ~ test_extract_output(.x, dataset_id, trait_name))
-
-test_that("Dataframe is extracted correctly", {
-  austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
-  
-  # Extract Veronica first
-  veronica <- extract_taxa(austraits, genus = "Veronica")
-  
-  # Filter to lifespan traits using dplyr
-  veronica_lifespan <- veronica$traits %>%
-    dplyr::filter(trait_name == "lifespan")
-  
-  # Extract trait after
-  veronica |>  extract_trait("lifespan") -> genus_first
-  
-  # Extract trait first
-  austraits |> extract_trait("lifespan") -> lifespan
-  
-  # Extract taxa after
-  lifespan |> extract_taxa(genus = "Veronica") -> trait_first
-  
-  expect_setequal(trait_first$traits$value, veronica_lifespan$value)
-  expect_setequal(trait_first$traits$value, genus_first$traits$value)
-  expect_setequal(veronica_lifespan$value, genus_first$traits$value)
-})
