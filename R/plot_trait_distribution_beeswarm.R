@@ -100,7 +100,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   # Second plot -- dots by groups, using ggbeeswarm package
   p2 <-
     ggplot2::ggplot(data, ggplot2::aes(x = value, y = Group, colour = colour, shape = shapes)) +
-    ggbeeswarm::geom_quasirandom(groupOnX=FALSE) +
+    ggbeeswarm::geom_quasirandom() +
     ggplot2::ylab(paste("By ", y_axis_category)) +
     # inclusion of custom shapes: for min, mean, unknown
     # NB: this single line of code makes function about 4-5 slower for some reason

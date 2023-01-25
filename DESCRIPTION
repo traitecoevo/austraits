@@ -42,7 +42,7 @@ Imports:
     lifecycle,
     ggplot2,
     ggpointdensity, 
-    ggbeeswarm,
+    ggbeeswarm (>= 0.7.1),
     gridExtra,
     scales,
     forcats,
