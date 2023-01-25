@@ -46,7 +46,7 @@ Imports:
     gridExtra,
     scales,
     forcats,
-    viridis,
+    viridis
 Suggests: 
     knitr,
     rmarkdown,
