@@ -76,3 +76,21 @@ test_that("Output correct", {
   expect_equal(nrow(trait_nm), austraits_lite$traits$trait_name %>% unique() %>% length())
 })
 
+test_that("Categorical variables are handled", {
+
+  # Determine categorical traits 
+    categ_traits <- austraits$traits |> 
+    filter(is.na(unit)) |> 
+    pull(trait_name) |> 
+    unique()
+    
+  summarised <- summarise_trait_means(austraits$traits)
+  
+  # Find categorical traits after summarising
+  categ_trait_values <- summarised |> 
+    filter(trait_name %in% categ_traits) |> 
+    pull(value) 
+  
+  # Expect no NA if the function is 'categorial trait' friendly
+  expect_false(is.na(any(categ_trait_values)))
+})
