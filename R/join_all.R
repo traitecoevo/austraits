@@ -80,11 +80,11 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 
 join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
   austraits$methods %>% 
-    dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) %>% 
+    dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
     dplyr::distinct() -> methods
   
   austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "trait_name"),
+    dplyr::left_join(by=c("dataset_id", "trait_name", "method_id"),
                      methods)
   
   austraits

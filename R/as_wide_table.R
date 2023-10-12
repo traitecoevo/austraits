@@ -68,7 +68,7 @@ as_wide_table2 <- function(austraits){
   austraits_wide <- 
     austraits$traits %>% 
     dplyr::left_join(by=c("dataset_id", "location_id"), austraits$locations) %>%
-    dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods) %>%
+    dplyr::left_join(by=c("dataset_id", "method_id", "trait_name"), austraits$methods) %>%
     dplyr::left_join(by=c("taxon_name"), austraits$taxa)
 
     # reorder the names to be more intuitive
@@ -83,13 +83,13 @@ as_wide_table2 <- function(austraits){
     
     # More stuff you can filter on
     collection_date, basis_of_record, life_stage, sampling_strategy, 
-    treatment_id, temporal_id, 
+    treatment_context_id, temporal_context_id, 
     
     #stuff relating to locations
-    `latitude (deg)`, `longitude (deg)`, location, plot_id,
+    `latitude (deg)`, `longitude (deg)`, location, plot_context_id,
     
     #stuff relating to contexts and methods
-    context, methods, method_id, original_name,
+    context, methods, method_id, method_context_id, original_name,
     
     #the citations
     dataset_description, source_primary_citation, source_secondary_citation,
