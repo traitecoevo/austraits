@@ -250,7 +250,7 @@ join_contexts2 <- function(austraits, collapse_context = FALSE){
       if(collapse_context == TRUE){
         context_text <-
           traits2[[id]] %>% 
-          dplyr::select(-traits_vars) %>% collapse_cols()
+          dplyr::select(-dplyr::any_of(traits_vars)) %>% collapse_cols()
 
         traits2[[id]] <- traits2[[id]] %>% 
           dplyr::mutate(context = context_text) %>% 
