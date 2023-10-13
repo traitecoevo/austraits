@@ -66,7 +66,8 @@ trait_pivot_wider3 <- function(traits){
       select(- all_of(meta_data_cols)) %>% 
       group_by(dataset_id,  observation_id, method_id, method_context_id, repeat_measurements_id, value_type) %>% 
       pivot_wider(names_from = trait_name,
-                  values_from = value) 
+                  values_from = value) |> 
+      dplyr::ungroup()
   } else{
     
     meta_data_cols <- c(meta_data_cols, "value_type")
@@ -75,7 +76,8 @@ trait_pivot_wider3 <- function(traits){
       select(- all_of(meta_data_cols)) %>% 
       group_by(dataset_id,  observation_id, method_id, method_context_id, repeat_measurements_id) %>% 
       pivot_wider(names_from = trait_name,
-                  values_from = value) 
+                  values_from = value) |> 
+      dplyr::ungroup()
   }
 }
 
@@ -101,7 +103,8 @@ trait_pivot_wider2 <- function(traits){
       select(- all_of(meta_data_cols)) %>% 
       group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id, value_type) %>% 
       pivot_wider(names_from = trait_name,
-                  values_from = value) 
+                  values_from = value) |> 
+      dplyr::ungroup()
     
   } else{
     
@@ -111,7 +114,8 @@ trait_pivot_wider2 <- function(traits){
       select(- all_of(meta_data_cols)) %>% 
       group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id) %>% 
       pivot_wider(names_from = trait_name,
-                  values_from = value) 
+                  values_from = value) |> 
+      dplyr::ungroup()
   }
 }
 
