@@ -109,7 +109,7 @@ join_methods2 <- function(austraits, vars =  c("methods", "year_collected_start"
   
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "trait_name", "method_id"),
-                     methods)
+                     methods, relationship = "many-to-many")
   
   austraits
 }
@@ -124,7 +124,7 @@ join_methods1 <- function(austraits, vars =  c("methods", "year_collected_start"
   
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "trait_name"),
-                     methods)
+                     methods, relationship = "many-to-many")
   
   austraits
 }
@@ -254,7 +254,7 @@ join_contexts2 <- function(austraits, collapse_context = FALSE){
 
         traits2[[id]] <- traits2[[id]] %>% 
           dplyr::mutate(context = context_text) %>% 
-          dplyr::select(traits_vars, context)
+          dplyr::select(dplyr::any_of(traits_vars), context)
       }
     }
   }

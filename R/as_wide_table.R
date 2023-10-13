@@ -178,6 +178,7 @@ as_wide_table2 <- function(austraits){
     taxonomic_status, taxon_distribution, 
     taxon_rank, genus, family, #accepted_name_usage_id, 
     scientific_name_authorship
+
   )
   
   austraits_wide
@@ -241,7 +242,7 @@ as_wide_table1 <- function(austraits){
     dplyr::slice(1) %>%
     dplyr:: ungroup() %>%
     #------------
-  dplyr::select(-year_collected_start, -year_collected_end) %>% 
+  dplyr::select(-c(year_collected_start, year_collected_end)) %>% 
     dplyr::rename(c("dataset_description" = "description"))  
   
   # collapse into one column

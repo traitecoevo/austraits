@@ -77,9 +77,9 @@ plot_locations1 <- function(aus_traits, feature, ...){
       panel.grid.major = ggplot2::element_blank(),
       panel.grid.minor = ggplot2::element_blank(),
       panel.background = ggplot2::element_blank(),
-      panel.border = ggplot2::element_rect(colour = "black", fill=NA, size=1),
+      panel.border = ggplot2::element_rect(colour = "black", fill=NA, linewidth=1),
       axis.ticks.length = ggplot2::unit(1, "mm"),
-      axis.ticks = ggplot2::element_line(size = 1)
+      axis.ticks = ggplot2::element_line(linewidth = 1)
     )  + ggplot2::xlab("") + ggplot2::ylab("") + 
     ggplot2::coord_fixed()
   
