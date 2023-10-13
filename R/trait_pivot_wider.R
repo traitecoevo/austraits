@@ -33,23 +33,23 @@ trait_pivot_wider <- function(traits){
   
   # Switch how traits are pivoted wider based on version
   switch (version,
-          'newer' = trait_pivot_wider2(traits),
+          'newer' = trait_pivot_wider3(traits),
           'older' = trait_pivot_wider1(traits))
 }
 
 
-#' Pivot wider for >v3.0.2
+#' Pivot wider for >v5.0.0
 #' @noRd
 #' @keywords internal
-trait_pivot_wider2 <- function(traits){ 
+trait_pivot_wider3 <- function(traits){ 
   data <- traits
   
   meta_data_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_value")
   
   # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
   data %>% 
-    select(trait_name, value, dataset_id, original_name, observation_id, method_id, method_context_id, repeat_measurements_id, value_type) %>% 
-    group_by(dataset_id, original_name, observation_id, method_id, method_context_id, repeat_measurements_id) %>% 
+    select(trait_name, value, dataset_id, observation_id, method_id, method_context_id, repeat_measurements_id, value_type) %>% 
+    group_by(dataset_id,  observation_id, method_id, method_context_id, repeat_measurements_id) %>% 
     summarise(n_value_type = length(unique(value_type))) %>% 
     arrange(observation_id) %>% 
     dplyr::filter(n_value_type > 1) -> check_value_type
@@ -58,7 +58,7 @@ trait_pivot_wider2 <- function(traits){
     
     traits %>% 
       select(- all_of(meta_data_cols)) %>% 
-      group_by(dataset_id, original_name, observation_id, method_id, method_context_id, repeat_measurements_id, value_type) %>% 
+      group_by(dataset_id,  observation_id, method_id, method_context_id, repeat_measurements_id, value_type) %>% 
       pivot_wider(names_from = trait_name,
                   values_from = value) 
   } else{
@@ -67,7 +67,7 @@ trait_pivot_wider2 <- function(traits){
     
     traits %>% 
       select(- all_of(meta_data_cols)) %>% 
-      group_by(dataset_id, original_name, observation_id, method_id, method_context_id, repeat_measurements_id) %>% 
+      group_by(dataset_id,  observation_id, method_id, method_context_id, repeat_measurements_id) %>% 
       pivot_wider(names_from = trait_name,
                   values_from = value) 
   }
