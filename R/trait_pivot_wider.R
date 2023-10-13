@@ -25,16 +25,22 @@
 
 trait_pivot_wider <- function(traits){
   # Determine version using col names of traits table
-  if(any(str_detect(names(traits), "entity"))){
-    version = "newer"
-  } else(
-    version = "older"
-  )
+  if(any(names(traits) %in% "treatment_context_id")){
+    version = "5-series"
+  }
   
+  if(any(str_detect(names(traits), "entity")) & any(names(traits) %in% "treatment_id")){
+    version = "4-series"
+  } 
+  
+  if(! any(str_detect(names(traits), "entity")))
+    version = "3-series-earlier"
+
   # Switch how traits are pivoted wider based on version
   switch (version,
-          'newer' = trait_pivot_wider3(traits),
-          'older' = trait_pivot_wider1(traits))
+          "5-series" = trait_pivot_wider3(traits),
+          "4-series" = trait_pivot_wider2(traits),
+          "3-series-earlier" = trait_pivot_wider1(traits))
 }
 
 
@@ -68,6 +74,42 @@ trait_pivot_wider3 <- function(traits){
     traits %>% 
       select(- all_of(meta_data_cols)) %>% 
       group_by(dataset_id,  observation_id, method_id, method_context_id, repeat_measurements_id) %>% 
+      pivot_wider(names_from = trait_name,
+                  values_from = value) 
+  }
+}
+
+#' Pivot wider for >v3.0.2 & <5.0.0
+#' @noRd
+#' @keywords internal
+trait_pivot_wider2 <- function(traits){ 
+  data <- traits
+  
+  meta_data_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_record", "basis_of_value")
+  
+  # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
+  data %>% 
+    select(taxon_name, trait_name, value_type, value, observation_id, method_id) %>% 
+    group_by(taxon_name, observation_id, method_id) %>% 
+    summarise(n_value_type = length(unique(value_type))) %>% 
+    arrange(observation_id) %>% 
+    dplyr::filter(n_value_type > 1) -> check_value_type
+  
+  if(nrow(check_value_type) > 1){
+  
+    traits %>% 
+      select(- all_of(meta_data_cols)) %>% 
+      group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id, value_type) %>% 
+      pivot_wider(names_from = trait_name,
+                  values_from = value) 
+    
+  } else{
+    
+    meta_data_cols <- c(meta_data_cols, "value_type")
+    
+    traits %>% 
+      select(- all_of(meta_data_cols)) %>% 
+      group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id) %>% 
       pivot_wider(names_from = trait_name,
                   values_from = value) 
   }
