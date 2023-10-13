@@ -3,13 +3,14 @@
 
 devtools::load_all()
 set.seed(109)
-austraits_all <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
+austraits_all <- load_austraits(version = "3.0.2", path = "ignore/data/")
 dataset_id <- c( unique(austraits_all$traits$dataset_id) %>% sample(5), "Falster_2003", "Falster_2005_1", "Falster_2005_2" )
 
 austraits_lite <- extract_dataset(austraits_all, dataset_id)
 
 # updated release
-austraits_newrel <- readRDS("ignore/data/austraits/austraits_newrel.rds") 
+austraits_newrel <- readRDS("ignore/data/austraits_5.rds") 
+austraits_newrel$build_info$version <- "5.0.0"
 attr(austraits_newrel, "class") <- "austraits"
 
 datasets <- c("Crous_2013", "Crous_2019", "Buckton_2019", "Kooyman_2011", "Bloomfield_2018", 
