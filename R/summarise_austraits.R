@@ -47,9 +47,9 @@ summarise_austraits_traits <-function(austraits, var) {
                                percent = NULL)
   # Summary statistics
   sum_stats <- austraits[["traits"]] %>% 
-    dplyr::group_by(trait_name) %>% 
-    dplyr::summarise(n_dataset = length(unique(dataset_id)),
-                     n_taxa = length(unique(taxon_name))) 
+    dplyr::group_by(.data$trait_name) %>% 
+    dplyr::summarise(n_dataset = length(unique(.data$dataset_id)),
+                     n_taxa = length(unique(.data$taxon_name))) 
   
   ret <- dplyr::left_join(ret, sum_stats, by = "trait_name")
   
@@ -86,8 +86,8 @@ summarise_austraits_taxa <-function(austraits, var) {
   # Summary statistics (https://stackoverflow.com/questions/55425976/use-quoted-variable-in-group-by-mutate-function-call)
   sum_stats <- austraits[["traits"]] %>% 
     dplyr::group_by(!!rlang::sym(var)) %>% 
-    dplyr::summarise(n_dataset = length(unique(dataset_id)),
-                     n_taxa = length(unique(taxon_name)))
+    dplyr::summarise(n_dataset = length(unique(.data$dataset_id)),
+                     n_taxa = length(unique(.data$taxon_name)))
   
   ret <- dplyr::left_join(ret, sum_stats, by = var)
   
