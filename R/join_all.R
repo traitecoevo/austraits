@@ -45,6 +45,11 @@ join_taxonomy <- function(austraits, ...) {
   # Switch for different versions
   version <- what_version(austraits)
   
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
+  
   switch (version,
           'new' = join_taxonomy2(austraits, ...),
           'old' = join_taxonomy1(austraits, ...),
@@ -79,6 +84,25 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 #' @rdname join_all
 
 join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+  
+  # Switch for different versions
+  version <- what_version(austraits)
+  
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
+  
+  switch (version,
+          'new' = join_methods2(austraits, ...),
+          'old' = join_methods1(austraits, ...),
+  )
+}
+
+#' @title Joining methods info for AusTraits versions > 3.0.2
+#' @noRd
+#' @keywords internal
+join_methods2 <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
   austraits$methods %>% 
     dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
     dplyr::distinct() -> methods
@@ -90,6 +114,20 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
   austraits
 }
 
+#' @title Joining methods info for AusTraits versions<== 3.0.2
+#' @noRd
+#' @keywords internal
+join_methods1 <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+  austraits$methods %>% 
+    dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) %>% 
+    dplyr::distinct() -> methods
+  
+  austraits$traits <- austraits$traits %>%
+    dplyr::left_join(by=c("dataset_id", "trait_name"),
+                     methods)
+  
+  austraits
+}
 #' @title Joining location information to traits table
 #' @export
 
@@ -98,6 +136,11 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
 join_locations <- function(austraits, ...) {
   # Switch for different versions
   version <- what_version(austraits)
+  
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
   
   switch (version,
           'new' = join_locations2(austraits, ...),
@@ -156,6 +199,11 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 join_contexts <- function(austraits,...){
   # Switch for different versions
   version <- what_version(austraits)
+  
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
   
   switch (version,
           'new' = join_contexts2(austraits, ...),

@@ -19,18 +19,19 @@ as_wide_table <- function(austraits){
   version <- what_version(austraits)
   
   switch (version,
-          'new' = as_wide_table2(austraits),
-          'old' = as_wide_table1(austraits),
-  )
+          "5-series" = as_wide_table3(austraits),
+          "4-series" = as_wide_table2(austraits),
+          "3-series-earlier" = as_wide_table1(austraits)
+          )
 }
 
-#' Turning entire AusTraits object into wide table >3.0.2
+#' Turning entire AusTraits object into wide table v5
 #' @noRd
 #' @keywords internal
-as_wide_table2 <- function(austraits){
+as_wide_table3 <- function(austraits){
 
   # Function to collapse columns in locations and contexts into single column
-  process_table2 <- function(data) {
+  process_table3 <- function(data) {
     data %>% 
       tidyr::pivot_wider(names_from = property, values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
@@ -57,7 +58,7 @@ as_wide_table2 <- function(austraits){
     dplyr::filter(value!="unknown") %>% 
     dplyr::rename(c("property" = "location_property")) %>%
     split(., .$dataset_id) %>%
-    purrr::map_dfr(process_table2)
+    purrr::map_dfr(process_table3)
 
   # rename taxonomic_reference field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
@@ -99,6 +100,85 @@ as_wide_table2 <- function(austraits){
     taxon_rank, genus, family, #accepted_name_usage_id, 
     scientific_name_authorship
     )
+  
+  austraits_wide
+}
+
+#' Turning entire AusTraits object into wide table v4
+#' @noRd
+#' @keywords internal
+as_wide_table2 <- function(austraits){
+  
+  # Function to collapse columns in locations and contexts into single column
+  process_table2 <- function(data) {
+    data %>% 
+      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
+      tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
+      dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
+      dplyr::select(-data) 
+  }
+  
+  ################################################################################
+  # Define and adapt each table in the list of austraits to prepare for the wide table format 
+  
+  # The contexts table needs the contexts collapsed to one context name per site
+  austraits %>% 
+    join_contexts(collapse_context = TRUE) -> austraits
+  
+  # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
+  austraits$methods <- 
+    austraits$methods %>% 
+    dplyr::rename(c("dataset_description" = "description"))  %>% 
+    dplyr::distinct()
+  
+  # collapse into one column
+  austraits$locations <- 
+    austraits$locations %>% 
+    dplyr::filter(value!="unknown") %>% 
+    dplyr::rename(c("property" = "location_property")) %>%
+    split(., .$dataset_id) %>%
+    purrr::map_dfr(process_table2)
+  
+  # rename taxonomic_reference field to reflect the APC/APNI name matching process better
+  austraits$taxa <- 
+    austraits$taxa %>% 
+    dplyr::rename(c("taxonNameValidation" = "taxonomic_reference")) %>% 
+    dplyr::distinct()
+  
+  austraits_wide <- 
+    austraits$traits %>% 
+    dplyr::left_join(by=c("dataset_id", "location_id"), austraits$locations) %>%
+    dplyr::left_join(by=c("dataset_id", "trait_name"), austraits$methods) %>%
+    dplyr::left_join(by=c("taxon_name"), austraits$taxa)
+  
+  # reorder the names to be more intuitive
+  austraits_wide %>% dplyr::select(
+    
+    # The most useful (if you are filtering for just one taxon_name)
+    dataset_id, observation_id, trait_name, taxon_name, value, unit, 
+    entity_type, population_id, individual_id,
+    value_type, basis_of_value, 
+    replicates, 
+    # tissue, trait_category,  # Add after new zenodo release
+    
+    # More stuff you can filter on
+    collection_date, basis_of_record, life_stage, sampling_strategy, 
+    treatment_id, temporal_id, 
+    
+    #stuff relating to locations
+    `latitude (deg)`, `longitude (deg)`, location, plot_id,
+    
+    #stuff relating to contexts and methods
+    context, methods, method_id, original_name,
+    
+    #the citations
+    dataset_description, source_primary_citation, source_secondary_citation,
+    
+    #the taxa details
+    taxonomic_status, taxon_distribution, 
+    taxon_rank, genus, family, #accepted_name_usage_id, 
+    scientific_name_authorship
+  )
   
   austraits_wide
 }
