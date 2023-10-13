@@ -83,7 +83,7 @@ join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank",
 #' @export
 #' @rdname join_all
 
-join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+join_methods <- function(austraits, ...) {
   
   # Switch for different versions
   version <- what_version(austraits)
