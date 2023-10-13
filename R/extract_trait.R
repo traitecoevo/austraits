@@ -20,6 +20,11 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   # Switch for different versions
   version <- what_version(austraits)
   
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
+    
   switch (version,
           'new' = extract_trait2(austraits, trait_names, taxon_names),
           'old' = extract_trait1(austraits, trait_names, taxon_names),
