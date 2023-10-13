@@ -21,14 +21,14 @@ summarise_trait_means <- function(trait_data){
   
   # Identify which ones need summarising
   target <- trait_data %>% 
-    dplyr::group_by(.data$trait_name, .data$observation_id) %>% 
+    dplyr::group_by(trait_name, observation_id) %>% 
     dplyr::summarise(dplyr::n()) %>% 
     dplyr::filter(`dplyr::n()` > 1) %>%
     dplyr::select(.data$trait_name, .data$observation_id)
   
   # # Identify which ones that don't need to change
   original <- trait_data %>%
-    dplyr::group_by(.data$trait_name, .data$observation_id) %>%
+    dplyr::group_by(trait_name, observation_id) %>%
     dplyr::summarise(dplyr::n()) %>%
     dplyr::filter(! `dplyr::n()`  > 1) %>%
     dplyr::select(.data$trait_name, .data$observation_id)
