@@ -33,7 +33,7 @@ as_wide_table3 <- function(austraits){
   # Function to collapse columns in locations and contexts into single column
   process_table3 <- function(data) {
     data %>% 
-      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = "property", values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -49,7 +49,7 @@ as_wide_table3 <- function(austraits){
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
     austraits$methods %>% 
-    dplyr::rename(dataset_description = .data$description)  %>% 
+    dplyr::rename(dataset_description = "description")  %>% 
     dplyr::distinct()
   
   # collapse into one column
@@ -76,10 +76,10 @@ as_wide_table3 <- function(austraits){
     austraits_wide %>% dplyr::select(
       
     # The most useful (if you are filtering for just one taxon_name)
-      .data$dataset_id, .data$observation_id, .data$trait_name, .data$taxon_name, .data$value, .data$unit, 
+      "dataset_id", "observation_id", "trait_name", "taxon_name", .data$value, "unit", 
       .data$entity_type, .data$population_id, .data$individual_id,
-      .data$value_type, .data$basis_of_value, 
-      .data$replicates, 
+      "value_type", .data$basis_of_value, 
+      "replicates", 
     # tissue, trait_category,  # Add after new zenodo release
     
     # More stuff you can filter on
@@ -112,7 +112,7 @@ as_wide_table2 <- function(austraits){
   # Function to collapse columns in locations and contexts into single column
   process_table2 <- function(data) {
     data %>% 
-      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = "property", values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -128,7 +128,7 @@ as_wide_table2 <- function(austraits){
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
     austraits$methods %>% 
-    dplyr::rename(dataset_description = .data$description)  %>% 
+    dplyr::rename(dataset_description = "description")  %>% 
     dplyr::distinct()
   
   # collapse into one column
@@ -155,10 +155,10 @@ as_wide_table2 <- function(austraits){
   austraits_wide %>% dplyr::select(
     
     # The most useful (if you are filtering for just one taxon_name)
-    .data$dataset_id, .data$observation_id, .data$trait_name, .data$taxon_name, .data$value, .data$unit, 
+    "dataset_id", "observation_id", "trait_name", "taxon_name", .data$value, "unit", 
     .data$entity_type, .data$population_id, .data$individual_id,
-    .data$value_type, .data$basis_of_value, 
-    .data$replicates, 
+    "value_type", .data$basis_of_value, 
+    "replicates", 
     # tissue, trait_category,  # Add after new zenodo release
     
     # More stuff you can filter on
@@ -209,7 +209,7 @@ as_wide_table1 <- function(austraits){
   process_table <- function(data) {
    
     data %>% 
-      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = "property", values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -226,10 +226,10 @@ as_wide_table1 <- function(austraits){
   # The contexts table needs the contexts collapsed to one context name per site
   austraits$contexts <- 
     austraits$contexts %>% 
-    dplyr::rename(property = .data$context_property) %>%
+    dplyr::rename(property = "context_property") %>%
     split(austraits$contexts$dataset_id) %>%
     purrr::map_dfr(process_table)  %>% 
-    dplyr::rename(context = .data$site)
+    dplyr::rename(context = "site")
   
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
@@ -242,8 +242,8 @@ as_wide_table1 <- function(austraits){
     dplyr::slice(1) %>%
     dplyr:: ungroup() %>%
     #------------
-  dplyr::select(-c(.data$year_collected_start, .data$year_collected_end)) %>% 
-    dplyr::rename(dataset_description = .data$description)  
+  dplyr::select(-c("year_collected_start", "year_collected_end")) %>% 
+    dplyr::rename(dataset_description = "description")  
   
   # collapse into one column
   austraits$sites <- 
@@ -251,14 +251,14 @@ as_wide_table1 <- function(austraits){
     dplyr::filter(value!="unknown") %>% 
     # next line is a fix -- one dataset in 3.0.2 has value "site_name"
     dplyr::mutate(site_property = gsub("site_name", "name", site_property)) %>%
-    dplyr::rename(property = .data$site_property) %>%
+    dplyr::rename("property" = "site_property") %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table)
   
   # rename source data field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(taxonNameValidation = .data$source)
+    dplyr::rename(taxonNameValidation = "source")
   
   austraits_wide <- 
     austraits$traits %>%
@@ -271,26 +271,26 @@ as_wide_table1 <- function(austraits){
     dplyr::select(
       
       # The most useful (if you are filtering for just one taxon_name)
-      .data$dataset_id, .data$observation_id, .data$trait_name, .data$taxon_name, .data$trait_value, .data$unit, 
-      .data$value_type, .data$replicates, 
+      "dataset_id", "observation_id", "trait_name", "taxon_name", "trait_value", "unit", 
+      "value_type", "replicates", 
       # tissue, trait_category,  # Add after new zenodo release
       
       # More stuff you can filter on
-      .data$date, .data$collection_type, .data$sample_age_class, .data$sampling_strategy, 
+      "date", "collection_type", "sample_age_class", "sampling_strategy", 
       
       #stuff relating to sites
-      .data$`latitude (deg)`, .data$`longitude (deg)`, .data$site_name, .data$site,
+      "`latitude (deg)`", "`longitude (deg)`", "site_name", "site",
       
       #stuff relating to contexts and methods
-      .data$context_name, .data$context, .data$methods, .data$original_name,
+      "context_name", "context", "methods", "original_name",
       
       #the citations
-      .data$dataset_description, .data$source_primary_citation, .data$source_secondary_citation,
+      "dataset_description", "source_primary_citation", "source_secondary_citation",
       
       #the taxa details
-      .data$taxonomicStatus, .data$taxonDistribution, 
-      .data$taxonRank, .data$genus, .data$family, .data$acceptedNameUsageID, 
-      .data$scientificNameAuthorship, .data$ccAttributionIRI
+      "taxonomicStatus", "taxonDistribution", 
+      "taxonRank", "genus", "family", "acceptedNameUsageID", 
+      "scientificNameAuthorship", "ccAttributionIRI"
     )
   
   austraits_wide
