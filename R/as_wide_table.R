@@ -76,29 +76,29 @@ as_wide_table3 <- function(austraits){
     austraits_wide %>% dplyr::select(
       
     # The most useful (if you are filtering for just one taxon_name)
-      "dataset_id", "observation_id", "trait_name", "taxon_name", .data$value, "unit", 
-      .data$entity_type, .data$population_id, .data$individual_id,
-      "value_type", .data$basis_of_value, 
+      "dataset_id", "observation_id", "trait_name", "taxon_name", "value", "unit", 
+      "entity_type", "population_id", "individual_id",
+      "value_type", "basis_of_value", 
       "replicates", 
     # tissue, trait_category,  # Add after new zenodo release
     
     # More stuff you can filter on
-    .data$collection_date, .data$basis_of_record, .data$life_stage, .data$sampling_strategy, 
-    .data$treatment_context_id, .data$temporal_context_id, 
+    "collection_date", "basis_of_record", "life_stage", "sampling_strategy", 
+    "treatment_context_id", "temporal_context_id", 
     
     #stuff relating to locations
-    .data$`latitude (deg)`, .data$`longitude (deg)`, .data$location, .data$plot_context_id,
+    "latitude (deg)", "longitude (deg)", "location", "plot_context_id",
     
     #stuff relating to contexts and methods
-    .data$context, .data$methods, .data$method_id, .data$method_context_id, .data$original_name,
+    "context", "methods", "method_id", "method_context_id", "original_name",
     
     #the citations
-    .data$dataset_description, .data$source_primary_citation, .data$source_secondary_citation,
+    "dataset_description", "source_primary_citation", "source_secondary_citation",
     
     #the taxa details
-    .data$taxonomic_status, .data$taxon_distribution, 
-    .data$taxon_rank, .data$genus, .data$family, #accepted_name_usage_id, 
-    .data$scientific_name_authorship
+    "taxonomic_status", "taxon_distribution", 
+    "taxon_rank", "genus", "family", #accepted_name_usage_id, 
+    "scientific_name_authorship"
     )
   
   austraits_wide
@@ -155,29 +155,29 @@ as_wide_table2 <- function(austraits){
   austraits_wide %>% dplyr::select(
     
     # The most useful (if you are filtering for just one taxon_name)
-    "dataset_id", "observation_id", "trait_name", "taxon_name", .data$value, "unit", 
-    .data$entity_type, .data$population_id, .data$individual_id,
-    "value_type", .data$basis_of_value, 
+    "dataset_id", "observation_id", "trait_name", "taxon_name", "value", "unit", 
+    "entity_type", "population_id", "individual_id",
+    "value_type", "basis_of_value", 
     "replicates", 
     # tissue, trait_category,  # Add after new zenodo release
     
     # More stuff you can filter on
-    .data$collection_date, .data$basis_of_record, .data$life_stage, .data$sampling_strategy, 
-    .data$treatment_id, .data$temporal_id, 
+    "collection_date", "basis_of_record", "life_stage", "sampling_strategy", 
+    "treatment_id", "temporal_id", 
     
     #stuff relating to locations
-    .data$`latitude (deg)`, .data$`longitude (deg)`, .data$location, .data$plot_id,
+    "latitude (deg)", "longitude (deg)", "location", "plot_id",
     
     #stuff relating to contexts and methods
-    .data$context, .data$methods, .data$method_id, .data$original_name,
+    "context", "methods", "method_id", "original_name",
     
     #the citations
-    .data$dataset_description, .data$source_primary_citation, .data$source_secondary_citation,
+    "dataset_description", "source_primary_citation", "source_secondary_citation",
     
     #the taxa details
-    .data$taxonomic_status, .data$taxon_distribution, 
-    .data$taxon_rank, .data$genus, .data$family, #accepted_name_usage_id, 
-    .data$scientific_name_authorship
+    "taxonomic_status", "taxon_distribution", 
+    "taxon_rank", "genus", "family", #accepted_name_usage_id, 
+    "scientific_name_authorship"
 
   )
   
@@ -221,7 +221,7 @@ as_wide_table1 <- function(austraits){
   # the trait table needs little prep. Rename the value columns as value
   austraits$traits <- 
     austraits$traits %>% 
-    dplyr::rename(trait_value = .data$value)
+    dplyr::rename(trait_value = "value")
   
   # The contexts table needs the contexts collapsed to one context name per site
   austraits$contexts <- 
@@ -279,7 +279,7 @@ as_wide_table1 <- function(austraits){
       "date", "collection_type", "sample_age_class", "sampling_strategy", 
       
       #stuff relating to sites
-      "`latitude (deg)`", "`longitude (deg)`", "site_name", "site",
+      "latitude (deg)", "longitude (deg)", "site_name", "site",
       
       #stuff relating to contexts and methods
       "context_name", "context", "methods", "original_name",
