@@ -100,7 +100,7 @@ trait_pivot_wider2 <- function(traits){
   if(nrow(check_value_type) > 1){
   
     traits %>% 
-      select(- all_of(meta_data_cols)) %>% 
+      select(-all_of(meta_data_cols)) %>% 
       group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id, value_type) %>% 
       pivot_wider(names_from = trait_name,
                   values_from = value) |> 

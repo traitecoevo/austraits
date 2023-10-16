@@ -33,7 +33,7 @@ as_wide_table3 <- function(austraits){
   # Function to collapse columns in locations and contexts into single column
   process_table3 <- function(data) {
     data %>% 
-      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -49,21 +49,21 @@ as_wide_table3 <- function(austraits){
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
     austraits$methods %>% 
-    dplyr::rename(c("dataset_description" = "description"))  %>% 
+    dplyr::rename(dataset_description = .data$description)  %>% 
     dplyr::distinct()
   
   # collapse into one column
   austraits$locations <- 
     austraits$locations %>% 
     dplyr::filter(value!="unknown") %>% 
-    dplyr::rename(c("property" = "location_property")) %>%
+    dplyr::rename(property = .data$location_property) %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table3)
 
   # rename taxonomic_reference field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(c("taxonNameValidation" = "taxonomic_reference")) %>% 
+    dplyr::rename(taxonNameValidation = .data$taxonomic_reference) %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -112,7 +112,7 @@ as_wide_table2 <- function(austraits){
   # Function to collapse columns in locations and contexts into single column
   process_table2 <- function(data) {
     data %>% 
-      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -128,21 +128,21 @@ as_wide_table2 <- function(austraits){
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
     austraits$methods %>% 
-    dplyr::rename(c("dataset_description" = "description"))  %>% 
+    dplyr::rename(dataset_description = .data$description)  %>% 
     dplyr::distinct()
   
   # collapse into one column
   austraits$locations <- 
     austraits$locations %>% 
     dplyr::filter(value!="unknown") %>% 
-    dplyr::rename(c("property" = "location_property")) %>%
+    dplyr::rename(property = .data$location_property) %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table2)
   
   # rename taxonomic_reference field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(c("taxonNameValidation" = "taxonomic_reference")) %>% 
+    dplyr::rename(taxonNameValidation = .data$taxonomic_reference) %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -209,7 +209,7 @@ as_wide_table1 <- function(austraits){
   process_table <- function(data) {
    
     data %>% 
-      tidyr::pivot_wider(names_from = property, values_from = value) %>% 
+      tidyr::pivot_wider(names_from = .data$property, values_from = value) %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -221,15 +221,15 @@ as_wide_table1 <- function(austraits){
   # the trait table needs little prep. Rename the value columns as value
   austraits$traits <- 
     austraits$traits %>% 
-    dplyr::rename(c("trait_value" = "value")) 
+    dplyr::rename(trait_value = .data$value)
   
   # The contexts table needs the contexts collapsed to one context name per site
   austraits$contexts <- 
     austraits$contexts %>% 
-    dplyr::rename(c("property" = "context_property")) %>%
+    dplyr::rename(property = .data$context_property) %>%
     split(austraits$contexts$dataset_id) %>%
     purrr::map_dfr(process_table)  %>% 
-    dplyr::rename(c("context" = "site"))
+    dplyr::rename(context = .data$site)
   
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
@@ -243,7 +243,7 @@ as_wide_table1 <- function(austraits){
     dplyr:: ungroup() %>%
     #------------
   dplyr::select(-c(.data$year_collected_start, .data$year_collected_end)) %>% 
-    dplyr::rename(c("dataset_description" = "description"))  
+    dplyr::rename(dataset_description = .data$description)  
   
   # collapse into one column
   austraits$sites <- 
@@ -251,14 +251,14 @@ as_wide_table1 <- function(austraits){
     dplyr::filter(value!="unknown") %>% 
     # next line is a fix -- one dataset in 3.0.2 has value "site_name"
     dplyr::mutate(site_property = gsub("site_name", "name", site_property)) %>%
-    dplyr::rename(c("property" = "site_property")) %>%
+    dplyr::rename(property = .data$site_property) %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table)
   
   # rename source data field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(c("taxonNameValidation" = "source"))
+    dplyr::rename(taxonNameValidation = .data$source)
   
   austraits_wide <- 
     austraits$traits %>%
