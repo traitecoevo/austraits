@@ -63,7 +63,7 @@ as_wide_table3 <- function(austraits){
   # rename taxonomic_reference field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(taxonNameValidation = .data$taxonomic_reference) %>% 
+    dplyr::rename("taxonNameValidation" = "taxonomic_reference") %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -142,7 +142,7 @@ as_wide_table2 <- function(austraits){
   # rename taxonomic_reference field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename(taxonNameValidation = .data$taxonomic_reference) %>% 
+    dplyr::rename("taxonNameValidation" = "taxonomic_reference") %>% 
     dplyr::distinct()
   
   austraits_wide <- 
