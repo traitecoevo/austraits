@@ -56,7 +56,7 @@ as_wide_table3 <- function(austraits){
   austraits$locations <- 
     austraits$locations %>% 
     dplyr::filter(value!="unknown") %>% 
-    dplyr::rename(property = .data$location_property) %>%
+    dplyr::rename("property" = "location_property") %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table3)
 
@@ -135,7 +135,7 @@ as_wide_table2 <- function(austraits){
   austraits$locations <- 
     austraits$locations %>% 
     dplyr::filter(value!="unknown") %>% 
-    dplyr::rename(property = .data$location_property) %>%
+    dplyr::rename("property" = "location_property") %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table2)
   
