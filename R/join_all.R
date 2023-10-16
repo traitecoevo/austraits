@@ -167,8 +167,6 @@ join_contexts <- function(austraits,...){
 #' @noRd
 #' @keywords internal
 join_contexts2 <- function(austraits, collapse_context = FALSE){
-  
-#  browser()
 
   traits2 <- split(austraits$traits, austraits$traits$dataset_id)
   contexts2 <- split(austraits$contexts, austraits$contexts$dataset_id)
