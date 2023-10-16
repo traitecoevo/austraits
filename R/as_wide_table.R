@@ -22,7 +22,6 @@ as_wide_table <- function(austraits){
           'new' = as_wide_table2(austraits),
           'old' = as_wide_table1(austraits),
   )
-
 }
 
 #' Turning entire AusTraits object into wide table >3.0.2
