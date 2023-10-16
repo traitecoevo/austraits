@@ -33,7 +33,7 @@ as_wide_table3 <- function(austraits){
   # Function to collapse columns in locations and contexts into single column
   process_table3 <- function(data) {
     data %>% 
-      tidyr::pivot_wider(names_from = "property", values_from = value) %>% 
+      tidyr::pivot_wider(names_from = "property", values_from = "value") %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -112,7 +112,7 @@ as_wide_table2 <- function(austraits){
   # Function to collapse columns in locations and contexts into single column
   process_table2 <- function(data) {
     data %>% 
-      tidyr::pivot_wider(names_from = "property", values_from = value) %>% 
+      tidyr::pivot_wider(names_from = "property", values_from = "value") %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "location_id", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(location = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 
@@ -209,7 +209,7 @@ as_wide_table1 <- function(austraits){
   process_table <- function(data) {
    
     data %>% 
-      tidyr::pivot_wider(names_from = "property", values_from = value) %>% 
+      tidyr::pivot_wider(names_from = "property", values_from = "value") %>% 
       tidyr::nest(data=-dplyr::any_of(c("dataset_id", "site_name", "context_name", "latitude (deg)", "longitude (deg)"))) %>%
       dplyr::mutate(site = purrr::map_chr(data, collapse_cols)) %>%
       dplyr::select(-data) 

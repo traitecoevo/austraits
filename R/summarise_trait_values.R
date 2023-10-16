@@ -24,14 +24,14 @@ summarise_trait_means <- function(trait_data){
     dplyr::group_by(trait_name, observation_id) %>% 
     dplyr::summarise(dplyr::n()) %>% 
     dplyr::filter(`dplyr::n()` > 1) %>%
-    dplyr::select(.data$trait_name, .data$observation_id)
+    dplyr::select("trait_name", observation_id)
   
   # # Identify which ones that don't need to change
   original <- trait_data %>%
     dplyr::group_by(trait_name, observation_id) %>%
     dplyr::summarise(dplyr::n()) %>%
     dplyr::filter(! `dplyr::n()`  > 1) %>%
-    dplyr::select(.data$trait_name, .data$observation_id)
+    dplyr::select("trait_name", "observation_id")
 
   original_df <- purrr::map2_dfr(original$trait_name, original$observation_id,
                                  ~ dplyr::filter(trait_data, trait_name == .x & observation_id == .y))
