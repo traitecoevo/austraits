@@ -5,10 +5,10 @@ on:
     branches:
       - master
       - develop
-      - upgrade
   pull_request:
     branches:
       - master
+      - develop
 
 name: R-CMD-check
 

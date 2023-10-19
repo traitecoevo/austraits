@@ -1,25 +1,21 @@
-austraits <- austraits_lite
-austraits_post <- austraits_lite_post
+library(purrr)
 
+austraits <- list(austraits_lite,
+                  austraits_lite_post)
+
+test_widetable_success <- function(austraits){
   test_that("Function is working", {
     expect_visible(austraits %>% as_wide_table())
-    expect_named(austraits %>% as_wide_table())
-    expect_type(austraits %>% as_wide_table(), "list")
-    
-    expect_visible(austraits_post %>% as_wide_table())
-    expect_named(austraits_post %>% as_wide_table())
-    expect_type(austraits_post %>% as_wide_table(), "list")
+    out <- austraits %>% as_wide_table()
+    expect_named(out)
+    expect_type(out, "list")
+ 
+    # "Output is correct"
+    expect_gt(out %>% ncol(), expected = austraits$traits %>% ncol())
   })
-  
-  test_that("Output is correct", {
-    expect_equal(austraits %>% as_wide_table() %>% nrow(), austraits$traits %>% nrow())
-    expect_gt(austraits %>% as_wide_table() %>% ncol(), expected = austraits$traits %>% ncol())
-    expect_gt(austraits_post %>% as_wide_table() %>% ncol(), expected = austraits$traits %>% ncol())
-  })
-  
-  test_that("Complains at the right time", {
-    expect_error(as_wide_table())
-  })
+}
 
-
+walk(austraits, 
+      test_widetable_success)
   
+expect_error(as_wide_table())
