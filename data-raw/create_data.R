@@ -17,7 +17,7 @@ datasets <- c("Crous_2013", "Crous_2019", "Buckton_2019", "Kooyman_2011", "Bloom
               "Wright_2019", "Westoby_2014", "Vesk_2019", "Leigh_2003", "Prior_2003",
               "Prior_2016", "Choat_2006", "Choat_2012", "ABRS_1981")
 
-austraits_lite_post <- austraits_newrel %>% extract_dataset(dataset_id = datasets)
+austraits_lite_post <- austraits_newrel %>% extract_dataset(dataset_id = c(dataset_id, datasets))
 
 ## code to prepare `australia_map_raster` dataset goes here
 
