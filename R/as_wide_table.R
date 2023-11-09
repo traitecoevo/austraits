@@ -60,10 +60,10 @@ as_wide_table3 <- function(austraits){
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table3)
 
-  # rename taxonomic_reference field to reflect the APC/APNI name matching process better
+  # rename taxonomic_dataset field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename("taxonNameValidation" = "taxonomic_reference") %>% 
+    dplyr::rename("taxonNameValidation" = "taxonomic_dataset") %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -97,8 +97,7 @@ as_wide_table3 <- function(austraits){
     
     #the taxa details
     "taxonomic_status", "taxon_distribution", 
-    "taxon_rank", "genus", "family", #accepted_name_usage_id, 
-    "scientific_name_authorship"
+    "taxon_rank", "genus", "family"
     )
   
   austraits_wide
@@ -139,10 +138,10 @@ as_wide_table2 <- function(austraits){
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table2)
   
-  # rename taxonomic_reference field to reflect the APC/APNI name matching process better
+  # rename taxonomic_dataset field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename("taxonNameValidation" = "taxonomic_reference") %>% 
+    dplyr::rename("taxonNameValidation" = "taxonomic_dataset") %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -176,8 +175,7 @@ as_wide_table2 <- function(austraits){
     
     #the taxa details
     "taxonomic_status", "taxon_distribution", 
-    "taxon_rank", "genus", "family", #accepted_name_usage_id, 
-    "scientific_name_authorship"
+    "taxon_rank", "genus", "family"
 
   )
   
