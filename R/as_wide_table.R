@@ -151,7 +151,7 @@ as_wide_table2 <- function(austraits){
     dplyr::left_join(by=c("taxon_name"), austraits$taxa)
   
   # reorder the names to be more intuitive
-  austraits_wide %>% dplyr::select(
+  austraits_wide %>% dplyr::select(dplyr::any_of(
     
     # The most useful (if you are filtering for just one taxon_name)
     "dataset_id", "observation_id", "trait_name", "taxon_name", "value", "unit", 
@@ -177,7 +177,7 @@ as_wide_table2 <- function(austraits){
     "taxonomic_status", "taxon_distribution", 
     "taxon_rank", "genus", "family"
 
-  )
+  ))
   
   austraits_wide
 }
