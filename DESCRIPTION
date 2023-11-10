@@ -41,12 +41,13 @@ Imports:
     janitor,
     lifecycle,
     ggplot2,
-    ggpointdensity, 
+    ggpointdensity,
     ggbeeswarm (>= 0.7.1),
     gridExtra,
     scales,
     forcats,
-    viridis
+    viridis,
+    lubridate
 Suggests: 
     knitr,
     rmarkdown,

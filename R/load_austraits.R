@@ -39,7 +39,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   res <- load_json(path = path, update = update) 
   
   # Name the response list
-  names(res$files) <- res$metadata$version
+  names(res$hits$hits$files) <- res$hits$hits$metadata$version
   
   # Create metadata table
   ret <- create_metadata(res)
@@ -61,25 +61,25 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   # Add in prefix of v
   version_name <- paste0("v", version)
   
-  # Getting specific file
+  # Getting specific version
   id <- ret[which(ret$version == version), "id"] |> as.character()
   
-  target <- res$files[[version_name]]$filename
-  target <- target[grep(".rds", target, fixed = TRUE)]
+  target <- res$hits$hits$files[[version_name]]
   
-  url <- sprintf("https://zenodo.org/records/%s/files/%s", id, target)
+  # Setting up the pars
+  url <- target$links$self[grep(".rds", target$links$self, fixed = TRUE)]
   
-  file_path <- file.path(path, target)
+  file_nm <- file.path(path, target$key[grep(".rds", target$key, fixed = TRUE)])
 
   #Check if version/doi is download, if not download
-  if(! file.exists(file_path)){
+  if(! file.exists(file_nm)){
     # Downloading file
-    download_austraits(url, file_path, path = path)
+    download_austraits(url, file_nm, path = path)
   }
   
   # Loading the .rds
-  message("Loading data from '", file_path,"'")
-  data <- readRDS(file_path) 
+  message("Loading data from '", file_nm,"'")
+  data <- readRDS(file_nm) 
   
   # Assign class
   attr(data, "class") <- "austraits"
@@ -116,18 +116,18 @@ load_json <- function(path, update){
 
 create_metadata <- function(res){
   # Version table
-  ret <- 
-    dplyr::tibble(
-      date = res$metadata$publication_date,
-      version = stringr::str_extract(res$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-      doi = res$metadata$doi,
-      id = stringr::str_remove_all(res$metadata$doi, stringr::fixed("10.5281/zenodo.")
-      )) %>%  
-    dplyr::filter(! version < 1) %>% # Exclude any versions prior to 1.0.0
-  dplyr::as_tibble()
-  
-  # Order by numeric version
-  ret[order(dplyr::desc(numeric_version(ret$version))),]
+  ret <- res$hits$hits$metadata |> 
+    select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
+    dplyr::mutate(version = gsub("v", "", version) |> numeric_version(),
+                  id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
+                  )|>  # set as numeric version for easier filtering
+    dplyr::filter(version >= "3.0.2") |> # exclude everything pre 3.0.2
+    dplyr::mutate(version = as.character(version),
+                  publication_date = lubridate::ymd(publication_date)) |>  # change back as character
+    dplyr::tibble() |> 
+    arrange(dplyr::desc(publication_date))
+
+  ret
 }
 
 #' Function for loading .rds AusTraits files
@@ -219,13 +219,14 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   # Load the json
   res <- load_json(path = path, update = update)
   
-  # Get all versions and remove the 'v'
-  version_numbers <- stringr::str_extract(res$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]")
-
-  # Order by numeric version
-  version_numbers <- version_numbers[order(dplyr::desc(numeric_version(version_numbers)))]
+  # Create version table
+  metadata <- create_metadata(res) 
   
-  # Return the first value as the version we want
-  dplyr::first(version_numbers)
+  # Sort old to new
+  metadata <- metadata |> 
+  arrange(publication_date) 
+  
+  # Grab the first version
+  dplyr::first(metadata$version) |> as.character()
 }
 

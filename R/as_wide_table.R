@@ -63,7 +63,7 @@ as_wide_table3 <- function(austraits){
   # rename taxonomic_dataset field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename("taxonNameValidation" = "taxonomic_dataset") %>% 
+    # dplyr::rename("taxonNameValidation" = "taxonomic_dataset") %>% 
     dplyr::distinct()
   
   austraits_wide <- 

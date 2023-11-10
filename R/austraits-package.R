@@ -54,5 +54,7 @@ utils::globalVariables(c("..density..",
                        "value",
                        "value_type",
                        "x",
-                       "y")
+                       "y", 
+                       "publication_date",
+                       "doi")
 )
