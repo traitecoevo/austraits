@@ -92,18 +92,18 @@ trait_pivot_wider2 <- function(traits){
   
   # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
   data %>% 
-    select(taxon_name, trait_name, value_type, value, observation_id, method_id) %>% 
-    group_by(taxon_name, observation_id, method_id) %>% 
-    summarise(n_value_type = length(unique(value_type))) %>% 
-    arrange(observation_id) %>% 
-    filter(n_value_type > 1) -> check_value_type
+    dplyr::select(taxon_name, trait_name, value_type, value, observation_id, method_id) %>% 
+    dplyr::group_by(taxon_name, observation_id, method_id) %>% 
+    dplyr::summarise(n_value_type = length(unique(value_type))) %>% 
+    dplyr::arrange(observation_id) %>% 
+    dplyr::filter(n_value_type > 1) -> check_value_type
   
   if(nrow(check_value_type) > 1){
   
     traits %>% 
-      select(-all_of(meta_data_cols)) %>% 
-      group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id, value_type) %>% 
-      pivot_wider(names_from = trait_name,
+      dplyr::select(-all_of(meta_data_cols)) %>% 
+      dplyr::group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id, value_type) %>% 
+      tidyr::pivot_wider(names_from = trait_name,
                   values_from = value) |> 
       dplyr::ungroup()
     
@@ -112,9 +112,9 @@ trait_pivot_wider2 <- function(traits){
     meta_data_cols <- c(meta_data_cols, "value_type")
     
     traits %>% 
-      select(- all_of(meta_data_cols)) %>% 
-      group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id) %>% 
-      pivot_wider(names_from = trait_name,
+      dplyr::select(- all_of(meta_data_cols)) %>% 
+      dplyr::group_by(dataset_id, source_id, taxon_name, original_name, observation_id, method_id) %>% 
+      tidyr::pivot_wider(names_from = trait_name,
                   values_from = value) |> 
       dplyr::ungroup()
   }

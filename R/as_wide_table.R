@@ -134,7 +134,7 @@ as_wide_table2 <- function(austraits){
   austraits$locations <- 
     austraits$locations %>% 
     dplyr::filter(value!="unknown") %>% 
-    dplyr::rename("property" = "location_property") %>%
+    dplyr::rename(property = "location_property") %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table2)
   
@@ -249,7 +249,7 @@ as_wide_table1 <- function(austraits){
     dplyr::filter(value!="unknown") %>% 
     # next line is a fix -- one dataset in 3.0.2 has value "site_name"
     dplyr::mutate(site_property = gsub("site_name", "name", site_property)) %>%
-    dplyr::rename("property" = "site_property") %>%
+    dplyr::rename(property = "site_property") %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table)
   
