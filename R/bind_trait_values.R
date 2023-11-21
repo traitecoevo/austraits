@@ -26,7 +26,7 @@ bind_trait_values <- function(trait_data) {
     if(nrow(.data) > 1) {
       return(
         .data %>% 
-          dplyr::mutate(value = bind_x(value),
+          dplyr::mutate(value = bind_x(.data$value),
                         value_type = bind_x(value_type),
                         replicates = bind_x(replicates)) %>%
           dplyr::filter(dplyr::row_number()==1) 

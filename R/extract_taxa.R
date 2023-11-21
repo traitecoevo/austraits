@@ -19,6 +19,11 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NU
   # Switch for different versions
   version <- what_version(austraits)
   
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
+  
   switch (version,
           'new' = extract_taxa2(austraits, family, genus, taxon_name),
           'old' = extract_taxa1(austraits, family, genus, taxon_name),

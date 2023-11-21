@@ -15,8 +15,8 @@
 summarise_trait_means <- function(trait_data){
   suppressWarnings(
     trait_data  %>% 
-      dplyr::mutate(value = as.numeric(value),
-                    replicates = as.numeric(replicates)) -> trait_data
+      dplyr::mutate(value = as.numeric(.data$value),
+                    replicates = as.numeric(.data$replicates)) -> trait_data
   )
   
   # Identify which ones need summarising
@@ -24,14 +24,14 @@ summarise_trait_means <- function(trait_data){
     dplyr::group_by(trait_name, observation_id) %>% 
     dplyr::summarise(dplyr::n()) %>% 
     dplyr::filter(`dplyr::n()` > 1) %>%
-    dplyr::select(trait_name, observation_id)
+    dplyr::select("trait_name", observation_id)
   
   # # Identify which ones that don't need to change
   original <- trait_data %>%
     dplyr::group_by(trait_name, observation_id) %>%
     dplyr::summarise(dplyr::n()) %>%
     dplyr::filter(! `dplyr::n()`  > 1) %>%
-    dplyr::select(trait_name, observation_id)
+    dplyr::select("trait_name", "observation_id")
 
   original_df <- purrr::map2_dfr(original$trait_name, original$observation_id,
                                  ~ dplyr::filter(trait_data, trait_name == .x & observation_id == .y))
@@ -57,5 +57,5 @@ summarise_trait_means <- function(trait_data){
   ret <- dplyr::bind_rows(original_df, target_bound)
 
   # Sort by observation_id and return
-  ret %>% dplyr::arrange(observation_id)
+  ret %>% dplyr::arrange(.data$observation_id)
 }

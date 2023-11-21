@@ -267,12 +267,12 @@ The core components are defined as follows.
    <td style="text-align:left;"> Name given to taxon in the original data supplied by the authors </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> cleaned_name </td>
+   <td style="text-align:left;"> aligned_name </td>
    <td style="text-align:left;"> Name of the taxon after implementing any changes encoded for this taxon in the metadata file in the specified correpsonding `dataset_id`. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> taxonIDClean </td>
-   <td style="text-align:left;"> Where it could be indentified, the `taxonID` of the cleaned_name for this taxon in the APC. </td>
+   <td style="text-align:left;"> Where it could be indentified, the `taxonID` of the aligned_name for this taxon in the APC. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> taxonomicStatusClean </td>
@@ -280,7 +280,7 @@ The core components are defined as follows.
   </tr>
   <tr>
    <td style="text-align:left;"> alternativeTaxonomicStatusClean </td>
-   <td style="text-align:left;"> The status of alternative records with the name `cleaned_name` in the APC. </td>
+   <td style="text-align:left;"> The status of alternative records with the name `aligned_name` in the APC. </td>
   </tr>
   <tr>
    <td style="text-align:left;"> acceptedNameUsageID </td>

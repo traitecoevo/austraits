@@ -22,7 +22,7 @@ Encoding: UTF-8
 Language: en
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 4.0.0),
     RefManageR
@@ -41,12 +41,13 @@ Imports:
     janitor,
     lifecycle,
     ggplot2,
-    ggpointdensity, 
+    ggpointdensity,
     ggbeeswarm (>= 0.7.1),
     gridExtra,
     scales,
     forcats,
-    viridis
+    viridis,
+    lubridate
 Suggests: 
     knitr,
     rmarkdown,

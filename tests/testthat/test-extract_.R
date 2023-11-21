@@ -4,7 +4,7 @@ library(stringr)
 austraits <- list(austraits_lite,
                   austraits_lite_post)
 
-dataset_id = "Wright_2019"
+dataset_id = "Falster_2003"
 trait_name = "leaf_area"
 family = "Rubiaceae"
 genus = "Eucalyptus"

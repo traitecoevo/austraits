@@ -18,6 +18,11 @@ extract_dataset <- function(austraits, dataset_id) {
   # Switch for different versions
   version <- what_version(austraits)
   
+  if(what_version(austraits) %in% c("4-series", "5-series")){
+    version <- "new" 
+  } else
+    version <- "old"
+  
   switch (version,
           'new' = extract_dataset2(austraits, dataset_id),
           'old' = extract_dataset1(austraits, dataset_id),
