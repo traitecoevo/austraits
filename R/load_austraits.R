@@ -224,7 +224,7 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   
   # Sort old to new
   metadata <- metadata |> 
-  arrange(desc(publication_date))
+  dplyr::arrange(dplyr::desc(publication_date))
   
   # Grab the first version
   dplyr::first(metadata$version) |> as.character()
