@@ -1,6 +1,6 @@
 library(purrr)
 
-versions <- c("3.0.2", "4.0.0")
+versions <- c("3.0.2", "4.2.0", "5.0.0")
 path = "ignore/data/austraits"
 
 test_get_versions <- function(version, path){

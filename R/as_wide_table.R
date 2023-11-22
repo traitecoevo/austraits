@@ -63,7 +63,6 @@ as_wide_table3 <- function(austraits){
   # rename taxonomic_dataset field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    # dplyr::rename("taxonNameValidation" = "taxonomic_dataset") %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -141,7 +140,6 @@ as_wide_table2 <- function(austraits){
   # rename taxonomic_dataset field to reflect the APC/APNI name matching process better
   austraits$taxa <- 
     austraits$taxa %>% 
-    dplyr::rename("taxonNameValidation" = "taxonomic_dataset") %>% 
     dplyr::distinct()
   
   austraits_wide <- 
@@ -151,7 +149,7 @@ as_wide_table2 <- function(austraits){
     dplyr::left_join(by=c("taxon_name"), austraits$taxa)
   
   # reorder the names to be more intuitive
-  austraits_wide %>% dplyr::select(dplyr::any_of(
+  austraits_wide %>% dplyr::select(dplyr::any_of(c(
     
     # The most useful (if you are filtering for just one taxon_name)
     "dataset_id", "observation_id", "trait_name", "taxon_name", "value", "unit", 
@@ -168,7 +166,7 @@ as_wide_table2 <- function(austraits){
     "latitude (deg)", "longitude (deg)", "location", "plot_id",
     
     #stuff relating to contexts and methods
-    "context", "methods", "method_id", "original_name",
+    "context", "methods", "original_name",
     
     #the citations
     "dataset_description", "source_primary_citation", "source_secondary_citation",
@@ -177,7 +175,9 @@ as_wide_table2 <- function(austraits){
     "taxonomic_status", "taxon_distribution", 
     "taxon_rank", "genus", "family"
 
-  ))
+  )
+  )
+  )
   
   austraits_wide
 }

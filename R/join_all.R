@@ -87,7 +87,7 @@ join_methods <- function(austraits, ...) {
   # Switch for different versions
   version <- what_version(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
+  if(what_version(austraits) == "5-series"){
     version <- "new" 
   } else
     version <- "old"

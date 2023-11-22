@@ -1,8 +1,9 @@
 library(purrr)
 library(stringr)
 
-austraits <- list(austraits_lite,
-                  austraits_lite_post)
+austraits <- list(austraits_3.0.2_lite,
+                  austraits_4.2.0_lite, 
+                  austraits_5.0.0_lite)
 
 dataset_id = "Falster_2003"
 trait_name = "leaf_area"
