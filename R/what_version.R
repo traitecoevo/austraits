@@ -4,15 +4,20 @@
 #' @return binary version for switch statements
 #' @noRd
 #' @keywords internal
+#' 
 what_version <- function(austraits){
   version <- austraits$build_info$version %>% as.character()
-  
+
   if(package_version(version) <= '3.0.2'){
-    ret_version <- "old"
-  } 
-  
-  if(package_version(version) > '3.0.2'){
-    ret_version <- "new"
-  } 
+    ret_version <- "3-series-earlier"
+  }
+
+  if(package_version(version) > '3.0.2' & package_version(version) < '5.0.0'){
+    ret_version <- "4-series"
+  }
+
+  if(package_version(version) >='5.0.0'){
+    ret_version <- "5-series"
+  }
   ret_version
 }

@@ -28,24 +28,39 @@
 #
 trait_pivot_longer <- function(wide_data){
   # Determine version using col names of traits table
-  if(any(str_detect(names(wide_data), "entity"))){
-    version = "newer"
-  } else(
-    version = "older"
-  )
+  if(any(names(wide_data) %in% "treatment_context_id")){
+    version = "5-series"
+  }
+  
+  if(any(str_detect(names(wide_data), "entity")) & any(names(wide_data) %in% "treatment_id")){
+    version = "4-series"
+  } 
+  
+  if(! any(str_detect(names(wide_data), "entity")))
+    version = "3-series-earlier"
   
   # Switch how traits are pivoted wider based on version
   switch (version,
-          'newer' = trait_pivot_longer2(wide_data),
-          'older' = trait_pivot_longer1(wide_data))
+          "5-series" = trait_pivot_longer3(wide_data),
+          "4-series" = trait_pivot_longer2(wide_data),
+          "3-series-earlier" = trait_pivot_longer1(wide_data))
+  
 }
 
-#' Gathers 'widened' data for > v3.0.2
+#' Gathers 'widened' data for >= v5.0.0
+#' @noRd
+#' @keywords internal
+trait_pivot_longer3 <- function(wide_data) {
+  wide_data %>%
+    tidyr::pivot_longer(cols = 20:ncol(.), names_to = "trait_name", values_drop_na = TRUE) 
+}
+
+#' Gathers 'widened' data for > v3.0.2 < 5.0.0
 #' @noRd
 #' @keywords internal
 trait_pivot_longer2 <- function(wide_data) {
   wide_data %>%
-    pivot_longer(cols = 18:ncol(.), names_to = "trait_name", values_drop_na = TRUE) 
+    tidyr::pivot_longer(cols = 18:ncol(.), names_to = "trait_name", values_drop_na = TRUE) 
 }
 
 #' Gathers 'widened' data for <= v3.0.2
@@ -74,7 +89,7 @@ trait_pivot_longer1 <- function(wide_data) {
     )
   
   ret <- ret %>% 
-    dplyr::mutate(value = dplyr::na_if(value, y = "NA")) %>%
+    #dplyr::mutate(value = dplyr::na_if(value, y = "NA")) %>%
     dplyr::filter(!is.na(value)) %>%
     dplyr::distinct() %>% 
     dplyr::arrange(observation_id, trait_name) %>%

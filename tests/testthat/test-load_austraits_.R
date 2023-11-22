@@ -21,8 +21,7 @@ test_that("get_versions is working", {
 
 test_that("Right errors are tripped", {
   expect_error(load_austraits("3.0.6", path = path))
-  expect_error(load_austraits(doi = "10.5281/zenodo.5112005",
-                                   path = path))
+  expect_error(load_austraits(doi = "10.5281/zenodo.5112005", path = path))
   expect_error(load_austraits(path = NULL))
 })
 

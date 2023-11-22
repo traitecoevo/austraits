@@ -24,7 +24,12 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   if(rlang::is_missing(path)){
     stop("File path must be supplied!")
   }
-  
+
+  #remove v from version
+  if (!is.null(version)) {
+    version <- stringr::str_remove_all(version, "v")
+  }
+
   # Does the path exist? 
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
@@ -57,21 +62,24 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   version_name <- paste0("v", version)
   
   # Getting specific version
+  id <- ret[which(ret$version == version), "id"] |> as.character()
+  
   target <- res$hits$hits$files[[version_name]]
   
   # Setting up the pars
-  url <- target$links$self[1]
-  file_path <- file.path(path, target$key[1])
+  url <- target$links$self[grep(".rds", target$links$self, fixed = TRUE)]
   
+  file_nm <- file.path(path, target$key[grep(".rds", target$key, fixed = TRUE)])
+
   #Check if version/doi is download, if not download
-  if(! file.exists(file_path)){
+  if(! file.exists(file_nm)){
     # Downloading file
-    download_austraits(url, file_path, path = path)
+    download_austraits(url, file_nm, path = path)
   }
   
   # Loading the .rds
-  message("Loading data from '", file_path,"'")
-  data <- readRDS(file_path) 
+  message("Loading data from '", file_nm,"'")
+  data <- readRDS(file_nm) 
   
   # Assign class
   attr(data, "class") <- "austraits"
@@ -91,7 +99,7 @@ load_json <- function(path, update){
   # Does the .json exist?
   if(! file.exists(file_json) | update == TRUE){
     # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/?q=conceptrecid:3568417&all_versions=true",
+    res <- jsonlite::read_json("https://zenodo.org/api/records/3568418/versions",
                                simplifyVector = T)
     # Save it
     jsonlite::write_json(res, file_json)
@@ -108,14 +116,18 @@ load_json <- function(path, update){
 
 create_metadata <- function(res){
   # Version table
-  ret <- dplyr::tibble(date = res$hits$hits$metadata$publication_date,
-                       version = stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]"),
-                       doi = res$hits$hits$metadata$doi) %>% 
-    dplyr::filter(! version < 1) %>% # Exclude any versions prior to 1.0.0
-    as.data.frame()
-  
-  # Order by numeric version
-  ret[order(dplyr::desc(numeric_version(ret$version))),]
+  ret <- res$hits$hits$metadata |> 
+    select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
+    dplyr::mutate(version = gsub("v", "", version) |> numeric_version(),
+                  id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
+                  )|>  # set as numeric version for easier filtering
+    dplyr::filter(version >= "3.0.2") |> # exclude everything pre 3.0.2
+    dplyr::mutate(version = as.character(version),
+                  publication_date = lubridate::ymd(publication_date)) |>  # change back as character
+    dplyr::tibble() |> 
+    arrange(dplyr::desc(publication_date))
+
+  ret
 }
 
 #' Function for loading .rds AusTraits files
@@ -207,13 +219,14 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   # Load the json
   res <- load_json(path = path, update = update)
   
-  # Get all versions and remove the 'v'
-  version_numbers <- stringr::str_extract(res$hits$hits$metadata$version, "[0-9]+\\.[0-9]+\\.[0-9]")
-
-  # Order by numeric version
-  version_numbers <- version_numbers[order(dplyr::desc(numeric_version(version_numbers)))]
+  # Create version table
+  metadata <- create_metadata(res) 
   
-  # Return the first value as the version we want
-  dplyr::first(version_numbers)
+  # Sort old to new
+  metadata <- metadata |> 
+  dplyr::arrange(dplyr::desc(publication_date))
+  
+  # Grab the first version
+  dplyr::first(metadata$version) |> as.character()
 }
 

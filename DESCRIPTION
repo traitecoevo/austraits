@@ -1,6 +1,6 @@
 Package: austraits
 Title: Helpful functions to access, summarise and wrangle austraits data
-Version: 2.1.2
+Version: 2.2.2
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
@@ -22,7 +22,7 @@ Encoding: UTF-8
 Language: en
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 4.0.0),
     RefManageR
@@ -39,20 +39,20 @@ Imports:
     utils,
     magrittr,
     janitor,
-    lifecycle
-Suggests: 
+    lifecycle,
     ggplot2,
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0),
-    markdown,
-    ggpointdensity, 
-    ggbeeswarm,
+    ggpointdensity,
+    ggbeeswarm (>= 0.7.1),
     gridExtra,
     scales,
     forcats,
     viridis,
-    kableExtra
+    lubridate
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    markdown
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://traitecoevo.github.io/austraits/
