@@ -1,7 +1,8 @@
 library(purrr)
 
-austraits <- list(austraits_lite,
-                 austraits_lite_post)
+austraits <- list(austraits_3.0.2_lite,
+                  austraits_4.2.0_lite, 
+                  austraits_5.0.0_lite)
 
 test_summarise <- function(austraits){
   test_that("Function works", {
@@ -29,9 +30,9 @@ map(austraits,
 
 test_summarise_output <- function(austraits){
   test_that("Output correct", {
-    family <- austraits_lite %>% summarise_austraits("family")
-    genus <- austraits_lite %>% summarise_austraits("genus")
-    trait_nm <- austraits_lite %>% summarise_austraits("trait_name")
+    family <- austraits %>% summarise_austraits("family")
+    genus <- austraits %>% summarise_austraits("genus")
+    trait_nm <- austraits %>% summarise_austraits("trait_name")
     
     expect_length(family, 5)
     expect_length(genus, 5)
@@ -41,14 +42,14 @@ test_summarise_output <- function(austraits){
     expect_named(genus, expected = c("genus", "n_records", "n_dataset", "n_taxa", "percent_total"))
     expect_named(trait_nm, expected = c("trait_name", "n_records", "n_dataset", "n_taxa", "percent_total"))
     
-    actual_family <- austraits_lite$taxa$family %>% unique() 
-    actual_genus <- austraits_lite$taxa$genus %>% unique() 
+    actual_family <- austraits$taxa$family %>% unique() 
+    actual_genus <- austraits$taxa$genus %>% unique() 
     
     expect_equal(nrow(family), actual_family[! is.na(actual_family)] %>% length())
     expect_equal(nrow(genus), actual_genus[! is.na(actual_genus)] %>% length())
-    expect_equal(nrow(trait_nm), austraits_lite$traits$trait_name %>% unique() %>% length())
+    expect_equal(nrow(trait_nm), austraits$traits$trait_name %>% unique() %>% length())
   })
 }
 
 map(austraits, 
-    ~ test_summarise_output())
+    ~ test_summarise_output(.x))

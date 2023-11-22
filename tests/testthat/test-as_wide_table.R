@@ -1,7 +1,8 @@
 library(purrr)
 
-austraits <- list(austraits_lite,
-                  austraits_lite_post)
+austraits <- list(austraits_3.0.2_lite,
+                  austraits_4.2.0_lite, 
+                  austraits_5.0.0_lite)
 
 test_widetable_success <- function(austraits){
   test_that("Function is working", {

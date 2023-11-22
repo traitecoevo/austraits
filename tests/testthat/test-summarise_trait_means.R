@@ -1,5 +1,4 @@
-austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits") %>%
-  extract_dataset("Falster_2003")
+austraits <- austraits_3.0.2_lite
 
 test_that("Function output is correct", {
   target <- austraits$traits %>% 
