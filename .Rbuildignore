@@ -10,3 +10,4 @@
 ^pkgdown$
 ^ignore$
 ^austraits$
+^codecov\.yml$
