@@ -67,9 +67,6 @@
     <loc>https://traitecoevo.github.io/austraits/reference/join_sites.html</loc>
   </url>
   <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/list1_to_df.html</loc>
-  </url>
-  <url>
     <loc>https://traitecoevo.github.io/austraits/reference/load_austraits.html</loc>
   </url>
   <url>
@@ -77,15 +74,6 @@
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/lookup_trait.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/my_kable_styling_html.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/my_kable_styling_markdown.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/my_kable_styling_pdf.html</loc>
   </url>
   <url>
     <loc>https://traitecoevo.github.io/austraits/reference/pipe.html</loc>

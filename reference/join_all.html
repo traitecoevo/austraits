@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">austraits</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.2</span>
       </span>
     </div>
 
@@ -72,10 +72,7 @@
 <span></span>
 <span><span class="fu">join_taxonomy</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">join_methods</span><span class="op">(</span></span>
-<span>  <span class="va">austraits</span>,</span>
-<span>  vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"methods"</span>, <span class="st">"year_collected_start"</span>, <span class="st">"year_collected_end"</span>, <span class="st">"collection_type"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<span><span class="fu">join_methods</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">join_locations</span><span class="op">(</span><span class="va">austraits</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -90,10 +87,6 @@
 
 <dt>...</dt>
 <dd><p>arguments passed to <code>vars</code> to subset the columns</p></dd>
-
-
-<dt>vars</dt>
-<dd><p>variables to select from the respective table where information is being joined from. Not available for contexts table</p></dd>
 
 </dl></div>
     <div id="value">
@@ -119,7 +112,7 @@
 <span class="r-in"><span><span class="op">(</span><span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">join_contexts</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Append methods</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">join_methods</span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"method_id"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Append taxonomic details</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="va">join_taxonomy</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></span></span>
@@ -141,7 +134,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
