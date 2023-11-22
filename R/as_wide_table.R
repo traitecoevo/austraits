@@ -166,7 +166,7 @@ as_wide_table2 <- function(austraits){
     "latitude (deg)", "longitude (deg)", "location", "plot_id",
     
     #stuff relating to contexts and methods
-    "context", "methods", "method_id", "original_name",
+    "context", "methods", "original_name",
     
     #the citations
     "dataset_description", "source_primary_citation", "source_secondary_citation",
