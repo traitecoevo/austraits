@@ -1,6 +1,6 @@
 Package: austraits
 Title: Helpful functions to access, summarise and wrangle austraits data
-Version: 2.2.2
+Version: 2.2.3
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
@@ -39,7 +39,8 @@ Imports:
     utils,
     magrittr,
     janitor,
-    lifecycle,
+    lifecycle
+Suggests: 
     ggplot2,
     ggpointdensity,
     ggbeeswarm (>= 0.7.1),
@@ -47,8 +48,7 @@ Imports:
     scales,
     forcats,
     viridis,
-    lubridate
-Suggests: 
+    lubridate,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
