@@ -19,9 +19,13 @@ check_compatibility <- function(austraits) {
     filter(relation_type == "isCompiledBy", stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
   
   if(nrow(compiled_by_traits.build) > 0) {
-    TRUE
+    compatible <- TRUE
   } else{
-    FALSE
+    compatible <- FALSE
+    
+    writeLines(sprintf("You are working with a version of AusTraits unsupported by the current version of this package."))
+    writeLines(sprintf("Please see https://github.com/traitecoevo/austraits for details on installing old versions."))
   }
   
+  compatible
 }
