@@ -55,6 +55,25 @@ Otherwise, for a lightweight installation where dependencies for plotting and th
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 ```
 
+#### Backwards compatibility with old AusTraits versions
+
+In September 2024 austraits functions were revamped to support all [traits.build](https://github.com/traitecoevo/traits.build) compiled databases, rather than being linked to [austraits.build](https://github.com/traitecoevo/austraits.build).
+
+Versions of austraits.build (the AusTraits plant trait database) < 5.0 are no longer supported by the current functions. If you are working with an older version of AusTraits, please install an older version of austraits:
+
+For austraits.build versions 4.2 and older: 
+```{r setup, results = 'hide', eval = FALSE}
+#install.packages("remotes")
+remotes::install_github("traitecoevo/austraits@53b637c", dependencies = TRUE, upgrade = "ask")
+
+library(austraits)
+```
+
+Note, if you are unsure what version of AusTraits you are working with, run:
+```{r setup, results = 'hide', eval = FALSE}
+austraits$build_info$version
+```
+
 
 ### Take a good look at our vignettes! `r emo::ji("eyes")`
 

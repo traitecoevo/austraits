@@ -22,7 +22,7 @@ Encoding: UTF-8
 Language: en
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends: 
     R (>= 4.0.0),
     RefManageR
@@ -39,7 +39,8 @@ Imports:
     utils,
     magrittr,
     janitor,
-    lifecycle
+    lifecycle,
+    tibble
 Suggests: 
     ggplot2,
     ggpointdensity,
