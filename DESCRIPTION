@@ -39,7 +39,8 @@ Imports:
     utils,
     magrittr,
     janitor,
-    lifecycle
+    lifecycle,
+    tibble
 Suggests: 
     ggplot2,
     ggpointdensity,

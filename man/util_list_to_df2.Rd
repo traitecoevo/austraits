@@ -22,3 +22,4 @@ demo_list2 <- list(word1 = "and", word2 = "a", word3 = "second", word4 = "list",
 combined_list <- list(demo_list1, demo_list2)
 util_list_to_df2(combined_list)
 }
+\keyword{internal}
