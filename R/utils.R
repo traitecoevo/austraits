@@ -7,6 +7,7 @@
 #' @param on_empty Value to return if my_list is NULL, NA or is length == 0, default = NA
 #'
 #' @keywords internal
+#' @noRd
 #' @examples demo_list1 <- list(word1 = "this", word2 = "is", word3 = "an", word4 = "example", word5 = "list")
 #' demo_list2 <- list(word1 = "and", word2 = "a", word3 = "second", word4 = "list", word5 = "also")
 #' combined_list <- list(demo_list1, demo_list2)

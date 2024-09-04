@@ -17,8 +17,7 @@ check_compatibility <- function(austraits) {
     
     compatible <- FALSE
     
-    writeLines(sprintf("You are working with AusTraits version 3.0 or earlier. This database structure is unsupported by the current version of this package."))
-    writeLines(sprintf("Please see https://github.com/traitecoevo/austraits for details on installing old versions."))
+    message("You are working with AusTraits version 3.0 or earlier. \nThis database structure is unsupported by the current version of this package. \nPlease see https://github.com/traitecoevo/austraits for details on installing old versions of the package.")
     
   } else {
     
@@ -32,8 +31,7 @@ check_compatibility <- function(austraits) {
     } else{
       compatible <- FALSE
       
-      writeLines(sprintf("You are working with AusTraits version 4, which is unsupported by the current version of this package."))
-      writeLines(sprintf("Please see https://github.com/traitecoevo/austraits for details on installing old versions."))
+      message("You are working with AusTraits version 4, which is unsupported by the current version of this package. \nPlease see https://github.com/traitecoevo/austraits for details on installing old versions of the package.")
     }
     
   }
