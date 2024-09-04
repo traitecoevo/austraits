@@ -7,7 +7,11 @@
 #' @param on_empty Value to return if my_list is NULL, NA or is length == 0, default = NA
 #'
 #' @export
-#' @examples util_list_to_df2(util_df_to_list(dplyr::starwars))
+#' @examples demo_list1 <- list(word1 = "this", word2 = "is", word3 = "an", word4 = "example", word5 = "list")
+#' demo_list2 <- list(word1 = "and", word2 = "a", word3 = "second", word4 = "list", word5 = "also")
+#' combined_list <- list(demo_list1, demo_list2)
+#' util_list_to_df2(combined_list)
+
 util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
   
   if (is.null(my_list) || any(is.na(my_list)) || length(my_list) == 0)

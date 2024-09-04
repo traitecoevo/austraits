@@ -17,5 +17,8 @@ util_list_to_df2(my_list, as_character = TRUE, on_empty = NA)
 Convert a list of lists to dataframe; requires that every list have same named elements.
 }
 \examples{
-util_list_to_df2(util_df_to_list(dplyr::starwars))
+demo_list1 <- list(word1 = "this", word2 = "is", word3 = "an", word4 = "example", word5 = "list")
+demo_list2 <- list(word1 = "and", word2 = "a", word3 = "second", word4 = "list", word5 = "also")
+combined_list <- list(demo_list1, demo_list2)
+util_list_to_df2(combined_list)
 }
