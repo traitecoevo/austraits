@@ -2,3 +2,4 @@
 - Updated dependencies, placing graphics related packages in Suggests
 - Added internal function to check the compatibility of databases
 - Added internal function notify users that some database versions will not be supported
+- No longer support AusTraits version <5.0.0 in `extract_*` functions
