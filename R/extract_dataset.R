@@ -17,12 +17,12 @@
 extract_dataset <- function(austraits, dataset_id) {
   
   # Check compatability
-  status <- check_compatibility(austraits)
+  status <- suppressMessages(check_compatibility(austraits))
   
   # Switch for different versions
   version <- what_version(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
+  if(what_version(austraits) %in% c("4-series", "5-series") | status){
     version <- "new" 
   } else
     version <- "old"
@@ -38,9 +38,23 @@ extract_dataset <- function(austraits, dataset_id) {
 #' @description `r lifecycle::badge("deprecated")`
 extract_dataset1 <- function(austraits, dataset_id){
   
-  .Deprecated(msg = paste("'extract_dataset' is deprecated in version", 
-                          packageVersion("austraits"),
-                          "of austraits."))
+  # Extract function name
+  function_name <- deparse(as.character(sys.calls()[[1]])[[1]])
+  
+  # .Deprecated(msg = paste("'extract_dataset' is deprecated in version", 
+  #                         packageVersion("austraits"),
+  #                         "of austraits."))
+  # 
+  
+  AusTraits_version <- print_version(austraits)
+  
+  cli::cli_bullets(c(
+    "x" = "{function_name} no longer supports AusTraits version {AusTraits_version}",
+    "i" = "You can either update to a newer version of the data using `load_austraits()` OR",
+    "i" = "Install an older version of the package", 
+    "i" = "See https://github.com/traitecoevo/austraits for details."
+  )
+  )
   
   # austraits$taxonomic_updates <-
   #   tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")

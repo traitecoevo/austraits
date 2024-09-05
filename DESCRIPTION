@@ -40,7 +40,8 @@ Imports:
     magrittr,
     janitor,
     lifecycle,
-    tibble
+    tibble,
+    cli
 Suggests: 
     ggplot2,
     ggpointdensity,
