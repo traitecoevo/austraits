@@ -17,24 +17,17 @@
 
 extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
   # Check compatability
-  status <- suppressMessages(check_compatibility(austraits))
+  status <- check_compatibility(austraits)
   
-  # Switch for different versions
-  version <- what_version(austraits)
-  
-  if(what_version(austraits) %in%  "5-series" | status){
-    version <- "new" 
+  # If compatible
+  if(status){
+    extract_taxa2(austraits, family, genus, taxon_name)
   } else
-    version <- "old"
-  
-  switch (version,
-          'new' = extract_taxa2(austraits, family, genus, taxon_name),
-          'old' = extract_taxa1(austraits, family, genus, taxon_name),
-  )
+    function_not_supported(austraits)
 }
 
 
-#'Extract taxa >3.0.2
+#'Extract taxa for supported versions of databases
 #' @noRd
 #' @keywords internal
 extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
@@ -98,16 +91,6 @@ extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
   attr(ret, "class") <- "austraits"
   
   ret
-}
-
-  
-#'Extract taxa <=3.0.2
-#' @noRd
-#' @keywords internal
-extract_taxa1 <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
-  
-  function_not_supported(austraits)
-
 }
 
   
