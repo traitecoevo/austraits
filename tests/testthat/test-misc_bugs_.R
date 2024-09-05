@@ -3,7 +3,7 @@
 # Want this file to come after loading so that dataset is available
 
 test_that("Dataframe is extracted correctly", {
-  austraits <- load_austraits(version = "3.0.2", path = "ignore/data/austraits")
+  austraits <- load_austraits(version = "5.0.0", path = "ignore/data/austraits")
   
   # Extract Veronica first
   veronica <- extract_taxa(austraits, genus = "Veronica")
