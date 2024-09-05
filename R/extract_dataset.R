@@ -51,6 +51,7 @@ extract_dataset2 <- function(austraits, dataset_id){
   ret[["definitions"]] <- austraits[["definitions"]]
   ret[["build_info"]] <- austraits[["build_info"]]
   ret[["schema"]] <- austraits[["schema"]]
+  ret[["metadata"]] <- austraits[["metadata"]]
   
   keys <- dplyr::union(ret$methods$source_primary_key, 
                        ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
