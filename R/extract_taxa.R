@@ -106,67 +106,8 @@ extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = N
 #' @keywords internal
 extract_taxa1 <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
   
-  ret <- austraits
-  
-  if(missing(family) & missing(genus) & missing(taxon_name)){
-    abort("Either `family`, `genus` or `taxon_name`, must be supplied!")
-  }
-  
-  if( ! is.null(family) ){
-    # Retrieving all taxon name that falls under family
-    target_in <- stringr::str_which(austraits$taxa$family, paste(family, collapse = "|"))
-    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(taxon_name) 
-  }
-  
-  if( ! is.null(genus) ){
-    # Retrieving all taxon name that falls under genus
-    target_in <- stringr::str_which(austraits$taxa$genus, paste(genus, collapse = "|"))
-    target_taxa <- austraits$taxa %>% dplyr::slice(target_in) %>% dplyr::pull(taxon_name) 
-  }
-  
-  if( ! is.null(taxon_name)){
-    target_taxa <- taxon_name
-  }
-  
-  # Extract data for target_sp
-  ret[["traits"]] <- ret[["traits"]] %>% 
-    dplyr::filter(taxon_name %in% target_taxa)
-  
-  ids <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
-  
-  ret[["sites"]] <- austraits[["sites"]] %>% dplyr::filter(site_name %in% ret[["traits"]][["site_name"]], dataset_id %in% ids)
-  
-  ret[["contexts"]] <- austraits[["contexts"]] %>% dplyr::filter(context_name %in% ret[["traits"]][["context_name"]], dataset_id %in% ids)
-  
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
-  
-  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
-  # Fix formatting for dataset ids
-  ret$taxonomic_updates <-
-    tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
-  
-  ret[["excluded_data"]] <- austraits[["excluded_data"]] %>% dplyr::filter(taxon_name %in% target_taxa)
-  
-  ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(dataset_id %in% ids)
-  
-  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(dataset_id %in%ids)
-  
-  ret[["definitions"]] <- austraits[["definitions"]]
-  
-  ret[["build_info"]] <- austraits[["build_info"]]
-  
-  # if numeric, convert to numeric
-  suppressWarnings(
-    ret[["traits"]][["value"]] <- ifelse(! is.na(ret[["traits"]][["unit"]]), 
-                                       as.numeric(ret[["traits"]][["value"]]),
-                                       ret[["traits"]][["value"]])
-    
-  )
-  
-  # Assign class
-  attr(ret, "class") <- "austraits"
-  
-  ret
+  function_not_supported(austraits)
+
 }
 
   

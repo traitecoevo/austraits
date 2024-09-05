@@ -23,3 +23,31 @@ util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
   
   dplyr::bind_rows(lapply(my_list, tibble::as_tibble))
 }
+
+
+#' Title
+#'
+#' @param austraits 
+#'
+#' @return
+#' @keywords internal
+#' @noRd
+#'
+#' @examples
+function_not_supported <- function(austraits, ...){
+  
+  # Extract function name
+  function_name <- as.character(sys.calls()[[1]])[1]
+  
+  # Extract AusTraits version
+  AusTraits_version <- print_version(austraits)
+  
+  # Formulate message
+  cli::cli_bullets(c(
+    "x" = "{function_name} no longer supports AusTraits version {AusTraits_version}",
+    "i" = "You can either update to a newer version of the data using `load_austraits()` OR",
+    "i" = "Install an older version of the package", 
+    "i" = "See https://github.com/traitecoevo/austraits for details."
+  )
+  )
+}
