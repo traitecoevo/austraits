@@ -36,8 +36,8 @@ bind_trait_values <- function(trait_data) {
   }
   
   trait_data  %>% 
-    dplyr::group_by(observation_id, trait_name) %>% 
+    dplyr::group_by(dataset_id, observation_id, trait_name, method_id, method_context_id, repeat_measurements_id) %>% 
     bind_values_worker() %>% 
     dplyr::ungroup() %>% 
-    dplyr::arrange(observation_id, trait_name, value_type)
+    dplyr::arrange(dataset_id, observation_id, trait_name, value_type, method_id, method_context_id, repeat_measurements_id)
 }

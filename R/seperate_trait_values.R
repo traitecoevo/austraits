@@ -39,19 +39,21 @@ separate_trait_values <- function(data, definitions) {
   out_1 <- data %>% 
     dplyr::filter(n_vals == 1)
   
-  # separate out those rows requiring modification & modify
-  out_2 <- data %>% 
-    dplyr::filter(n_vals > 1) %>% 
-    dplyr::group_split(stringr::str_c(observation_id, trait_name, sep = " ")) %>%    
-    lapply(separate_values_worker) %>% 
-    dplyr::bind_rows() %>% 
-    dplyr::select(dataset_id:n_vals)
-  
-  # join it all back together, clean up and sort as in original
-  dplyr::bind_rows(out_1, out_2) %>% 
-    dplyr::select(-n_vals) %>% 
-    dplyr::mutate(replicates = clean_NA(replicates),
-                  value_type = factor(clean_NA(value_type), levels = names(definitions$definitions$value_type$values))
-    ) %>% 
-    dplyr::arrange(observation_id, trait_name, value_type)
+  if (nrow(dplyr::filter(out_1, n_vals > 1)) > 0) {
+    # separate out those rows requiring modification & modify
+    out_2 <- data %>% 
+      dplyr::filter(n_vals > 1) %>% 
+      dplyr::group_split(stringr::str_c(dataset_id, observation_id, trait_name, method_id, method_context_id, repeat_measurements_id, sep = " ")) %>%    
+      lapply(separate_values_worker) %>% 
+      dplyr::bind_rows() %>% 
+      dplyr::select(dataset_id:n_vals)
+    
+    # join it all back together, clean up and sort as in original
+    dplyr::bind_rows(out_1, out_2) %>% 
+      dplyr::select(-n_vals) %>% 
+      dplyr::mutate(replicates = clean_NA(replicates),
+                    value_type = factor(clean_NA(value_type), levels = names(definitions$definitions$value_type$values))
+      ) %>% 
+      dplyr::arrange(observation_id, trait_name, value_type)
+  }
 }
