@@ -42,11 +42,12 @@ function_not_supported <- function(austraits, ...){
   AusTraits_version <- print_version(austraits)
   
   # Formulate message
-  cli::cli_bullets(c(
+  cli::cli_abort(c(
     "x" = "{function_name} no longer supports AusTraits version {AusTraits_version}",
     "i" = "You can either update to a newer version of the data using `load_austraits()` OR",
     "i" = "Install an older version of the package", 
     "i" = "See https://github.com/traitecoevo/austraits for details."
-  )
+  ),
+  call = rlang::caller_env()
   )
 }
