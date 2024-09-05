@@ -25,15 +25,14 @@ util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
 }
 
 
-#' Title
+#' Notify user the function they are using is no longer support
 #'
 #' @param austraits 
 #'
-#' @return
+#' @return cli messaging about the function name, the version of austraits they are using and their next options
 #' @keywords internal
 #' @noRd
-#'
-#' @examples
+
 function_not_supported <- function(austraits, ...){
   
   # Extract function name
