@@ -28,6 +28,7 @@ separate_trait_values <- function(data, definitions) {
       dplyr::mutate(
         value = separate_x(value[1]),
         value_type = separate_x(value_type[1]),
+        basis_of_value = separate_x(basis_of_value[1]),
         replicates = separate_x(replicates[1])
       )
   }
@@ -39,7 +40,7 @@ separate_trait_values <- function(data, definitions) {
   out_1 <- data %>% 
     dplyr::filter(n_vals == 1)
   
-  if (nrow(dplyr::filter(out_1, n_vals > 1)) > 0) {
+  if (nrow(dplyr::filter(data, n_vals > 1)) > 0) {
     # separate out those rows requiring modification & modify
     out_2 <- data %>% 
       dplyr::filter(n_vals > 1) %>% 

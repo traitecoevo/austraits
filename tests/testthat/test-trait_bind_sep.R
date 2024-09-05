@@ -1,5 +1,5 @@
 #Extract a dataset
-dataset_id <- c("Falster_2005_2")
+dataset_id <- c("ABRS_1981")
 subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id)
 bounded <- bind_trait_values(subset$traits)
 seperated <-separate_trait_values(data = bounded, austraits_5.0.0_lite$definitions)
