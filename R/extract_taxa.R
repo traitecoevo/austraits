@@ -16,10 +16,13 @@
 #' @export
 
 extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
+  # Check compatability
+  status <- suppressMessages(check_compatibility(austraits))
+  
   # Switch for different versions
   version <- what_version(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
+  if(what_version(austraits) %in% c("4-series", "5-series") | status){
     version <- "new" 
   } else
     version <- "old"

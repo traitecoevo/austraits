@@ -5,7 +5,7 @@
 #' @param austraits - A large list of tibbles built from austraits
 #' @param dataset_id - character string that matches a dataset_id in the data
 #' @return A large list of tibbles containing all austraits information for one particular dataset
-#' @details `extract_dataset()` no longer supports AusTraits version <= 5.0.0, see https://github.com/traitecoevo/austraits for details. `r lifecycle::badge("deprecated")` 
+#' @details `extract_dataset()` no longer supports AusTraits version <= 5.0.0, see [this page](https://github.com/traitecoevo/austraits) for details. `r lifecycle::badge("deprecated")` 
 #' @examples
 #' \dontrun{
 #' extract_dataset(austraits, "Falster_2003")

@@ -22,7 +22,7 @@ A large list of tibbles containing all austraits information for one particular 
 Function to subset of all data associated with a particular dataset from austraits
 }
 \details{
-\code{extract_dataset()} no longer supports AusTraits version <= 5.0.0, see https://github.com/traitecoevo/austraits for details. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{extract_dataset()} no longer supports AusTraits version <= 5.0.0, see \href{https://github.com/traitecoevo/austraits}{this page} for details. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \examples{
 \dontrun{
