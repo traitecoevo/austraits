@@ -1,25 +1,27 @@
 library(purrr)
 library(stringr)
 
-austraits <- list(austraits_3.0.2_lite,
-                  austraits_4.2.0_lite, 
-                  austraits_5.0.0_lite)
+not_supported_austraits <- list(austraits_3.0.2_lite, austraits_4.2.0_lite) 
 
 dataset_id = "Falster_2003"
 trait_name = "leaf_area"
 family = "Rubiaceae"
 genus = "Eucalyptus"
 
-test_extract_error <- function(austraits){
-  test_that("Error triggered", {
+test_that("Error message is triggered", {
+  expect_error(austraits_5.0.0_lite |> extract_taxa())
+})
+
+test_extract_message <- function(austraits){
+  test_that("Compatability message is triggered", {
     expect_error(austraits %>% extract_taxa())
     expect_error(austraits %>% extract_dataset())
     expect_error(austraits %>% extract_trait())
   })
 }
 
-walk(austraits, 
-    ~ test_extract_error(.x))
+walk(not_supported_austraits, 
+    ~ test_extract_message(.x))
 
 test_extract_runs <- function(austraits, family, genus, dataset_id, trait_name){
   test_that("Function runs", {

@@ -22,7 +22,7 @@ extract_dataset <- function(austraits, dataset_id) {
   # Switch for different versions
   version <- what_version(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series") | status){
+  if(what_version(austraits) %in% "5-series" | status){
     version <- "new" 
   } else
     version <- "old"
@@ -75,20 +75,9 @@ extract_dataset2 <- function(austraits, dataset_id){
 #' @noRd
 
 extract_dataset1 <- function(austraits, dataset_id){
-  # Extract function name
-  function_name <- deparse(as.character(sys.calls()[[1]])[[1]])
-  
-  # Extract AusTraits version
-  AusTraits_version <- print_version(austraits)
-  
-  # Formulate message
-  cli::cli_bullets(c(
-    "x" = "{function_name} no longer supports AusTraits version {AusTraits_version}",
-    "i" = "You can either update to a newer version of the data using `load_austraits()` OR",
-    "i" = "Install an older version of the package", 
-    "i" = "See https://github.com/traitecoevo/austraits for details."
-  )
-  )
-}
+
+  function_not_supported(austraits)
+
+  }
 
 
