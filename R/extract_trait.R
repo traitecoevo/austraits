@@ -18,7 +18,7 @@
 
 extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   # Check compatability
-  status <- suppressMessages(check_compatibility(austraits))
+  status <- check_compatibility(austraits)
   
   # Switch for different versions
   version <- what_version(austraits)

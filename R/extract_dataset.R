@@ -17,7 +17,7 @@
 extract_dataset <- function(austraits, dataset_id) {
   
   # Check compatability
-  status <- suppressMessages(check_compatibility(austraits))
+  status <- check_compatibility(austraits)
   
   # Switch for different versions
   version <- what_version(austraits)
