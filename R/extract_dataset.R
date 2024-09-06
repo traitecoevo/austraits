@@ -17,19 +17,12 @@ extract_dataset <- function(austraits, dataset_id) {
   
   # Check compatability
   status <- check_compatibility(austraits)
-  
-  # Switch for different versions
-  version <- what_version(austraits)
-  
-  if(what_version(austraits) %in% "5-series" | status){
-    version <- "new" 
+
+  # If compatible
+  if(status){
+    extract_dataset2(austraits, dataset_id)
   } else
-    version <- "old"
-  
-  switch (version,
-          'new' = extract_dataset2(austraits, dataset_id),
-          'old' = extract_dataset1(austraits, dataset_id),
-  )
+    function_not_supported(austraits)
 }
 
 #' @title Extract specific dataset from austraits object for versions >3.0.2

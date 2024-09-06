@@ -20,18 +20,11 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   # Check compatability
   status <- check_compatibility(austraits)
   
-  # Switch for different versions
-  version <- what_version(austraits)
-  
-  if(what_version(austraits) %in% "5-series" | status){
-    version <- "new" 
+  # If compatible
+  if(status){
+    extract_trait2(austraits, trait_names, taxon_names)
   } else
-    version <- "old"
-    
-  switch (version,
-          'new' = extract_trait2(austraits, trait_names, taxon_names),
-          'old' = extract_trait1(austraits, trait_names, taxon_names),
-  )
+    function_not_supported(austraits)
 }
 
 
