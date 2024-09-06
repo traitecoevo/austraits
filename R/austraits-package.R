@@ -56,5 +56,7 @@ utils::globalVariables(c("..density..",
                        "x",
                        "y", 
                        "publication_date",
-                       "doi")
+                       "doi",
+                       "relation_type",
+                       "identifier")
 )

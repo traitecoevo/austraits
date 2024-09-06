@@ -1,6 +1,3 @@
-library(purrr)
-library(stringr)
-
 not_supported_austraits <- list(austraits_3.0.2_lite, austraits_4.2.0_lite) 
 
 dataset_id = "Falster_2003"
@@ -20,7 +17,7 @@ test_extract_error <- function(austraits){
   })
 }
 
-walk(not_supported_austraits, 
+purrr::walk(not_supported_austraits, 
     ~ test_extract_error(.x))
 
 test_that("Function runs", {
@@ -48,16 +45,14 @@ test_that("extracted dataset has some structure as austraits build", {
   
   test_genus <- austraits_5.0.0_lite %>% extract_taxa(genus = genus)
   expect_equal(test_genus$taxa$genus %>% unique(), genus)
-  expect_equal(word(test_genus$taxa$taxon_name, 1)[1], genus)
-  expect_equal(word(test_genus$traits$taxon_name, 1)[1], genus)
+  expect_equal(stringr::word(test_genus$taxa$taxon_name, 1)[1], genus)
+  expect_equal(stringr::word(test_genus$traits$taxon_name, 1)[1], genus)
   
   test_fam <- austraits_5.0.0_lite %>% extract_taxa(family = family)
   expect_equal(test_fam$taxa$family %>% unique(), family)
 })
 
 
-
-  
 test_that("Extraction of dataset was successful", {
   subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id)
   trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name)
