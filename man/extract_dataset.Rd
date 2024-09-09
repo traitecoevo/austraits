@@ -2,15 +2,9 @@
 % Please edit documentation in R/extract_dataset.R
 \name{extract_dataset}
 \alias{extract_dataset}
-\alias{extract_dataset1}
-\alias{extract_dataset2}
 \title{Extract all data for a particular dataset}
 \usage{
 extract_dataset(austraits, dataset_id)
-
-extract_dataset1(austraits, dataset_id)
-
-extract_dataset2(austraits, dataset_id)
 }
 \arguments{
 \item{austraits}{\itemize{
@@ -26,6 +20,9 @@ A large list of tibbles containing all austraits information for one particular 
 }
 \description{
 Function to subset of all data associated with a particular dataset from austraits
+}
+\details{
+\code{extract_dataset()} no longer supports AusTraits version <= 5.0.0, see \href{https://github.com/traitecoevo/austraits}{this page} for details. \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 }
 \examples{
 \dontrun{

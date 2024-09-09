@@ -1,6 +1,5 @@
 
 test_that("Function doesn't throw error", {
-  expect_invisible(austraits_3.0.2_lite %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id", "Westoby_2014"))
   expect_invisible(austraits_5.0.0_lite %>% plot_trait_distribution_beeswarm("leaf_mass_per_area", "dataset_id", "Bloomfield_2018"))
   
   # this function is currently really slow, blokcing effective testing

@@ -21,3 +21,14 @@ what_version <- function(austraits){
   }
   ret_version
 }
+
+#' Print version of AusTraits object
+#'
+#' @param austraits austraits list object
+#' @return binary version for switch statements
+#' @noRd
+#' @keywords internal
+#' 
+print_version <- function(austraits){
+  austraits$build_info$version %>% as.character()
+}
