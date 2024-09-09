@@ -20,10 +20,10 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NU
   status <- check_compatibility(austraits)
   
   # If compatible
-  if(status){
-    extract_taxa2(austraits, family, genus, taxon_name)
-  } else
+  if(!status){
     function_not_supported(austraits)
+  } 
+  extract_taxa2(austraits, family, genus, taxon_name)
 }
 
 

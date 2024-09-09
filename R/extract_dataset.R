@@ -19,10 +19,10 @@ extract_dataset <- function(austraits, dataset_id) {
   status <- check_compatibility(austraits)
 
   # If compatible
-  if(status){
-    extract_dataset2(austraits, dataset_id)
-  } else
+  if(!status){
     function_not_supported(austraits)
+  }
+    extract_dataset2(austraits, dataset_id)
 }
 
 #' @title Extract specific dataset from austraits object for versions >3.0.2

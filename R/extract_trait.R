@@ -21,10 +21,11 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   status <- check_compatibility(austraits)
   
   # If compatible
-  if(status){
-    extract_trait2(austraits, trait_names, taxon_names)
-  } else
+  if(!status){
     function_not_supported(austraits)
+  } 
+  extract_trait2(austraits, trait_names, taxon_names)
+    
 }
 
 
