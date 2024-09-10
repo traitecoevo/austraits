@@ -139,25 +139,21 @@ join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)"))
 #' @export
 #' @rdname join_all
 
-join_contexts <- function(austraits,...){
-  # Switch for different versions
-  version <- what_version(austraits)
+join_contexts <- function(austraits, collapse_context = FALSE){
+  # Check compatability
+  status <- check_compatibility(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
-    version <- "new" 
-  } else
-    version <- "old"
-  
-  switch (version,
-          'new' = join_contexts2(austraits, ...),
-          'old' = join_contexts1(austraits, ...),
-  )
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+  join_contexts2(austraits, collapse_context)
 }
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
 #' @noRd
 #' @keywords internal
-join_contexts2 <- function(austraits, collapse_context = FALSE){
+join_contexts2 <- function(austraits, collapse_context){
 
   traits2 <- split(austraits$traits, austraits$traits$dataset_id)
   contexts2 <- split(austraits$contexts, austraits$contexts$dataset_id)
@@ -207,22 +203,4 @@ join_contexts2 <- function(austraits, collapse_context = FALSE){
   austraits
 }
 
-#' @title  Joining contexts info for AusTraits versions <= 3.0.2
-#' @noRd
-#' @keywords internal
-
-join_contexts1 <- function(austraits) {
-  
-  if(nrow(austraits$contexts) == 0)
-    return (austraits)
-  
-  contexts <- 
-    austraits$contexts %>% 
-    tidyr::pivot_wider(names_from = context_property, values_from = value)
-  
-  austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "context_name"), contexts)
-  
-  austraits
-}
 
