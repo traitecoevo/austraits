@@ -15,7 +15,10 @@ join_taxonomy(
   vars = c("family", "genus", "taxon_rank", "establishment_means")
 )
 
-join_methods(austraits, ...)
+join_methods(
+  austraits,
+  vars = c("methods", "year_collected_start", "year_collected_end", "collection_type")
+)
 
 join_locations(austraits, ...)
 

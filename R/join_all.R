@@ -99,35 +99,14 @@ join_methods2 <- function(austraits, vars) {
 #' @rdname join_all
 
 join_locations <- function(austraits, ...) {
-  # Switch for different versions
-  version <- what_version(austraits)
+  # Check compatability
+  status <- check_compatibility(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
-    version <- "new" 
-  } else
-    version <- "old"
-  
-  switch (version,
-          'new' = join_locations2(austraits, ...),
-          'old' = join_locations1(austraits, ...),
-  )
-}
-
-
-#' @title  Joining location info for AusTraits versions <= 3.0.2
-#' @noRd
-#' @keywords internal
-join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
-  
-  sites <- 
-    austraits$sites %>% 
-    dplyr::filter(site_property %in%  vars) %>% 
-    tidyr::pivot_wider(names_from = site_property, values_from = value)
-  
-  austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "site_name"), sites)
-  
-  austraits
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+  join_locations2(austraits, ...)
 }
 
 #' @title  Joining location info for AusTraits versions <= 3.0.2
@@ -138,9 +117,7 @@ join_locations1 <- function(austraits, vars =  c("longitude (deg)","latitude (de
 #' @export
 
 join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
-  .Deprecated("join_locations")
-  
-  join_locations1(austraits, vars =  c("longitude (deg)","latitude (deg)"))
+  function_not_supported(austraits)
 }
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
