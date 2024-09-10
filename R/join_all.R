@@ -67,26 +67,21 @@ join_taxonomy2 <- function(austraits, vars) {
 #' @export
 #' @rdname join_all
 
-join_methods <- function(austraits, ...) {
+join_methods <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+  # Check compatability
+  status <- check_compatibility(austraits)
   
-  # Switch for different versions
-  version <- what_version(austraits)
-  
-  if(what_version(austraits) == "5-series"){
-    version <- "new" 
-  } else
-    version <- "old"
-  
-  switch (version,
-          'new' = join_methods2(austraits, ...),
-          'old' = join_methods1(austraits, ...),
-  )
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+  join_methods2(austraits, vars)
 }
 
 #' @title Joining methods info for AusTraits versions > 3.0.2
 #' @noRd
 #' @keywords internal
-join_methods2 <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
+join_methods2 <- function(austraits, vars) {
   austraits$methods %>% 
     dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
     dplyr::distinct() -> methods
@@ -98,20 +93,6 @@ join_methods2 <- function(austraits, vars =  c("methods", "year_collected_start"
   austraits
 }
 
-#' @title Joining methods info for AusTraits versions<== 3.0.2
-#' @noRd
-#' @keywords internal
-join_methods1 <- function(austraits, vars =  c("methods", "year_collected_start", "year_collected_end", "collection_type")) {
-  austraits$methods %>% 
-    dplyr::select(c("dataset_id", "trait_name"), tidyselect::any_of(vars)) %>% 
-    dplyr::distinct() -> methods
-  
-  austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "trait_name"),
-                     methods, relationship = "many-to-many")
-  
-  austraits
-}
 #' @title Joining location information to traits table
 #' @export
 
