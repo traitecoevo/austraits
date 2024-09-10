@@ -29,6 +29,13 @@
 
 
 join_all <- function(austraits) {
+  # Check compatability
+  status <- check_compatibility(austraits)
+  
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  }
   austraits %>% 
     join_locations() %>% 
     join_taxonomy() %>% 
