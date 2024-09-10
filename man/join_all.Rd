@@ -10,7 +10,10 @@
 \usage{
 join_all(austraits)
 
-join_taxonomy(austraits, ...)
+join_taxonomy(
+  austraits,
+  vars = c("family", "genus", "taxon_rank", "establishment_means")
+)
 
 join_methods(austraits, ...)
 
