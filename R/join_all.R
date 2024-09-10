@@ -109,16 +109,6 @@ join_locations <- function(austraits, ...) {
   join_locations2(austraits, ...)
 }
 
-#' @title  Joining location info for AusTraits versions <= 3.0.2
-#' @description `r lifecycle::badge('deprecated')`
-#' Joining location info for AusTraits versions <= 3.0.2
-#' @param austraits austraits object
-#' @param vars  variables from site table to join 
-#' @export
-
-join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
-  function_not_supported(austraits)
-}
 
 #' @title  Joining location info for AusTraits versions > 3.0.2
 #' @noRd
@@ -135,6 +125,16 @@ join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (de
   austraits
 }
 
+#' @title  Joining location info for AusTraits versions <= 3.0.2
+#' @description `r lifecycle::badge('deprecated')`
+#' Joining location info for AusTraits versions <= 3.0.2
+#' @param austraits austraits object
+#' @param vars  variables from site table to join 
+#' @export
+
+join_sites <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+  function_not_supported(austraits)
+}
 
 #' @export
 #' @rdname join_all
