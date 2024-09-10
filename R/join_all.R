@@ -40,37 +40,22 @@ join_all <- function(austraits) {
 
 #' @rdname join_all
 
-join_taxonomy <- function(austraits, ...) {
-  # Switch for different versions
-  version <- what_version(austraits)
+join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
+  # Check compatability
+  status <- check_compatibility(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
-    version <- "new" 
-  } else
-    version <- "old"
-  
-  switch (version,
-          'new' = join_taxonomy2(austraits, ...),
-          'old' = join_taxonomy1(austraits, ...),
-  )
-}
-
-#' @title  Joining taxonomic info for AusTraits versions <= 3.0.2
-#' @noRd
-#' @keywords internal
-
-join_taxonomy1 <- function(austraits, vars =  c("family", "genus", "taxonRank", "acceptedNameUsageID")) {
-  austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
-  
-  austraits
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+  join_taxonomy2(austraits, vars)
 }
 
 #' @title Joining taxonomic info for AusTraits versions > 3.0.2
 #' @noRd
 #' @keywords internal
 
-join_taxonomy2 <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
+join_taxonomy2 <- function(austraits, vars) {
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
   
