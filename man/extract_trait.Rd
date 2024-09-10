@@ -2,28 +2,34 @@
 % Please edit documentation in R/extract_trait.R
 \name{extract_trait}
 \alias{extract_trait}
-\title{Extract data for specific traits}
+\title{Extract all data for specific traits}
 \usage{
 extract_trait(austraits, trait_names, taxon_names)
 }
 \arguments{
-\item{austraits}{\itemize{
-\item A large list of tibbles built from austraits
-}}
+\item{austraits}{a large list of tibbles built by \code{traits.build}}
 
-\item{trait_names}{\itemize{
-\item character string of trait that will be extracted
-}}
+\item{trait_names}{character string of trait(s) for which data will be extracted}
 
-\item{taxon_names}{\itemize{
-\item optional argument
-}}
+\item{taxon_names}{optional argument, specifying taxa for which data will be extracted}
 }
 \value{
-A large list of tibbles containing all austraits information for one particular dataset
+List of tibbles containing all traits.build data and metadata for the specified trait(s).
 }
 \description{
-Function to subset of all data associated with a particular dataset from austraits
+Function to subset all data associated with a particular trait from a traits.build relational database.
+}
+\details{
+\code{extract_trait} has been developed to extract data for specific traits from databases built using the traits.build workflow.
+Learn more at:
+\link{https://github.com/traitecoevo/traits.build} &
+\link{https://github.com/traitecoevo/traits.build-book}
+
+Note to AusTraits users:
+\itemize{
+\item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+}
 }
 \examples{
 \dontrun{

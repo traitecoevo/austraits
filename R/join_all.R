@@ -1,11 +1,21 @@
 #' @title Join metadata fields into the core traits table
-#' @description Function to merge metadata stored in relational tables into the core traits table. 
+#' @description Function to merge metadata stored in relational tables into the core traits table.
 #'
 #' A traits.build database includes relational tables that contain measurement (and observation) metadata pertaining to locations, contexts, methods, and taxonomy. This function merges all (or some) of the metadata from one (or all) of these tables into the traits table.
 #' 
 #' @param austraits traits.build generated database
-#' @param vars for functions joining a single dataframe, vector specifying which columns from a specific relational table to join to the traits table
+#' @param vars vector specifying which columns from a specific relational table to join to the traits table (works only for `join_` functions joining a single dataframe)
 #' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build] &
+#'   [https://github.com/traitecoevo/traits.build-book]
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits] for how to install old versions of the package or download a newer version of the database."
+#'
 #' @rdname join_all
 
 #' @examples
