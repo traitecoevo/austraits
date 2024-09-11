@@ -1,5 +1,3 @@
-#' Convert a list of lists to dataframe
-#'
 #' Convert a list of lists to dataframe; requires that every list have same named elements.
 #'
 #' @param my_list A list of lists to dataframe
@@ -33,13 +31,17 @@ util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
 #' @keywords internal
 #' @noRd
 
-function_not_supported <- function(austraits, ...){
+function_not_supported <- function(aus_traits, ...){
   
   # Extract function name
   function_name <- as.character(sys.calls()[[1]])[1]
   
-  # Extract AusTraits version
-  AusTraits_version <- print_version(austraits)
+  # Determine if traits table or traits.build object
+  if( is.null(dim(aus_traits))){
+    # Extract AusTraits version
+    AusTraits_version <- print_version(aus_traits)
+  } else
+    AusTraits_version <- "< 5.0.0"
   
   # Formulate message
   cli::cli_abort(c(
@@ -50,4 +52,21 @@ function_not_supported <- function(austraits, ...){
   ),
   call = rlang::caller_env()
   )
+}
+
+
+#' Retrieve traits table if user passes traits.build object.
+#'
+#' @param aus_traits traits.build object or traits table
+#'
+#' @return
+
+get_traits_table <- function(aus_traits){
+  if( is.null(dim(aus_traits)) ){
+    traits <- aus_traits$traits
+  } else{
+    traits <- aus_traits
+  }
+  
+  return(traits)
 }
