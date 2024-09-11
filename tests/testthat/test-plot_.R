@@ -6,4 +6,6 @@ test_that("Function doesn't throw error", {
   expect_invisible((austraits_5.0.0_lite %>% extract_trait("wood_density") %>% join_locations())$trait %>% plot_locations())
   expect_invisible((austraits_5.0.0_lite %>% extract_trait("wood_density") %>% join_locations())$trait %>% plot_locations())
  }) 
- 
+
+# Tear down code
+unlink("Rplots.pdf")
