@@ -129,9 +129,21 @@ database_create_combined_table <- function(database) {
       )
   }
   
-  combined_table <-
-    database$traits %>%
-    dplyr::left_join(location_latlon, by = c("dataset_id", "location_id")) %>%
+  if (any(stringr::str_detect(names(location_latlon), "latitude (deg)"))) {
+    combined_table <-
+      database$traits %>%
+      dplyr::left_join(location_latlon, by = c("dataset_id", "location_id"))
+  } else {
+    combined_table <-
+      database$traits %>%
+      dplyr::mutate(
+        location_name = NA_character_,
+        `latitude (deg)` = NA_character_, 
+        `longitude (deg)` = NA_character_,
+        )
+  }
+  
+  combined_table <- combined_table %>%
     dplyr::left_join(location_properties, by = c("dataset_id", "location_id", "location_name")) %>%
     join_contexts(contexts_tmp) %>%
     dplyr::left_join(

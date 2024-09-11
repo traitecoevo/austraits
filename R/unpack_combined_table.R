@@ -75,24 +75,29 @@ recreate_locations_dataframe <- function(combined_table_by_dataset) {
   if (!all(is.na(combined_table_by_dataset$location_properties))) {
     
     unpacked_locations_table <- unpack_location_properties(combined_table_by_dataset)
+  
+  } else {
     
-    long_output <- unpacked_locations_table %>%
-      dplyr::select("dataset_id", "observation_id", "location_id", dplyr::contains("location_property")) %>%
-      dplyr::left_join(combined_table_by_dataset %>%
-                         dplyr::select(dataset_id, observation_id, location_id, location_name, `latitude (deg)`, `longitude (deg)`) %>%
-                         dplyr::distinct(),
-                       by = c("dataset_id", "observation_id", "location_id")) %>% 
-      dplyr::select(-observation_id) %>%
-      dplyr::distinct() %>%
-      dplyr::filter(!is.na(location_id))
+    unpacked_locations_table <- combined_table_by_dataset %>%
+      dplyr::select(dataset_id, observation_id, location_id, location_name, `latitude (deg)`, `longitude (deg)`)
     
-    long_locations_output <- long_output %>%
-      dplyr::select(dataset_id, location_id, location_name, everything()) %>%
-      tidyr::pivot_longer(cols = 4:ncol(long_output)) %>%
-      rename(location_property = name) %>%
-      mutate(location_property = stringr::str_replace(location_property, "location_property: ", ""))
-    
-  }
+  } 
+  
+  long_output <- unpacked_locations_table %>%
+    dplyr::select(dplyr::any_of(c("dataset_id", "observation_id", "location_id")), dplyr::contains("location_property")) %>%
+    dplyr::left_join(combined_table_by_dataset %>%
+                       dplyr::select(dataset_id, observation_id, location_id, location_name, `latitude (deg)`, `longitude (deg)`) %>%
+                       dplyr::distinct(),
+                     by = c("dataset_id", "observation_id", "location_id")) %>% 
+    dplyr::select(-observation_id) %>%
+    dplyr::distinct() %>%
+    dplyr::filter(!is.na(location_id))
+  
+  long_locations_output <- long_output %>%
+    dplyr::select(dataset_id, location_id, location_name, everything()) %>%
+    tidyr::pivot_longer(cols = 4:ncol(long_output)) %>%
+    rename(location_property = name) %>%
+    mutate(location_property = stringr::str_replace(location_property, "location_property: ", ""))
   
   long_locations_output
   
@@ -254,6 +259,6 @@ recreate_contexts_dataframe <- function(combined_table_by_dataset) {
 
   long_contexts_output <- purrr::map_dfr(long_contexts_list, ~ .x)
   
-  long_contexts_output <- long_contexts_output %>% dplyr::distinct()
+  long_contexts_output <- long_contexts_output %>% dplyr::distinct
   
 }
