@@ -27,8 +27,6 @@ test_that("Widen structure is expected", {
   expect_true(any(colnames(wide_data) %in% unique(austraits_5.0.0_lite$traits$trait_name)))
 }
 )
-
-
 # austraits_list and austraits_lite_post
 test_pivot_errors <- function(austraits){
   test_that("functions should throw error when provided wrong input", {
