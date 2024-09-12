@@ -56,14 +56,7 @@ join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", 
   if(!status){
     function_not_supported(austraits)
   } 
-  join_taxonomy2(austraits, vars)
-}
-
-#' @title Joining taxonomic info for AusTraits versions > 3.0.2
-#' @noRd
-#' @keywords internal
-
-join_taxonomy2 <- function(austraits, vars) {
+  
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
   
@@ -83,13 +76,7 @@ join_methods <- function(austraits, vars =  c("methods", "year_collected_start",
   if(!status){
     function_not_supported(austraits)
   } 
-  join_methods2(austraits, vars)
-}
 
-#' @title Joining methods info for AusTraits versions > 3.0.2
-#' @noRd
-#' @keywords internal
-join_methods2 <- function(austraits, vars) {
   austraits$methods %>% 
     dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
     dplyr::distinct() -> methods
@@ -106,7 +93,7 @@ join_methods2 <- function(austraits, vars) {
 
 #' @rdname join_all
 
-join_locations <- function(austraits, ...) {
+join_locations <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
   # Check compatability
   status <- check_compatibility(austraits)
   
@@ -114,14 +101,7 @@ join_locations <- function(austraits, ...) {
   if(!status){
     function_not_supported(austraits)
   } 
-  join_locations2(austraits, ...)
-}
-
-
-#' @title  Joining location info for AusTraits versions > 3.0.2
-#' @noRd
-#' @keywords internal
-join_locations2 <- function(austraits, vars =  c("longitude (deg)","latitude (deg)")) {
+  
   sites <- 
     austraits$locations %>% 
     dplyr::filter(location_property %in%  vars) %>% 
@@ -155,13 +135,6 @@ join_contexts <- function(austraits, collapse_context = FALSE){
   if(!status){
     function_not_supported(austraits)
   } 
-  join_contexts2(austraits, collapse_context)
-}
-
-#' @title  Joining location info for AusTraits versions > 3.0.2
-#' @noRd
-#' @keywords internal
-join_contexts2 <- function(austraits, collapse_context){
 
   traits2 <- split(austraits$traits, austraits$traits$dataset_id)
   contexts2 <- split(austraits$contexts, austraits$contexts$dataset_id)

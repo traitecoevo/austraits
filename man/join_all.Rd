@@ -20,7 +20,7 @@ join_methods(
   vars = c("methods", "year_collected_start", "year_collected_end", "collection_type")
 )
 
-join_locations(austraits, ...)
+join_locations(austraits, vars = c("longitude (deg)", "latitude (deg)"))
 
 join_contexts(austraits, collapse_context = FALSE)
 }
