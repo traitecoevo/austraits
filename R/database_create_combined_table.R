@@ -52,7 +52,7 @@ database_create_combined_table <- function(database) {
       #additional_role = standardise_syntax(additional_role),
       
       # TO DO this next line might be difficult to revert in its current form, because people have different numbers of first vs last names
-      data_collectors = paste0(given_name, " ", last_name),
+      data_collectors = paste0(last_name, ", ", given_name),
       # merge each data collector with metadata pertaining to them, such as ORCID, affiliation, and any additional roles
       data_collectors = ifelse(
         !is.na(ORCID),
@@ -129,7 +129,7 @@ database_create_combined_table <- function(database) {
       )
   }
   
-  if (any(stringr::str_detect(names(location_latlon), "latitude (deg)"))) {
+  if (any(stringr::str_detect(names(location_latlon), "latitude "))) {
     combined_table <-
       database$traits %>%
       dplyr::left_join(location_latlon, by = c("dataset_id", "location_id"))
