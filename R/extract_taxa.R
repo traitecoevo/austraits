@@ -23,15 +23,6 @@ extract_taxa <- function(austraits, family = NULL, genus = NULL, taxon_name = NU
   if(!status){
     function_not_supported(austraits)
   } 
-  extract_taxa2(austraits, family, genus, taxon_name)
-}
-
-
-#'Extract taxa for supported versions of databases
-#' @noRd
-#' @keywords internal
-extract_taxa2 <- function(austraits, family = NULL, genus = NULL, taxon_name = NULL){
-  
   ret <- austraits
   
   if(missing(family) & missing(genus) & missing(taxon_name)){

@@ -24,16 +24,7 @@ extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
   if(!status){
     function_not_supported(austraits)
   } 
-  extract_trait2(austraits, trait_names, taxon_names)
-    
-}
 
-
-#' @title Extract specific trait data from austraits object for versions >3.0.2
-#' @noRd
-#' @keywords internal
-extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
-  
   ret <- austraits
   
   # Traits table
@@ -88,13 +79,4 @@ extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
   attr(ret, "class") <- "austraits"
   
   ret
-}
-
-#' @title Extract specific trait data from austraits object for versions <=3.0.2
-#' @noRd
-#' @keywords internal
-extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
-  
-  function_not_supported(austraits)
-  
 }
