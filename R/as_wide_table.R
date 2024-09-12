@@ -22,13 +22,6 @@ as_wide_table <- function(austraits){
   if(!status){
     function_not_supported(austraits)
   }
-  as_wide_table3(austraits)
-}
-
-#' Turning entire AusTraits object into wide table v5
-#' @noRd
-#' @keywords internal
-as_wide_table3 <- function(austraits){
 
   # Function to collapse columns in locations and contexts into single column
   process_table3 <- function(data) {
