@@ -58,8 +58,7 @@ function_not_supported <- function(aus_traits, ...){
 #' Retrieve traits table if user passes traits.build object.
 #'
 #' @param aus_traits traits.build object or traits table
-#'
-#' @return
+
 
 get_traits_table <- function(aus_traits){
   if( is.null(dim(aus_traits)) ){
