@@ -30,14 +30,7 @@ trait_pivot_wider <- function(aus_traits){
   if(!status){
     function_not_supported(aus_traits)
   }
-  trait_pivot_wider3(traits)
-}
 
-
-#' Pivot wider for >v5.0.0
-#' @noRd
-#' @keywords internal
-trait_pivot_wider3 <- function(traits){ 
   metadata_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_value")
   
   # A check for if there are more than 1 value_type for a given taxon_name, observation_id and method
