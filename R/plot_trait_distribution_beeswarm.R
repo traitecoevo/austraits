@@ -17,10 +17,19 @@
 #' @export
 
 #
-plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis_category, highlight=NA, hide_ids = FALSE) {
-  # Determine version
-  version <- austraits$build_info$version %>% as.character()
+plot_trait_distribution_beeswarm <- function(austraits, 
+                                             plant_trait_name, 
+                                             y_axis_category, 
+                                             highlight=NA, 
+                                             hide_ids = FALSE) {
   
+  # Check compatability
+  status <- check_compatibility(austraits)
+  
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
   # Subset data to this trait
   austraits_trait <- extract_trait(austraits, plant_trait_name)
   
@@ -67,15 +76,9 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
     data <- dplyr::mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
   }
   
-  # Check range on x-axis
-  if(package_version(version) <= '3.0.2'){
-  vals <- austraits_trait$definitions$traits$elements[[plant_trait_name]]$value
-  }
-  
-  if(package_version(version) > '3.0.2'){
+
   vals <- list(minimum = purrr::pluck(austraits_trait, "definitions", plant_trait_name, "allowed_values_min"),
            maximum = purrr::pluck(austraits_trait, "definitions", plant_trait_name, "allowed_values_max"))
-  }
   
   range <- (vals$maximum/vals$minimum)
   
@@ -100,7 +103,7 @@ plot_trait_distribution_beeswarm <- function(austraits, plant_trait_name, y_axis
   # Second plot -- dots by groups, using ggbeeswarm package
   p2 <-
     ggplot2::ggplot(data, ggplot2::aes(x = value, y = Group, colour = colour, shape = shapes)) +
-    ggbeeswarm::geom_quasirandom() +
+    ggbeeswarm::geom_quasirandom(orientation = 'x') +
     ggplot2::ylab(paste("By ", y_axis_category)) +
     # inclusion of custom shapes: for min, mean, unknown
     # NB: this single line of code makes function about 4-5 slower for some reason

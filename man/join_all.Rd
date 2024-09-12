@@ -10,18 +10,26 @@
 \usage{
 join_all(austraits)
 
-join_taxonomy(austraits, ...)
+join_taxonomy(
+  austraits,
+  vars = c("family", "genus", "taxon_rank", "establishment_means")
+)
 
-join_methods(austraits, ...)
+join_methods(
+  austraits,
+  vars = c("methods", "year_collected_start", "year_collected_end", "collection_type")
+)
 
-join_locations(austraits, ...)
+join_locations(austraits, vars = c("longitude (deg)", "latitude (deg)"))
 
-join_contexts(austraits, ...)
+join_contexts(austraits, collapse_context = FALSE)
 }
 \arguments{
 \item{austraits}{traits.build generated database}
 
 \item{vars}{vector specifying which columns from a specific relational table to join to the traits table (works only for \code{join_} functions joining a single dataframe)}
+
+\item{collapse_context}{for \code{join_contexts} only. Logical, whether contexts for a given observation will be concatenated into one cell}
 }
 \value{
 traits.build list object, but with additional fields (columns) appended to \code{traits} dataframe

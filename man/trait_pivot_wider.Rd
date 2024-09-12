@@ -4,10 +4,10 @@
 \alias{trait_pivot_wider}
 \title{Pivot long format traits table into wide format}
 \usage{
-trait_pivot_wider(traits)
+trait_pivot_wider(aus_traits)
 }
 \arguments{
-\item{traits}{The traits table from traits.build database list object}
+\item{aus_traits}{The traits table from traits.build database list object}
 }
 \value{
 traits.build traits table in wide format
@@ -33,7 +33,8 @@ Note to AusTraits users:
 }
 \examples{
 \dontrun{
-data <- austraits$traits \%>\% filter(dataset_id == "Falster_2003")
+
+data <- austraits_5.0.0_lite$traits \%>\% filter(dataset_id == "Falster_2003")
 data #long format 
 traits_wide <- trait_pivot_wider(data) 
 traits_wide #wide format
