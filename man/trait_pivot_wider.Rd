@@ -4,10 +4,10 @@
 \alias{trait_pivot_wider}
 \title{Pivot long format austrait data into a wide format}
 \usage{
-trait_pivot_wider(traits)
+trait_pivot_wider(aus_traits)
 }
 \arguments{
-\item{traits}{The traits table from austraits list object}
+\item{aus_traits}{austraits object OR traits table. Note location details must be joined. See join_all and examples}
 }
 \value{
 list of five tibbles in wide format
