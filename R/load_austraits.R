@@ -135,6 +135,8 @@ create_metadata <- function(res){
 #' @param url url of download via Zenodo API
 #' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
 #' @param path file path to where AusTraits will be downloaded
+#' @noRd
+#' @keywords internal
 
 download_austraits <- function(url, filename, path) {
   # Get user timeout option
