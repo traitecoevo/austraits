@@ -3,14 +3,29 @@
 
 # starting by ensuring the function works for a single dataset
 # afterwards, needs to work
-#combined_split <- split(combined_table, combined_table$dataset_id)
-#n <- 1
-#dataset_id <- "Crous_2013"
-#Crous_2013 <- austraits::extract_dataset(austraits, "Crous_2013")
-#combined_table_by_dataset <- austraits::extract_dataset(austraits, dataset_id) %>% database_create_combined_table()
+
+#database <- austraits::extract_dataset(austraits, c("Gallagher_2015", "Falster_2003", "Prior_2003", "Rye_2006", "Crous_2013")) 
+#combined_table <- database_create_combined_table(database)
 
 
-#combined_table_by_dataset <- combined_split[[n]]
+# XX- Daniel, this simple loop works and I think this should be wrapped around each of the functions below.
+# There is no point creating functions that will fail if a dataframe is 
+recreate_traits.build_locations <- function(combined_table) {
+  
+  combined_split <- split(combined_table, combined_table$dataset_id)
+  recreated_locations <- tibble()  
+
+  for (i in seq_along(1:length(combined_split))) {
+    
+    recreated_locations_i <- recreate_locations_dataframe(combined_split[[i]])
+    recreated_locations <- recreated_locations %>% bind_rows(recreated_locations_i)
+    
+  }
+  
+  recreated_locations
+
+}
+  
 
 #' Unpack condensed location properties
 #' 
@@ -25,36 +40,51 @@
 #' @export
 #'
 #' @examples
-unpack_location_properties <- function(combined_table_by_dataset) {
+unpack_location_properties <- function(combined_table) {
   
-  if (!all(is.na(combined_table_by_dataset$location_properties))) {
+  combined_table <- combined_table %>% arrange(dataset_id)
+  
+  combined_split <- split(combined_table, combined_table$dataset_id)
+  recreated_locations_all <- tibble()  
+  
+  for (i in seq_along(1:length(combined_split))) {
     
-    packed_column_unpacked <- combined_table_by_dataset %>% 
-      dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "location_id", "location_properties"))) %>%
-      distinct() 
+    ## once working will replace all `combined_table_by_dataset` with `combined_split[[i]]`
     
-    packed_column_unpacked <- packed_column_unpacked %>%
-      tidyr::separate_longer_delim(location_properties, delim = ";; ") %>%
-      tidyr::separate_wider_delim(location_properties, delim = "==", names_sep = "_") %>%
-      dplyr::filter(!is.na(location_properties_1)) %>%
-      dplyr::mutate(location_properties_1 = paste0("location_property: ", location_properties_1)) %>%
-      tidyr::pivot_wider(names_from = location_properties_1, values_from = location_properties_2)
+    combined_table_by_dataset <- combined_split[[i]]
+  
+    if (!all(is.na(combined_table_by_dataset$location_properties))) {
+      
+      packed_column_unpacked <- combined_table_by_dataset %>% 
+        dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "location_id", "location_properties"))) %>%
+        distinct() 
+      
+      packed_column_unpacked <- packed_column_unpacked %>%
+        tidyr::separate_longer_delim(location_properties, delim = ";; ") %>%
+        tidyr::separate_wider_delim(location_properties, delim = "==", names_sep = "_") %>%
+        dplyr::filter(!is.na(location_properties_1)) %>%
+        dplyr::mutate(location_properties_1 = paste0("location_property: ", location_properties_1)) %>%
+        tidyr::pivot_wider(names_from = location_properties_1, values_from = location_properties_2)
+      
+      unpacked_locations_table <- 
+        combined_table_by_dataset %>% 
+        dplyr::left_join(packed_column_unpacked, 
+                  by = c("dataset_id", "observation_id", "location_id")) %>% 
+        dplyr::select(-location_properties)
+      
+    } else {
+      
+      unpacked_locations_table <- 
+        combined_table_by_dataset %>% 
+        dplyr::select(-location_properties)
+      
+    }
     
-    unpacked_locations_table <- 
-      combined_table_by_dataset %>% 
-      dplyr::left_join(packed_column_unpacked, 
-                by = c("dataset_id", "observation_id", "location_id")) %>% 
-      dplyr::select(-location_properties)
-    
-  } else {
-    
-    unpacked_locations_table <- 
-      combined_table_by_dataset %>% 
-      dplyr::select(-location_properties)
-    
+    recreated_locations_all <- recreated_locations_all %>% bind_rows(unpacked_locations_table)
+  
   }
   
-  unpacked_locations_table
+  recreated_locations_all
   
 }
 
@@ -70,47 +100,64 @@ unpack_location_properties <- function(combined_table_by_dataset) {
 #' @export
 #'
 #' @examples
-recreate_locations_dataframe <- function(combined_table_by_dataset) {
+recreate_locations_dataframe <- function(combined_table) {
   
-  if (!all(is.na(combined_table_by_dataset$location_properties))) {
+  if (!all(is.na(combined_table$location_properties))) {
     
-    unpacked_locations_table <- unpack_location_properties(combined_table_by_dataset)
+    unpacked_locations_table <- unpack_location_properties(combined_table)
   
   } else {
     
-    unpacked_locations_table <- combined_table_by_dataset %>%
+    unpacked_locations_table <- combined_table %>%
       dplyr::select(dataset_id, observation_id, location_id, location_name, `latitude (deg)`, `longitude (deg)`)
     
-  } 
+  }
   
-  long_output <- unpacked_locations_table %>%
-    dplyr::select(dplyr::any_of(c("dataset_id", "observation_id", "location_id")), dplyr::contains("location_property")) %>%
-    dplyr::left_join(combined_table_by_dataset %>%
-                       dplyr::select(dataset_id, observation_id, location_id, location_name, `latitude (deg)`, `longitude (deg)`) %>%
-                       dplyr::distinct(),
-                     by = c("dataset_id", "observation_id", "location_id")) %>% 
-    dplyr::select(-observation_id) %>%
-    dplyr::distinct() %>%
-    dplyr::filter(!is.na(location_id))
+    unpacked_locations_table <- unpacked_locations_table %>% arrange(dataset_id)
+    unpacked_locations_table_split <- split(unpacked_locations_table, unpacked_locations_table$dataset_id)
+    long_locations_all <- tibble()  
+    
+    for (i in seq_along(1:length(combined_split))) {
+    
+      ## once working will replace all `combined_table_by_dataset` with `unpacked_locations_table_split[[i]]`
+    
+      combined_table_by_dataset <- unpacked_locations_table_split[[i]]
+    
+      long_output <- combined_table_by_dataset %>%
+        dplyr::select(dplyr::any_of(c("dataset_id", "observation_id", "location_id")), dplyr::contains("location_property")) %>%
+        #this works but also removes location_id which it shouldn't be - I want to select columns with location property that are not all NA's...
+        # otherwise I can use the filters below
+        #dplyr::select(where(~ any(!is.na(.)))) %>%
+        dplyr::left_join(combined_table %>%
+                           dplyr::select(dataset_id, observation_id, location_id, location_name, `latitude (deg)`, `longitude (deg)`) %>%
+                           dplyr::distinct(),
+                         by = c("dataset_id", "observation_id", "location_id")) %>% 
+        dplyr::select(-observation_id) %>%
+        dplyr::distinct() %>%
+        dplyr::filter(!is.na(location_id)) 
+      
+      long_locations_output <- long_output %>%
+        dplyr::select(dataset_id, location_id, location_name, everything()) %>%
+        tidyr::pivot_longer(cols = 4:ncol(long_output)) %>%
+        dplyr::rename(location_property = name) %>%
+        dplyr::mutate(location_property = stringr::str_replace(location_property, "location_property: ", "")) %>%
+        # Reorder using same code as process.R in traits.build, to ensure description, latitude, longitude, if present, as the first 3 location properties listed
+        dplyr::mutate(
+          j = dplyr::case_when(
+            location_property == "description" ~ 1,
+            location_property == "latitude (deg)" ~ 2,
+            location_property == "longitude (deg)" ~ 3,
+            TRUE ~ 4)
+        ) %>%
+        dplyr::arrange(location_id, location_name, j, location_property) %>%
+        dplyr::select(-dplyr::all_of(c("j"))) %>%
+        dplyr::filter(!is.na(value)) 
+      
+      long_locations_all <- long_locations_all %>% bind_rows(long_locations_output)
+      
+  }
   
-  long_locations_output <- long_output %>%
-    dplyr::select(dataset_id, location_id, location_name, everything()) %>%
-    tidyr::pivot_longer(cols = 4:ncol(long_output)) %>%
-    dplyr::rename(location_property = name) %>%
-    dplyr::mutate(location_property = stringr::str_replace(location_property, "location_property: ", "")) %>%
-    # Reorder using same code as process.R in traits.build, to ensure description, latitude, longitude, if present, as the first 3 location properties listed
-    dplyr::mutate(
-      j = dplyr::case_when(
-        location_property == "description" ~ 1,
-        location_property == "latitude (deg)" ~ 2,
-        location_property == "longitude (deg)" ~ 3,
-        TRUE ~ 4)
-    ) %>%
-    dplyr::arrange(location_id, location_name, j, location_property) %>%
-    dplyr::select(-dplyr::all_of(c("j")))
-  
-  
-  long_locations_output
+  long_locations_all  
   
 } 
 
