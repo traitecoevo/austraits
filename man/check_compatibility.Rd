@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_compatibility.R
 \name{check_compatibility}
 \alias{check_compatibility}
-\title{Check compatibility}
+\title{Check compatibility of traits.build object}
 \usage{
 check_compatibility(austraits)
 }

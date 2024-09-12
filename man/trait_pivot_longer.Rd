@@ -13,6 +13,7 @@ trait_pivot_longer(wide_data)
 A tibble in long format
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 trait_pivot_longer "gathers" wide format data into a "tidy" format
 This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name.
 In other words, trait_pivot_longer reverts the actions of trait_pivot_wider

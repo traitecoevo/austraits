@@ -13,6 +13,9 @@
 
 
 summarise_trait_means <- function(trait_data){
+  cli::cli_alert_danger("Use with caution: Trait means are summarised using an uninformed method. Deprecation due in 2025")
+  
+  
   suppressWarnings(
     trait_data  %>% 
       dplyr::mutate(value = as.numeric(.data$value),
