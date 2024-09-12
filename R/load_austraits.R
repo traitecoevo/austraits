@@ -117,7 +117,7 @@ load_json <- function(path, update){
 create_metadata <- function(res){
   # Version table
   ret <- res$hits$hits$metadata |> 
-    select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
+    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
     dplyr::mutate(version = gsub("v", "", version) |> numeric_version(),
                   id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
                   )|>  # set as numeric version for easier filtering
@@ -125,7 +125,7 @@ create_metadata <- function(res){
     dplyr::mutate(version = as.character(version),
                   publication_date = lubridate::ymd(publication_date)) |>  # change back as character
     dplyr::tibble() |> 
-    arrange(dplyr::desc(publication_date))
+    dplyr::arrange(dplyr::desc(publication_date))
 
   ret
 }
