@@ -1,11 +1,21 @@
-#' @title Extract data for specific traits
+#' @title Extract all data for specific traits
 #'
-#' @description Function to subset of all data associated with a particular dataset from austraits
+#' @description Function to subset all data associated with a particular trait from a traits.build relational database.
+#' 
 #' @usage extract_trait(austraits, trait_names, taxon_names)
-#' @param austraits - A large list of tibbles built from austraits
-#' @param trait_names - character string of trait that will be extracted
-#' @param taxon_names - optional argument
-#' @return A large list of tibbles containing all austraits information for one particular dataset
+#' @param austraits a large list of tibbles built by `traits.build`
+#' @param trait_names character string of trait(s) for which data will be extracted
+#' @param taxon_names optional argument, specifying taxa for which data will be extracted 
+#' @return List of tibbles containing all traits.build data and metadata for the specified trait(s).
+#' @details
+#' `extract_trait` has been developed to extract data for specific traits from databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build] &
+#'   [https://github.com/traitecoevo/traits.build-book]
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits] for how to install old versions of the package or download a newer version of the database."
 #'
 #' @examples 
 #' \dontrun{
@@ -17,86 +27,14 @@
 
 
 extract_trait <- function(austraits, trait_names, taxon_names=NULL) {
-  # Switch for different versions
-  version <- what_version(austraits)
+  # Check compatability
+  status <- check_compatibility(austraits)
   
-  if(what_version(austraits) %in% c("4-series", "5-series")){
-    version <- "new" 
-  } else
-    version <- "old"
-    
-  switch (version,
-          'new' = extract_trait2(austraits, trait_names, taxon_names),
-          'old' = extract_trait1(austraits, trait_names, taxon_names),
-  )
-}
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
 
-#' @title Extract specific trait data from austraits object for versions <=3.0.2
-#' @noRd
-#' @keywords internal
-extract_trait1 <- function(austraits, trait_names, taxon_names=NULL) {
-  
-  ret <- austraits
-  
-  ret[["traits"]] <- austraits[["traits"]] %>% 
-    dplyr::filter(trait_name %in% trait_names)
-  
-  if(!is.null(taxon_names)){
-    ret[["traits"]] <- ret[["traits"]] %>% 
-    dplyr::filter(taxon_name %in% taxon_names)
-  }
-  
-  ids <- ret[["traits"]][["dataset_id"]] %>% unique() %>% sort()
-  
-  ret[["sites"]] <- austraits[["sites"]] %>% dplyr::filter(site_name %in% ret[["traits"]][["site_name"]], dataset_id %in% ids)
-  
-  ret[["contexts"]] <- austraits[["contexts"]] %>% dplyr::filter(context_name %in% ret[["traits"]][["context_name"]], dataset_id %in% ids)
-  
-  ret[["taxa"]] <- austraits[["taxa"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
-  ret[["taxonomic_updates"]] <- austraits[["taxonomic_updates"]] %>% dplyr::filter(taxon_name %in% ret[["traits"]][["taxon_name"]])
-  
-  ret$taxonomic_updates <-
-    tidyr::separate_rows(austraits$taxonomic_updates, dataset_id, sep=" ")
-  
-  
-  ret[["excluded_data"]] <- austraits[["excluded_data"]][austraits[["excluded_data"]][["trait_name"]] %in% trait_names,]
-  
-  if(!is.null(taxon_names))
-    ret[["excluded_data"]] <- ret[["excluded_data"]] %>% dplyr::filter(taxon_name %in% taxon_names)
-  
-  
-  ret[["contributors"]] <- austraits[["contributors"]] %>% dplyr::filter(dataset_id %in% ids)
-  
-  ret[["methods"]] <- austraits[["methods"]] %>% dplyr::filter(dataset_id %in%ids, trait_name %in% ret[["traits"]][["trait_name"]])
-  
-  ret[["definitions"]] <- austraits[["definitions"]]
-  ret[["build_info"]] <- austraits[["build_info"]]
-  
-  # if numeric, convert to numeric
-  if(!is.na(ret[["traits"]][["unit"]][1])){
-    suppressWarnings(ret[["traits"]][["value"]] <- as.numeric(ret[["traits"]][["value"]]))
-  }
-  
-
-  keys <- dplyr::union(ret$methods$source_primary_key, 
-                       ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
-    unique() %>% stats::na.omit() %>% as.character()
-  
-  ret[["sources"]] <- austraits$sources[keys]
-  
-  ret[names(austraits)]
-  
-  # Assign class
-  attr(ret, "class") <- "austraits"
-  
-  ret
-}
-
-#' @title Extract specific trait data from austraits object for versions >3.0.2
-#' @noRd
-#' @keywords internal
-extract_trait2 <- function(austraits, trait_names, taxon_names=NULL) {
-  
   ret <- austraits
   
   # Traits table

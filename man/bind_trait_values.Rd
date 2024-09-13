@@ -19,7 +19,7 @@ This function concatenates multiple values into a single cell
 \examples{
 \dontrun{
 traits <- austraits$traits \%>\% 
-dplyr::filter(dataset_id == "Falster_2005_1")
+dplyr::filter(dataset_id == "ABRS_1981")
 traits
 traits_bind <- bind_trait_values(traits)
 }

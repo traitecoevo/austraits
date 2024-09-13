@@ -1,2 +1,13 @@
-# austraits 2.2.1
+# austraits 3.0.0.9000
 - Updated dependencies, placing graphics related packages in Suggests
+- Added internal function to check the compatibility of databases
+- Added internal function notify users that some database versions will not be supported
+- The following functions will no longer support AusTraits version < 5.0.0:
+    - `extract_*` 
+    - `trait_pivot_wider`
+    - `join_*`
+    - `plot_site/locations`
+    - `plot_trait_beeswarm`
+    - `as_wide_table`
+- `trait_pivot_longer` is deprecated
+- `summarise_trait_means` will trigger warning due to uninformed calculations

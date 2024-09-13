@@ -1,5 +1,3 @@
-#' Convert a list of lists to dataframe
-#'
 #' Convert a list of lists to dataframe; requires that every list have same named elements.
 #'
 #' @param my_list A list of lists to dataframe
@@ -23,3 +21,86 @@ util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
   
   dplyr::bind_rows(lapply(my_list, tibble::as_tibble))
 }
+
+
+#' Notify user the function they are using is no longer support
+#'
+#' @param austraits 
+#'
+#' @return cli messaging about the function name, the version of austraits they are using and their next options
+#' @keywords internal
+#' @noRd
+
+function_not_supported <- function(aus_traits, ...){
+  
+  # Extract function name
+  function_name <- as.character(sys.calls()[[1]])[1]
+  
+  # Determine if traits table or traits.build object
+  if( is.null(dim(aus_traits))){
+    # Extract AusTraits version
+    AusTraits_version <- print_version(aus_traits)
+  } else
+    AusTraits_version <- "< 5.0.0"
+  
+  # Formulate message
+  cli::cli_abort(c(
+    "x" = "{function_name} no longer supports AusTraits version {AusTraits_version}",
+    "i" = "You can either update to a newer version of the data using `load_austraits()` OR",
+    "i" = "Install an older version of the package", 
+    "i" = "See https://github.com/traitecoevo/austraits for details."
+  ),
+  call = rlang::caller_env()
+  )
+}
+
+
+#' Retrieve traits table if user passes traits.build object.
+#'
+#' @param aus_traits traits.build object or traits table
+
+
+get_traits_table <- function(aus_traits){
+  if( is.null(dim(aus_traits)) ){
+    traits <- aus_traits$traits
+  } else{
+    traits <- aus_traits
+  }
+  
+  return(traits)
+}
+
+
+#' @title NA hygiene
+#'
+#' @description Helper function to convert character strings of NA into true NA
+#' @usage clean_NA(x)
+#' @param data The trait data frame generated from austraits - see example
+#' @param definitions The austraits definitions data frame
+#' @return vector where strings of NA are treated as true NA
+#' @examples 
+#' \dontrun{
+#' clean_NA(c("NA", 1, 2, 3))) %>% is.na()
+#' }
+#' @author Daniel Falster - daniel.falster@unsw.edu.au
+
+#' @noRd
+
+clean_NA <- function(x) {
+  ifelse(x == "NA", NA_character_, x)
+}
+
+#' Pipe operator
+#'
+#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+#' @param lhs A value or the magrittr placeholder.
+#' @param rhs A function call using the magrittr semantics.
+#' @return The result of calling `rhs(lhs)`.
+NULL

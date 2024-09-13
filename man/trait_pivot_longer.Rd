@@ -2,17 +2,20 @@
 % Please edit documentation in R/trait_pivot_longer.R
 \name{trait_pivot_longer}
 \alias{trait_pivot_longer}
-\title{Pivot wide format AusTrait data into a long format}
+\title{Pivot wide format traits table into long format}
 \usage{
 trait_pivot_longer(wide_data)
 }
 \arguments{
-\item{wide_data}{output from trait_pivot_wider. For <= v3.0.2 list object containing wide data generated,For > v3.0.2 a tibble of wide data}
+\item{wide_data}{output from trait_pivot_wider.}
 }
 \value{
 A tibble in long format
+
+A tibble in long format
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 trait_pivot_longer "gathers" wide format data into a "tidy" format
 This function converts the data into long format where observations are on different rows and the type of observation is denoted by trait name.
 In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
@@ -25,6 +28,21 @@ In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
 \itemize{
 \item The excluded columns include: "unit", "replicates", "measurement_remarks", "basis_of_record", "basis_of_value"
 }
+}
+
+This function reverts the actions of the function austraits::trait_pivot_wider.
+
+It begins with a derivation of a traits.build traits table, where multiple measurements that comprise a single observation are displayed on a single row,with a column for each trait. It then converts the table into long format where measurements of multiple traits that comprise a single observation are on different rows and a column specifying the trait names is added.
+
+\code{trait_pivot_longer} has been developed to pivot the traits table for a database build using the traits.build workflow.
+Learn more at:
+\link{https://github.com/traitecoevo/traits.build} &
+\link{https://github.com/traitecoevo/traits.build-book}
+
+Note to AusTraits users:
+\itemize{
+\item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
 }
 }
 \examples{

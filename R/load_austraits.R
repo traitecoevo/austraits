@@ -90,7 +90,8 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
 
 #' Load the austraits.json
 #'
-#' @inheritParams load_austraits
+#' @noRd
+#' @keywords internal
 
 load_json <- function(path, update){
   # Set the directory path to json
@@ -113,11 +114,13 @@ load_json <- function(path, update){
 #'
 #' @param res output of austraits.json
 #' @return dataframe of metadata (date of release, doi and version)
+#' @noRd
+#' @keywords internal
 
 create_metadata <- function(res){
   # Version table
   ret <- res$hits$hits$metadata |> 
-    select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
+    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
     dplyr::mutate(version = gsub("v", "", version) |> numeric_version(),
                   id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
                   )|>  # set as numeric version for easier filtering
@@ -125,7 +128,7 @@ create_metadata <- function(res){
     dplyr::mutate(version = as.character(version),
                   publication_date = lubridate::ymd(publication_date)) |>  # change back as character
     dplyr::tibble() |> 
-    arrange(dplyr::desc(publication_date))
+    dplyr::arrange(dplyr::desc(publication_date))
 
   ret
 }
@@ -135,6 +138,8 @@ create_metadata <- function(res){
 #' @param url url of download via Zenodo API
 #' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
 #' @param path file path to where AusTraits will be downloaded
+#' @noRd
+#' @keywords internal
 
 download_austraits <- function(url, filename, path) {
   # Get user timeout option
