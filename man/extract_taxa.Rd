@@ -2,24 +2,36 @@
 % Please edit documentation in R/extract_taxa.R
 \name{extract_taxa}
 \alias{extract_taxa}
-\title{Extract data for one specific taxa}
+\title{Extract all data for specific taxa}
 \usage{
 extract_taxa(austraits, family = NULL, genus = NULL, taxon_name = NULL)
 }
 \arguments{
-\item{austraits}{austraits list object}
+\item{austraits}{a large list of tibbles built by \code{traits.build} workflow}
 
-\item{family}{character string of family}
+\item{family}{character string of family or families}
 
-\item{genus}{character string of genus}
+\item{genus}{character string of genus or genera}
 
-\item{taxon_name}{character string of taxon name}
+\item{taxon_name}{character string of taxon name(s)}
 }
 \value{
-A large list of tibbles containing all austraits information for specificied taxa
+List of tibbles containing all traits.build data and metadata for the specified taxa.
 }
 \description{
-Function to subset of all data associated with a particular dataset from austraits
+Function to subset of all data associated with a particular taxon from a traits.build relational database.
+}
+\details{
+\code{extract_taxa} has been developed to extract data for specific taxa from databases built using the traits.build workflow.
+Learn more at:
+\link{https://github.com/traitecoevo/traits.build} &
+\link{https://github.com/traitecoevo/traits.build-book}
+
+Note to AusTraits users:
+\itemize{
+\item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+}
 }
 \examples{
 \dontrun{
