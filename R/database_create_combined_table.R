@@ -15,35 +15,6 @@
 #' 
 database_create_combined_table <- function(database) {
   
-  # separate latitude and longitude, as these will be displayed in dedicated columns
-  location_latlon <-
-    database$locations %>%
-    dplyr::filter(location_property %in% c("latitude (deg)", "longitude (deg)")) %>%
-    tidyr::pivot_wider(names_from = location_property, values_from = value)
-  
-  # pack all location property information into a single column
-  location_properties <-
-    database$locations %>%
-    # remove latitude/longitude columns, as these have been retained above
-    dplyr::filter(!location_property %in% c("latitude (deg)", "longitude (deg)")) %>%
-    dplyr::mutate(
-      
-      # XX - TO DO - NOTE TO DANIEL - replacing syntax isn't a perfect solution because we'll never we able to fully recreate the starting point
-      # after implementing the `standardise_syntax` function, I've instead, FOR NOW, used various double syntax as the "hooks" 
-      # ==, ;;, <<, >>, and || are used to compact information
-      
-      #value = standardise_syntax(value),
-      #location_property = standardise_syntax(location_property)
-      ) %>%
-    # merge each location property and its corresponding value
-    dplyr::mutate(location_properties = paste0(location_property, "==", value)) %>%
-    dplyr::select(dplyr::all_of(c("dataset_id", "location_id", "location_name", "location_properties"))) %>%
-    dplyr::group_by(dataset_id, location_id, location_name) %>%
-    # collapse all location properties associated with a measurement into a single cell
-    dplyr::mutate(location_properties = paste0(location_properties, collapse = ";; ")) %>%
-    dplyr::ungroup() %>%
-    dplyr::distinct()
-  
   # pack all contributor information into a single column
   contributors <-
     database$contributors %>%
@@ -128,31 +99,18 @@ database_create_combined_table <- function(database) {
         reformat_contexts(contexts_tmp, "method_context_id")
       )
   }
-  
-  if (any(stringr::str_detect(names(location_latlon), "latitude "))) {
-    combined_table <-
-      database$traits %>%
-      dplyr::left_join(location_latlon, by = c("dataset_id", "location_id"))
-  } else {
-    combined_table <-
-      database$traits %>%
-      dplyr::mutate(
-        location_name = NA_character_,
-        `latitude (deg)` = NA_character_, 
-        `longitude (deg)` = NA_character_,
-        )
-  }
-  
-  combined_table <- combined_table %>%
-    dplyr::left_join(location_properties, by = c("dataset_id", "location_id", "location_name")) %>%
-    join_contexts(contexts_tmp) %>%
-    dplyr::left_join(
-      database$methods %>% dplyr::select(-dplyr::all_of(c("data_collectors"))),
-      by = c("dataset_id", "trait_name", "method_id")
-    ) %>%
-    dplyr::left_join(contributors, by = c("dataset_id")) %>%
-    dplyr::left_join(database$taxa, by = c("taxon_name")) %>%
-    dplyr::left_join(database$taxonomic_updates, by = c("taxon_name", "dataset_id", "original_name"))
+
+  combined_table <- database %>%
+    join_location_coordinates() %>%
+    join_location_properties(format = "single_column_pretty", vars =  "all") %>%
+    # join_contexts(contexts_tmp) %>%
+    # dplyr::left_join(
+    #   database$methods %>% dplyr::select(-dplyr::all_of(c("data_collectors"))),
+    #   by = c("dataset_id", "trait_name", "method_id")
+    # ) %>%
+    # dplyr::left_join(contributors, by = c("dataset_id")) %>%
+    join_taxonomy(vars = "all")  %>%
+    join_taxonomic_updates(vars = "all")
   
   combined_table
 }

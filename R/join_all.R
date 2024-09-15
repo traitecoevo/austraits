@@ -46,7 +46,8 @@
 
 
 join_all <- function(austraits) {
-  # Check compatability
+  
+  # Check compatibility
   status <- check_compatibility(austraits)
   
   # If compatible
@@ -65,7 +66,8 @@ join_all <- function(austraits) {
 #' @rdname join_all
 
 join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
-  # Check compatability
+  
+  # Check compatibility
   status <- check_compatibility(austraits)
   
   # If compatible
@@ -73,14 +75,41 @@ join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", 
     function_not_supported(austraits)
   } 
   
-  vars <- as.vector(vars)
-  
+  # If all columns to be added, create `vars` vector
   if (vars[1] == "all" & length(vars == 1)){
     vars <- names(austraits$taxa)
   }
   
+  # Join selected columns to traits table
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
+  
+  austraits
+}
+
+#' @title Joining taxonomic updates information to traits table
+#' @export
+
+#' @rdname join_all
+
+join_taxonomic_updates <- function(austraits, vars =  c("original_name")) {
+  
+  # Check compatibility
+  status <- check_compatibility(austraits)
+  
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+  
+  # If all columns to be added, create `vars` vector
+  if (vars[1] == "all" & length(vars == 1)){
+    vars <- names(austraits$taxonomic_updates)
+  }
+  
+  # Join selected columns to traits table
+  austraits$traits <- austraits$traits %>%
+    dplyr::left_join(by = c("taxon_name", "dataset_id", "original_name"), austraits$taxonomic_updates %>% dplyr::select("taxon_name", "dataset_id", "original_name", tidyselect::any_of(vars)))
   
   austraits
 }
@@ -91,7 +120,8 @@ join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", 
 #' @rdname join_all
 
 join_methods <- function(austraits, vars =  c("methods")) {
-  # Check compatability
+  
+  # Check compatibility
   status <- check_compatibility(austraits)
   
   # If compatible
@@ -99,10 +129,12 @@ join_methods <- function(austraits, vars =  c("methods")) {
     function_not_supported(austraits)
   }
 
-  if (vars == "all"){
-    vars <- names(austraits$methods)
+  # If all columns to be added, create `vars` vector
+  if (vars[1] == "all" & length(vars == 1)){
+    vars <- names(austraits$taxonomic_updates)
   }
-
+  
+  # Join selected columns to traits table
   austraits$methods %>% 
     dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
     dplyr::distinct() -> methods
@@ -119,7 +151,8 @@ join_methods <- function(austraits, vars =  c("methods")) {
 
 #' @rdname join_all
 join_location_coordinates <- function(austraits) {
-  # Check compatability
+  
+  # Check compatibility
   status <- check_compatibility(austraits)
   
   # If compatible
@@ -131,10 +164,14 @@ join_location_coordinates <- function(austraits) {
     database$locations %>%
     dplyr::filter(location_property %in% c("latitude (deg)", "longitude (deg)")) %>%
     tidyr::pivot_wider(names_from = location_property, values_from = value)
+  
+  # variables to join_ by depends on if location_name already in traits table
+  # from joining coordinates for instances
+  join_vars <- intersect(names(austraits$traits), c("dataset_id", "location_id", "location_name"))
 
   if (any(stringr::str_detect(names(location_coordinates), "latitude "))) {
     austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "location_id"), location_coordinates)
+    dplyr::left_join(by = join_vars, location_coordinates)
 
   } else {
     austraits$traits <- austraits$traits %>%
@@ -153,7 +190,8 @@ join_location_coordinates <- function(austraits) {
 
 #' @rdname join_all
 
-join_location_properties <- function(austraits, vars =  "all") {
+join_location_properties <- function(austraits, format = "single_column_pretty", vars =  "all") {
+  
   # Check compatability
   status <- check_compatibility(austraits)
 
@@ -162,19 +200,62 @@ join_location_properties <- function(austraits, vars =  "all") {
     function_not_supported(austraits)
   }
   
+  # If all location properties to be added, create `vars` vector that is unique list 
+  # of location properties in the database
   if (vars == "all") {
-    austraits$locations %>%
-    distinct(location_properties) %>%
-    filter(!location_properties %in% "latitude (deg)", "longitude (deg)")
+    
+    vars_tmp <- austraits$locations %>%
+      distinct(location_property) %>%
+      filter(!location_property %in% c("latitude (deg)", "longitude (deg)"))
+    
+    vars <- vars_tmp$location_property
   }
 
-  sites <- 
+  locations <- 
     austraits$locations %>% 
-    dplyr::filter(location_property %in%  vars) %>% 
-    tidyr::pivot_wider(names_from = location_property)
+    dplyr::filter(location_property %in% vars)
   
-  austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by=c("dataset_id", "location_id"), sites)
+  # Variables to join_ by depends on if location_name already in traits table
+  # from joining coordinates for instances
+  join_vars <- intersect(names(austraits$traits), c("dataset_id", "location_id", "location_name"))
+  
+  # Different options for how data are compacted and joined depending on `format` argument
+  if (format == "many_columns") {
+    
+    # Pivot wider, so each `location_property` in its own column
+    locations <- locations %>%
+      tidyr::pivot_wider(names_from = location_property)    
+      
+      # Join locations, based on appropriate columns 
+    austraits$traits <- austraits$traits %>%
+      dplyr::left_join(by = join_vars, locations)
+        
+  } else if (format == "single_column_pretty") {
+    
+    # Merge each location property and its corresponding value
+    compacted_locations_column <- locations %>%
+      dplyr::mutate(location_properties = paste0(location_property, "==", value)) %>%
+      dplyr::select(dplyr::all_of(c("dataset_id", "location_id", "location_name", "location_properties"))) %>%
+      dplyr::group_by(dataset_id, location_id, location_name) %>%
+      # collapse all location properties associated with a measurement into a single cell
+      dplyr::mutate(location_properties = paste0(location_properties, collapse = ";; ")) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct()
+    
+     austraits$traits <- austraits$traits %>%
+      dplyr::left_join(by = join_vars, compacted_locations_column)
+    
+  } else if (format == "single_column_json") {
+    
+    # XX - Daniel insert code to jsonify info
+    # XX make sure to drop empty columns - esp important for location properties, since most columns empty 
+    # compacted_locations_column <- XX
+    
+    # austraits$traits <- austraits$traits %>%
+    #  dplyr::left_join(by = join_vars, compacted_locations_column)
+    
+  }
+  
   
   austraits
 }
