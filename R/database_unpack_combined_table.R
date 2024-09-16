@@ -408,7 +408,7 @@ recreate_contributors_dataframe <- function(combined_table_by_dataset) {
     dplyr::mutate(data_collector = stringr::str_replace(data_collector, "data_collector: ", "")) %>%
     tidyr::separate_wider_delim(data_collector, delim = ", ", names_sep = "_") %>%
     dplyr::rename(last_name = data_collector_1,  given_name = data_collector_2) %>%
-    tidyr::separate_wider_delim(value, delim = " || ", names_sep = "_", too_few = "align_start")
+    tidyr::separate_wider_delim(value, delim = " \\ ", names_sep = "_", too_few = "align_start")
   
   long_contributors_output <- long_output %>%
     tidyr::pivot_longer(cols = 4:ncol(long_output)) %>%

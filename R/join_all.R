@@ -64,7 +64,6 @@ join_all <- function(austraits) {
 #' @export
 
 #' @rdname join_all
-
 join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
   
   # Check compatibility
@@ -91,7 +90,6 @@ join_taxonomy <- function(austraits, vars =  c("family", "genus", "taxon_rank", 
 #' @export
 
 #' @rdname join_all
-
 join_taxonomic_updates <- function(austraits, vars =  c("original_name")) {
   
   # Check compatibility
@@ -118,7 +116,6 @@ join_taxonomic_updates <- function(austraits, vars =  c("original_name")) {
 
 #' @export
 #' @rdname join_all
-
 join_methods <- function(austraits, vars =  c("methods")) {
   
   # Check compatibility
@@ -141,10 +138,78 @@ join_methods <- function(austraits, vars =  c("methods")) {
   
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "trait_name", "method_id"),
-                     methods, relationship = "many-to-many")
+                     methods)
   
   austraits
 }
+
+#' @title Joining data contributor metadata to traits table
+#' @export
+
+#' @rdname join_all
+join_contributors <- function(austraits, format = "single_column_pretty", vars =  "all") {
+  
+  # Check compatibility
+  status <- check_compatibility(austraits)
+  
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  }
+  
+  # Work out which vars to retain and create a dataframe for compacting
+  if (vars == "all") {
+    contributors_tmp <- austraits$contributors
+  } else {
+    # Create vector that is combination of selected columns and required columns
+    vars_tmp <- c("dataset_id", "last_name", "given_name", vars)
+    # Determine which columns aren't wanted
+    vars_remove <- setdiff(names(austraits$contributors), vars_tmp)
+    # Remove unwanted columns from contributors dataframe
+    contributors_tmp <- austraits$contributors %>% dplyr::select(-dplyr::any_of(vars_remove))
+  }
+ 
+  # Different options for how data are compacted and joined depending on `format` argument
+  if (format == "single_column_pretty") {
+    # collapse all metadata for a single contributor into a single cell
+    contributor_metadata <-
+      contributors_tmp %>%
+      tidyr::pivot_longer(cols = 4:ncol(contributors_tmp)) %>%
+      filter(!is.na(value)) %>%
+      group_by(dataset_id, last_name, given_name) %>%
+      mutate(contributor = paste0(paste0(name, "==", value), collapse = " \\ "))%>%
+      select(-name, -value) %>%
+      distinct() %>%
+      ungroup()
+    
+    # Merge in contributor metadata and paste together with name
+    compacted_contributors_column <- contributors_tmp %>%
+      left_join(contributor_metadata, by = c("dataset_id", "last_name", "given_name")) %>%
+      mutate(
+        data_contributors = ifelse(is.na(contributor), 
+                                   paste0(last_name, ", ", given_name),
+                                   paste0(last_name, ", ", given_name, " <", contributor, ">"))) %>%
+      select(dataset_id, data_contributors) %>%
+      # Collapse metadata for all data contributors associated with a dataset into a single cell
+      dplyr::group_by(dataset_id) %>%
+      dplyr::mutate(data_contributors = paste0(data_contributors, collapse = ";; ")) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct()
+    
+  } else if (format == "single_column_json") {
+    
+    # XX - Daniel insert code to jsonify info
+    # XX decide whether to drop empty columns
+    # compacted_contributors_column <- contributors_tmp %>%
+    
+  }
+  
+  austraits$traits <- austraits$traits %>%
+    dplyr::left_join(by = c("dataset_id"), compacted_contributors_column)
+  
+  austraits
+   
+}  
 
 #' @title Joining location coordinates to traits table
 #' @export
@@ -159,7 +224,7 @@ join_location_coordinates <- function(austraits) {
   if(!status){
     function_not_supported(austraits)
   }
-
+  
   location_coordinates <-
     database$locations %>%
     dplyr::filter(location_property %in% c("latitude (deg)", "longitude (deg)")) %>%
@@ -168,11 +233,11 @@ join_location_coordinates <- function(austraits) {
   # variables to join_ by depends on if location_name already in traits table
   # from joining coordinates for instances
   join_vars <- intersect(names(austraits$traits), c("dataset_id", "location_id", "location_name"))
-
+  
   if (any(stringr::str_detect(names(location_coordinates), "latitude "))) {
     austraits$traits <- austraits$traits %>%
-    dplyr::left_join(by = join_vars, location_coordinates)
-
+      dplyr::left_join(by = join_vars, location_coordinates)
+    
   } else {
     austraits$traits <- austraits$traits %>%
       dplyr::mutate(
@@ -181,7 +246,7 @@ join_location_coordinates <- function(austraits) {
         `longitude (deg)` = NA_character_,
       )
   }
-
+  
   austraits
 }
 
@@ -189,10 +254,9 @@ join_location_coordinates <- function(austraits) {
 #' @export
 
 #' @rdname join_all
-
 join_location_properties <- function(austraits, format = "single_column_pretty", vars =  "all") {
   
-  # Check compatability
+  # Check compatibility
   status <- check_compatibility(austraits)
 
   # If compatible
@@ -224,6 +288,7 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
     
     # Pivot wider, so each `location_property` in its own column
     locations <- locations %>%
+      mutate(location_property = paste0("location_property: ", location_property)) %>%
       tidyr::pivot_wider(names_from = location_property)    
       
       # Join locations, based on appropriate columns 
@@ -256,9 +321,126 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
     
   }
   
-  
   austraits
 }
 
 
-
+join_context_properties <- function(austraits, format = "single_column_pretty", vars =  "all", include_description = TRUE) {
+  
+  # Internal function - join contexts 
+  join_contexts <- function(data, contexts_tmp) {
+    data %>%
+      dplyr::left_join(
+        by = c("dataset_id", "treatment_context_id"),
+        reformat_contexts(contexts_tmp, "treatment_context_id")
+      ) %>%
+      dplyr::left_join(
+        by = c("dataset_id", "plot_context_id"),
+        reformat_contexts(contexts_tmp, "plot_context_id")
+      ) %>%
+      dplyr::left_join(
+        by = c("dataset_id", "entity_context_id"),
+        reformat_contexts(contexts_tmp, "entity_context_id")
+      ) %>%
+      dplyr::left_join(
+        by = c("dataset_id", "temporal_context_id"),
+        reformat_contexts(contexts_tmp, "temporal_context_id")
+      ) %>%
+      dplyr::left_join(
+        by = c("dataset_id", "method_context_id"),
+        reformat_contexts(contexts_tmp, "method_context_id")
+      )
+  }
+  
+  # Check compatibility
+  status <- check_compatibility(austraits)
+  
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+  
+  # If all context properties to be added, create `vars` vector that is unique list 
+  # of context properties in the database
+  if (vars == "all") {
+    
+    vars_tmp <- database$contexts %>%
+      distinct(context_property)
+    
+    vars <- vars_tmp$context_property
+  }
+  
+  # Create dataframe of contexts to use & add `context_property:` to context properties
+  contexts_tmp <- 
+    database$contexts %>% 
+    dplyr::filter(context_property %in% vars) %>%
+    dplyr::mutate(context_property = paste0(category, ": ", context_property))
+  
+  if (format == "many_columns") {
+    contexts_tmp <-
+      contexts_tmp %>%
+      dplyr::mutate(
+        value = ifelse(
+          is.na(description) | include_description == FALSE,
+          value,
+          paste0(value, " <<", description, ">>"))
+      ) %>%
+      dplyr::select(-dplyr::all_of(c("description", "category"))) %>%
+      tidyr::separate_longer_delim(link_vals, ", ")
+    
+    # Need specific reformat function for `many_columns` formatting
+    reformat_contexts <- function(contexts_table, context_id) {
+      context_category <- gsub("_id", "_properties", context_id, fixed = TRUE)
+      out <- contexts_table %>%
+        dplyr::filter(link_id == context_id) %>%
+        tidyr::pivot_wider(names_from = context_property, values_from = value) %>%
+        dplyr::select(-link_id) %>%
+        dplyr::distinct(dataset_id, link_vals, .keep_all = TRUE)
+      names(out)[which(names(out) == "link_vals")] <- context_id
+      out
+    }
+    
+    # Merge contexts to database$traits using generic join_contexts function
+    austraits$traits <- join_contexts(database$traits, contexts_tmp)
+    
+  } else if (format == "single_column_pretty") {
+    contexts_tmp <-
+      contexts_tmp %>%
+      dplyr::mutate(
+        value = ifelse(
+          is.na(description)| include_description == FALSE,
+          paste0(context_property, "==", value),
+          paste0(context_property, "==", value, " <<", description, ">>"))
+      ) %>%
+      dplyr::select(-dplyr::all_of(c("description", "context_property", "category"))) %>%
+      tidyr::separate_longer_delim(link_vals, ", ") %>%
+      dplyr::distinct() %>%
+      dplyr::group_by(dataset_id, link_id, link_vals) %>%
+      dplyr::mutate(value = paste0(value, collapse = ";; ")) %>%
+      dplyr::distinct() %>%
+      dplyr::ungroup()
+    
+    # Need specific reformat function for `single_column_pretty` formatting
+    reformat_contexts <- function(contexts_table, context_id) {
+      context_category <- gsub("_id", "_properties", context_id, fixed = TRUE)
+      out <- contexts_table %>%
+        dplyr::filter(link_id == context_id) %>%
+        dplyr::select(-link_id) %>%
+        dplyr::distinct(dataset_id, link_vals, .keep_all = TRUE)
+      names(out)[which(names(out) == "value")] <- context_category
+      names(out)[which(names(out) == "link_vals")] <- context_id
+      out
+    }
+    
+    # Merge contexts to database$traits using generic join_contexts function
+    austraits$traits <- join_contexts(database$traits, contexts_tmp)
+    
+  } else if (format == "single_column_json") {
+    
+    ## XX- Daniel, add json option 
+    
+  }
+  
+  austraits
+  
+}
