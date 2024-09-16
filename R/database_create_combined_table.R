@@ -21,7 +21,7 @@ database_create_combined_table <- function(database) {
   combined_table <- database %>%
     join_location_coordinates() %>%
     join_location_properties(format = "single_column_pretty", vars =  "all") %>%
-    join_contexts(format = "single_column_pretty", vars =  "all", include_description = TRUE) %>%
+    join_context_properties(format = "single_column_pretty", vars =  "all", include_description = TRUE) %>%
     join_methods(vars = method_vars)  %>%
     join_contributors(format = "single_column_pretty", vars = "all")  %>%
     join_taxonomy(vars = "all")  %>%

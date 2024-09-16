@@ -5,7 +5,7 @@
 #' 
 #' @param austraits traits.build generated database
 #' @param vars vector specifying which columns from a specific relational table to join to the traits table (works only for `join_` functions joining a single dataframe)
-#' @param collapse_context for `join_context_properties` and `join_location_properties` only. Logical, whether location properties or context properties for a given observation will be concatenated into one cell
+#' @param format for `join_context_properties` and `join_location_properties` only. Logical, whether location properties or context properties for a given observation will be concatenated into one cell
 #' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @details
 #' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
@@ -23,14 +23,14 @@
 #' \dontrun{
 #' austraits$traits
 #' 
-#' #Append locations properties and output a single table
-#' (austraits %>% join_locations)$traits
+#' #Append locations coordinates and output a single table
+#' (austraits %>% join_location_coordinates)$traits
 #' 
-#' #Append location properties, but maintain the relational database
-#' austraits %>% join_locations()
+#' #Append location coordinates, but maintain the relational database
+#' austraits %>% join_location_coordinates()
 #'
 #' #Append contexts
-#' (austraits %>% join_contexts)$traits
+#' (austraits %>% join_context_properties)$traits
 #' 
 #' # Append methods
 #' (austraits %>% join_methods(vars = c("method_id")))$traits
@@ -55,7 +55,7 @@ join_all <- function(austraits) {
     function_not_supported(austraits)
   }
   austraits %>% 
-    join_locations() %>% 
+    join_location_coordinates() %>% 
     join_taxonomy() %>% 
     join_methods()
 }
@@ -226,7 +226,7 @@ join_location_coordinates <- function(austraits) {
   }
   
   location_coordinates <-
-    database$locations %>%
+    austraits$locations %>%
     dplyr::filter(location_property %in% c("latitude (deg)", "longitude (deg)")) %>%
     tidyr::pivot_wider(names_from = location_property, values_from = value)
   
@@ -364,7 +364,7 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
   # of context properties in the database
   if (vars == "all") {
     
-    vars_tmp <- database$contexts %>%
+    vars_tmp <- austraits$contexts %>%
       distinct(context_property)
     
     vars <- vars_tmp$context_property
@@ -372,7 +372,7 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
   
   # Create dataframe of contexts to use & add `context_property:` to context properties
   contexts_tmp <- 
-    database$contexts %>% 
+    austraits$contexts %>% 
     dplyr::filter(context_property %in% vars) %>%
     dplyr::mutate(context_property = paste0(category, ": ", context_property))
   
@@ -400,8 +400,8 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
       out
     }
     
-    # Merge contexts to database$traits using generic join_contexts function
-    austraits$traits <- join_contexts(database$traits, contexts_tmp)
+    # Merge contexts to austraits$traits using generic join_contexts function
+    austraits$traits <- join_contexts(austraits$traits, contexts_tmp)
     
   } else if (format == "single_column_pretty") {
     contexts_tmp <-
@@ -432,13 +432,13 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
       out
     }
     
-    # Merge contexts to database$traits using generic join_contexts function
-    austraits$traits <- join_contexts(database$traits, contexts_tmp)
+    # Merge contexts to austraits$traits using generic join_contexts function
+    austraits$traits <- join_contexts(austraits$traits, contexts_tmp)
     
   } else if (format == "single_column_json") {
-    
+
     ## XX- Daniel, add json option 
-    
+
   }
   
   austraits

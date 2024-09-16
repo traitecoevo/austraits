@@ -5,9 +5,6 @@ library(purrr)
 # tests for combined table
 
 dataset_id <- "Falster_2003"
-database <- extract_dataset(austraits, "ABRS_1981")
-
-database <- extract_dataset(austraits, "Falster_2003")
 database <- extract_dataset(austraits_5.0.0_lite, dataset_id)
 combined_table <- database_create_combined_table(database)
 

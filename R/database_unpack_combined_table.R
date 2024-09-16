@@ -36,10 +36,12 @@ recreate_traits.build_locations <- function(combined_table) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 unpack_location_properties <- function(combined_table) {
   
   combined_table <- combined_table %>% arrange(dataset_id)
@@ -96,10 +98,12 @@ unpack_location_properties <- function(combined_table) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 recreate_locations_dataframe <- function(combined_table) {
   
   if (!all(is.na(combined_table$location_properties))) {
@@ -177,10 +181,12 @@ recreate_locations_dataframe <- function(combined_table) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 unpack_context_properties <- function(combined_table_by_dataset) {
   
   context_variables <- tibble(
@@ -247,10 +253,12 @@ unpack_context_properties <- function(combined_table_by_dataset) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 recreate_contexts_dataframe <- function(combined_table_by_dataset) {
 
   unpacked_contexts_table <- unpack_context_properties(combined_table_by_dataset)
@@ -350,10 +358,12 @@ recreate_contexts_dataframe <- function(combined_table_by_dataset) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 unpack_data_collectors <- function(combined_table_by_dataset) {
   
   packed_column_unpacked <- combined_table_by_dataset %>% 
@@ -388,10 +398,12 @@ unpack_data_collectors <- function(combined_table_by_dataset) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 recreate_contributors_dataframe <- function(combined_table_by_dataset) {
   
   unpacked_contributors_table <- unpack_data_collectors(combined_table_by_dataset)
@@ -440,10 +452,12 @@ recreate_contributors_dataframe <- function(combined_table_by_dataset) {
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
-#' @return
+#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' }
 recreate_methods_dataframe <- function(combined_table_by_dataset) {
   
   recreated_contributors_dataframe <- recreate_contributors_dataframe(combined_table_by_dataset)

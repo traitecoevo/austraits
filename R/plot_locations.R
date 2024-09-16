@@ -29,7 +29,7 @@ plot_locations <- function(aus_traits, feature="trait_name", ...){
     
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ){
       cli::cli_alert_info("Coordinate columns were not detected, joining location tables now.")
-      aus_traits <- aus_traits |> join_locations()
+      aus_traits <- aus_traits |> join_location_coordinates()
       traits <- get_traits_table(aus_traits)
     }
   } else {
@@ -37,7 +37,7 @@ plot_locations <- function(aus_traits, feature="trait_name", ...){
     
     # Check if traits contains coordinate cols in traits table
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ) 
-      cli::cli_abort("No location data found in traits table - try `join_locations()` first before `plot_locations()`")
+      cli::cli_abort("No location data found in traits table - try `join_location_coordinates()` first before `plot_locations()`")
   }
   
   plot_locations2(traits, feature)

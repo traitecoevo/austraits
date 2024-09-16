@@ -3,9 +3,11 @@
 \name{join_all}
 \alias{join_all}
 \alias{join_taxonomy}
+\alias{join_taxonomic_updates}
 \alias{join_methods}
-\alias{join_locations}
-\alias{join_contexts}
+\alias{join_contributors}
+\alias{join_location_coordinates}
+\alias{join_location_properties}
 \title{Join metadata fields into the core traits table}
 \usage{
 join_all(austraits)
@@ -15,21 +17,26 @@ join_taxonomy(
   vars = c("family", "genus", "taxon_rank", "establishment_means")
 )
 
-join_methods(
+join_taxonomic_updates(austraits, vars = c("original_name"))
+
+join_methods(austraits, vars = c("methods"))
+
+join_contributors(austraits, format = "single_column_pretty", vars = "all")
+
+join_location_coordinates(austraits)
+
+join_location_properties(
   austraits,
-  vars = c("methods", "year_collected_start", "year_collected_end", "collection_type")
+  format = "single_column_pretty",
+  vars = "all"
 )
-
-join_locations(austraits, vars = c("longitude (deg)", "latitude (deg)"))
-
-join_contexts(austraits, collapse_context = FALSE)
 }
 \arguments{
 \item{austraits}{traits.build generated database}
 
 \item{vars}{vector specifying which columns from a specific relational table to join to the traits table (works only for \code{join_} functions joining a single dataframe)}
 
-\item{collapse_context}{for \code{join_contexts} only. Logical, whether contexts for a given observation will be concatenated into one cell}
+\item{format}{for \code{join_context_properties} and \code{join_location_properties} only. Logical, whether location properties or context properties for a given observation will be concatenated into one cell}
 }
 \value{
 traits.build list object, but with additional fields (columns) appended to \code{traits} dataframe
@@ -55,11 +62,14 @@ Note to AusTraits users:
 \dontrun{
 austraits$traits
 
-#Append locations data
-(austraits \%>\% join_locations)$traits
+#Append locations coordinates and output a single table
+(austraits \%>\% join_location_coordinates)$traits
+
+#Append location coordinates, but maintain the relational database
+austraits \%>\% join_location_coordinates()
 
 #Append contexts
-(austraits \%>\% join_contexts)$traits
+(austraits \%>\% join_context_properties)$traits
 
 # Append methods
 (austraits \%>\% join_methods(vars = c("method_id")))$traits
