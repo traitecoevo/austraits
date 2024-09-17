@@ -7,7 +7,7 @@
 plot_site_locations(traits, feature = "trait_name", ...)
 }
 \arguments{
-\item{traits}{traits table with site details appended. See join_all and examples}
+\item{traits}{traits table with site details appended. See join_location_coordinates and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2}
 

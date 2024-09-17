@@ -63,7 +63,7 @@ summarise_austraits_traits <-function(austraits, var) {
 summarise_austraits_taxa <-function(austraits, var) {
   
   #Join taxonomic info
-  austraits <- austraits %>% join_taxonomy()
+  austraits <- austraits %>% join_taxa()
   
   # Create table
   ret <- austraits[["traits"]] %>% 

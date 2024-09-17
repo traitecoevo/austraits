@@ -156,11 +156,11 @@ head(data_leaf$traits)
 ## Join data from other tables and elements
 
 Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
-There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
+There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxa` appends taxonomic information to the `traits` dataframe. See `?join_location_coordinates` for more details. 
 
 ```{r, join_}
 # Join taxonomic information 
-(data_leaf %>% join_taxonomy)$traits %>% head()
+(data_leaf %>% join_taxa)$traits %>% head()
 
 # Join methodological information 
 (data_leaf %>% join_methods)$traits %>% head()
@@ -175,7 +175,7 @@ There are five `join_` functions in total, each designed to append specific info
 (data_leaf %>% join_context_properties)$traits %>% head()
 
 # Alternatively users can join *all* information 
-(data_leaf %>% join_all)$traits %>% head()
+data_leaf %>% database_create_combined_table() %>% head()
 ```
 
 ## Visualising data by site

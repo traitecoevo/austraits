@@ -121,7 +121,7 @@ recreate_locations_dataframe <- function(combined_table) {
     unpacked_locations_table_split <- split(unpacked_locations_table, unpacked_locations_table$dataset_id)
     long_locations_all <- tibble()  
     
-    for (i in seq_along(1:length(combined_split))) {
+    for (i in seq_along(1:length(unpacked_locations_table_split))) {
     
       ## once working will replace all `combined_table_by_dataset` with `unpacked_locations_table_split[[i]]`
     

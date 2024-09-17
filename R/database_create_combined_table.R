@@ -13,19 +13,27 @@
 #'
 #' @usage database_create_combined_table(database)
 #' 
-database_create_combined_table <- function(austraits) {
-
+database_create_combined_table <- function(austraits,
+    format = "single_column_pretty",
+    vars = list(
+      location = "all",
+      context = "all",
+      contributors = "all",
+      taxonomy = "all",
+      taxonomic_updates = "all",
+      methods = setdiff(names(austraits$methods), c("data_collectors"))
+    )
+  ) {
   # Since `data_collectors` is also merged into the combined_table via the contributors tibble, we don't want the information twice.
-  method_vars <- setdiff(names(austraits$methods), c("data_collectors"))
-    
-  combined_table <- austraits %>%
-    join_location_coordinates() %>%
-    join_location_properties(format = "single_column_pretty", vars =  "all") %>%
-    join_context_properties(format = "single_column_pretty", vars =  "all", include_description = TRUE) %>%
-    join_methods(vars = method_vars)  %>%
-    join_contributors(format = "single_column_pretty", vars = "all")  %>%
-    join_taxonomy(vars = "all")  %>%
-    join_taxonomic_updates(vars = "all")
   
-  combined_table
+  combined_table_relational <- austraits %>%
+    join_location_coordinates() %>%
+    join_location_properties(format = format, vars =  vars$location) %>%
+    join_context_properties(format = format, vars =  vars$context, include_description = TRUE) %>%
+    join_methods(vars = vars$methods) %>%
+    join_contributors(format = format, vars = vars$contributors) %>%
+    join_taxa(vars = vars$taxonomy) %>%
+    join_taxonomic_updates(vars = vars$taxonomic_updates)
+  
+  combined_table <- combined_table_relational$traits
 }
