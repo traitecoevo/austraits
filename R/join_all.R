@@ -209,17 +209,18 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
 
   } else if (format == "single_column_json") {
 
-    # XX - Daniel insert code to jsonify info
-    # XX decide whether to drop empty columns
-    # compacted_contributors_column <- contributors_tmp %>%
-
+    compacted_contributors_column <-
+      contributors_tmp |> 
+      tidyr::nest(-dplyr::all_of("dataset_id")) |>
+      dplyr::mutate(data_contributors = map_chr(data, jsonlite::toJSON)) |>
+      dplyr::select(-dplyr::any_of("data")) |>
+      dplyr::ungroup()
   }
 
   austraits$traits <- austraits$traits %>%
     dplyr::left_join(by = c("dataset_id"), compacted_contributors_column)
 
   austraits
-
 }
 
 
