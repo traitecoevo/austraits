@@ -205,27 +205,26 @@ unpack_context_properties <- function(combined_table_by_dataset) {
       packed_column_unpacked <- combined_table_by_dataset %>% 
         dplyr::select("observation_id", dplyr::contains(context_variables[[i,2]]), dplyr::contains(context_variables[[i,1]])) %>%
         dplyr::distinct() %>%
-        dplyr::filter(!is.na(.[[2]]))
+        dplyr::filter(!is.na(.[[2]])) %>%
+        dplyr::rename(context_properties = dplyr::contains("context_properties"))
       
       packed_column_unpacked <- packed_column_unpacked %>%
-        tidyr::separate_longer_delim(context_variables[[i,1]], delim = ";; ") %>%
-        tidyr::separate_wider_delim(context_variables[[i,1]], delim = "==", names_sep = "_") %>%
-        dplyr::mutate(context_property_1 = paste0(context_variables[[i,1]] %>% stringr::str_replace("properties","property"),
-                                                              ": ", .[[3]])) %>%
-        dplyr::select(-3) %>%
+        tidyr::separate_longer_delim(context_properties, delim = ";; ") %>%
+        tidyr::separate_wider_delim(context_properties, delim = "==", names_sep = "_") %>%
+        dplyr::mutate(context_properties_1 = stringr::str_replace(context_properties_1, ": ", "_property:")) %>%
         tidyr::pivot_wider(names_from = dplyr::contains("_1"), values_from = dplyr::contains("_2"))
       
       unpacked_contexts_table <- 
         combined_table_by_dataset %>% 
         dplyr::left_join(packed_column_unpacked, 
-                  by = c("observation_id", context_variables[[i,2]]))# %>%
-        #dplyr::select(-dplyr::contains(context_variables[[i,1]]))
+                  by = c("observation_id", context_variables[[i,2]])) %>%
+        dplyr::select(-context_variables[[i,1]])
       
     } else {
       
       unpacked_contexts_table <- 
-        combined_table_by_dataset #%>% 
-        #dplyr::select(-dplyr::contains(context_variables[[i,1]]))
+        combined_table_by_dataset  %>%
+        dplyr::select(-context_variables[[i,1]])
       
     }
     
@@ -344,6 +343,13 @@ recreate_contexts_dataframe <- function(combined_table_by_dataset) {
     long_contexts_output %>% 
     dplyr::filter(!is.na(value)) %>%
     dplyr::distinct() %>%
+    dplyr::mutate(
+      context_property = stringr::str_replace(context_property, "method_context_property:", ""),
+      context_property = stringr::str_replace(context_property, "plot_context_property:", ""),
+      context_property = stringr::str_replace(context_property, "treatment_context_property:", ""),
+      context_property = stringr::str_replace(context_property, "temporal_context_property:", ""),
+      context_property = stringr::str_replace(context_property, "entity_context_property:", "")
+    ) %>%
     dplyr::arrange(category, context_property, link_vals)
   
 }

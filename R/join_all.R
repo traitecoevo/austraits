@@ -167,7 +167,7 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
   }
 
   # Work out which vars to retain and create a dataframe for compacting
-  if (vars == "all") {
+  if (vars[1] == "all") {
     contributors_tmp <- austraits$contributors
   } else {
     # Create vector that is combination of selected columns and required columns
