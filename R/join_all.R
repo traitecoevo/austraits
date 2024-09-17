@@ -300,31 +300,6 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
 
 join_context_properties <- function(austraits, format = "single_column_pretty", vars =  "all", include_description = TRUE) {
   
-  # Internal function - join contexts 
-  join_contexts <- function(data, contexts_tmp) {
-    data %>%
-      dplyr::left_join(
-        by = c("dataset_id", "treatment_context_id"),
-        reformat_contexts(contexts_tmp, "treatment_context_id")
-      ) %>%
-      dplyr::left_join(
-        by = c("dataset_id", "plot_context_id"),
-        reformat_contexts(contexts_tmp, "plot_context_id")
-      ) %>%
-      dplyr::left_join(
-        by = c("dataset_id", "entity_context_id"),
-        reformat_contexts(contexts_tmp, "entity_context_id")
-      ) %>%
-      dplyr::left_join(
-        by = c("dataset_id", "temporal_context_id"),
-        reformat_contexts(contexts_tmp, "temporal_context_id")
-      ) %>%
-      dplyr::left_join(
-        by = c("dataset_id", "method_context_id"),
-        reformat_contexts(contexts_tmp, "method_context_id")
-      )
-  }
-
   # Check compatibility
   if(!check_compatibility(austraits)){
     function_not_supported(austraits)
@@ -333,11 +308,7 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
   # If all context properties to be added, create `vars` vector that is unique list 
   # of context properties in the database
   if (vars == "all") {
-
-    vars_tmp <- austraits$contexts %>%
-      distinct(context_property)
-
-    vars <- vars_tmp$context_property
+    vars <- austraits$contexts$context_property %>% unique()
   }
 
   # Create dataframe of contexts to use & add `context_property:` to context properties
@@ -346,6 +317,7 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
     dplyr::filter(context_property %in% vars) %>%
     dplyr::mutate(context_property = paste0(category, ": ", context_property))
 
+  # From here format depends on desired output
   if (format == "many_columns") {
     contexts_tmp <-
       contexts_tmp %>%
@@ -357,22 +329,8 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
       ) %>%
       dplyr::select(-dplyr::all_of(c("description", "category"))) %>%
       tidyr::separate_longer_delim(link_vals, ", ")
-
-    # Need specific reformat function for `many_columns` formatting
-    reformat_contexts <- function(contexts_table, context_id) {
-      context_category <- gsub("_id", "_properties", context_id, fixed = TRUE)
-      out <- contexts_table %>%
-        dplyr::filter(link_id == context_id) %>%
-        tidyr::pivot_wider(names_from = context_property, values_from = value) %>%
-        dplyr::select(-link_id) %>%
-        dplyr::distinct(dataset_id, link_vals, .keep_all = TRUE)
-      names(out)[which(names(out) == "link_vals")] <- context_id
-      out
-    }
-
-    # Merge contexts to austraits$traits using generic join_contexts function
-    austraits$traits <- join_contexts(austraits$traits, contexts_tmp)
-
+    
+    pivot <- TRUE
   } else if (format == "single_column_pretty") {
     contexts_tmp <-
       contexts_tmp %>%
@@ -389,27 +347,65 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
       dplyr::mutate(value = paste0(value, collapse = ";; ")) %>%
       dplyr::distinct() %>%
       dplyr::ungroup()
-
-    # Need specific reformat function for `single_column_pretty` formatting
-    reformat_contexts <- function(contexts_table, context_id) {
-      context_category <- gsub("_id", "_properties", context_id, fixed = TRUE)
-      out <- contexts_table %>%
-        dplyr::filter(link_id == context_id) %>%
-        dplyr::select(-link_id) %>%
-        dplyr::distinct(dataset_id, link_vals, .keep_all = TRUE)
-      names(out)[which(names(out) == "value")] <- context_category
-      names(out)[which(names(out) == "link_vals")] <- context_id
-      out
-    }
-
-    # Merge contexts to austraits$traits using generic join_contexts function
-    austraits$traits <- join_contexts(austraits$traits, contexts_tmp)
-
+    
+    pivot <- FALSE
   } else if (format == "single_column_json") {
+
+    browser()
 
     ## XX- Daniel, add json option 
 
+  } else {
+    stop("format not supported: ", format)
   }
+
+  # Merge contexts to austraits$traits
+
+  # Defines a function to further reformat specific columns of the context table
+  reformat_contexts <- function(data, context_id, pivot) {
+
+    data <- 
+      data %>%
+      dplyr::filter(link_id == context_id) 
+
+    if(pivot) {
+      data <- tidyr::pivot_wider(data, names_from = context_property, values_from = value)
+    }
+
+    data <- 
+      data %>%
+      dplyr::select(-link_id) %>%
+      dplyr::distinct(dataset_id, link_vals, .keep_all = TRUE) 
+    
+    names(data)[which(names(data) == "value")] <- gsub("_id", "_properties", context_id, fixed = TRUE)
+    names(data)[which(names(data) == "link_vals")] <- context_id
+    
+    data
+  }
+
+
+  austraits$traits <- 
+    austraits$traits %>%
+    dplyr::left_join(
+      by = c("dataset_id", "treatment_context_id"),
+      reformat_contexts(contexts_tmp, "treatment_context_id", pivot)
+    ) %>%
+    dplyr::left_join(
+      by = c("dataset_id", "plot_context_id"),
+      reformat_contexts(contexts_tmp, "plot_context_id", pivot)
+    ) %>%
+    dplyr::left_join(
+      by = c("dataset_id", "entity_context_id"),
+      reformat_contexts(contexts_tmp, "entity_context_id", pivot)
+    ) %>%
+    dplyr::left_join(
+      by = c("dataset_id", "temporal_context_id"),
+      reformat_contexts(contexts_tmp, "temporal_context_id", pivot)
+    ) %>%
+    dplyr::left_join(
+      by = c("dataset_id", "method_context_id"),
+      reformat_contexts(contexts_tmp, "method_context_id", pivot)
+    )
 
   austraits
 
