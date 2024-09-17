@@ -286,12 +286,15 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
 
   } else if (format == "single_column_json") {
 
-    # XX - Daniel insert code to jsonify info
-    # XX make sure to drop empty columns - esp important for location properties, since most columns empty 
-    # compacted_locations_column <- XX
-
-    # austraits$traits <- austraits$traits %>%
-    #  dplyr::left_join(by = join_vars, compacted_locations_column)
+    compacted_locations_column <-
+      locations |> 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) |>
+      dplyr::mutate(location_properties = map_chr(data, jsonlite::toJSON)) |>
+      dplyr::select(-dplyr::any_of("data")) |>
+      dplyr::ungroup()
+    
+    austraits$traits <- austraits$traits %>%
+      dplyr::left_join(by = join_vars, compacted_locations_column)
 
   }
 
@@ -351,10 +354,18 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
     
     pivot <- FALSE
   } else if (format == "single_column_json") {
-
-    browser()
-
-    ## XX- Daniel, add json option 
+    
+    contexts_tmp <-
+      contexts_tmp |> 
+      tidyr::separate_longer_delim(link_vals, ", ") |>
+      dplyr::distinct() |>
+      dplyr::mutate(description = ifelse(include_description == FALSE, NA, description)) |>
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) |>
+      dplyr::mutate(value = map_chr(data, jsonlite::toJSON)) |>
+      dplyr::select(-dplyr::any_of("data")) |>
+      dplyr::ungroup()
+    
+    pivot <- FALSE
 
   } else {
     stop("format not supported: ", format)
