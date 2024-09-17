@@ -162,7 +162,7 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
   }
 
   # Work out which vars to retain and create a dataframe for compacting
-  if (vars == "all") {
+  if (vars[1] == "all") {
     contributors_tmp <- austraits$contributors
   } else {
     # Create vector that is combination of selected columns and required columns
@@ -193,7 +193,7 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
       mutate(
         data_contributors = ifelse(is.na(contributor), 
                                    paste0(last_name, ", ", given_name),
-                                   paste0(last_name, ", ", given_name, " <", contributor, ">"))) %>%
+                                   paste0(last_name, ", ", given_name, " <<", contributor, ">>"))) %>%
       select(dataset_id, data_contributors) %>%
       # Collapse metadata for all data contributors associated with a dataset into a single cell
       dplyr::group_by(dataset_id) %>%
