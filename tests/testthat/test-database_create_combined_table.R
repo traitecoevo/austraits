@@ -4,7 +4,7 @@ dataset_id <- "Falster_2003"
 database <- extract_dataset(austraits_5.0.0_lite, dataset_id)
 combined_table <- database_create_combined_table(database)
 
-expected_output <- read_csv("Falster_2003_combined_format.csv")
+expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_types = FALSE)
 
 test_that("`database_create_combined_table` is working", {
     #expect_equal(combined_table$location_properties, expected_output$location_properties)
