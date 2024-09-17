@@ -1,7 +1,3 @@
-library(tidyverse)
-library(stringr)
-library(purrr)
-
 # tests for combined table
 
 dataset_id <- "Falster_2003"

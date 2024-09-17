@@ -60,11 +60,13 @@ join_location_coordinates <- function(austraits) {
   join_vars <- intersect(names(austraits$traits), c("dataset_id", "location_id", "location_name"))
 
   if (any(stringr::str_detect(names(location_coordinates), "latitude "))) {
-    austraits$traits <- austraits$traits %>%
+    austraits$traits <- 
+      austraits$traits %>%
       dplyr::left_join(by = join_vars, location_coordinates)
 
   } else {
-    austraits$traits <- austraits$traits %>%
+    austraits$traits <- 
+      austraits$traits %>%
       dplyr::mutate(
         location_name = NA_character_,
         `latitude (deg)` = NA_character_,
@@ -92,7 +94,8 @@ join_taxa <- function(austraits, vars =  c("family", "genus", "taxon_rank", "est
   }
 
   # Join selected columns to traits table
-  austraits$traits <- austraits$traits %>%
+  austraits$traits <- 
+    austraits$traits %>%
     dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
 
   austraits
@@ -115,10 +118,12 @@ join_taxonomic_updates <- function(austraits, vars =  c("aligned_name")) {
   }
 
   # Join selected columns to traits table
-  austraits$traits <- austraits$traits %>%
+  austraits$traits <- 
+    austraits$traits %>%
     dplyr::left_join(by = c("taxon_name", "dataset_id", "original_name"),
-                    austraits$taxonomic_updates %>%
-                      dplyr::select("taxon_name", "dataset_id", "original_name", tidyselect::any_of(vars)))
+        austraits$taxonomic_updates %>%
+          dplyr::select("taxon_name", "dataset_id", "original_name", 
+                        tidyselect::any_of(vars)))
 
   austraits
 }
@@ -139,13 +144,13 @@ join_methods <- function(austraits, vars =  c("methods")) {
   }
 
   # Join selected columns to traits table
-  austraits$methods %>% 
-    dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
-    dplyr::distinct() -> methods
-
-  austraits$traits <- austraits$traits %>%
+  austraits$traits <- 
+    austraits$traits %>%
     dplyr::left_join(by=c("dataset_id", "trait_name", "method_id"),
-                     methods)
+      austraits$methods %>% 
+      dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
+      dplyr::distinct()
+    )
 
   austraits
 }
@@ -179,22 +184,23 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
     contributor_metadata <-
       contributors_tmp %>%
       tidyr::pivot_longer(cols = 4:ncol(contributors_tmp)) %>%
-      filter(!is.na(value)) %>%
-      group_by(dataset_id, last_name, given_name) %>%
-      mutate(contributor = paste0(paste0(name, "==", value), collapse = " \\ "))%>%
-      select(-name, -value) %>%
-      distinct() %>%
-      ungroup()
+      dplyr::filter(!is.na(value)) %>%
+      dplyr::group_by(dataset_id, last_name, given_name) %>%
+      dplyr::mutate(contributor = paste0(paste0(name, "==", value), collapse = " \\ "))%>%
+      dplyr::select(-name, -value) %>%
+      dplyr::distinct() %>%
+      dplyr::ungroup()
 
     # Merge in contributor metadata and paste together with name
-    compacted_contributors_column <- contributors_tmp %>%
-      left_join(contributor_metadata,
+    compacted_contributors_column <- 
+      contributors_tmp %>%
+      dplyr::left_join(contributor_metadata,
                 by = c("dataset_id", "last_name", "given_name")) %>%
-      mutate(
+      dplyr::mutate(
         data_contributors = ifelse(is.na(contributor), 
                                    paste0(last_name, ", ", given_name),
                                    paste0(last_name, ", ", given_name, " <", contributor, ">"))) %>%
-      select(dataset_id, data_contributors) %>%
+      dplyr::select(dataset_id, data_contributors) %>%
       # Collapse metadata for all data contributors associated with a dataset into a single cell
       dplyr::group_by(dataset_id) %>%
       dplyr::mutate(data_contributors = paste0(data_contributors, collapse = ";; ")) %>%
@@ -232,8 +238,8 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
   if (vars == "all") {
 
     vars_tmp <- austraits$locations %>%
-      distinct(location_property) %>%
-      filter(!location_property %in% c("latitude (deg)", "longitude (deg)"))
+      dplyr::distinct(location_property) %>%
+      dplyr::filter(!location_property %in% c("latitude (deg)", "longitude (deg)"))
 
     vars <- vars_tmp$location_property
   }
@@ -250,18 +256,21 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
   if (format == "many_columns") {
 
     # Pivot wider, so each `location_property` in its own column
-    locations <- locations %>%
-      mutate(location_property = paste0("location_property: ", location_property)) %>%
+    locations <- 
+      locations %>%
+      dplyr::mutate(location_property = paste0("location_property: ", location_property)) %>%
       tidyr::pivot_wider(names_from = location_property)
 
     # Join locations, based on appropriate columns
-    austraits$traits <- austraits$traits %>%
+    austraits$traits <- 
+      austraits$traits %>%
       dplyr::left_join(by = join_vars, locations)
 
   } else if (format == "single_column_pretty") {
 
     # Merge each location property and its corresponding value
-    compacted_locations_column <- locations %>%
+    compacted_locations_column <- 
+      locations %>%
       dplyr::mutate(location_properties = paste0(location_property, "==", value)) %>%
       dplyr::select(dplyr::all_of(c("dataset_id", "location_id", "location_name", "location_properties"))) %>%
       dplyr::group_by(dataset_id, location_id, location_name) %>%
@@ -270,7 +279,8 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
       dplyr::ungroup() %>%
       dplyr::distinct()
 
-    austraits$traits <- austraits$traits %>%
+    austraits$traits <- 
+      austraits$traits %>%
       dplyr::left_join(by = join_vars, compacted_locations_column)
 
   } else if (format == "single_column_json") {
