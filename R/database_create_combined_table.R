@@ -13,12 +13,12 @@
 #'
 #' @usage database_create_combined_table(database)
 #' 
-database_create_combined_table <- function(database) {
+database_create_combined_table <- function(austraits) {
 
   # Since `data_collectors` is also merged into the combined_table via the contributors tibble, we don't want the information twice.
   method_vars <- setdiff(names(austraits$methods), c("data_collectors"))
     
-  combined_table <- database %>%
+  combined_table <- austraits %>%
     join_location_coordinates() %>%
     join_location_properties(format = "single_column_pretty", vars =  "all") %>%
     join_context_properties(format = "single_column_pretty", vars =  "all", include_description = TRUE) %>%

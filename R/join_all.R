@@ -4,8 +4,9 @@
 #' A traits.build database includes relational tables that contain measurement (and observation) metadata pertaining to locations, contexts, methods, and taxonomy. This function merges all (or some) of the metadata from one (or all) of these tables into the traits table.
 #' 
 #' @param austraits traits.build generated database
-#' @param vars vector specifying which columns from a specific relational table to join to the traits table (works only for `join_` functions joining a single dataframe)
-#' @param format for `join_context_properties` and `join_location_properties` only. Logical, whether location properties or context properties for a given observation will be concatenated into one cell
+#' @param vars Vector specifying which columns or values from a specific relational table to join to the traits table (currently works only for `join_` functions joining a single dataframe). For the functions `join_methods`, `join_taxonomy`, `join_taxonomic_updates`, and `join_contributors` the parameter vars specifies which columns to join to the traits table. For the functions `join_location_properties` and `join_context_properties` the parameter `vars` specifies which properties to add to the traits table; the functions `lookup_location_property` and `lookup_context_property` allow easy searches for relevant properties. The function `join_location_coordinates` does not include the parameter `vars`.
+#' @param format A parameter for `join_context_properties`, `join_location_properties`, and `join_contributors`. Specifies whether location properties or context properties for a given observation will be concatenated, and if concatenated whether the compacted column(s) will have a human readable ("single_column_pretty") format or be format using json ("single_column_json") syntax. For location and context properties there is also the option to add each location_property or `context_property` to the traits table as its own column ("many_columns").
+#' @param include_description For `join_context_properties` only, a logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions.
 #' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
 #' @details
 #' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 

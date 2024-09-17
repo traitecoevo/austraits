@@ -34,9 +34,11 @@ join_location_properties(
 \arguments{
 \item{austraits}{traits.build generated database}
 
-\item{vars}{vector specifying which columns from a specific relational table to join to the traits table (works only for \code{join_} functions joining a single dataframe)}
+\item{vars}{Vector specifying which columns or values from a specific relational table to join to the traits table (currently works only for \code{join_} functions joining a single dataframe). For the functions \code{join_methods}, \code{join_taxonomy}, \code{join_taxonomic_updates}, and \code{join_contributors} the parameter vars specifies which columns to join to the traits table. For the functions \code{join_location_properties} and \code{join_context_properties} the parameter \code{vars} specifies which properties to add to the traits table; the functions \code{lookup_location_property} and \code{lookup_context_property} allow easy searches for relevant properties. The function \code{join_location_coordinates} does not include the parameter \code{vars}.}
 
-\item{format}{for \code{join_context_properties} and \code{join_location_properties} only. Logical, whether location properties or context properties for a given observation will be concatenated into one cell}
+\item{format}{A parameter for \code{join_context_properties}, \code{join_location_properties}, and \code{join_contributors}. Specifies whether location properties or context properties for a given observation will be concatenated, and if concatenated whether the compacted column(s) will have a human readable ("single_column_pretty") format or be format using json ("single_column_json") syntax. For location and context properties there is also the option to add each location_property or \code{context_property} to the traits table as its own column ("many_columns").}
+
+\item{include_description}{For \code{join_context_properties} only, a logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions.}
 }
 \value{
 traits.build list object, but with additional fields (columns) appended to \code{traits} dataframe

@@ -37,7 +37,7 @@ as_wide_table <- function(austraits){
 
     # The contexts table needs the contexts collapsed to one context name per site
   austraits %>% 
-    join_context_properties(format = "single_column_pretty", include_description = FALSE) -> austraits
+    join_contexts_old(collapse = TRUE) -> austraits
 
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
@@ -104,4 +104,64 @@ collapse_cols <- function(data) {
   
   data %>% purrr::imap_dfr(~ sprintf("%s='%s'",.y,.x)) %>%
     tidyr::unite("text", sep="; ") %>% dplyr::pull(text)
+}
+
+#' Old join contexts function that collapses contexts into a single column and doesn't specify categories of context properties.
+#' @keywords internal
+#' @noRd
+join_contexts_old <- function(austraits, collapse_context = FALSE){
+  # Check compatability
+  status <- check_compatibility(austraits)
+  
+  # If compatible
+  if(!status){
+    function_not_supported(austraits)
+  } 
+
+  traits2 <- split(austraits$traits, austraits$traits$dataset_id)
+  contexts2 <- split(austraits$contexts, austraits$contexts$dataset_id)
+  
+  traits_vars <- names(austraits$traits)
+
+  problem_studies <- c("Hall_1981")
+
+  for(id in names(traits2)) {
+  
+    if(!is.null(contexts2[[id]][1]) & ! (id %in% problem_studies)) {
+    
+      context_ids <- 
+        unique(contexts2[[id]]$link_id)
+  
+      for(v in context_ids[!is.na(context_ids)]) {
+        
+        context_sub <- 
+          contexts2[[id]] %>%
+          dplyr::select(-dplyr::any_of(c("category", "description"))) %>%
+          dplyr::filter(link_id == v) %>% 
+          tidyr::separate_rows(link_vals) %>% 
+          tidyr::pivot_wider(values_from = value, names_from = context_property) %>%
+          tidyr::pivot_wider(names_from = link_id, values_from = link_vals)
+        
+        traits2[[id]] <- 
+          dplyr::left_join(by = c("dataset_id", v),
+                    traits2[[id]],
+                    context_sub
+          )
+      }
+      
+      if(collapse_context == TRUE){
+        context_text <-
+          traits2[[id]] %>% 
+          dplyr::select(-dplyr::any_of(traits_vars)) %>% collapse_cols()
+
+        traits2[[id]] <- traits2[[id]] %>% 
+          dplyr::mutate(context = context_text) %>% 
+          dplyr::select(dplyr::any_of(traits_vars), context)
+      }
+    }
+  }
+
+  austraits$traits <- traits2 %>% dplyr::bind_rows()
+
+  austraits
 }
