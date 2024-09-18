@@ -199,7 +199,7 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
       dplyr::mutate(
         data_contributors = ifelse(is.na(contributor), 
                                    paste0(last_name, ", ", given_name),
-                                   paste0(last_name, ", ", given_name, " <", contributor, ">"))) %>%
+                                   paste0(last_name, ", ", given_name, " <<", contributor, ">>"))) %>%
       dplyr::select(dataset_id, data_contributors) %>%
       # Collapse metadata for all data contributors associated with a dataset into a single cell
       dplyr::group_by(dataset_id) %>%

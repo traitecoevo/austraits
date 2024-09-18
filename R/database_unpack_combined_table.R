@@ -9,7 +9,6 @@
 
 
 # XX- Daniel, this simple loop works and I think this should be wrapped around each of the functions below.
-# There is no point creating functions that will fail if a dataframe is 
 recreate_traits.build_locations <- function(combined_table) {
   
   combined_split <- split(combined_table, combined_table$dataset_id)
@@ -372,29 +371,29 @@ recreate_contexts_dataframe <- function(combined_table_by_dataset) {
 #' @examples
 #' \dontrun{
 #' }
-unpack_data_collectors <- function(combined_table_by_dataset) {
+unpack_data_contributors <- function(combined_table_by_dataset) {
   
   packed_column_unpacked <- combined_table_by_dataset %>% 
-    dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "data_collectors"))) %>%
+    dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "data_contributors"))) %>%
     distinct() 
   
   packed_column_unpacked <- packed_column_unpacked %>%
-    tidyr::separate_longer_delim(data_collectors, delim = ";; ") %>% 
-    tidyr::separate_wider_delim(data_collectors, delim = " <<", names_sep = "_") %>%
-    dplyr::filter(!is.na(data_collectors_1)) %>%
-    dplyr::mutate(data_collectors_1 = paste0("data_collector: ", data_collectors_1)) %>%
-    tidyr::pivot_wider(names_from = data_collectors_1, values_from = data_collectors_2)
+    tidyr::separate_longer_delim(data_contributors, delim = ";; ") %>% 
+    tidyr::separate_wider_delim(data_contributors, delim = " <<", names_sep = "_") %>%
+    dplyr::filter(!is.na(data_contributors_1)) %>%
+    dplyr::mutate(data_contributors_1 = paste0("data_contributor: ", data_contributors_1)) %>%
+    tidyr::pivot_wider(names_from = data_contributors_1, values_from = data_contributors_2)
   
   
-  unpacked_collectors_table <- 
+  unpacked_contributors_table <- 
     combined_table_by_dataset %>% 
     dplyr::left_join(packed_column_unpacked, 
                      by = c("dataset_id", "observation_id")) %>% 
-    dplyr::select(-data_collectors)
+    dplyr::select(-data_contributors)
   
   remove(packed_column_unpacked)
   
-  unpacked_collectors_table
+  unpacked_contributors_table
   
 }
 
@@ -414,20 +413,20 @@ unpack_data_collectors <- function(combined_table_by_dataset) {
 #' }
 recreate_contributors_dataframe <- function(combined_table_by_dataset) {
   
-  unpacked_contributors_table <- unpack_data_collectors(combined_table_by_dataset)
+  unpacked_contributors_table <- unpack_data_contributors(combined_table_by_dataset)
   
   long_output <- unpacked_contributors_table %>%
-    dplyr::select("dataset_id", "observation_id", dplyr::contains("data_collector")) %>% 
+    dplyr::select("dataset_id", "observation_id", dplyr::contains("data_contributor")) %>% 
     dplyr::select(-observation_id) %>%
     dplyr::distinct()
   
   long_output <- long_output %>%
     dplyr::select(dataset_id, everything()) %>%
     tidyr::pivot_longer(cols = 2:ncol(long_output)) %>%
-    dplyr::rename(data_collector = name) %>%
-    dplyr::mutate(data_collector = stringr::str_replace(data_collector, "data_collector: ", "")) %>%
-    tidyr::separate_wider_delim(data_collector, delim = ", ", names_sep = "_") %>%
-    dplyr::rename(last_name = data_collector_1,  given_name = data_collector_2) %>%
+    dplyr::rename(data_contributors = name) %>%
+    dplyr::mutate(data_contributors = stringr::str_replace(data_contributors, "data_contributors: ", "")) %>%
+    tidyr::separate_wider_delim(data_contributors, delim = ", ", names_sep = "_") %>%
+    dplyr::rename(last_name = data_contributors_1,  given_name = data_contributors_2) %>%
     tidyr::separate_wider_delim(value, delim = " \\ ", names_sep = "_", too_few = "align_start")
   
   long_contributors_output <- long_output %>%
@@ -439,7 +438,8 @@ recreate_contributors_dataframe <- function(combined_table_by_dataset) {
       value_2 = ifelse(is.na(value_2), NA, stringr::str_replace(value_2, ">>", ""))
     ) %>%
     tidyr::pivot_wider(names_from = value_1, values_from = value_2) %>%
-    dplyr::select(dplyr::any_of(c("dataset_id", "last_name", "given_name", "ORCID", "affiliation", "additional_role")))
+    dplyr::select(dplyr::any_of(c("dataset_id", "last_name", "given_name", "ORCID", "affiliation", "additional_role"))) %>%
+    dplyr::mutate(last_name = stringr::str_replace(last_name, "data_contributor: ", ""))
   
   if (!any(stringr::str_detect(names(long_contributors_output), "additional_role"))) {
     long_contributors_output <- long_contributors_output %>%
@@ -456,7 +456,7 @@ recreate_contributors_dataframe <- function(combined_table_by_dataset) {
 #' The function `recreate_methods_dataframe` reformats the methods information included in 
 #' a traits.build combined output table into the original relational table format. 
 #' This mostly just requires selecting specific columns from the combined table, 
-#' but the data collectors column needs to be recreated.
+#' but the data_contributors column needs to be recreated.
 #'
 #' @param combined_table_by_dataset The combined table format of a traits.build built database.
 #'
@@ -481,8 +481,8 @@ recreate_methods_dataframe <- function(combined_table_by_dataset) {
   
   
   methods <- combined_table_by_dataset %>%
-    dplyr::select(-data_collectors) %>%
-    dplyr::left_join(data_collectors) %>%
+    dplyr::select(-data_contributors) %>%
+    dplyr::left_join(data_collectors, by = "dataset_id") %>%
     dplyr::select(dataset_id, trait_name, methods, method_id, description, sampling_strategy, source_primary_key, source_primary_citation, source_secondary_key,
                   source_secondary_citation, source_original_dataset_key, source_original_dataset_citation, data_collectors, assistants, dataset_curators) %>%
     dplyr::distinct() %>%

@@ -16,7 +16,7 @@ traits.build list object, but with additional fields (columns) appended to \code
 The function \code{recreate_methods_dataframe} reformats the methods information included in
 a traits.build combined output table into the original relational table format.
 This mostly just requires selecting specific columns from the combined table,
-but the data collectors column needs to be recreated.
+but the data_contributors column needs to be recreated.
 }
 \examples{
 \dontrun{
