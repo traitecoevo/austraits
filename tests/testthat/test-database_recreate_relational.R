@@ -8,14 +8,14 @@ unpacked_locations <- unpack_location_properties(combined_table)
 
 test_that("`unpack_location_properties` is working", {
   expect_gt(ncol(unpacked_locations), 66)
-  expect_gt(ncol(unpacked_locations %>% select(contains("location_property:"))), 0)
+  expect_gt(ncol(unpacked_locations %>% dplyr::select(contains("location_property:"))), 0)
 })
 
 recreated_locations_tibble <- recreate_locations_dataframe(combined_table) %>%
-  arrange(location_id, location_property, value)
+  dplyr::arrange(location_id, location_property, value)
 
 starting_locations_table <- database$locations %>%
-  arrange(location_id, location_property, value)
+  dplyr::arrange(location_id, location_property, value)
 
 test_that("`recreate_locations_dataframe` is working", {
   expect_equal(recreated_locations_tibble, starting_locations_table)

@@ -22,7 +22,7 @@ test_that("`database_create_combined_table` is working with format = single_colu
 
 # test different packing formats for locations
 
-location_vars <- (database$locations %>% distinct(location_property))$location_property
+location_vars <- (database$locations %>% dplyr::distinct(location_property))$location_property
 
 many_location_columns_default_vars <- (database %>% join_location_properties(format = "many_columns"))$traits
 many_location_columns_all_vars <- (database %>% join_location_properties(format = "many_columns", vars = "all"))$traits

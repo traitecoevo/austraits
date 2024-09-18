@@ -43,10 +43,10 @@ recreate_traits.build_locations <- function(combined_table) {
 #' }
 unpack_location_properties <- function(combined_table) {
   
-  combined_table <- combined_table %>% arrange(dataset_id)
+  combined_table <- combined_table %>% dplyr::arrange(dataset_id)
   
   combined_split <- split(combined_table, combined_table$dataset_id)
-  recreated_locations_all <- tibble()  
+  recreated_locations_all <- dplyr::tibble()  
   
   for (i in seq_along(1:length(combined_split))) {
     
@@ -58,7 +58,7 @@ unpack_location_properties <- function(combined_table) {
       
       packed_column_unpacked <- combined_table_by_dataset %>% 
         dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "location_id", "location_properties"))) %>%
-        distinct() 
+        dplyr::distinct() 
       
       packed_column_unpacked <- packed_column_unpacked %>%
         tidyr::separate_longer_delim(location_properties, delim = ";; ") %>%
@@ -81,7 +81,7 @@ unpack_location_properties <- function(combined_table) {
       
     }
     
-    recreated_locations_all <- recreated_locations_all %>% bind_rows(unpacked_locations_table)
+    recreated_locations_all <- recreated_locations_all %>% dplyr::bind_rows(unpacked_locations_table)
   
   }
   
@@ -116,9 +116,9 @@ recreate_locations_dataframe <- function(combined_table) {
     
   }
   
-    unpacked_locations_table <- unpacked_locations_table %>% arrange(dataset_id)
+    unpacked_locations_table <- unpacked_locations_table %>% dplyr::arrange(dataset_id)
     unpacked_locations_table_split <- split(unpacked_locations_table, unpacked_locations_table$dataset_id)
-    long_locations_all <- tibble()  
+    long_locations_all <- dplyr::tibble()  
     
     for (i in seq_along(1:length(unpacked_locations_table_split))) {
     
@@ -156,7 +156,7 @@ recreate_locations_dataframe <- function(combined_table) {
         dplyr::select(-dplyr::all_of(c("j"))) %>%
         dplyr::filter(!is.na(value)) 
       
-      long_locations_all <- long_locations_all %>% bind_rows(long_locations_output)
+      long_locations_all <- long_locations_all %>% dplyr::bind_rows(long_locations_output)
       
   }
   
@@ -263,7 +263,7 @@ recreate_contexts_dataframe <- function(combined_table_by_dataset) {
 
   unpacked_contexts_table <- unpack_context_properties(combined_table_by_dataset)
   
-  context_variables_2 <- tibble(
+  context_variables_2 <- dplyr::tibble(
     contexts = c("plot_context", "treatment_context", 
                            "entity_context", "temporal_context", "method_context"),
     context_property_id = c("plot_context_id", "treatment_context_id", 
@@ -318,7 +318,7 @@ recreate_contexts_dataframe <- function(combined_table_by_dataset) {
       
     } else {
       
-      long_output <- tibble(
+      long_output <- dplyr::tibble(
         dataset_id = character(),
         context_property = character(),
         category = character(),
@@ -375,7 +375,7 @@ unpack_data_contributors <- function(combined_table_by_dataset) {
   
   packed_column_unpacked <- combined_table_by_dataset %>% 
     dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "data_contributors"))) %>%
-    distinct() 
+      dplyr::distinct() 
   
   packed_column_unpacked <- packed_column_unpacked %>%
     tidyr::separate_longer_delim(data_contributors, delim = ";; ") %>% 
@@ -443,7 +443,7 @@ recreate_contributors_dataframe <- function(combined_table_by_dataset) {
   
   if (!any(stringr::str_detect(names(long_contributors_output), "additional_role"))) {
     long_contributors_output <- long_contributors_output %>%
-      mutate(additional_role = NA_character_)
+      dplyr::mutate(additional_role = NA_character_)
   }
   
   long_contributors_output
