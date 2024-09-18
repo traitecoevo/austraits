@@ -140,7 +140,7 @@ join_methods <- function(austraits, vars =  c("methods")) {
 
   # If all columns to be added, create `vars` vector
   if (vars[1] == "all" & length(vars == 1)){
-    vars <- names(austraits$taxonomic_updates)
+    vars <- names(austraits$methods)
   }
 
   # Join selected columns to traits table
@@ -244,6 +244,9 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
 
     vars <- vars_tmp$location_property
   }
+  
+  # If latitude, longitude present in vars list, remove them
+  vars <- setdiff(vars, c("latitude (deg)", "longitude (deg)"))
 
   locations <- 
     austraits$locations %>% 
@@ -340,9 +343,9 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
       contexts_tmp %>%
       dplyr::mutate(
         value = ifelse(
-          is.na(description)| include_description == FALSE,
-          paste0(context_property, "==", value),
-          paste0(context_property, "==", value, " <<", description, ">>"))
+          !is.na(description) & include_description,
+          paste0(context_property, "==", value, " <<", description, ">>"),
+          paste0(context_property, "==", value))
       ) %>%
       dplyr::select(-dplyr::all_of(c("description", "context_property", "category"))) %>%
       tidyr::separate_longer_delim(link_vals, ", ") %>%
@@ -358,9 +361,9 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
     contexts_tmp <-
       contexts_tmp |> 
       tidyr::separate_longer_delim(link_vals, ", ") |>
-      dplyr::distinct() |>
-      dplyr::mutate(description = ifelse(include_description == FALSE, NA, description)) |>
-      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) |>
+      dplyr::distinct() |> 
+      dplyr::mutate(description = ifelse(!is.na(description) & include_description, description, NA)) |> 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) |> 
       dplyr::mutate(value = map_chr(data, jsonlite::toJSON)) |>
       dplyr::select(-dplyr::any_of("data")) |>
       dplyr::ungroup()

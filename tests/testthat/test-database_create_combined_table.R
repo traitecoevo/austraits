@@ -20,11 +20,29 @@ test_that("`database_create_combined_table` is working with format = single_colu
     expect_true(stringr::str_detect(combined_table$data_contributors[1], "<"))
 })
 
-many_location_columns <- (database %>% join_location_properties(format = "many_columns"))$traits
+# test different packing formats for locations
 
-test_that("`join_locations` is working with format = many_columns", {
-  expect_length(many_location_columns, 32)
-  expect_equal(ncol(many_location_columns %>% dplyr::select(dplyr::contains("location_property"))), 5)
+location_vars <- (database$locations %>% distinct(location_property))$location_property
+
+many_location_columns_default_vars <- (database %>% join_location_properties(format = "many_columns"))$traits
+many_location_columns_all_vars <- (database %>% join_location_properties(format = "many_columns", vars = "all"))$traits
+locations_single_column_pretty <- (database %>% join_location_properties(format = "single_column_pretty"))$traits
+locations_single_column_json <- (database %>% join_location_properties(format = "single_column_json"))$traits
+locations_default_subset_vars <- (database %>% join_location_properties(format = "many_columns", vars = location_vars[4:6]))$traits
+
+test_that("`join_locations` is working with different formats, vars", {
+  expect_length(many_location_columns_default_vars, 32)
+  expect_equal(ncol(many_location_columns_default_vars %>% dplyr::select(dplyr::contains("location_property"))), 5)
+  expect_equal(ncol(locations_default_subset_vars %>% dplyr::select(dplyr::contains("location_property"))), 3)
+  expect_equal(ncol(many_location_columns_default_vars), ncol(many_location_columns_all_vars))
+  expect_equal(names(many_location_columns_default_vars), names(many_location_columns_all_vars))
+  expect_equal(intersect(names(many_location_columns_all_vars), c("latitude (deg")), character(0))
+  expect_equal(ncol(locations_single_column_pretty %>% dplyr::select(dplyr::contains("location_prop"))), 1)
+  expect_equal(ncol(locations_single_column_json %>% dplyr::select(dplyr::contains("location_prop"))), 1)
+  expect_equal(nrow(locations_single_column_pretty %>% distinct(location_properties) %>% filter(!is.na(location_properties))), 2)
+  expect_equal(nrow(locations_single_column_json %>% distinct(location_properties) %>% filter(!is.na(location_properties))), 2)
+  expect_true(stringr::str_detect(locations_single_column_pretty$location_properties[1], "volcanic dyke;;"))
+  expect_true(stringr::str_detect(locations_single_column_json$location_properties[1], "volcanic dyke\"\\}"))
 })
 
 # test different vars options for contributors
@@ -55,7 +73,7 @@ test_that("join_context_properties arguments are working", {
   expect_equal(contexts_default_no_desc, contexts_single_column_pretty_no_desc)
   expect_true(stringr::str_detect(contexts_default_yes_desc$temporal_context_properties[1], "<<"))
   expect_false(stringr::str_detect(contexts_default_no_desc$temporal_context_properties[1], "<<"))
-  # failing - something is compacting from with JSON - merging in wrong description
+  expect_true(stringr::str_detect(contexts_default_yes_desc$temporal_context_properties[1], "<<December"))
   expect_true(stringr::str_detect(contexts_single_column_json_yes_desc$temporal_context_properties[1], "description\":\"December"))
   expect_equal(nrow(filter(contexts_default_no_desc_subset_vars, !is.na(contexts_default_no_desc_subset_vars$method_context_properties))), 0)
   expect_equal(nrow(filter(contexts_default_no_desc, !is.na(contexts_default_no_desc$method_context_properties))), 196)
@@ -63,6 +81,75 @@ test_that("join_context_properties arguments are working", {
   expect_equal(intersect(names(contexts_single_column_json_yes_desc), "entity_context_properties"), "entity_context_properties")
   expect_equal(intersect(names(contexts_many_columns_no_desc), "entity_context_properties"), character(0))
   })
+
+# test vars options in other join_functions - other than contexts, contributors which are tested above
+
+location_vars <- (database$locations %>% distinct(location_property))$location_property
+method_vars <- c("dataset_id", "method_id", "sampling_strategy", "assistants")
+method_vars2 <- c("assistants")
+method_vars3 <- names(database$methods)
+taxonomic_updates_vars <- c("original_name")
+taxonomic_updates_vars2 <- c("aligned_name_taxonomic_status", "aligned_name")
+taxonomic_updates_vars3 <- names(database$taxonomic_updates)
+taxa_vars <- c("taxon_id")
+taxa_vars2 <- c("taxon_id", "binomial", "trinomial")
+taxa_vars3 <- names(database$taxa)
+
+test_that("join_ functions all a diversity of vars strings - 1 value, many values, all values", {
+  expect_silent((database %>% join_location_properties(vars = location_vars))$traits)
+  expect_silent((database %>% join_location_properties(vars = location_vars[1]))$traits)
+  expect_silent((database %>% join_location_properties(vars = "all"))$traits)
+  expect_silent((database %>% join_location_properties)$traits)
+  expect_silent((database %>% join_methods(vars = method_vars))$traits)
+  expect_silent((database %>% join_methods(vars = method_vars2))$traits)
+  expect_silent((database %>% join_methods(vars = method_vars3))$traits)
+  expect_silent((database %>% join_methods(vars = method_vars3[5]))$traits)
+  expect_silent((database %>% join_methods(vars = "all"))$traits)
+  expect_silent((database %>% join_methods)$traits)
+  expect_silent((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars))$traits)
+  expect_silent((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars2))$traits)
+  expect_silent((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars3))$traits)
+  expect_silent((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars3[5]))$traits)
+  expect_silent((database %>% join_taxonomic_updates(vars = "all"))$traits)
+  expect_silent((database %>% join_taxonomic_updates)$traits)
+  expect_silent((database %>% join_taxa(vars = taxa_vars))$traits)
+  expect_silent((database %>% join_taxa(vars = taxa_vars2))$traits)
+  expect_silent((database %>% join_taxa(vars = taxa_vars3))$traits)
+  expect_silent((database %>% join_taxa(vars = taxa_vars3[5]))$traits)
+  expect_silent((database %>% join_taxa(vars = "all"))$traits)
+  expect_silent((database %>% join_taxa)$traits)
+})
+  
+  
+test_that("join_ functions given expected output", {
+  expect_equal(intersect(names((database %>% join_location_properties(vars = location_vars, format = "many_columns"))$traits), "location_property: leaf area index"), "location_property: leaf area index")
+  expect_equal(intersect(names((database %>% join_location_properties(vars = location_vars[1], format = "many_columns"))$traits), "location_property: leaf area index"), character(0))
+  expect_equal(ncol((database %>% join_location_properties(format = "many_columns"))$traits), 32)
+  expect_equal(ncol((database %>% join_location_properties(format = "many_columns"))$traits), 
+               ncol((database %>% join_location_properties(vars = location_vars, format = "many_columns"))$traits))
+  expect_equal(ncol((database %>% join_location_properties(vars = location_vars[1], format = "many_columns"))$traits), 28)
+  expect_equal(ncol((database %>% join_location_properties(vars = "all"))$traits), 28)
+  expect_equal(ncol((database %>% join_location_properties)$traits), 28)
+  expect_equal(names((database %>% join_methods(vars = method_vars))$traits), 
+               union(names(database$traits), method_vars))
+  expect_equal(ncol((database %>% join_methods(vars = method_vars2))$traits), 26 + length(method_vars2))
+  expect_equal(ncol((database %>% join_methods(vars = method_vars3[5]))$traits), 27)
+  expect_equal(names((database %>% join_methods(vars = "all"))$traits),
+               union(names(database$traits), names(database$methods)))
+  expect_equal(ncol((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars3[6]))$traits), 27)
+  expect_equal(ncol((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars3[2]))$traits), 26)
+  expect_equal(names((database %>% join_taxonomic_updates(vars = taxonomic_updates_vars2))$traits),
+               union(names(database$traits), taxonomic_updates_vars2))
+  expect_equal(names((database %>% join_taxonomic_updates(vars = "all"))$traits),
+               union(names(database$traits), names(database$taxonomic_updates)))  
+  expect_equal((database %>% join_taxonomic_updates(vars = "all"))$traits,
+               (database %>% join_taxonomic_updates(vars = taxonomic_updates_vars3))$traits)
+  expect_equal((database %>% join_taxa(vars = "all"))$traits,
+               (database %>% join_taxa(vars = taxa_vars3))$traits)
+  expect_equal(ncol((database %>% join_taxa(vars = taxa_vars3[5]))$traits), 27)
+  expect_equal(ncol((database %>% join_taxa(vars = taxa_vars3[1]))$traits), 26)
+  expect_equal(ncol((database %>% join_taxa(vars = taxa_vars2))$traits), 29)
+})
 
 # location unpacking tests
 
