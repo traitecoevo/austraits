@@ -233,11 +233,13 @@ unpack_context_properties <- function(combined_table_by_dataset) {
   
   }
   
+  join_vector <- c("dataset_id", "taxon_name", "observation_id", "trait_name", "value", "unit", "entity_type", "value_type", "basis_of_value", "replicates", "basis_of_record", "life_stage", "population_id", "individual_id", "repeat_measurements_id", "temporal_context_id", "source_id", "location_id", "entity_context_id", "plot_context_id", "treatment_context_id", "collection_date", "measurement_remarks", "method_id", "method_context_id", "original_name", "location_name", "latitude (deg)", "longitude (deg)", "location_properties", "methods", "description", "sampling_strategy", "source_primary_key", "source_primary_citation", "source_secondary_key", "source_secondary_citation", "source_original_dataset_key", "source_original_dataset_citation", "assistants", "dataset_curators", "data_contributors", "taxon_rank", "taxonomic_status", "taxonomic_dataset", "taxon_name_alternatives", "genus", "family", "binomial", "trinomial", "taxon_distribution", "establishment_means", "scientific_name", "taxon_id", "taxon_id_genus", "taxon_id_family", "scientific_name_id", "aligned_name", "taxonomic_resolution", "aligned_name_taxon_id", "aligned_name_taxonomic_status")
+
   all_unpacked_contexts <- unpacked_plot_contexts_table %>% 
-    dplyr::left_join(unpacked_treatment_contexts_table) %>%
-    dplyr::left_join(unpacked_entity_contexts_table) %>%
-    dplyr::left_join(unpacked_temporal_contexts_table) %>%
-    dplyr::left_join(unpacked_method_contexts_table) %>%
+    dplyr::left_join(unpacked_treatment_contexts_table, by = c(join_vector)) %>%
+    dplyr::left_join(unpacked_entity_contexts_table, by = c(join_vector)) %>%
+    dplyr::left_join(unpacked_temporal_contexts_table, by = c(join_vector)) %>%
+    dplyr::left_join(unpacked_method_contexts_table, by = c(join_vector)) %>%
     dplyr::select(-dplyr::contains("properties"))
   
   all_unpacked_contexts

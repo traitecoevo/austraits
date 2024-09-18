@@ -22,7 +22,8 @@ database_create_combined_table <- function(austraits,
       taxonomy = "all",
       taxonomic_updates = "all",
       methods = setdiff(names(austraits$methods), c("data_collectors"))
-    )
+    ),
+    include_description = TRUE
   ) {
   # Since `data_collectors` is also merged into the combined_table via the contributors tibble, we don't want the information twice.
   

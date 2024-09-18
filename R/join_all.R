@@ -236,7 +236,7 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
 
   # If all location properties to be added, create `vars` vector that is unique list 
   # of location properties in the database
-  if (vars == "all") {
+  if (vars[1] == "all") {
 
     vars_tmp <- austraits$locations %>%
       dplyr::distinct(location_property) %>%
@@ -311,7 +311,7 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
 
   # If all context properties to be added, create `vars` vector that is unique list 
   # of context properties in the database
-  if (vars == "all") {
+  if (vars[1] == "all") {
     vars <- austraits$contexts$context_property %>% unique()
   }
 
