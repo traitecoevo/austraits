@@ -12,12 +12,12 @@
 recreate_traits.build_locations <- function(combined_table) {
   
   combined_split <- split(combined_table, combined_table$dataset_id)
-  recreated_locations <- tibble()  
+  recreated_locations <- dplyr::tibble()  
 
   for (i in seq_along(1:length(combined_split))) {
     
     recreated_locations_i <- recreate_locations_dataframe(combined_split[[i]])
-    recreated_locations <- recreated_locations %>% bind_rows(recreated_locations_i)
+    recreated_locations <- recreated_locations %>% dplyr::bind_rows(recreated_locations_i)
     
   }
   
@@ -188,7 +188,7 @@ recreate_locations_dataframe <- function(combined_table) {
 #' }
 unpack_context_properties <- function(combined_table_by_dataset) {
   
-  context_variables <- tibble(
+  context_variables <- dplyr::tibble(
     context_properties = c("plot_context_properties", "treatment_context_properties", 
                            "entity_context_properties", "temporal_context_properties", "method_context_properties"),
     context_property_id = c("plot_context_id", "treatment_context_id", 
