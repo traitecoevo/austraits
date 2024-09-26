@@ -10,7 +10,7 @@ dataset_id_2 <- "Crous_2013"
 database_2 <- extract_dataset(austraits_5.0.0_lite, dataset_id_2)
 combined_table_2 <- database_create_combined_table(database_2)
 
-expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_types = FALSE)
+expected_output <- read_csv("Falster_2003_combined_format.csv", show_col_types = FALSE)
 
 test_that("`database_create_combined_table` is working with format = single_column_pretty", {
     expect_equal(combined_table$location_properties, expected_output$location_properties)
