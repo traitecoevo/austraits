@@ -47,6 +47,7 @@ Suggests:
     ggpointdensity,
     ggbeeswarm (>= 0.7.1),
     gridExtra,
+    readr,
     scales,
     forcats,
     viridis,
