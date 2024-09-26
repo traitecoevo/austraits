@@ -14,7 +14,7 @@ expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_
 
 test_that("`database_create_combined_table` is working with format = single_column_pretty", {
     expect_equal(combined_table$location_properties, expected_output$location_properties)
-    #expect_equal(combined_table$data_contributors, expected_output$data_contributors)
+    expect_equal(combined_table$data_contributors, expected_output$data_contributors)
     expect_length(combined_table, 66)
     expect_true(stringr::str_detect(combined_table$location_properties[1], "=="))
     expect_true(stringr::str_detect(combined_table$data_contributors[1], "<"))
@@ -39,8 +39,8 @@ test_that("`join_locations` is working with different formats, vars", {
   expect_equal(intersect(names(many_location_columns_all_vars), c("latitude (deg")), character(0))
   expect_equal(ncol(locations_single_column_pretty %>% dplyr::select(dplyr::contains("location_prop"))), 1)
   expect_equal(ncol(locations_single_column_json %>% dplyr::select(dplyr::contains("location_prop"))), 1)
-  expect_equal(nrow(locations_single_column_pretty %>% distinct(location_properties) %>% filter(!is.na(location_properties))), 2)
-  expect_equal(nrow(locations_single_column_json %>% distinct(location_properties) %>% filter(!is.na(location_properties))), 2)
+  expect_equal(nrow(locations_single_column_pretty %>% dplyr::distinct(location_properties) %>% dplyr::filter(!is.na(location_properties))), 2)
+  expect_equal(nrow(locations_single_column_json %>% dplyr::distinct(location_properties) %>% dplyr::filter(!is.na(location_properties))), 2)
   expect_true(stringr::str_detect(locations_single_column_pretty$location_properties[1], "volcanic dyke;;"))
   expect_true(stringr::str_detect(locations_single_column_json$location_properties[1], "volcanic dyke\"\\}"))
 })
@@ -60,7 +60,7 @@ test_that("`join_contributors` is working with vars options", {
 
 # test different packing formats & `include_description` for contexts
 
-context_vars <- (database_2$contexts %>% distinct(context_property))$context_property
+context_vars <- (database_2$contexts %>% dplyr::distinct(context_property))$context_property
 
 contexts_default_no_desc <- (database_2 %>% join_context_properties(include_description = FALSE))$traits
 contexts_default_yes_desc <- (database_2 %>% join_context_properties(include_description = TRUE))$traits
@@ -75,8 +75,8 @@ test_that("join_context_properties arguments are working", {
   expect_false(stringr::str_detect(contexts_default_no_desc$temporal_context_properties[1], "<<"))
   expect_true(stringr::str_detect(contexts_default_yes_desc$temporal_context_properties[1], "<<December"))
   expect_true(stringr::str_detect(contexts_single_column_json_yes_desc$temporal_context_properties[1], "description\":\"December"))
-  expect_equal(nrow(filter(contexts_default_no_desc_subset_vars, !is.na(contexts_default_no_desc_subset_vars$method_context_properties))), 0)
-  expect_equal(nrow(filter(contexts_default_no_desc, !is.na(contexts_default_no_desc$method_context_properties))), 196)
+  expect_equal(nrow(dplyr::filter(contexts_default_no_desc_subset_vars, !is.na(contexts_default_no_desc_subset_vars$method_context_properties))), 0)
+  expect_equal(nrow(dplyr::filter(contexts_default_no_desc, !is.na(contexts_default_no_desc$method_context_properties))), 196)
   expect_equal(intersect(names(contexts_default_no_desc), "entity_context_properties"), "entity_context_properties")
   expect_equal(intersect(names(contexts_single_column_json_yes_desc), "entity_context_properties"), "entity_context_properties")
   expect_equal(intersect(names(contexts_many_columns_no_desc), "entity_context_properties"), character(0))
@@ -84,7 +84,7 @@ test_that("join_context_properties arguments are working", {
 
 # test vars options in other join_functions - other than contexts, contributors which are tested above
 
-location_vars <- (database$locations %>% distinct(location_property))$location_property
+location_vars <- (database$locations %>% dplyr::distinct(location_property))$location_property
 method_vars <- c("dataset_id", "method_id", "sampling_strategy", "assistants")
 method_vars2 <- c("assistants")
 method_vars3 <- names(database$methods)

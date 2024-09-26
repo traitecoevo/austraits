@@ -212,7 +212,7 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
     compacted_contributors_column <-
       contributors_tmp |> 
       tidyr::nest(-dplyr::all_of("dataset_id")) |>
-      dplyr::mutate(data_contributors = map_chr(data, jsonlite::toJSON)) |>
+      dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) |>
       dplyr::select(-dplyr::any_of("data")) |>
       dplyr::ungroup()
   }
@@ -292,7 +292,7 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
     compacted_locations_column <-
       locations |> 
       tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) |>
-      dplyr::mutate(location_properties = map_chr(data, jsonlite::toJSON)) |>
+      dplyr::mutate(location_properties = purrr::map_chr(data, jsonlite::toJSON)) |>
       dplyr::select(-dplyr::any_of("data")) |>
       dplyr::ungroup()
     
@@ -364,7 +364,7 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
       dplyr::distinct() |> 
       dplyr::mutate(description = ifelse(!is.na(description) & include_description, description, NA)) |> 
       tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) |> 
-      dplyr::mutate(value = map_chr(data, jsonlite::toJSON)) |>
+      dplyr::mutate(value = purrr::map_chr(data, jsonlite::toJSON)) |>
       dplyr::select(-dplyr::any_of("data")) |>
       dplyr::ungroup()
     
