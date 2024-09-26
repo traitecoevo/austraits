@@ -22,3 +22,63 @@ lookup_trait <- function(austraits, term){
    
    ret
 }
+
+
+#' Look up location properties
+#' 
+#' @description
+#' Look up location properties that contain a specific search term.
+#' 
+#'
+#' @param austraits austraits list
+#' @param term character string for location property search term 
+#'
+#' @return vector containing location properties that contains search term
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' austraits %>% lookup_location_property("soil")
+#' }
+lookup_location_property <- function(austraits, term){
+  
+  all_location_properties <- austraits$locations$location_property %>% unique()
+  
+  ret <-  stringr::str_subset(all_location_properties, term)
+  
+  if(length(ret) == 0){
+    stop(paste0("No location properties found containing ", term, " !"))
+  }
+  
+  ret
+}
+
+
+#' Look up context properties
+#' 
+#' @description
+#' Look up context properties that contain a specific search term.
+#' 
+#'
+#' @param austraits austraits list
+#' @param term character string for context property search term 
+#'
+#' @return vector containing context properties that contains search term
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' austraits %>% lookup_context_property("temperature")
+#' }
+lookup_context_property <- function(austraits, term){
+  
+  all_context_properties <- austraits$contexts$context_property %>% unique()
+  
+  ret <-  stringr::str_subset(all_context_properties, term)
+  
+  if(length(ret) == 0){
+    stop(paste0("No context properties found containing ", term, " !"))
+  }
+  
+  ret
+}

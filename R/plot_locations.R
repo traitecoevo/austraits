@@ -1,6 +1,6 @@
 #' @title Produce location maps of trait values 
 #' @description Plot location where trait data was collected from
-#' @param aus_traits austraits object OR traits table. Note location details must be joined. See join_all and examples
+#' @param aus_traits austraits object OR traits table. Note location details must be joined. See join_location_coordinates and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2
 #' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
@@ -8,11 +8,11 @@
 #' @examples 
 #' \dontrun{
 #' #All traits from a given study
-#' data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_all() 
+#' data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_location_coordinates() 
 #' data %>% plot_locations("trait_name")
 #' 
 #' #Single trait
-#' data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_all() 
+#' data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_location_coordinates() 
 #' data$traits %>% plot_locations("trait_name")
 #' }
 #' @export
@@ -29,7 +29,7 @@ plot_locations <- function(aus_traits, feature="trait_name", ...){
     
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ){
       cli::cli_alert_info("Coordinate columns were not detected, joining location tables now.")
-      aus_traits <- aus_traits |> join_locations()
+      aus_traits <- aus_traits |> join_location_coordinates()
       traits <- get_traits_table(aus_traits)
     }
   } else {
@@ -37,7 +37,7 @@ plot_locations <- function(aus_traits, feature="trait_name", ...){
     
     # Check if traits contains coordinate cols in traits table
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ) 
-      cli::cli_abort("No location data found in traits table - try `join_locations()` first before `plot_locations()`")
+      cli::cli_abort("No location data found in traits table - try `join_location_coordinates()` first before `plot_locations()`")
   }
   
   plot_locations2(traits, feature)
@@ -101,7 +101,7 @@ plot_locations2 <- function(aus_traits, feature, ...){
 #' @description `r lifecycle::badge('deprecated')`
 #'
 #'Plot location where trait data was collected from
-#' @param traits  traits table with site details appended. See join_all and examples
+#' @param traits  traits table with site details appended. See join_location_coordinates and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type for <= v3.0.2
 #' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au

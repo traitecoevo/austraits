@@ -156,31 +156,34 @@ head(data_leaf$traits)
 ## Join data from other tables and elements
 
 Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
-There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxonomy` appends taxonomic information to the `traits` dataframe. See `?join_all` for more details. 
+There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxa` appends taxonomic information to the `traits` dataframe. See `?join_location_coordinates` for more details. 
 
 ```{r, join_}
 # Join taxonomic information 
-(data_leaf %>% join_taxonomy)$traits %>% head()
+(data_leaf %>% join_taxa)$traits %>% head()
 
 # Join methodological information 
 (data_leaf %>% join_methods)$traits %>% head()
 
-# Join site based information 
-(data_leaf %>% join_sites)$traits %>% head()
+# Join location coordinates 
+(data_leaf %>% join_location_coordinates)$traits %>% head()
+
+# Join information pertaining to location properties 
+(data_leaf %>% join_location_coordinates)$traits %>% head()
 
 # Join context information 
-(data_leaf %>% join_contexts)$traits %>% head()
+(data_leaf %>% join_context_properties)$traits %>% head()
 
 # Alternatively users can join *all* information 
-(data_leaf %>% join_all)$traits %>% head()
+data_leaf %>% database_create_combined_table() %>% head()
 ```
 
 ## Visualising data by site
 
-`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_sites` to append latitude and longitude information into the trait dataframe before plotting
+`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_location_coordinates` to append latitude and longitude information into the trait dataframe before plotting
 
 ```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
-data_wood_dens <- data_wood_dens %>% join_sites()
+data_wood_dens <- data_wood_dens %>% join_location_coordinates()
 plot_site_locations(data_wood_dens$traits)
 ```
 

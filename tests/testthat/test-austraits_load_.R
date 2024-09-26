@@ -1,4 +1,3 @@
-library(purrr)
 
 versions <- c("3.0.2", "4.2.0", "5.0.0")
 path = "ignore/data/austraits"
@@ -14,7 +13,7 @@ test_get_versions <- function(version, path){
   })
 }
 
-walk(versions,
+purrr::walk(versions,
     ~ test_get_versions(.x, path))
 
 
@@ -29,7 +28,7 @@ test_load_austraits <- function(version, path){
   })
 }
 
-map(versions,
+purrr::map(versions,
     ~ test_load_austraits(.x, path = path))
 
 
