@@ -1,3 +1,16 @@
+#'  Convert dataframe to list
+#'
+#'  Convert a dataframe to a named list, useful when converting to yaml.
+#'
+#' @param df A dataframe
+#' @return A (yaml) list
+#' @export
+#' @examples util_df_to_list(dplyr::starwars)
+util_df_to_list <- function(df) {
+  attr(df, "out.attrs") <- NULL
+  unname(lapply(split(df, seq_len(nrow(df))), as.list))
+}
+
 #' Convert a list of lists to dataframe; requires that every list have same named elements.
 #'
 #' @param my_list A list of lists to dataframe
