@@ -3,16 +3,16 @@
 # Falster_2003 has many location properties
 dataset_id <- "Falster_2003"
 database <- extract_dataset(austraits_5.0.0_lite, dataset_id)
-combined_table <- database_create_combined_table(database)
+combined_table <- flatten_database(database)
 
 # Crous_2013 has many context properties, from 4 of 5 possible categories
 dataset_id_2 <- "Crous_2013"
 database_2 <- extract_dataset(austraits_5.0.0_lite, dataset_id_2)
-combined_table_2 <- database_create_combined_table(database_2)
+combined_table_2 <- flatten_database(database_2)
 
 expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_types = FALSE)
 
-test_that("`database_create_combined_table` is working with format = single_column_pretty", {
+test_that("`flatten_database` is working with format = single_column_pretty", {
     expect_equal(combined_table$location_properties, expected_output$location_properties)
     expect_equal(combined_table$data_contributors, expected_output$data_contributors)
     expect_length(combined_table, 66)
