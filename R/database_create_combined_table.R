@@ -11,9 +11,9 @@
 #' @return A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors
 #' @export
 #'
-#' @usage database_create_combined_table(database)
+#' @usage flatten_database(database)
 #' 
-database_create_combined_table <- function(austraits,
+flatten_database <- function(austraits,
     format = "single_column_pretty",
     vars = list(
       location = "all",
