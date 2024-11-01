@@ -26,13 +26,19 @@ flatten_database <- function(austraits,
     include_description = TRUE
   ) {
   # Since `data_collectors` is also merged into the combined_table via the contributors tibble, we don't want the information twice.
-  
+
+  if (format == "many_columns") {
+    format_contributors = "single_column_pretty"
+  } else {
+    format_contributors = format
+  }
+
   combined_table_relational <- austraits %>%
     join_location_coordinates() %>%
     join_location_properties(format = format, vars =  vars$location) %>%
     join_context_properties(format = format, vars =  vars$context, include_description = TRUE) %>%
     join_methods(vars = vars$methods) %>%
-    join_contributors(format = format, vars = vars$contributors) %>%
+    join_contributors(format = format_contributors, vars = vars$contributors) %>%
     join_taxa(vars = vars$taxonomy) %>%
     join_taxonomic_updates(vars = vars$taxonomic_updates)
   
