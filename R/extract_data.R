@@ -26,19 +26,19 @@ extract_data <- function(database, table, col, col_value) {
   
   # Empty list
   ret <- list(
-    traits = tibble(), 
-    locations = tibble(),
-    contexts = tibble(),
-    entity_context_id = tibble(),
-    method_context_id = tibble(),
-    temporal_context_id = tibble(),
-    plot_context_id = tibble(),
-    treatment_context_id = tibble(),
-    methods = tibble(),
-    excluded_data = tibble(),
-    taxonomic_updates = tibble(),
-    taxa = tibble(),
-    contributors = tibble()
+    traits = dplyr::tibble(), 
+    locations = dplyr::tibble(),
+    contexts = dplyr::tibble(),
+    entity_context_id = dplyr::tibble(),
+    method_context_id = dplyr::tibble(),
+    temporal_context_id = dplyr::tibble(),
+    plot_context_id = dplyr::tibble(),
+    treatment_context_id = dplyr::tibble(),
+    methods = dplyr::tibble(),
+    excluded_data = dplyr::tibble(),
+    taxonomic_updates = dplyr::tibble(),
+    taxa = dplyr::tibble(),
+    contributors = dplyr::tibble()
   )
   
   ret_tmp <- list()
@@ -59,7 +59,7 @@ extract_data <- function(database, table, col, col_value) {
                       "methods_cc", "taxa_cc", "taxonomic_updates_cc", "contributors_cc")
   
   # Create a table of various look-ups used below
-  tables <- tibble(
+  tables <- dplyr::tibble(
     cookie_cutters = cookie_cutters,
     tables_to_cut = tables_to_cut,
     tables_complete_path = tables_complete_path
@@ -163,6 +163,9 @@ extract_data <- function(database, table, col, col_value) {
   ret[["schema"]] <- database[["schema"]]
   ret[["metadata"]] <- database[["metadata"]]
   ret[["build_info"]] <- database[["build_info"]]
+  
+  # Assign class
+  attr(ret, "class") <- "austraits"
   
   ret
 }
