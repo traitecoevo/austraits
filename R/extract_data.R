@@ -4,16 +4,51 @@ extract_data <- function(database, table, col, col_value) {
 
   database$contexts_tmp <- split(database$contexts, database$contexts$link_id)
   
+  empty_tibble <- dplyr::tibble(
+    dataset_id = NA_character_,
+    context_property = NA_character_,
+    category = NA_character_,
+    value = NA_character_,
+    description = NA_character_,
+    link_id = NA_character_,
+    link_vals  = NA_character_
+  )
+
+  if (is.null(database$contexts_tmp$entity_context_id)) {
+    database$contexts_tmp$entity_context_id <- empty_tibble
+  }
+  
+  if (is.null(database$contexts_tmp$method_context_id)) {
+    database$contexts_tmp$method_context_id <- empty_tibble
+  }
+  
+  if (is.null(database$contexts_tmp$temporal_context_id)) {
+    database$contexts_tmp$temporal_context_id <- empty_tibble
+  }
+  
+  if (is.null(database$contexts_tmp$plot_context_id)) {  
+    database$contexts_tmp$plot_context_id <- empty_tibble
+  }
+  
+  if (is.null(database$contexts_tmp$treatment_context_id)) {
+    database$contexts_tmp$treatment_context_id <- empty_tibble
+  }
+  
   database$entity_context_id <- database$contexts_tmp$entity_context_id %>%
     dplyr::rename(entity_context_id = link_vals)
+  
   database$method_context_id <- database$contexts_tmp$method_context_id %>%
-    dplyr::rename(method_context_id = link_vals)
+    dplyr::rename(method_context_id = link_vals)  
+  
   database$temporal_context_id <- database$contexts_tmp$temporal_context_id %>%
     dplyr::rename(temporal_context_id = link_vals)
+  
   database$plot_context_id <- database$contexts_tmp$plot_context_id %>%
     dplyr::rename(plot_context_id = link_vals)
+  
   database$treatment_context_id <- database$contexts_tmp$treatment_context_id %>%
     dplyr::rename(treatment_context_id = link_vals)
+
   
   tables_to_cut <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", 
                             "plot_context_id", "treatment_context_id", 
@@ -103,20 +138,20 @@ extract_data <- function(database, table, col, col_value) {
       dplyr::semi_join(cc_traits, by = columns_to_select)
     
     
-    for (i in seq_along(tables_tmp$tables_to_cut)) {
+    for (j in seq_along(tables_tmp$tables_to_cut)) {
     
       cut_traits <- ret_tmp[["traits"]] |> 
-        dplyr::select(get(tables_tmp$cookie_cutters[[i]])) |> 
+        dplyr::select(get(tables_tmp$cookie_cutters[[j]])) |> 
         dplyr::distinct() 
       
       cut_traits <- cut_traits |>
         dplyr::filter(if_all(everything(), ~ !is.na(.)))
       
-      cut_table <- eval(parse(text = tables_tmp$tables_complete_path[[i]])) |>
-        dplyr::semi_join(cut_traits, by = get(tables_tmp$cookie_cutters[[i]])) %>%
+      cut_table <- eval(parse(text = tables_tmp$tables_complete_path[[j]])) |>
+        dplyr::semi_join(cut_traits, by = get(tables_tmp$cookie_cutters[[j]])) %>%
         dplyr::rename(link_vals = contains("context_id"))
       
-      assign(paste0("ret_tmp[[\"", tables_tmp$tables_to_cut[[i]], "\"]]"), cut_table )
+      assign(paste0("ret_tmp[[\"", tables_tmp$tables_to_cut[[j]], "\"]]"), cut_table )
     
     }
     
