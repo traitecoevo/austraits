@@ -164,6 +164,9 @@ extract_data <- function(database, table, col, col_value) {
   ret[["metadata"]] <- database[["metadata"]]
   ret[["build_info"]] <- database[["build_info"]]
   
+  # Reorder list to match database
+  ret[names(database)]
+  
   # Assign class
   attr(ret, "class") <- "austraits"
   

@@ -6,6 +6,7 @@ dataset_id3 = "Wright_2019"
 trait_name = "leaf_area"
 family = "Rubiaceae"
 genus = "Eucalyptus"
+taxon_name = "Banskia serrata"
 
 test_that("Error message is triggered", {
   expect_error(austraits_5.0.0_lite |> extract_taxa())
@@ -37,7 +38,6 @@ test_that("Function runs", {
   expect_visible(extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
 }
 )
-
 
 
 test_that("extracted dataset has some structure as austraits build", {
@@ -132,13 +132,12 @@ test_that("extracts using generalised extract function behaves as expected - ext
 
 test_that("extracts using generalised extract function behaves as expected - extracting by `location_property", {
   
-  context_property_test <- "fire"
+  context_property_test <- "sapwood"
   
   subset_by_context_property <- extract_data(database = austraits_5.0.0_lite, table = "contexts", col = "context_property", col_value = context_property_test)
-  
-  subset_using_filter <- austraits_5.0.0_lite$contexts %>% filter(stringr::str_detect(context_property, "fire"))
-  
-  datasets_in_subset <- subset_by_context_property$contexts %>% distinct(dataset_id)
+
+  datasets_in_subset <- subset_by_context_property$contexts %>% dplyr::distinct(dataset_id)
+
   
   expect_lt(nrow(subset_by_context_property$traits), nrow(austraits_5.0.0_lite$traits))
   expect_lt(nrow(subset_by_context_property$locations), nrow(austraits_5.0.0_lite$locations))

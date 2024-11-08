@@ -35,7 +35,7 @@ extract_trait <- function(database, trait_names, taxon_names=NULL) {
     function_not_supported(database)
   } 
 
-  ret <- extract_data(at_six, "traits", "trait_name", col_value = trait_names)
+  ret <- extract_data(database, "traits", "trait_name", col_value = trait_names)
   
   if(!is.null(taxon_names))
     ret <- extract_data(ret, "traits", "taxon_name", col_value = taxon_names)
