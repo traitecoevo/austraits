@@ -87,6 +87,13 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_equal(nrow(subset_by_dataset_id3$contributors), nrow(austraits_5.0.0_lite$contributors %>% filter(dataset_id == "Wright_2019")))
   expect_equal(names(subset_by_dataset_id3), names(austraits_5.0.0_lite))
   })
+
+
+test_that("that you can link two calls of `extract_data` together", {
+  subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2)
+  subset_by_dataset_id_and_context <- extract_data(database = subset_by_dataset_id2, table = "traits", col = "trait_name", col_value = "leaf_mass_per_area")
+  subset_by_dataset_id_and_context <- extract_data(database = austraits_5.0.0_lite, table = "contexts", col = "context_property", col_value = "fire")
+  }
   
 test_that("extracts using generalised extract function behaves as expected - extracting by `life_stage", {
   
@@ -128,6 +135,9 @@ test_that("extracts using generalised extract function behaves as expected - ext
   context_property_test <- "fire"
   
   subset_by_context_property <- extract_data(database = austraits_5.0.0_lite, table = "contexts", col = "context_property", col_value = context_property_test)
+  
+  subset_using_filter <- austraits_5.0.0_lite$contexts %>% filter(stringr::str_detect(context_property, "fire"))
+  
   datasets_in_subset <- subset_by_context_property$contexts %>% distinct(dataset_id)
   
   expect_lt(nrow(subset_by_context_property$traits), nrow(austraits_5.0.0_lite$traits))
@@ -141,9 +151,17 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_contains(subset_by_context_property$traits$dataset_id, datasets_in_subset$dataset_id)
   # however contexts will only be a subset of dataset_ids, so only 1 direction is true
   expect_contains(datasets_in_subset$dataset_id, subset_by_context_property$locations$dataset_id)
-  #can't work out a way to make this run, but for locations, not all datasets will be represented
-  #expect_error(subset_by_context_property$locations$dataset_id, datasets_in_subset$dataset_id)
+  # can't work out a way to make this run, but for locations, not all datasets will be represented
+  # expect_error(subset_by_context_property$locations$dataset_id, datasets_in_subset$dataset_id)
   expect_equal(names(subset_by_context_property), names(austraits_5.0.0_lite))
+  
+  # this should be true, because the proper extract function also retains other context property data linked to the same observation
+  expect_lt(nrow(subset_using_filter), nrow(subset_by_context_property$contexts))
+  # however both methods should be including the same dataset_id's 
+  expect_equal(
+    subset_using_filter %>% distinct(dataset_id) %>% arrange(dataset_id), 
+    subset_by_context_property$contexts %>% distinct(dataset_id) %>% arrange(dataset_id)
+    )
 })  
 
 
