@@ -1,4 +1,6 @@
 extract_data <- function(database, table, col, col_value) {
+  
+  database$contexts <- database$contexts %>% tidyr::separate_longer_delim(link_vals, delim = ", ")
 
   database$contexts_tmp <- split(database$contexts, database$contexts$link_id)
   
@@ -141,7 +143,11 @@ extract_data <- function(database, table, col, col_value) {
               ret[["plot_context_id"]],
               ret[["temporal_context_id"]],
               ret[["treatment_context_id"]]) |>
-    dplyr::select(-dplyr::any_of(c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")))
+    dplyr::select(-dplyr::any_of(c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id"))) |>
+    dplyr::group_by(dataset_id, category, link_id, value, description) |>
+      dplyr::mutate(link_vals = paste0(link_vals, collapse = ", ")) |>
+    dplyr::ungroup() |>
+    dplyr::distinct()
   
   ret <- ret[!names(ret) %in% c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")]
   
@@ -155,8 +161,8 @@ extract_data <- function(database, table, col, col_value) {
   # Join in other metadata tables
   ret[["definitions"]] <- database[["definitions"]]
   ret[["schema"]] <- database[["schema"]]
-  ret[["build_info"]] <- database[["build_info"]]
   ret[["metadata"]] <- database[["metadata"]]
+  ret[["build_info"]] <- database[["build_info"]]
   
   ret
 }
