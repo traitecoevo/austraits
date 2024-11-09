@@ -10,6 +10,7 @@ dataset_id_2 <- "Crous_2013"
 database_2 <- extract_dataset(austraits_5.0.0_lite, dataset_id_2)
 combined_table_2 <- flatten_database(database_2)
 
+#expected_output <- readr::read_csv("tests/testthat/Falster_2003_combined_format.csv", show_col_types = FALSE)
 expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_types = FALSE)
 
 test_that("`flatten_database` is working with format = single_column_pretty", {
@@ -67,7 +68,7 @@ contexts_default_yes_desc <- (database_2 %>% join_context_properties(include_des
 contexts_single_column_pretty_no_desc <- (database_2 %>% join_context_properties(include_description = FALSE, format = "single_column_pretty"))$traits
 contexts_single_column_json_yes_desc <- (database_2 %>% join_context_properties(include_description = TRUE, format = "single_column_json"))$traits
 contexts_many_columns_no_desc <- (database_2 %>% join_context_properties(include_description = FALSE, format = "many_columns"))$traits
-contexts_default_no_desc_subset_vars <- (database_2 %>% join_context_properties(include_description = FALSE, vars = context_vars[1:3]))$traits
+contexts_default_no_desc_subset_vars <- (database_2 %>% join_context_properties(include_description = FALSE, vars = c("sampling season", "temperature treatment", "CO2 treatment")))$traits
 
 test_that("join_context_properties arguments are working", {
   expect_equal(contexts_default_no_desc, contexts_single_column_pretty_no_desc)
