@@ -7,6 +7,11 @@ Authors@R:
              role = "aut",
              email = "daniel.falster@unsw.edu.au",
              comment = c(ORCID = "0000-0002-9814-092X")),
+      person(given = "Elizabeth", 
+            family = "Wenk", 
+            role = "ctb",
+            email = "e.wenk@unsw.edu.au", 
+            comment = c(ORCID = "0000-0001-5640-5910")),
       person(given = "Fonti",
              family = "Kar",
              role = c("aut", "cre"),
@@ -22,7 +27,7 @@ Encoding: UTF-8
 Language: en
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: 
     R (>= 4.0.0),
     RefManageR

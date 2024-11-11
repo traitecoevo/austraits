@@ -20,13 +20,13 @@ Function to subset all data associated with a particular dataset from a traits.b
 \details{
 \code{extract_dataset} has been developed to extract data for specific datasets from databases built using the traits.build workflow.
 Learn more at:
-\link{https://github.com/traitecoevo/traits.build} &
-\link{https://github.com/traitecoevo/traits.build-book}
+\url{https://github.com/traitecoevo/traits.build} &
+\url{https://github.com/traitecoevo/traits.build-book}
 
 Note to AusTraits users:
 \itemize{
 \item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \url{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
 }
 }
 \examples{
