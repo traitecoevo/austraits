@@ -60,7 +60,7 @@ bind_databases <- function(database_1, ...) {
     dplyr::select(-dplyr::any_of(c("dataset_id", "additional_role"))) %>%
     dplyr::distinct() %>%
     dplyr::arrange(.data$last_name, .data$given_name) %>%
-    util_df_to_list()
+    convert_df_to_list()
   
   ret <- list(traits = combine("traits", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
               locations = combine("locations", databases) %>% dplyr::arrange(.data$dataset_id, .data$location_id),

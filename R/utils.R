@@ -1,18 +1,43 @@
-#'  Convert dataframe to list
+#' Convert dataframe to list
 #'
-#'  Convert a dataframe to a named list, useful when converting to yaml.
+#' @description Convert a dataframe to a named list, 
+#' useful when converting a datafreme a to yaml.
 #'
 #' @param df A dataframe
 #' @return A (yaml) list
 #' @export
-#' @examples util_df_to_list(dplyr::starwars)
-util_df_to_list <- function(df) {
+#' @examples convert_df_to_list(dplyr::starwars)
+convert_df_to_list <- function(df) {
   attr(df, "out.attrs") <- NULL
   unname(lapply(split(df, seq_len(nrow(df))), as.list))
 }
 
+#' Convert list with single entries to dataframe
+#' 
+#' @description Convert a list with a single level of entries to a dataframe, 
+#' useful when converting a yaml into a dataframe.
+#'
+#' @param my_list A list with single entries
+#' @return A tibble with two columns
+#' @export
+#' @examples \dontrun{
+#' convert_list_to_df1(as.list(dplyr::starwars)[2])
+#' }
+convert_list_to_df1 <- function(my_list) {
 
-#' Convert a list of lists to dataframe; requires that every list have same named elements.
+  for (f in names(my_list)) {
+    if (is.null(my_list[[f]]))
+      my_list[[f]] <- NA
+  }
+
+  tibble::tibble(key = names(my_list), value = unname(unlist(my_list)))
+}
+
+#' Convert list of lists to dataframe
+#' 
+#' @description Convert a list of lists to a dataframe, 
+#' useful when converting a multi-level yaml into a dataframe.
+#' Function required that every list have same named elements.
 #'
 #' @param my_list A list of lists to dataframe
 #' @param as_character A logical value, indicating whether the values are read as character
@@ -22,9 +47,9 @@ util_df_to_list <- function(df) {
 #' @examples demo_list1 <- list(word1 = "this", word2 = "is", word3 = "an", word4 = "example", word5 = "list")
 #' demo_list2 <- list(word1 = "and", word2 = "a", word3 = "second", word4 = "list", word5 = "also")
 #' combined_list <- list(demo_list1, demo_list2)
-#' util_list_to_df2(combined_list)
+#' convert_list_to_df2(combined_list)
 
-util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
+convert_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
   
   if (is.null(my_list) || any(is.na(my_list)) || length(my_list) == 0)
     return(on_empty)
@@ -34,7 +59,6 @@ util_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
   
   dplyr::bind_rows(lapply(my_list, tibble::as_tibble))
 }
-
 
 #' Notify user the function they are using is no longer support
 #'
