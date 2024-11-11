@@ -16,8 +16,8 @@
 #'
 #' @examples 
 #' \dontrun{
-#' extract_data(database = traits.build_database, table = "traits", 
-#' col = "trait_name", col_value = "leaf_area")
+#' extract_data(traits.build_database, "traits", 
+#' "trait_name", "leaf_area")
 #' }
 extract_data <- function(database, table, col, col_value) {
   

@@ -3,7 +3,7 @@ on:
     branches:
       - master
       - develop
-      - generalise-extract-off-develop
+      - generalise_extract_off_develop
   pull_request:
     branches:
       - master
