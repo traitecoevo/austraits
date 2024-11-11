@@ -18,7 +18,7 @@
 #' @return A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors
 #' @export
 #'
-#' @usage flatten_database(database)
+#' @usage flatten_database(database, format, vars, include_description)
 #' 
 flatten_database <- function(database,
     format = "single_column_pretty",
