@@ -16,7 +16,8 @@
 #'
 #' @examples 
 #' \dontrun{
-#' extract_data(database = traits.build_database, table = "traits", col = "trait_name", col_value = "leaf_area")
+#' extract_data(database = traits.build_database, table = "traits", 
+#' col = "trait_name", col_value = "leaf_area")
 #' }
 extract_data <- function(database, table, col, col_value) {
   
@@ -155,7 +156,7 @@ extract_data <- function(database, table, col, col_value) {
       # Trim traits, based on the columns identified as being common between the traits table and target table
       cc_traits <- database[[table[[i]]]] |>
         dplyr::slice(found_indicies) |>
-        dplyr::select(all_of(columns_to_select)) |> 
+        dplyr::select(tidyselect::all_of(columns_to_select)) |> 
         dplyr::distinct()
       
       # Filtering join
@@ -175,11 +176,11 @@ extract_data <- function(database, table, col, col_value) {
           dplyr::distinct() 
         
         cut_traits <- cut_traits |>
-          dplyr::filter(if_all(everything(), ~ !is.na(.)))
+          dplyr::filter(dplyr::if_all(tidyselect::everything(), ~ !is.na(.)))
         
         cut_table <- eval(parse(text = tables_tmp$tables_complete_path[[j]])) |>
           dplyr::semi_join(cut_traits, by = get(tables_tmp$cookie_cutters[[j]])) %>%
-          dplyr::rename(link_vals = contains("context_id"))
+          dplyr::rename(link_vals = tidyselect::contains("context_id"))
         
         assign(paste0("ret_tmp[[\"", tables_tmp$tables_to_cut[[j]], "\"]]"), cut_table )
       
