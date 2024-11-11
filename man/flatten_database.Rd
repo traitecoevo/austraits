@@ -9,11 +9,15 @@ flatten_database(database)
 \arguments{
 \item{database}{A traits.build database}
 
-\item{format}{}
+\item{format}{A parameter for the locations, contexts and data contributors tables specifying how data are packed.
+All three can be formatted as a single compacted column(s) will have a human readable column ("single_column_pretty")
+or using json ("single_column_json") syntax. For location properties or context properties  there is also
+the option to add each \code{location_property} or \code{context_property} to the traits table as its own column ("many_columns");
+the contributors column defaults to "single_column_pretty" when this option is selected.}
 
-\item{vars}{list}
+\item{vars}{List specifying which columns or properties to include from each table. The detail is for all columns/properties to be included.}
 
-\item{include_description}{logical}
+\item{include_description}{A logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions; defaults to TRUE.}
 }
 \value{
 A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors

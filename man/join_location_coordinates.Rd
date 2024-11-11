@@ -10,7 +10,8 @@ join_location_coordinates(austraits)
 \item{austraits}{traits.build database}
 }
 \value{
-traits.build list object, but with additional fields (columns) for latitude and longitude appended to \code{traits} dataframe
+traits.build list object, but with additional fields (columns)
+for latitude and longitude appended to \code{traits} dataframe
 }
 \description{
 Function to merge geographic coordinates (latitude/longitude)

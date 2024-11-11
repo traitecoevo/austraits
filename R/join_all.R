@@ -3,7 +3,8 @@
 #' stored in the locations table of a traits.build database into the core traits table.
 #' 
 #' @param austraits traits.build database
-#' @return traits.build list object, but with additional fields (columns) for latitude and longitude appended to `traits` dataframe
+#' @return traits.build list object, but with additional fields (columns) 
+#' for latitude and longitude appended to `traits` dataframe
 #' @details
 #' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
 #' Learn more at:
@@ -80,7 +81,8 @@ join_location_coordinates <- function(austraits) {
 #' #Append taxonomic details
 #' (austraits %>% join_taxa)$traits
 #' }
-join_taxa <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
+join_taxa <- function(austraits, 
+                      vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
 
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -221,9 +223,12 @@ join_methods <- function(austraits, vars =  c("methods")) {
 #' 
 #' @examples
 #' \dontrun{
-#' (database %>% join_contributors(format = "single_column_pretty", vars = c("last_name", "first_name", "ORCID")))$traits
+#' (database %>% join_contributors(format = "single_column_pretty", 
+#' vars = c("last_name", "first_name", "ORCID")))$traits
 #' }
-join_contributors <- function(austraits, format = "single_column_pretty", vars =  "all") {
+join_contributors <- function(austraits,
+                              format = "single_column_pretty",
+                              vars =  "all") {
 
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -313,7 +318,9 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
 #' \dontrun{
 #' (database %>% join_location_properties(format = "single_column_pretty", vars = "all"))$traits
 #' }
-join_location_properties <- function(austraits, format = "single_column_pretty", vars =  "all") {
+join_location_properties <- function(austraits,
+                                     format = "single_column_pretty",
+                                     vars =  "all") {
 
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -414,9 +421,13 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
 #' 
 #' @examples
 #' \dontrun{
-#' (database %>% join_context_properties(format = "many_columns", vars = "all", include_description = TRUE))$traits
+#' (database %>% join_context_properties(
+#' format = "many_columns", vars = "all", include_description = TRUE))$traits
 #' }
-join_context_properties <- function(austraits, format = "single_column_pretty", vars =  "all", include_description = TRUE) {
+join_context_properties <- function(austraits,
+                                    format = "single_column_pretty",
+                                    vars =  "all",
+                                    include_description = TRUE) {
   
   # Check compatibility
   if(!check_compatibility(austraits)){

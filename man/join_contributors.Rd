@@ -33,6 +33,7 @@ Note to AusTraits users:
 }
 \examples{
 \dontrun{
-(database \%>\% join_contributors(format = "single_column_pretty", vars = c("last_name", "first_name", "ORCID")))$traits
+(database \%>\% join_contributors(format = "single_column_pretty", 
+vars = c("last_name", "first_name", "ORCID")))$traits
 }
 }

@@ -40,6 +40,7 @@ Note to AusTraits users:
 }
 \examples{
 \dontrun{
-(database \%>\% join_context_properties(format = "many_columns", vars = "all", include_description = TRUE))$traits
+(database \%>\% join_context_properties(
+format = "many_columns", vars = "all", include_description = TRUE))$traits
 }
 }
