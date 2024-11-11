@@ -304,7 +304,9 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
   austraits
 }
 
-
+#' @title Joining context properties to traits table
+#' @export
+#' @rdname join_context_properties
 join_context_properties <- function(austraits, format = "single_column_pretty", vars =  "all", include_description = TRUE) {
   
   # Check compatibility
