@@ -8,6 +8,12 @@ flatten_database(database)
 }
 \arguments{
 \item{database}{A traits.build database}
+
+\item{format}{}
+
+\item{vars}{list}
+
+\item{include_description}{logical}
 }
 \value{
 A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors
