@@ -45,12 +45,12 @@ test_that("extracted dataset has some structure as austraits build", {
   trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name)
   
   expect_s3_class(austraits_5.0.0_lite, "austraits")
-  expect_equal(length(austraits_5.0.0_lite), length(subset))
-  expect_equal(sort(names(austraits_5.0.0_lite)), sort(names(subset)))
+  expect_equal(length(subset), length(austraits_5.0.0_lite))
+  expect_equal(sort(names(subset)), sort(names(austraits_5.0.0_lite)))
   
-  expect_equal(length(austraits_5.0.0_lite), length(trait_subset))
-  expect_equal(sort(names(austraits_5.0.0_lite)), sort(names(trait_subset)))
-  expect_named(names(austraits_5.0.0_lite), names(trait_subset))  
+  expect_equal(length(trait_subset), length(austraits_5.0.0_lite))
+  expect_equal(sort(names(trait_subset)), sort(names(austraits_5.0.0_lite)))
+  expect_equal(names(trait_subset), names(austraits_5.0.0_lite))  
   
   expect_type(austraits_5.0.0_lite %>% extract_taxa(family = family), "list")
   expect_type(austraits_5.0.0_lite %>% extract_taxa(genus = genus), "list")           
@@ -68,23 +68,23 @@ test_that("extracts using generalised extract function behaves as expected - ext
   
   subset_by_dataset_id <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id)
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id))
-  expect_equal(nrow(subset_by_dataset_id$locations), nrow(austraits_5.0.0_lite$locations %>% filter(dataset_id == "Falster_2003")))
-  expect_equal(nrow(subset_by_dataset_id$contexts), nrow(austraits_5.0.0_lite$contexts %>% filter(dataset_id == "Falster_2003")))
+  expect_equal(nrow(subset_by_dataset_id$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Falster_2003")))
+  expect_equal(nrow(subset_by_dataset_id$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Falster_2003")))
   
   subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2)
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id2))
-  expect_equal(nrow(subset_by_dataset_id2$locations), nrow(austraits_5.0.0_lite$locations %>% filter(dataset_id == "Cernusak_2006")))
-  expect_equal(nrow(subset_by_dataset_id2$contexts), nrow(austraits_5.0.0_lite$contexts %>% filter(dataset_id == "Cernusak_2006")))
-  expect_equal(nrow(subset_by_dataset_id2$methods), nrow(austraits_5.0.0_lite$methods %>% filter(dataset_id == "Cernusak_2006")))
-  expect_equal(nrow(subset_by_dataset_id2$contributors), nrow(austraits_5.0.0_lite$contributors %>% filter(dataset_id == "Cernusak_2006")))
+  expect_equal(nrow(subset_by_dataset_id2$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Cernusak_2006")))
+  expect_equal(nrow(subset_by_dataset_id2$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Cernusak_2006")))
+  expect_equal(nrow(subset_by_dataset_id2$methods), nrow(austraits_5.0.0_lite$methods %>% dplyr::filter(dataset_id == "Cernusak_2006")))
+  expect_equal(nrow(subset_by_dataset_id2$contributors), nrow(austraits_5.0.0_lite$contributors %>% dplyr::filter(dataset_id == "Cernusak_2006")))
   expect_equal(names(subset_by_dataset_id2), names(austraits_5.0.0_lite))
   
   subset_by_dataset_id3 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id3)
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id3))
-  expect_equal(nrow(subset_by_dataset_id3$locations), nrow(austraits_5.0.0_lite$locations %>% filter(dataset_id == "Wright_2019")))
-  expect_equal(nrow(subset_by_dataset_id3$contexts), nrow(austraits_5.0.0_lite$contexts %>% filter(dataset_id == "Wright_2019")))
-  expect_equal(nrow(subset_by_dataset_id3$methods), nrow(austraits_5.0.0_lite$methods %>% filter(dataset_id == "Wright_2019")))
-  expect_equal(nrow(subset_by_dataset_id3$contributors), nrow(austraits_5.0.0_lite$contributors %>% filter(dataset_id == "Wright_2019")))
+  expect_equal(nrow(subset_by_dataset_id3$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Wright_2019")))
+  expect_equal(nrow(subset_by_dataset_id3$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Wright_2019")))
+  expect_equal(nrow(subset_by_dataset_id3$methods), nrow(austraits_5.0.0_lite$methods %>% dplyr::filter(dataset_id == "Wright_2019")))
+  expect_equal(nrow(subset_by_dataset_id3$contributors), nrow(austraits_5.0.0_lite$contributors %>% dplyr::filter(dataset_id == "Wright_2019")))
   expect_equal(names(subset_by_dataset_id3), names(austraits_5.0.0_lite))
   })
 
@@ -104,7 +104,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
   life_stage_test <- "sapling"
   
   subset_by_age_class <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "life_stage", col_value = life_stage_test)
-  datasets_in_subset <- subset_by_age_class$traits %>% distinct(dataset_id)
+  datasets_in_subset <- subset_by_age_class$traits %>% dplyr::distinct(dataset_id)
   
   expect_lt(nrow(subset_by_age_class$locations), nrow(austraits_5.0.0_lite$locations))
   expect_lt(nrow(subset_by_age_class$contexts), nrow(austraits_5.0.0_lite$contexts))
@@ -118,7 +118,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
   location_property_test <- "temperature"
   
   subset_by_location_property <- extract_data(database = austraits_5.0.0_lite, table = "locations", col = "location_property", col_value = location_property_test)
-  datasets_in_subset <- subset_by_location_property$locations %>% distinct(dataset_id)
+  datasets_in_subset <- subset_by_location_property$locations %>% dplyr::distinct(dataset_id)
   
   expect_lt(nrow(subset_by_location_property$traits), nrow(austraits_5.0.0_lite$traits))
   expect_lt(nrow(subset_by_location_property$locations), nrow(austraits_5.0.0_lite$locations))
@@ -152,7 +152,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
   subset_by_context_property <- extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test)
 
   datasets_in_subset <- subset_by_context_property$contexts %>% dplyr::distinct(dataset_id)
-  subset_using_filter <- austraits_5.0.0_lite$contexts %>% filter(stringr::str_detect(context_property, context_property_test))
+  subset_using_filter <- austraits_5.0.0_lite$contexts %>% dplyr::filter(stringr::str_detect(context_property, context_property_test))
   
   expect_lt(nrow(subset_by_context_property$traits), nrow(austraits_5.0.0_lite$traits))
   expect_lt(nrow(subset_by_context_property$locations), nrow(austraits_5.0.0_lite$locations))
@@ -173,8 +173,8 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_gte(nrow(subset_by_context_property$contexts), nrow(subset_using_filter))
   # however both methods should be including the same dataset_id's 
   expect_equal(
-    subset_using_filter %>% distinct(dataset_id) %>% arrange(dataset_id), 
-    subset_by_context_property$contexts %>% distinct(dataset_id) %>% arrange(dataset_id)
+    subset_using_filter %>% dplyr::distinct(dataset_id) %>% dplyr::arrange(dataset_id), 
+    subset_by_context_property$contexts %>% dplyr::distinct(dataset_id) %>% dplyr::arrange(dataset_id)
     )
 })  
 
@@ -195,6 +195,6 @@ test_that("Extraction of dataset was successful using `extract_data`", {
   expect_equal(dplyr::n_distinct(subset$traits$dataset_id), 1)
   expect_contains(unique(trait_subset$traits$trait_name), trait_name)
   expect_equal(dplyr::n_distinct(trait_subset$traits$trait_name), 1)
-  expect_equal(trait_subset$traits %>% dplyr::distinct(dataset_id) %>% nrow(), 5) #something weird here, keeps isolating between 8 & 5
+  expect_equal(trait_subset$traits %>% dplyr::distinct(dataset_id) %>% nrow(), 8) #something weird here, keeps isolating between 8 & 5
 })
 

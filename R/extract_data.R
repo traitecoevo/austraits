@@ -86,8 +86,8 @@ extract_data <- function(database, table, col, col_value) {
   plot_contexts_cc <- c("dataset_id", "plot_context_id")
   treatment_contexts_cc <- c("dataset_id", "treatment_context_id")
   methods_cc <- c("dataset_id", "trait_name", "method_id")
-  taxa_cc <- c("taxon_name")
   taxonomic_updates_cc <- c("dataset_id", "taxon_name", "original_name")
+  taxa_cc <- c("taxon_name")
   contributors_cc <- c("dataset_id")
   
   cookie_cutters <- c("locations_cc", "entity_contexts_cc", "method_contexts_cc", "temporal_contexts_cc", "plot_contexts_cc", "treatment_contexts_cc", 
@@ -211,7 +211,7 @@ extract_data <- function(database, table, col, col_value) {
   
   # Reorder list to match database
   ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
-               "contributors","taxa","definitions","build_info","schema", "metadata","sources")]
+               "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
   
   # Assign class
   attr(ret, "class") <- "austraits"

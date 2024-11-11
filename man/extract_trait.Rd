@@ -7,7 +7,7 @@
 extract_trait(austraits, trait_names, taxon_names)
 }
 \arguments{
-\item{austraits}{a large list of tibbles built by \code{traits.build}}
+\item{database}{a large list of tibbles built by \code{traits.build}}
 
 \item{trait_names}{character string of trait(s) for which data will be extracted}
 

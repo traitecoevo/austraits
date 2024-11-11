@@ -17,23 +17,23 @@
 #' @export
 
 #
-plot_trait_distribution_beeswarm <- function(austraits, 
-                                             plant_trait_name, 
-                                             y_axis_category, 
-                                             highlight=NA, 
+plot_trait_distribution_beeswarm <- function(austraits,
+                                             plant_trait_name,
+                                             y_axis_category,
+                                             highlight=NA,
                                              hide_ids = FALSE) {
   
   # Check compatability
   status <- check_compatibility(austraits)
   
   # If compatible
-  if(!status){
+  if(!status) {
     function_not_supported(austraits)
-  } 
+  }
   # Subset data to this trait
   austraits_trait <- extract_trait(austraits, plant_trait_name)
   
-  my_shapes = c("_min" = 60, "_mean" = 16, "_max" =62, "unknown" = 18)
+  my_shapes <- c("_min" = 60, "_mean" = 16, "_max" = 62, "unknown" = 18)
   
   as_shape <- function(value_type) {
     p <- rep("unknown", length(value_type))
@@ -46,19 +46,21 @@ plot_trait_distribution_beeswarm <- function(austraits,
   
   tax_info  <- austraits_trait$taxa %>% dplyr::select(taxon_name, family)
   
-  data <- 
+  data <-
     austraits_trait$traits %>%
     dplyr::mutate(shapes = as_shape(value_type)) %>%
-    dplyr::left_join(by = "taxon_name", tax_info)
+    dplyr::left_join(by = "taxon_name", tax_info) %>%
+    dplyr::mutate(value = as.numeric(value))
   
   # Define grouping variables and derivatives
-  if(!y_axis_category %in% names(data)){
+  if(!y_axis_category %in% names(data)) {
     stop("Incorrect grouping variable! Currently implemented for `family` or `dataset_id`")
   }
   
   # define grouping variable, ordered by group-level by mean values
   # use log_value where possible
-  if(min(data$value, na.rm=TRUE) > 0 ) {
+  
+  if(min(data$value, na.rm=TRUE) > 0) {
     data$value2 <- log10(data$value)
   } else {
     data$value2 <- data$value

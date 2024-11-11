@@ -4,10 +4,10 @@
 \alias{extract_taxa}
 \title{Extract all data for specific taxa}
 \usage{
-extract_taxa(austraits, family = NULL, genus = NULL, taxon_name = NULL)
+extract_taxa(database, family = NULL, genus = NULL, taxon_name = NULL)
 }
 \arguments{
-\item{austraits}{a large list of tibbles built by \code{traits.build} workflow}
+\item{database}{a large list of tibbles built by \code{traits.build} workflow}
 
 \item{family}{character string of family or families}
 
@@ -30,7 +30,7 @@ Learn more at:
 Note to AusTraits users:
 \itemize{
 \item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/database} for how to install old versions of the package or download a newer version of the database."
 }
 }
 \examples{
