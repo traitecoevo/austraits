@@ -4,7 +4,7 @@
 \alias{flatten_database}
 \title{Create combined traits.build table}
 \usage{
-flatten_database(database)
+flatten_database(database, format, vars, include_description)
 }
 \arguments{
 \item{database}{A traits.build database}
