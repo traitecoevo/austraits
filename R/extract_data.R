@@ -26,35 +26,37 @@ extract_data <- function(database, table, col, col_value) {
   database$contexts_tmp <- split(database$contexts, database$contexts$link_id)
   
   empty_tibble <- dplyr::tibble(
-    dataset_id = NA_character_,
-    context_property = NA_character_,
-    category = NA_character_,
-    value = NA_character_,
-    description = NA_character_,
-    link_id = NA_character_,
-    link_vals  = NA_character_
+    dataset_id = character(),
+    context_property = character(),
+    category = character(),
+    value = character(),
+    description = character(),
+    link_id = character(),
+    link_vals  = character()
   )
+  
+  # For any context property categories that do not exist, create empty tibbles.
+  for (v in c("entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id")) { 
+    if (is.null(database$contexts_tmp[[v]])) {
+        database$contexts_tmp[[v]] <- empty_tibble
+    } 
+  }
 
-  if (is.null(database$contexts_tmp$entity_context_id)) {
-    database$contexts_tmp$entity_context_id <- empty_tibble
-  }
+  # Rename the generic `link_vals` to the specific context category they represent and 
+  # move the tables from database_tmp to the main database list.
   
-  if (is.null(database$contexts_tmp$method_context_id)) {
-    database$contexts_tmp$method_context_id <- empty_tibble
-  }
+  #rename_contexts_link_vals <- function(table, name) {
+  #  table %>%
+  #    dplyr::rename(!!rlang::quo_name(name) := link_vals)
+  #}
   
-  if (is.null(database$contexts_tmp$temporal_context_id)) {
-    database$contexts_tmp$temporal_context_id <- empty_tibble
-  }
   
-  if (is.null(database$contexts_tmp$plot_context_id)) {  
-    database$contexts_tmp$plot_context_id <- empty_tibble
-  }
+  # this overwrites all of database
   
-  if (is.null(database$contexts_tmp$treatment_context_id)) {
-    database$contexts_tmp$treatment_context_id <- empty_tibble
-  }
-  
+  #database <- purrr::map(database$contexts_tmp, 
+  #           ~rename_contexts_link_vals(.x, .x$link_id |> unique()))
+
+    
   database$entity_context_id <- database$contexts_tmp$entity_context_id %>%
     dplyr::rename(entity_context_id = link_vals)
   
@@ -69,18 +71,8 @@ extract_data <- function(database, table, col, col_value) {
   
   database$treatment_context_id <- database$contexts_tmp$treatment_context_id %>%
     dplyr::rename(treatment_context_id = link_vals)
-
   
-  tables_to_cut <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", 
-                            "plot_context_id", "treatment_context_id", 
-                            "methods", "taxa", "taxonomic_updates", "contributors")
-  
-  tables_complete_path <- c("database$locations", "database$entity_context_id", 
-                            "database$method_context_id", "database$temporal_context_id", 
-                            "database$plot_context_id", "database$treatment_context_id", 
-                            "database$methods", "database$taxa", "database$taxonomic_updates", "database$contributors")
-  
-  # Empty list
+  # Create an empty database list
   ret <- list(
     traits = dplyr::tibble(), 
     locations = dplyr::tibble(),
@@ -100,6 +92,9 @@ extract_data <- function(database, table, col, col_value) {
   ret_tmp <- list()
 
   # Cookie cutters
+  
+  # XX - could be a list, but then problems lower down
+  
   locations_cc <- c("dataset_id", "location_id")
   entity_contexts_cc <- c("dataset_id", "entity_context_id")
   temporal_contexts_cc <- c("dataset_id", "temporal_context_id")
@@ -110,13 +105,27 @@ extract_data <- function(database, table, col, col_value) {
   taxonomic_updates_cc <- c("dataset_id", "taxon_name", "original_name")
   taxa_cc <- c("taxon_name")
   contributors_cc <- c("dataset_id")
+
   
-  cookie_cutters <- c("locations_cc", "entity_contexts_cc", "method_contexts_cc", "temporal_contexts_cc", "plot_contexts_cc", "treatment_contexts_cc", 
-                      "methods_cc", "taxa_cc", "taxonomic_updates_cc", "contributors_cc")
+  # Create table of various look-up values to be used below
   
-  # Create a table of various look-ups used below
+  # Create vectors for table 
+  tables_to_cut <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", 
+                            "plot_context_id", "treatment_context_id", 
+                            "methods", "taxa", "taxonomic_updates", "contributors")
+  
+  tables_complete_path <- c("database$locations", "database$entity_context_id", 
+                            "database$method_context_id", "database$temporal_context_id", 
+                            "database$plot_context_id", "database$treatment_context_id", 
+                            "database$methods", "database$taxa", "database$taxonomic_updates", "database$contributors")
+  
+  cookie_cutters <- c("locations_cc", "entity_contexts_cc", "method_contexts_cc", "temporal_contexts_cc", 
+                      "plot_contexts_cc", "treatment_contexts_cc", "methods_cc", "taxa_cc", "taxonomic_updates_cc", 
+                      "contributors_cc")
+  
+  # Create table
   tables <- dplyr::tibble(
-    cookie_cutters = cookie_cutters,
+    cookie_cutters = cookie_cutters, # XX - or = names(cookie_cutters) if cookie_cutters is a list
     tables_to_cut = tables_to_cut,
     tables_complete_path = tables_complete_path
   )
@@ -172,7 +181,7 @@ extract_data <- function(database, table, col, col_value) {
       for (j in seq_along(tables_tmp$tables_to_cut)) {
       
         cut_traits <- ret_tmp[["traits"]] |> 
-          dplyr::select(get(tables_tmp$cookie_cutters[[j]])) |> 
+          dplyr::select(get(tables_tmp$cookie_cutters[[j]])) |> # XX - this line no longer works with a list and tried other variants to query new vector location
           dplyr::distinct() 
         
         cut_traits <- cut_traits |>
@@ -187,7 +196,6 @@ extract_data <- function(database, table, col, col_value) {
       }
       
       # Bind together rows extracted from each table
-      ## This step is required when the `context` table is queried as it is split into 5 tables and each needs to be checked.
       ret[["traits"]] <- ret[["traits"]] %>% dplyr::bind_rows(ret_tmp[["traits"]]) %>% dplyr::distinct()
       ret[["locations"]] <- ret[["locations"]] %>% dplyr::bind_rows(`ret_tmp[["locations"]]`) %>% dplyr::distinct()
       ret[["entity_context_id"]] <- ret[["entity_context_id"]] %>% dplyr::bind_rows(`ret_tmp[["entity_context_id"]]`) %>% dplyr::distinct()
@@ -200,6 +208,16 @@ extract_data <- function(database, table, col, col_value) {
       ret[["taxonomic_updates"]] <- ret[["taxonomic_updates"]] %>% dplyr::bind_rows(`ret_tmp[["taxonomic_updates"]]`) %>% dplyr::distinct()
       ret[["taxa"]] <- ret[["taxa"]] %>% dplyr::bind_rows(`ret_tmp[["taxa"]]`) %>% dplyr::distinct()
       ret[["contributors"]] <- ret[["contributors"]] %>% dplyr::bind_rows(`ret_tmp[["contributors"]]`) %>% dplyr::distinct()
+      
+      # getting error with loop
+        #  for (v in c("traits", tables$tables_to_cut)) { 
+        
+        # ret[[v]] <- ret_tmp[[v]] %>%
+        #   dplyr::bind_rows(`ret_tmp[[v]]`) %>%
+        #   dplyr::distinct()
+        
+        #  }
+      
       
     }
   
