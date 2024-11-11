@@ -37,7 +37,6 @@ Imports:
     rlang,
     purrr,
     tidyselect,
-    assertthat,
     stringr,
     stats,
     jsonlite,

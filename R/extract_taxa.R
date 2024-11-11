@@ -15,7 +15,7 @@
 #'
 #' Note to AusTraits users:
 #' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/database](https://github.com/traitecoevo/database) for how to install old versions of the package or download a newer version of the database."
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/database](https://github.com/traitecoevo/database) for how to install old versions of the package or download a newer version of the database.
 #'
 #' @examples 
 #' \dontrun{

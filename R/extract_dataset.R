@@ -2,7 +2,7 @@
 #'
 #' @description Function to subset all data associated with a particular dataset from a traits.build relational database.
 #' 
-#' @usage extract_dataset(austraits, dataset_id)
+#' @usage extract_dataset(database, dataset_id)
 #' @param database a large list of tibbles built by `traits.build` workflow
 #' @param dataset_id character string that matches a `dataset_id` in the database
 #' @return List of tibbles containing all traits.build data and metadata for the specified dataset(s).
@@ -14,11 +14,11 @@
 #'
 #' Note to AusTraits users:
 #' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits) for how to install old versions of the package or download a newer version of the database."
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits) for how to install old versions of the package or download a newer version of the database.
 #'
 #' @examples
 #' \dontrun{
-#' extract_dataset(austraits, "Falster_2003")
+#' extract_dataset(database, "Falster_2003")
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export

@@ -7,13 +7,16 @@
 #' are now included as additional columns in a single table.
 #'
 #' @param database A traits.build database
+#' @param format 
+#' @param vars list
+#' @param include_description logical
 #'
 #' @return A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors
 #' @export
 #'
 #' @usage flatten_database(database)
 #' 
-flatten_database <- function(austraits,
+flatten_database <- function(database,
     format = "single_column_pretty",
     vars = list(
       location = "all",
@@ -21,7 +24,7 @@ flatten_database <- function(austraits,
       contributors = "all",
       taxonomy = "all",
       taxonomic_updates = "all",
-      methods = setdiff(names(austraits$methods), c("data_collectors"))
+      methods = setdiff(names(database$methods), c("data_collectors"))
     ),
     include_description = TRUE
   ) {
@@ -33,7 +36,7 @@ flatten_database <- function(austraits,
     format_contributors = format
   }
 
-  combined_table_relational <- austraits %>%
+  combined_table_relational <- database %>%
     join_location_coordinates() %>%
     join_location_properties(format = format, vars =  vars$location) %>%
     join_context_properties(format = format, vars =  vars$context, include_description = TRUE) %>%

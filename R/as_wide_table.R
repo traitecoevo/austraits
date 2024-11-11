@@ -37,7 +37,7 @@ as_wide_table <- function(austraits){
 
     # The contexts table needs the contexts collapsed to one context name per site
   austraits %>% 
-    join_contexts_old(collapse = TRUE) -> austraits
+    join_contexts_old(collapse_context = TRUE) -> austraits
 
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
   austraits$methods <- 
