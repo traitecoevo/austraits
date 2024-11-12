@@ -14,10 +14,6 @@ bind_databases <- function(database_1, ...) {
   # List of databases to combine
   databases = list(database_1, ...)
   
-  # Capture names of databases input; required below to assign names to databases in list
-  database_names <- match.call() %>% as.character()
-  database_names <- database_names[-1]
-  
   combine <- function(name, databases) {
     dplyr::bind_rows(lapply(databases, "[[", name)) %>% dplyr::distinct()
   }
@@ -35,18 +31,12 @@ bind_databases <- function(database_1, ...) {
   # Drop null datasets
   databases[sapply(databases, is.null)] <- NULL
   
-  # Assign names to databases
-  names(databases) <- database_names
-  # This is the initial code used in traits.build, where the names of the individual databases
-  # were always dataset_id's
-  #names(databases) <- sapply(databases, "[[", database_names)
-  
   # Taxonomy
   
   taxonomic_updates <-
     combine("taxonomic_updates", databases) %>%
     dplyr::group_by(.data$original_name, .data$aligned_name, .data$taxon_name, .data$taxonomic_resolution) %>%
-    dplyr::mutate(dataset_id = paste(.data$dataset_id, collapse = " ")) %>%
+    #dplyr::mutate(dataset_id = paste(.data$dataset_id, collapse = " ")) %>%
     dplyr::ungroup() %>%
     dplyr::distinct() %>%
     dplyr::arrange(.data$original_name, .data$aligned_name, .data$taxon_name, .data$taxonomic_resolution)

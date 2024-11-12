@@ -4,7 +4,7 @@
 \alias{bind_databases}
 \title{Bind multiple traits.build data objects into a single data object}
 \usage{
-bind_databases(..., databases = list(...))
+bind_databases(database_1, ...)
 }
 \arguments{
 \item{...}{Arguments passed to other functions}
