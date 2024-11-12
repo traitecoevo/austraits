@@ -279,10 +279,10 @@ join_contributors <- function(database,
   } else if (format == "single_column_json") {
 
     compacted_contributors_column <-
-      contributors_tmp |> 
-      tidyr::nest(-dplyr::all_of("dataset_id")) |>
-      dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) |>
-      dplyr::select(-dplyr::any_of("data")) |>
+      contributors_tmp %>% 
+      tidyr::nest(-dplyr::all_of("dataset_id")) %>%
+      dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
   }
 
@@ -383,10 +383,10 @@ join_location_properties <- function(database,
   } else if (format == "single_column_json") {
 
     compacted_locations_column <-
-      locations |> 
-      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) |>
-      dplyr::mutate(location_properties = purrr::map_chr(data, jsonlite::toJSON)) |>
-      dplyr::select(-dplyr::any_of("data")) |>
+      locations %>% 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) %>%
+      dplyr::mutate(location_properties = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
     
     database$traits <- database$traits %>%
@@ -481,13 +481,13 @@ join_context_properties <- function(database,
   } else if (format == "single_column_json") {
     
     contexts_tmp <-
-      contexts_tmp |> 
-      tidyr::separate_longer_delim(link_vals, ", ") |>
-      dplyr::distinct() |> 
-      dplyr::mutate(description = ifelse(!is.na(description) & include_description, description, NA)) |> 
-      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) |> 
-      dplyr::mutate(value = purrr::map_chr(data, jsonlite::toJSON)) |>
-      dplyr::select(-dplyr::any_of("data")) |>
+      contexts_tmp %>% 
+      tidyr::separate_longer_delim(link_vals, ", ") %>%
+      dplyr::distinct() %>% 
+      dplyr::mutate(description = ifelse(!is.na(description) & include_description, description, NA)) %>% 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) %>% 
+      dplyr::mutate(value = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
     
     pivot <- FALSE

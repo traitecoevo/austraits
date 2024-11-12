@@ -54,7 +54,7 @@ summarise_austraits_traits <-function(database, var) {
   ret <- dplyr::left_join(ret, sum_stats, by = "trait_name")
   
   # Organise
-  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total) |> tibble::tibble()
+  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total) %>% tibble::tibble()
 }
 
 #' @noRd
@@ -92,6 +92,6 @@ summarise_austraits_taxa <-function(database, var) {
   ret <- dplyr::left_join(ret, sum_stats, by = var)
   
   # Organise
-  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total) |> tibble::tibble()
+  ret %>% dplyr::select(1, dplyr::starts_with("n_"), percent_total) %>% tibble::tibble()
   
 }

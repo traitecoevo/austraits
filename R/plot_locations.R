@@ -29,7 +29,7 @@ plot_locations <- function(database, feature="trait_name", ...){
     
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ){
       cli::cli_alert_info("Coordinate columns were not detected, joining location tables now.")
-      database <- database |> join_location_coordinates()
+      database <- database %>% join_location_coordinates()
       traits <- get_traits_table(database)
     }
   } else {
@@ -51,9 +51,9 @@ plot_locations2 <- function(database, feature, ...){
   
   #Create site data
   sites <-
-    database |> 
-    dplyr::select(!!feature, tidyselect::any_of(c("site_name", "location_name", "latitude (deg)", "longitude (deg)"))) |> 
-    tidyr::drop_na() |> 
+    database %>% 
+    dplyr::select(!!feature, tidyselect::any_of(c("site_name", "location_name", "latitude (deg)", "longitude (deg)"))) %>% 
+    tidyr::drop_na() %>% 
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
     dplyr::filter(
       `latitude (deg)` > (-45), `latitude (deg)` < (-9.5),

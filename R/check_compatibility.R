@@ -24,7 +24,7 @@ check_compatibility <- function(database) {
     compiled_by_traits.build <-
       database$metadata$related_identifiers %>% 
       convert_list_to_df2() %>%
-      dplyr::filter(relation_type == "isCompiledBy") |> 
+      dplyr::filter(relation_type == "isCompiledBy") %>% 
       dplyr::filter(stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
     
     if(is.null(compiled_by_traits.build) | nrow(compiled_by_traits.build) > 0) {
