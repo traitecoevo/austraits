@@ -1,6 +1,6 @@
 #' @title Produce location maps of trait values 
 #' @description Plot location where trait data was collected from
-#' @param aus_traits austraits object OR traits table. Note location details must be joined. See join_location_coordinates and examples
+#' @param database traits.build database OR traits table from a traits.build database. Note location details must be joined. See join_location_coordinates and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2
 #' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
@@ -18,22 +18,22 @@
 #' @export
 
 
-plot_locations <- function(aus_traits, feature="trait_name", ...){
+plot_locations <- function(database, feature="trait_name", ...){
   
   # Check if traits.build object or the traits table
   # If traits.build, check if traits table contains coordinate cols
-  if( is.null(dim(aus_traits)) ){
+  if( is.null(dim(database)) ){
     
     # Extract traits table if needed
-    traits <- get_traits_table(aus_traits)
+    traits <- get_traits_table(database)
     
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ){
       cli::cli_alert_info("Coordinate columns were not detected, joining location tables now.")
-      aus_traits <- aus_traits |> join_location_coordinates()
-      traits <- get_traits_table(aus_traits)
+      database <- database |> join_location_coordinates()
+      traits <- get_traits_table(database)
     }
   } else {
-    traits <- aus_traits #If not traits.build, assign traits table as traits
+    traits <- database #If not traits.build, assign traits table as traits
     
     # Check if traits contains coordinate cols in traits table
     if( length(stringr::str_which(names(traits), "(deg)")) < 2 ) 
@@ -45,13 +45,13 @@ plot_locations <- function(aus_traits, feature="trait_name", ...){
 
 #' Location plot for AusTraits versions > 3.0.2
 #' @noRd
-plot_locations2 <- function(aus_traits, feature, ...){
+plot_locations2 <- function(database, feature, ...){
   au_map <- australia_map_raster %>%
     dplyr::mutate(australia = as.factor(australia))
   
   #Create site data
   sites <-
-    aus_traits |> 
+    database |> 
     dplyr::select(!!feature, tidyselect::any_of(c("site_name", "location_name", "latitude (deg)", "longitude (deg)"))) |> 
     tidyr::drop_na() |> 
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), as.numeric)) %>% 
@@ -101,21 +101,21 @@ plot_locations2 <- function(aus_traits, feature, ...){
 #' @description `r lifecycle::badge('deprecated')`
 #'
 #'Plot location where trait data was collected from
-#' @param traits  traits table with site details appended. See join_location_coordinates and examples
+#' @param trait_data traits table in a traits.build database with site details appended. See join_location_coordinates and examples
 #' @param feature grouping/classification categories e.g trait_name, collection_type for <= v3.0.2
 #' @param ... arguments passed to ggplot()
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
 #' @export
 
-plot_site_locations <- function(traits, feature="trait_name", ...){
+plot_site_locations <- function(trait_data, feature="trait_name", ...){
   # Extract function name
   function_name <- as.character(sys.calls()[[1]])[1]
   
   # Determine if traits table or traits.build object
-  if( is.null(dim(traits))){
+  if( is.null(dim(trait_data))){
     # Extract AusTraits version
-    AusTraits_version <- print_version(aus_traits)
+    AusTraits_version <- print_version(database)
   } else
     AusTraits_version <- "< 5.0.0"
   

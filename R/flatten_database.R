@@ -6,7 +6,7 @@
 #' but all measurement-related metadata (methods, location properties, context properties, contributors)
 #' are now included as additional columns in a single table.
 #'
-#' @param database A traits.build database
+#' @param database traits.build database (list object)
 #' @param format A parameter for the locations, contexts and data contributors tables specifying how data are packed. 
 #' All three can be formatted as a single compacted column(s) will have a human readable column ("single_column_pretty")
 #' or using json ("single_column_json") syntax. For location properties or context properties  there is also 
