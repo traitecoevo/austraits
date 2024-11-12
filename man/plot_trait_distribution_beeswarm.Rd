@@ -6,7 +6,7 @@
 \usage{
 plot_trait_distribution_beeswarm(
   austraits,
-  plant_trait_name,
+  trait_name,
   y_axis_category,
   highlight = NA,
   hide_ids = FALSE
@@ -15,7 +15,7 @@ plot_trait_distribution_beeswarm(
 \arguments{
 \item{austraits}{austraits data object}
 
-\item{plant_trait_name}{Name of trait to plot}
+\item{trait_name}{Name of trait to plot}
 
 \item{y_axis_category}{One of \code{dataset_id}, \code{family}}
 

@@ -23,7 +23,7 @@ check_compatibility <- function(austraits) {
     
     compiled_by_traits.build <-
       austraits$metadata$related_identifiers %>% 
-      util_list_to_df2() %>%
+      convert_list_to_df2() %>%
       dplyr::filter(relation_type == "isCompiledBy") |> 
       dplyr::filter(stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
     

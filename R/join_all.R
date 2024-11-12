@@ -1,47 +1,25 @@
 #' @title Joining location coordinates to traits table
-#' @description Function to merge metadata stored in relational tables into the core traits table.
-#'
-#' A traits.build database includes relational tables that contain measurement (and observation) metadata pertaining to locations, contexts, methods, and taxonomy. This function merges all (or some) of the metadata from one (or all) of these tables into the traits table.
+#' @description Function to merge geographic coordinates (latitude/longitude) 
+#' stored in the locations table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build generated database
-#' @param vars Vector specifying which columns or values from a specific relational table to join to the traits table (currently works only for `join_` functions joining a single dataframe). For the functions `join_methods`, `join_taxa`, `join_taxonomic_updates`, and `join_contributors` the parameter vars specifies which columns to join to the traits table. For the functions `join_location_properties` and `join_context_properties` the parameter `vars` specifies which properties to add to the traits table; the functions `lookup_location_property` and `lookup_context_property` allow easy searches for relevant properties. The function `join_location_coordinates` does not include the parameter `vars`.
-#' @param format A parameter for `join_context_properties`, `join_location_properties`, and `join_contributors`. Specifies whether location properties or context properties for a given observation will be concatenated, and if concatenated whether the compacted column(s) will have a human readable ("single_column_pretty") format or be format using json ("single_column_json") syntax. For location and context properties there is also the option to add each location_property or `context_property` to the traits table as its own column ("many_columns").
-#' @param include_description For `join_context_properties` only, a logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions.
-#' @return traits.build list object, but with additional fields (columns) appended to `traits` dataframe
+#' @param austraits traits.build database
+#' @return traits.build list object, but with additional fields (columns) 
+#' for latitude and longitude appended to `traits` dataframe
 #' @details
 #' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
 #' Learn more at:
-#'   [https://github.com/traitecoevo/traits.build] &
-#'   [https://github.com/traitecoevo/traits.build-book]
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
 #'
 #' Note to AusTraits users:
 #' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits] for how to install old versions of the package or download a newer version of the database."
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
 #'
-#' @rdname join_
 #' @examples
 #' \dontrun{
-#' austraits$traits
-#'
-#' #Append locations coordinates and output a single table
 #' (austraits %>% join_location_coordinates)$traits
-#'
-#' #Append location coordinates, but maintain the relational database
-#' austraits %>% join_location_coordinates()
-#'
-#' #Append contexts
-#' (austraits %>% join_context_properties)$traits
-#'
-#' #Append methods
-#' (austraits %>% join_methods)$traits
-#'
-#' #Append taxonomic details
-#' (austraits %>% join_taxa)$traits
-#'
-#' #Append taxonomic update details
-#' (austraits %>% join_taxonomic_updates)$traits
 #' }
-#' @author Daniel Falster - daniel.falster@unsw.edu.au
+#' 
 #' @export
 join_location_coordinates <- function(austraits) {
 
@@ -79,9 +57,32 @@ join_location_coordinates <- function(austraits) {
 
 
 #' @title Joining taxonomy to traits table
+
+#' @description Function to merge metadata from the taxa table of a traits.build database into the core traits table.
+#' 
+#' @param austraits traits.build database
+#' @param vars Columns from the taxa table to be joined to the traits table, defaulting to c("family", "genus", "taxon_rank", "establishment_means").
+#' 
+#' @return traits.build list object, but with additional fields (columns) for the specified variables from the taxa table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
 #' @export
-#' @rdname join_location_coordinates
-join_taxa <- function(austraits, vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
+#' 
+#' @examples
+#' \dontrun{
+#' #Append taxonomic details
+#' (austraits %>% join_taxa)$traits
+#' }
+join_taxa <- function(austraits, 
+                      vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
 
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -103,8 +104,30 @@ join_taxa <- function(austraits, vars =  c("family", "genus", "taxon_rank", "est
 
 
 #' @title Joining taxonomic updates information to traits table
+#' 
+#' @description Function to merge metadata from the taxonomic_updates table of a traits.build database into the core traits table.
+#' 
+#' @param austraits traits.build database
+#' @param vars Columns from the taxa table to be joined to the traits table, defaulting to c("aligned_name").
+#' 
+#' @return traits.build list object, but with additional fields (columns) for the specified variables from the taxonomic_updates table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
 #' @export
-#' @rdname join_location_coordinates
+#' 
+#' @examples
+#' \dontrun{
+#' #Append taxonomic update details
+#' (austraits %>% join_taxonomic_updates)$traits
+#' }
 join_taxonomic_updates <- function(austraits, vars =  c("aligned_name")) {
 
   # Check compatibility
@@ -129,8 +152,29 @@ join_taxonomic_updates <- function(austraits, vars =  c("aligned_name")) {
 }
 
 #' @title Joining methodological information to traits table
+#' 
+#' @description Function to merge metadata from the methods table of a traits.build database into the core traits table.
+#' 
+#' @param austraits traits.build database
+#' @param vars Columns from the taxa table to be joined to the traits table, defaulting to c("methods").
+#' 
+#' @return traits.build list object, but with additional fields (columns) for the specified variables from the methods table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
 #' @export
-#' @rdname join_location_coordinates
+#' 
+#' @examples
+#' \dontrun{
+#' (austraits %>% join_methods)$traits
+#' }
 join_methods <- function(austraits, vars =  c("methods")) {
 
   # Check compatibility
@@ -157,9 +201,34 @@ join_methods <- function(austraits, vars =  c("methods")) {
 
 
 #' @title Joining data contributor metadata to traits table
+#' 
+#' @description Function to merge metadata from the data contributors table of a traits.build database into the core traits table.
+#' 
+#' @param austraits traits.build database
+#' @param format Specifies whether metadata from the contributors table is output in a human readable format ("single_column_pretty"; default) or using json syntax ("single_column_json").
+#' @param vars Columns from the taxa table to be joined to the traits table, defaulting to all columns (vars = "all").
+#' 
+#' @return traits.build list object, but with additional fields (columns) for the specified variables from the data contributors table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
 #' @export
-#' @rdname join_location_coordinates
-join_contributors <- function(austraits, format = "single_column_pretty", vars =  "all") {
+#' 
+#' @examples
+#' \dontrun{
+#' (database %>% join_contributors(format = "single_column_pretty", 
+#' vars = c("last_name", "first_name", "ORCID")))$traits
+#' }
+join_contributors <- function(austraits,
+                              format = "single_column_pretty",
+                              vars =  "all") {
 
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -225,9 +294,33 @@ join_contributors <- function(austraits, format = "single_column_pretty", vars =
 
 
 #' @title Joining location properties to traits table
+#' 
+#' @description Function to merge metadata from the locations table of a traits.build database into the core traits table.
+#' 
+#' @param austraits traits.build database
+#' @param format Specifies whether metadata from the locations is output in a human readable format ("single_column_pretty"; default), with each location property added as a separate column ("many_columns") or using json syntax ("single_column_json").
+#' @param vars Location properties for which data is to be appended to the traits table, defaulting to all location properties (vars = "all").
+#' 
+#' @return traits.build list object, but location properties from the locations table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
 #' @export
-#' @rdname join_location_coordinates
-join_location_properties <- function(austraits, format = "single_column_pretty", vars =  "all") {
+#' 
+#' @examples
+#' \dontrun{
+#' (database %>% join_location_properties(format = "single_column_pretty", vars = "all"))$traits
+#' }
+join_location_properties <- function(austraits,
+                                     format = "single_column_pretty",
+                                     vars =  "all") {
 
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -304,8 +397,37 @@ join_location_properties <- function(austraits, format = "single_column_pretty",
   austraits
 }
 
-
-join_context_properties <- function(austraits, format = "single_column_pretty", vars =  "all", include_description = TRUE) {
+#' @title Joining context properties to traits table
+#' 
+#' @description Function to merge metadata from the contexts table of a traits.build database into the core traits table.
+#' 
+#' @param austraits traits.build database
+#' @param format Specifies whether metadata from the contexts is output in a human readable format ("single_column_pretty"; default), with each context property added as a separate column ("many_columns") or using json syntax ("single_column_json").
+#' @param vars Location properties for which data is to be appended to the traits table, defaulting to all context properties (vars = "all").
+#' @param include_description A logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions.
+#' 
+#' @return traits.build list object, but context properties from the contexts table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' (database %>% join_context_properties(
+#' format = "many_columns", vars = "all", include_description = TRUE))$traits
+#' }
+join_context_properties <- function(austraits,
+                                    format = "single_column_pretty",
+                                    vars =  "all",
+                                    include_description = TRUE) {
   
   # Check compatibility
   if(!check_compatibility(austraits)){
@@ -425,3 +547,4 @@ join_context_properties <- function(austraits, format = "single_column_pretty", 
   austraits
 
 }
+

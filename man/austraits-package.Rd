@@ -25,5 +25,10 @@ Authors:
   \item Dony Indiarto (\href{https://orcid.org/0000-0001-9546-8201}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Elizabeth Wenk \email{e.wenk@unsw.edu.au} (\href{https://orcid.org/0000-0001-5640-5910}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}

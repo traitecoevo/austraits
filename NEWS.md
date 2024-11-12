@@ -11,3 +11,6 @@
     - `as_wide_table`
 - `trait_pivot_longer` is deprecated
 - `summarise_trait_means` will trigger warning due to uninformed calculations
+- Added new function `extract_data`
+- Added new function `bind_databases`
+- Added new function `flatten_databases`

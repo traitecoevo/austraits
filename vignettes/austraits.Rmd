@@ -386,7 +386,7 @@ There are six `join_` functions in total, each designed to append specific infor
 
 ```r
 # Alternatively users can join *all* information 
-data_leaf %>% database_create_combined_table() %>% head()
+data_leaf %>% flatten_database() %>% head()
 ```
 
 ```
