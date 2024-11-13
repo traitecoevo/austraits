@@ -4,10 +4,10 @@
 \alias{plot_locations}
 \title{Produce location maps of trait values}
 \usage{
-plot_locations(aus_traits, feature = "trait_name", ...)
+plot_locations(database, feature = "trait_name", ...)
 }
 \arguments{
-\item{aus_traits}{austraits object OR traits table. Note location details must be joined. See join_location_coordinates and examples}
+\item{database}{traits.build database OR traits table from a traits.build database. Note location details must be joined. See join_location_coordinates and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2}
 

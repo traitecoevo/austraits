@@ -7,7 +7,7 @@
 extract_taxa(database, family = NULL, genus = NULL, taxon_name = NULL)
 }
 \arguments{
-\item{database}{a large list of tibbles built by \code{traits.build} workflow}
+\item{database}{traits.build database (list object)}
 
 \item{family}{character string of family or families}
 
@@ -35,8 +35,8 @@ Note to AusTraits users:
 }
 \examples{
 \dontrun{
-extract_taxa(austraits, family = "Proteaceae")
-extract_taxa(austraits, genus = "Acacia")
+extract_taxa(database = austraits, family = "Proteaceae")
+extract_taxa(database = austraits, genus = "Acacia")
 }
 }
 \author{

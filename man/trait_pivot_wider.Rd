@@ -4,10 +4,10 @@
 \alias{trait_pivot_wider}
 \title{Pivot long format traits table into wide format}
 \usage{
-trait_pivot_wider(aus_traits)
+trait_pivot_wider(database)
 }
 \arguments{
-\item{aus_traits}{The traits table from traits.build database list object}
+\item{database}{The traits tibble from a traits.build database}
 }
 \value{
 traits.build traits table in wide format

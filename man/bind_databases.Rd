@@ -7,9 +7,9 @@
 bind_databases(database_1, ...)
 }
 \arguments{
-\item{...}{Arguments passed to other functions}
+\item{database_1}{List of traits.build databases to bind together}
 
-\item{databases}{List of traits.build databases to bind together (lists of tibbles)}
+\item{...}{Arguments passed to other functions}
 }
 \value{
 Compiled database as a single large list

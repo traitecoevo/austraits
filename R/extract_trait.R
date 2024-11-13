@@ -28,7 +28,7 @@
 
 extract_trait <- function(database, trait_names, taxon_names=NULL) {
   # Check compatability
-  status <- check_compatibility(database)
+  status <- check_compatibility(database, single_table_allowed = TRUE)
   
   # If compatible
   if(!status){
