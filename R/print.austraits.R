@@ -1,19 +1,19 @@
 #' @title Generic for outputting a nice summary for austraits objects
 #'
 #' @name print.austraits
-#' @param x austraits list object 
+#' @param database traits.build database
 #' @param \dots passed to print
 #'
 #' @return nicely printed table
 #' @export
 
-print.austraits <- function(x, ...){
+print.austraits <- function(database, ...){
   
   # Setting up
-  version <- x$build_info$version %>% as.character()
-  nrecords <- nrow(x$traits)
-  nspecies <- unique(x$traits$taxon_name) %>% length()
-  ntraits <- unique(x$traits$trait_name) %>% length()
+  version <- database$build_info$version %>% as.character()
+  nrecords <- nrow(database$traits)
+  nspecies <- unique(database$traits$taxon_name) %>% length()
+  ntraits <- unique(database$traits$trait_name) %>% length()
   
   cat("This is version",
          version, 
@@ -26,7 +26,7 @@ print.austraits <- function(x, ...){
   if(package_version(version) <= '3.0.2'){
   
   cat("\nThis object is a 'list' with the following components:\n\n",
-  x$definitions$austraits$elements %>%
+  database$definitions$austraits$elements %>%
   purrr::map(~.x[["description"]]) %>% 
   as.vector() %>% 
   sprintf("- `%s`: %s", names(.), .) %>%
@@ -34,7 +34,7 @@ print.austraits <- function(x, ...){
   )
   } else{
     cat("\nThis object is a 'list' with the following components:\n\n",
-        x$schema$austraits$elements %>%
+        database$schema$austraits$elements %>%
           purrr::map(~.x[["description"]]) %>% 
           as.vector() %>% 
           sprintf("- `%s`: %s", names(.), .) %>%

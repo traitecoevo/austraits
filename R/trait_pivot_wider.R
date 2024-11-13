@@ -6,7 +6,7 @@
 #' 
 #' The function austraits::trait_pivot_longer reverts the actions of this function.
 #' 
-#' @param aus_traits The traits table from traits.build database list object
+#' @param database The traits tibble from a traits.build database
 #' @return traits.build traits table in wide format
 #' @details
 #' `trait_pivot_wider`` has been developed to pivot the traits table for a database build using the traits.build workflow. 
@@ -30,16 +30,16 @@
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 
-trait_pivot_wider <- function(aus_traits){
+trait_pivot_wider <- function(database){
   # Extract traits table if needed
-  traits <- get_traits_table(aus_traits)
+  traits <- get_traits_table(database)
   
   # Check compatibility
   status <- check_traits_compatibility(traits)
   
   # If compatible
   if(!status){
-    function_not_supported(aus_traits)
+    function_not_supported(database)
   }
 
   metadata_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_value")

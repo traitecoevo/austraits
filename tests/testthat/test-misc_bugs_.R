@@ -13,13 +13,13 @@ test_that("Dataframe is extracted correctly", {
     dplyr::filter(trait_name == "lifespan")
   
   # Extract trait after
-  veronica |>  extract_trait("lifespan") -> genus_first
+  veronica %>%  extract_trait("lifespan") -> genus_first
   
   # Extract trait first
-  austraits |> extract_trait("lifespan") -> lifespan
+  austraits %>% extract_trait("lifespan") -> lifespan
   
   # Extract taxa after
-  lifespan |> extract_taxa(genus = "Veronica") -> trait_first
+  lifespan %>% extract_taxa(genus = "Veronica") -> trait_first
   
   expect_setequal(trait_first$traits$value, veronica_lifespan$value)
   expect_setequal(trait_first$traits$value, genus_first$traits$value)

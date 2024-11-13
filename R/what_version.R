@@ -1,12 +1,14 @@
-#' Determine whether version was pre or post 3.0.2
+#' Identify austraits.build or traits.build version
+#' 
+#' @description Determine whether database version was built by austraits.build (AusTraits pre 5.0.0) or traits.build (AusTraits post 5.0.0)
 #'
-#' @param austraits austraits list object
+#' @param database traits.build database (list object)
 #' @return binary version for switch statements
 #' @noRd
 #' @keywords internal
 #' 
-what_version <- function(austraits){
-  version <- austraits$build_info$version %>% as.character()
+what_version <- function(database){
+  version <- database$build_info$version %>% as.character()
 
   if(package_version(version) <= '3.0.2'){
     ret_version <- "3-series-earlier"
@@ -24,11 +26,11 @@ what_version <- function(austraits){
 
 #' Print version of AusTraits object
 #'
-#' @param austraits austraits list object
+#' @param database traits.build database (list object)
 #' @return binary version for switch statements
 #' @noRd
 #' @keywords internal
 #' 
-print_version <- function(austraits){
-  austraits$build_info$version %>% as.character()
+print_version <- function(database){
+  database$build_info$version %>% as.character()
 }

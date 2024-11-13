@@ -1,6 +1,6 @@
 #' Look up a particular trait term
 #'
-#' @param austraits austraits list
+#' @param database traits.build database (list object)
 #' @param term character string for trait search term 
 #'
 #' @return vector containing traits that contains search term
@@ -8,11 +8,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' austraits %>% lookup_trait("leaf") %>% extract_trait(austraits, .)
+#' austraits %>% lookup_trait("leaf") %>% extract_trait(database = austraits, .)
 #' }
-lookup_trait <- function(austraits, term){
+lookup_trait <- function(database, term){
   
-  all_traits <- austraits$traits$trait_name %>% unique()
+  all_traits <- database$traits$trait_name %>% unique()
 
    ret <-  stringr::str_subset(all_traits, term)
   
@@ -30,7 +30,7 @@ lookup_trait <- function(austraits, term){
 #' Look up location properties that contain a specific search term.
 #' 
 #'
-#' @param austraits austraits list
+#' @param database traits.build database (list object)
 #' @param term character string for location property search term 
 #'
 #' @return vector containing location properties that contains search term
@@ -40,9 +40,9 @@ lookup_trait <- function(austraits, term){
 #' \dontrun{
 #' austraits %>% lookup_location_property("soil")
 #' }
-lookup_location_property <- function(austraits, term){
+lookup_location_property <- function(database, term){
   
-  all_location_properties <- austraits$locations$location_property %>% unique()
+  all_location_properties <- database$locations$location_property %>% unique()
   
   ret <-  stringr::str_subset(all_location_properties, term)
   
@@ -60,7 +60,7 @@ lookup_location_property <- function(austraits, term){
 #' Look up context properties that contain a specific search term.
 #' 
 #'
-#' @param austraits austraits list
+#' @param database traits.build database (list object)
 #' @param term character string for context property search term 
 #'
 #' @return vector containing context properties that contains search term
@@ -70,9 +70,9 @@ lookup_location_property <- function(austraits, term){
 #' \dontrun{
 #' austraits %>% lookup_context_property("temperature")
 #' }
-lookup_context_property <- function(austraits, term){
+lookup_context_property <- function(database, term){
   
-  all_context_properties <- austraits$contexts$context_property %>% unique()
+  all_context_properties <- database$contexts$context_property %>% unique()
   
   ret <-  stringr::str_subset(all_context_properties, term)
   

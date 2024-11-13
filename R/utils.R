@@ -62,21 +62,21 @@ convert_list_to_df2 <- function(my_list, as_character = TRUE, on_empty = NA) {
 
 #' Notify user the function they are using is no longer support
 #'
-#' @param austraits 
+#' @param database traits.build database (list object)
 #'
-#' @return cli messaging about the function name, the version of austraits they are using and their next options
+#' @return cli messaging about the function name, the version of AusTraits they are using and their next options
 #' @keywords internal
 #' @noRd
 
-function_not_supported <- function(aus_traits, ...){
+function_not_supported <- function(database, ...){
   
   # Extract function name
   function_name <- as.character(sys.calls()[[1]])[1]
   
   # Determine if traits table or traits.build object
-  if( is.null(dim(aus_traits))){
+  if( is.null(dim(database))){
     # Extract AusTraits version
-    AusTraits_version <- print_version(aus_traits)
+    AusTraits_version <- print_version(database)
   } else
     AusTraits_version <- "< 5.0.0"
   
@@ -94,14 +94,14 @@ function_not_supported <- function(aus_traits, ...){
 
 #' Retrieve traits table if user passes traits.build object.
 #'
-#' @param aus_traits traits.build object or traits table
+#' @param database traits.build database or traits table in a traits.build database
 
 
-get_traits_table <- function(aus_traits){
-  if( is.null(dim(aus_traits)) ){
-    traits <- aus_traits$traits
+get_traits_table <- function(database){
+  if( is.null(dim(database)) ){
+    traits <- database$traits
   } else{
-    traits <- aus_traits
+    traits <- database
   }
   
   return(traits)
@@ -112,8 +112,8 @@ get_traits_table <- function(aus_traits){
 #'
 #' @description Helper function to convert character strings of NA into true NA
 #' @usage clean_NA(x)
-#' @param data The trait data frame generated from austraits - see example
-#' @param definitions The austraits definitions data frame
+#' @param trait_data The traits table in a traits.build database
+#' @param definitions The definitions tibble from a traits.build database
 #' @return vector where strings of NA are treated as true NA
 #' @examples 
 #' \dontrun{

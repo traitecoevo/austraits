@@ -1,6 +1,6 @@
 #' Compute mean trait values for studies that have multiple observations for a given trait
 #'
-#' @param trait_data trait table for austraits list
+#' @param trait_data the traits table in a traits.build database
 #'
 #' @return A reduced trait table, mean values are flagged with the suffix '_summarised' in value_type
 #' @export

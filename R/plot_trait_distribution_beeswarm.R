@@ -1,11 +1,11 @@
 #' @title Beeswarm Trait distribution 
 #' @description Plots distribution of trait values by a  grouping variable using ggbeeswarm package  
 #'
-#' @param austraits austraits data object
+#' @param database traits.build database (list object)
 #' @param trait_name Name of trait to plot
 #' @param y_axis_category One of `dataset_id`, `family`
-#' @param highlight specify a group to highlight
-#' @param hide_ids add label on y_axis?
+#' @param highlight Specify a group to highlight
+#' @param hide_ids Logical for whether to add a label on y_axis?
 #'
 #' @export
 #'
@@ -17,21 +17,21 @@
 #' @export
 
 #
-plot_trait_distribution_beeswarm <- function(austraits,
+plot_trait_distribution_beeswarm <- function(database,
                                              trait_name,
                                              y_axis_category,
-                                             highlight=NA,
+                                             highlight = NA,
                                              hide_ids = FALSE) {
   
   # Check compatability
-  status <- check_compatibility(austraits)
+  status <- check_compatibility(database)
   
   # If compatible
   if(!status) {
-    function_not_supported(austraits)
+    function_not_supported(database)
   }
   # Subset data to this trait
-  austraits_trait <- extract_trait(austraits, trait_name)
+  database_trait <- extract_trait(database, trait_name)
   
   my_shapes <- c("_min" = 60, "_mean" = 16, "_max" = 62, "unknown" = 18)
   
@@ -44,10 +44,10 @@ plot_trait_distribution_beeswarm <- function(austraits,
     factor(p, levels=names(my_shapes))
   }
   
-  tax_info  <- austraits_trait$taxa %>% dplyr::select(taxon_name, family)
+  tax_info  <- database_trait$taxa %>% dplyr::select(taxon_name, family)
   
   data <-
-    austraits_trait$traits %>%
+    database_trait$traits %>%
     dplyr::mutate(shapes = as_shape(value_type)) %>%
     dplyr::left_join(by = "taxon_name", tax_info) %>%
     dplyr::mutate(value = as.numeric(value))
@@ -79,8 +79,8 @@ plot_trait_distribution_beeswarm <- function(austraits,
   }
   
 
-  vals <- list(minimum = purrr::pluck(austraits_trait, "definitions", trait_name, "allowed_values_min"),
-           maximum = purrr::pluck(austraits_trait, "definitions", trait_name, "allowed_values_max"))
+  vals <- list(minimum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_min"),
+           maximum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_max"))
   
   range <- (vals$maximum/vals$minimum)
   

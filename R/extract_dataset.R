@@ -3,7 +3,7 @@
 #' @description Function to subset all data associated with a particular dataset from a traits.build relational database.
 #' 
 #' @usage extract_dataset(database, dataset_id)
-#' @param database a large list of tibbles built by `traits.build` workflow
+#' @param database traits.build database (list object)
 #' @param dataset_id character string that matches a `dataset_id` in the database
 #' @return List of tibbles containing all traits.build data and metadata for the specified dataset(s).
 #' @details
