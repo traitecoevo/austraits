@@ -154,7 +154,7 @@ Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf'
 ```{r}
 leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
 
-leaf$traits 
+leaf$traits
 ```
 
 ### Extracting from other tables {#extract-data}
@@ -240,8 +240,6 @@ data_fire |> trait_pivot_wider()
 
 Some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to condense multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
 
-#### `bind_trait_values`
-
 ```{r, pivot}
 data_trait_bound <- data_fruit$traits %>%
   bind_trait_values() # Joining multiple obs with `--`
@@ -257,7 +255,7 @@ data_trait_bound %>%
   separate_trait_values(., austraits$definitions)
 ```
 
-#### `summarise_trait_means()`
+### Summarise trait values
 
 Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a try, which computes means with multiple observations. Once the  the traits table is condensed, you won't be able to revert it back.   Note that function uses an uninformed method to compute means, we recommend using it with caution. 
 
