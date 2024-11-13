@@ -30,7 +30,7 @@ extract_data <- function(database, table = NA, col, col_value) {
   }
 
   # If just the traits table is read in
-  if (is_tibble(database)) {
+  if (tibble::is_tibble(database)) {
     
     indicies_tmp <- purrr::map(col_value, ~{
       stringr::str_which(database[[col]], 
