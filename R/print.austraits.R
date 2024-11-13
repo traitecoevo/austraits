@@ -3,7 +3,7 @@
 #' @name print.austraits
 #' @param x austraits list object 
 #' @param \dots passed to print
-#'
+#' @keywords internal
 #' @return nicely printed table
 #' @export
 

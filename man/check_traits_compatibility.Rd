@@ -15,3 +15,4 @@ logical, TRUE indicating version traits table came from traits.build version > 1
 \description{
 Check compatibility of traits table
 }
+\keyword{internal}

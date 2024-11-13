@@ -24,3 +24,4 @@ check_compatibility(austraits)
 \author{
 Elizabeth Wenk - e.wenk@unsw.edu.au
 }
+\keyword{internal}
