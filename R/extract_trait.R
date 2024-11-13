@@ -3,7 +3,7 @@
 #' @description Function to subset all data associated with a particular trait from a traits.build relational database.
 #' 
 #' @usage extract_trait(database, trait_names, taxon_names)
-#' @param database a large list of tibbles built by `traits.build`
+#' @param database traits.build database (list object)
 #' @param trait_names character string of trait(s) for which data will be extracted
 #' @param taxon_names optional argument, specifying taxa for which data will be extracted 
 #' @return List of tibbles containing all traits.build data and metadata for the specified trait(s).
@@ -19,7 +19,7 @@
 #'
 #' @examples 
 #' \dontrun{
-#'extract_trait(database, "wood_density", taxon_name = "Acacia celsa")
+#'extract_trait(database = austraits, trait_names = "wood_density", taxon_names = "Acacia celsa")
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
@@ -28,7 +28,7 @@
 
 extract_trait <- function(database, trait_names, taxon_names=NULL) {
   # Check compatability
-  status <- check_compatibility(database)
+  status <- check_compatibility(database, single_table_allowed = TRUE)
   
   # If compatible
   if(!status){

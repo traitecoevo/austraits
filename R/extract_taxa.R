@@ -2,7 +2,7 @@
 #'
 #' @description Function to subset of all data associated with a particular taxon from a traits.build relational database.
 #' 
-#' @param database a large list of tibbles built by `traits.build` workflow
+#' @param database traits.build database (list object)
 #' @param family character string of family or families
 #' @param genus character string of genus or genera
 #' @param taxon_name character string of taxon name(s)
@@ -19,15 +19,15 @@
 #'
 #' @examples 
 #' \dontrun{
-#'extract_taxa(austraits, family = "Proteaceae")
-#'extract_taxa(austraits, genus = "Acacia")
+#'extract_taxa(database = austraits, family = "Proteaceae")
+#'extract_taxa(database = austraits, genus = "Acacia")
 #' }
 #' @author Fonti Kar - f.kar@unsw.edu.au
 #' @export
 
 extract_taxa <- function(database, family = NULL, genus = NULL, taxon_name = NULL){
   # Check compatability
-  status <- check_compatibility(database)
+  status <- check_compatibility(database, single_table_allowed = TRUE)
   
   # If compatible
   if(!status){

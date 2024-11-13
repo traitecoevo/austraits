@@ -9,7 +9,7 @@ genus = "Eucalyptus"
 taxon_name = "Banskia serrata"
 
 test_that("Error message is triggered", {
-  expect_error(austraits_5.0.0_lite |> extract_taxa())
+  expect_error(austraits_5.0.0_lite %>% extract_taxa())
 })
 
 test_extract_error <- function(austraits){
@@ -198,3 +198,16 @@ test_that("Extraction of dataset was successful using `extract_data`", {
   expect_equal(trait_subset$traits %>% dplyr::distinct(dataset_id) %>% nrow(), 8) #something weird here, keeps isolating between 8 & 5
 })
 
+test_that("Extract function works when just traits table is read in", {
+  expect_silent(extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = dataset_id))
+  expect_equal(length(extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = dataset_id)), 26)
+  expect_silent(extract_dataset(database = austraits_5.0.0_lite$traits, dataset_id = dataset_id))  
+  expect_equal(length(extract_dataset(database = austraits_5.0.0_lite$traits, dataset_id = dataset_id)), 26)
+  expect_silent(extract_taxa(database = austraits_5.0.0_lite$traits, genus = "Banksia"))  
+  expect_equal(length(extract_taxa(database = austraits_5.0.0_lite$traits, genus = "Banksia")), 26)
+  expect_silent(extract_trait(database = austraits_5.0.0_lite$traits, trait_name = "photosyn"))  
+  expect_equal(length(extract_trait(database = austraits_5.0.0_lite$traits, trait_name = "photosyn")), 26)
+  join_then_extract <- (austraits_5.0.0_lite %>% join_location_coordinates())$traits
+  expect_silent(extract_data(database = join_then_extract, col = "dataset_id", col_value = dataset_id))
+  expect_silent(extract_data(database = join_then_extract, col = "longitude (deg)", col_value = "145"))
+})

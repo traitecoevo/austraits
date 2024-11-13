@@ -3,7 +3,7 @@
 #' @description This function condenses data for studies that have multiple observations for a given trait into a single row. 
 #' This function concatenates multiple values into a single cell
 #' @usage bind_trait_values(trait_data)
-#' @param trait_data The trait data frame generated from austraits - see example
+#' @param trait_data the traits table in a traits.build database -- see example
 #' @return tibble that is condensed down where multiple observations in value, value_type and replicates are collapsed down and separated by '--' 
 #'
 #' @examples 

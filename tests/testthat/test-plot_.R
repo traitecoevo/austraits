@@ -16,14 +16,14 @@ test_that("Function doesn't throw error", {
 
 test_non_compatibile <- function(austraits){
   test_that("Throws correct errors for deprecated or non-compatible",{
-    expect_error(austraits |> 
-                   extract_dataset("Falster_2003") |> 
-                   purrr::pluck("traits") |> plot_locations()
+    expect_error(austraits %>% 
+                   extract_dataset("Falster_2003") %>% 
+                   purrr::pluck("traits") %>% plot_locations()
     )
     
-    expect_error(austraits |> 
-                   extract_dataset("Falster_2003") |> 
-                   purrr::pluck("traits") |> plot_lplot_site_locationsocations()
+    expect_error(austraits %>% 
+                   extract_dataset("Falster_2003") %>% 
+                   purrr::pluck("traits") %>% plot_lplot_site_locationsocations()
     )
   })
 }

@@ -2,7 +2,7 @@
 #' @description Function to merge geographic coordinates (latitude/longitude) 
 #' stored in the locations table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @return traits.build list object, but with additional fields (columns) 
 #' for latitude and longitude appended to `traits` dataframe
 #' @details
@@ -17,34 +17,34 @@
 #'
 #' @examples
 #' \dontrun{
-#' (austraits %>% join_location_coordinates)$traits
+#' (database %>% join_location_coordinates)$traits
 #' }
 #' 
 #' @export
-join_location_coordinates <- function(austraits) {
+join_location_coordinates <- function(database) {
 
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   location_coordinates <-
-    austraits$locations %>%
+    database$locations %>%
     dplyr::filter(location_property %in% c("latitude (deg)", "longitude (deg)")) %>%
     tidyr::pivot_wider(names_from = location_property, values_from = value)
 
   # variables to join_ by depends on if location_name already in traits table
   # from joining coordinates for instances
-  join_vars <- intersect(names(austraits$traits), c("dataset_id", "location_id", "location_name"))
+  join_vars <- intersect(names(database$traits), c("dataset_id", "location_id", "location_name"))
 
   if (any(stringr::str_detect(names(location_coordinates), "latitude "))) {
-    austraits$traits <- 
-      austraits$traits %>%
+    database$traits <- 
+      database$traits %>%
       dplyr::left_join(by = join_vars, location_coordinates)
 
   } else {
-    austraits$traits <- 
-      austraits$traits %>%
+    database$traits <- 
+      database$traits %>%
       dplyr::mutate(
         location_name = NA_character_,
         `latitude (deg)` = NA_character_,
@@ -52,7 +52,7 @@ join_location_coordinates <- function(austraits) {
       )
   }
 
-  austraits
+  database
 }
 
 
@@ -60,7 +60,7 @@ join_location_coordinates <- function(austraits) {
 
 #' @description Function to merge metadata from the taxa table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @param vars Columns from the taxa table to be joined to the traits table, defaulting to c("family", "genus", "taxon_rank", "establishment_means").
 #' 
 #' @return traits.build list object, but with additional fields (columns) for the specified variables from the taxa table appended to the traits table.
@@ -79,27 +79,27 @@ join_location_coordinates <- function(austraits) {
 #' @examples
 #' \dontrun{
 #' #Append taxonomic details
-#' (austraits %>% join_taxa)$traits
+#' (database %>% join_taxa)$traits
 #' }
-join_taxa <- function(austraits, 
+join_taxa <- function(database, 
                       vars =  c("family", "genus", "taxon_rank", "establishment_means")) {
 
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   # If all columns to be added, create `vars` vector
   if (vars[1] == "all" & length(vars == 1)){
-    vars <- names(austraits$taxa)
+    vars <- names(database$taxa)
   }
 
   # Join selected columns to traits table
-  austraits$traits <- 
-    austraits$traits %>%
-    dplyr::left_join(by="taxon_name", austraits$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
+  database$traits <- 
+    database$traits %>%
+    dplyr::left_join(by="taxon_name", database$taxa %>% dplyr::select("taxon_name", tidyselect::any_of(vars)))
 
-  austraits
+  database
 }
 
 
@@ -107,7 +107,7 @@ join_taxa <- function(austraits,
 #' 
 #' @description Function to merge metadata from the taxonomic_updates table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @param vars Columns from the taxa table to be joined to the traits table, defaulting to c("aligned_name").
 #' 
 #' @return traits.build list object, but with additional fields (columns) for the specified variables from the taxonomic_updates table appended to the traits table.
@@ -126,36 +126,36 @@ join_taxa <- function(austraits,
 #' @examples
 #' \dontrun{
 #' #Append taxonomic update details
-#' (austraits %>% join_taxonomic_updates)$traits
+#' (database %>% join_taxonomic_updates)$traits
 #' }
-join_taxonomic_updates <- function(austraits, vars =  c("aligned_name")) {
+join_taxonomic_updates <- function(database, vars =  c("aligned_name")) {
 
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   # If all columns to be added, create `vars` vector
   if (vars[1] == "all" & length(vars == 1)){
-    vars <- names(austraits$taxonomic_updates)
+    vars <- names(database$taxonomic_updates)
   }
 
   # Join selected columns to traits table
-  austraits$traits <- 
-    austraits$traits %>%
+  database$traits <- 
+    database$traits %>%
     dplyr::left_join(by = c("taxon_name", "dataset_id", "original_name"),
-        austraits$taxonomic_updates %>%
+        database$taxonomic_updates %>%
           dplyr::select("taxon_name", "dataset_id", "original_name", 
                         tidyselect::any_of(vars)))
 
-  austraits
+  database
 }
 
 #' @title Joining methodological information to traits table
 #' 
 #' @description Function to merge metadata from the methods table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @param vars Columns from the taxa table to be joined to the traits table, defaulting to c("methods").
 #' 
 #' @return traits.build list object, but with additional fields (columns) for the specified variables from the methods table appended to the traits table.
@@ -173,30 +173,30 @@ join_taxonomic_updates <- function(austraits, vars =  c("aligned_name")) {
 #' 
 #' @examples
 #' \dontrun{
-#' (austraits %>% join_methods)$traits
+#' (database %>% join_methods)$traits
 #' }
-join_methods <- function(austraits, vars =  c("methods")) {
+join_methods <- function(database, vars =  c("methods")) {
 
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   # If all columns to be added, create `vars` vector
   if (vars[1] == "all" & length(vars == 1)){
-    vars <- names(austraits$methods)
+    vars <- names(database$methods)
   }
 
   # Join selected columns to traits table
-  austraits$traits <- 
-    austraits$traits %>%
+  database$traits <- 
+    database$traits %>%
     dplyr::left_join(by=c("dataset_id", "trait_name", "method_id"),
-      austraits$methods %>% 
+      database$methods %>% 
       dplyr::select(c("dataset_id", "trait_name", "method_id"), tidyselect::any_of(vars)) %>% 
       dplyr::distinct()
     )
 
-  austraits
+  database
 }
 
 
@@ -204,7 +204,7 @@ join_methods <- function(austraits, vars =  c("methods")) {
 #' 
 #' @description Function to merge metadata from the data contributors table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @param format Specifies whether metadata from the contributors table is output in a human readable format ("single_column_pretty"; default) or using json syntax ("single_column_json").
 #' @param vars Columns from the taxa table to be joined to the traits table, defaulting to all columns (vars = "all").
 #' 
@@ -226,25 +226,25 @@ join_methods <- function(austraits, vars =  c("methods")) {
 #' (database %>% join_contributors(format = "single_column_pretty", 
 #' vars = c("last_name", "first_name", "ORCID")))$traits
 #' }
-join_contributors <- function(austraits,
+join_contributors <- function(database,
                               format = "single_column_pretty",
                               vars =  "all") {
 
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   # Work out which vars to retain and create a dataframe for compacting
   if (vars[1] == "all") {
-    contributors_tmp <- austraits$contributors
+    contributors_tmp <- database$contributors
   } else {
     # Create vector that is combination of selected columns and required columns
     vars_tmp <- c("dataset_id", "last_name", "given_name", vars)
     # Determine which columns aren't wanted
-    vars_remove <- setdiff(names(austraits$contributors), vars_tmp)
+    vars_remove <- setdiff(names(database$contributors), vars_tmp)
     # Remove unwanted columns from contributors dataframe
-    contributors_tmp <- austraits$contributors %>% dplyr::select(-dplyr::any_of(vars_remove))
+    contributors_tmp <- database$contributors %>% dplyr::select(-dplyr::any_of(vars_remove))
   }
 
   # Different options for how data are compacted and joined depending on `format` argument
@@ -279,17 +279,17 @@ join_contributors <- function(austraits,
   } else if (format == "single_column_json") {
 
     compacted_contributors_column <-
-      contributors_tmp |> 
-      tidyr::nest(-dplyr::all_of("dataset_id")) |>
-      dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) |>
-      dplyr::select(-dplyr::any_of("data")) |>
+      contributors_tmp %>% 
+      tidyr::nest(-dplyr::all_of("dataset_id")) %>%
+      dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
   }
 
-  austraits$traits <- austraits$traits %>%
+  database$traits <- database$traits %>%
     dplyr::left_join(by = c("dataset_id"), compacted_contributors_column)
 
-  austraits
+  database
 }
 
 
@@ -297,7 +297,7 @@ join_contributors <- function(austraits,
 #' 
 #' @description Function to merge metadata from the locations table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @param format Specifies whether metadata from the locations is output in a human readable format ("single_column_pretty"; default), with each location property added as a separate column ("many_columns") or using json syntax ("single_column_json").
 #' @param vars Location properties for which data is to be appended to the traits table, defaulting to all location properties (vars = "all").
 #' 
@@ -318,20 +318,20 @@ join_contributors <- function(austraits,
 #' \dontrun{
 #' (database %>% join_location_properties(format = "single_column_pretty", vars = "all"))$traits
 #' }
-join_location_properties <- function(austraits,
+join_location_properties <- function(database,
                                      format = "single_column_pretty",
                                      vars =  "all") {
 
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   # If all location properties to be added, create `vars` vector that is unique list 
   # of location properties in the database
   if (vars[1] == "all") {
 
-    vars_tmp <- austraits$locations %>%
+    vars_tmp <- database$locations %>%
       dplyr::distinct(location_property) %>%
       dplyr::filter(!location_property %in% c("latitude (deg)", "longitude (deg)"))
 
@@ -342,12 +342,12 @@ join_location_properties <- function(austraits,
   vars <- setdiff(vars, c("latitude (deg)", "longitude (deg)"))
 
   locations <- 
-    austraits$locations %>% 
+    database$locations %>% 
     dplyr::filter(location_property %in% vars)
 
   # Variables to join_ by depends on if location_name already in traits table
   # from joining coordinates for instances
-  join_vars <- intersect(names(austraits$traits), c("dataset_id", "location_id", "location_name"))
+  join_vars <- intersect(names(database$traits), c("dataset_id", "location_id", "location_name"))
 
   # Different options for how data are compacted and joined depending on `format` argument
   if (format == "many_columns") {
@@ -359,8 +359,8 @@ join_location_properties <- function(austraits,
       tidyr::pivot_wider(names_from = location_property)
 
     # Join locations, based on appropriate columns
-    austraits$traits <- 
-      austraits$traits %>%
+    database$traits <- 
+      database$traits %>%
       dplyr::left_join(by = join_vars, locations)
 
   } else if (format == "single_column_pretty") {
@@ -376,32 +376,32 @@ join_location_properties <- function(austraits,
       dplyr::ungroup() %>%
       dplyr::distinct()
 
-    austraits$traits <- 
-      austraits$traits %>%
+    database$traits <- 
+      database$traits %>%
       dplyr::left_join(by = join_vars, compacted_locations_column)
 
   } else if (format == "single_column_json") {
 
     compacted_locations_column <-
-      locations |> 
-      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) |>
-      dplyr::mutate(location_properties = purrr::map_chr(data, jsonlite::toJSON)) |>
-      dplyr::select(-dplyr::any_of("data")) |>
+      locations %>% 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) %>%
+      dplyr::mutate(location_properties = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
     
-    austraits$traits <- austraits$traits %>%
+    database$traits <- database$traits %>%
       dplyr::left_join(by = join_vars, compacted_locations_column)
 
   }
 
-  austraits
+  database
 }
 
 #' @title Joining context properties to traits table
 #' 
 #' @description Function to merge metadata from the contexts table of a traits.build database into the core traits table.
 #' 
-#' @param austraits traits.build database
+#' @param database traits.build database (list object)
 #' @param format Specifies whether metadata from the contexts is output in a human readable format ("single_column_pretty"; default), with each context property added as a separate column ("many_columns") or using json syntax ("single_column_json").
 #' @param vars Location properties for which data is to be appended to the traits table, defaulting to all context properties (vars = "all").
 #' @param include_description A logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions.
@@ -424,25 +424,25 @@ join_location_properties <- function(austraits,
 #' (database %>% join_context_properties(
 #' format = "many_columns", vars = "all", include_description = TRUE))$traits
 #' }
-join_context_properties <- function(austraits,
+join_context_properties <- function(database,
                                     format = "single_column_pretty",
                                     vars =  "all",
                                     include_description = TRUE) {
   
   # Check compatibility
-  if(!check_compatibility(austraits)){
-    function_not_supported(austraits)
+  if(!check_compatibility(database)){
+    function_not_supported(database)
   }
 
   # If all context properties to be added, create `vars` vector that is unique list 
   # of context properties in the database
   if (vars[1] == "all") {
-    vars <- austraits$contexts$context_property %>% unique()
+    vars <- database$contexts$context_property %>% unique()
   }
 
   # Create dataframe of contexts to use & add `context_property:` to context properties
   contexts_tmp <- 
-    austraits$contexts %>% 
+    database$contexts %>% 
     dplyr::filter(context_property %in% vars) %>%
     dplyr::mutate(context_property = paste0(category, ": ", context_property))
 
@@ -481,13 +481,13 @@ join_context_properties <- function(austraits,
   } else if (format == "single_column_json") {
     
     contexts_tmp <-
-      contexts_tmp |> 
-      tidyr::separate_longer_delim(link_vals, ", ") |>
-      dplyr::distinct() |> 
-      dplyr::mutate(description = ifelse(!is.na(description) & include_description, description, NA)) |> 
-      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) |> 
-      dplyr::mutate(value = purrr::map_chr(data, jsonlite::toJSON)) |>
-      dplyr::select(-dplyr::any_of("data")) |>
+      contexts_tmp %>% 
+      tidyr::separate_longer_delim(link_vals, ", ") %>%
+      dplyr::distinct() %>% 
+      dplyr::mutate(description = ifelse(!is.na(description) & include_description, description, NA)) %>% 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "link_id", "link_vals"))) %>% 
+      dplyr::mutate(value = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
     
     pivot <- FALSE
@@ -496,7 +496,7 @@ join_context_properties <- function(austraits,
     stop("format not supported: ", format)
   }
 
-  # Merge contexts to austraits$traits
+  # Merge contexts to database$traits
 
   # Defines a function to further reformat specific columns of the context table
   reformat_contexts <- function(data, context_id, pivot) {
@@ -521,8 +521,8 @@ join_context_properties <- function(austraits,
   }
 
 
-  austraits$traits <- 
-    austraits$traits %>%
+  database$traits <- 
+    database$traits %>%
     dplyr::left_join(
       by = c("dataset_id", "treatment_context_id"),
       reformat_contexts(contexts_tmp, "treatment_context_id", pivot)
@@ -544,7 +544,7 @@ join_context_properties <- function(austraits,
       reformat_contexts(contexts_tmp, "method_context_id", pivot)
     )
 
-  austraits
+  database
 
 }
 

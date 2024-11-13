@@ -2,23 +2,22 @@
 % Please edit documentation in R/as_wide_table.R
 \name{as_wide_table}
 \alias{as_wide_table}
-\title{Create a single wide table from the AusTraits data object}
+\title{Create a single wide table from a traits.build data object}
 \usage{
-as_wide_table(austraits)
+as_wide_table(database)
 }
 \arguments{
-\item{austraits}{austraits data object}
+\item{database}{traits.build database (list object)}
 }
 \value{
 A single wide table with collapsed contexts and locations text and with
 some cols renamed for alignment with other resources
 }
 \description{
-Create a single wide table from the AusTraits data object
+Create a single wide table from a traits.build data object
 }
 \examples{
 \dontrun{
-data <- austraits
-data \%>\% as_wide_table()
+austraits \%>\% as_wide_table()
 }
 }

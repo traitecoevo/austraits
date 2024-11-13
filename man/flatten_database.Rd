@@ -7,7 +7,7 @@
 flatten_database(database, format, vars, include_description)
 }
 \arguments{
-\item{database}{A traits.build database}
+\item{database}{traits.build database (list object)}
 
 \item{format}{A parameter for the locations, contexts and data contributors tables specifying how data are packed.
 All three can be formatted as a single compacted column(s) will have a human readable column ("single_column_pretty")

@@ -7,7 +7,7 @@
 summarise_trait_means(trait_data)
 }
 \arguments{
-\item{trait_data}{trait table for austraits list}
+\item{trait_data}{the traits table in a traits.build database}
 }
 \value{
 A reduced trait table, mean values are flagged with the suffix '_summarised' in value_type

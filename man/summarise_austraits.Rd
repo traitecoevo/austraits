@@ -4,10 +4,10 @@
 \alias{summarise_austraits}
 \title{Summarise counts for a particular variable of interest}
 \usage{
-summarise_austraits(austraits, var)
+summarise_austraits(database, var)
 }
 \arguments{
-\item{austraits}{A large list of tibbles built from austraits}
+\item{database}{traits.build database (list object)}
 
 \item{var}{variable you use wish to see summary of (trait_name, genus, family)}
 }
@@ -19,7 +19,7 @@ Summarise counts for a particular variable of interest
 }
 \examples{
 \dontrun{
-summarise_austraits(austraits, "trait_name")
-summarise_austraits(austraits, "family")
+summarise_austraits(database = austraits, "trait_name")
+summarise_austraits(database = austraits, "family")
 }
 }

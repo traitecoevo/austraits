@@ -4,10 +4,10 @@
 \alias{check_traits_compatibility}
 \title{Check compatibility of traits table}
 \usage{
-check_traits_compatibility(traits)
+check_traits_compatibility(trait_data)
 }
 \arguments{
-\item{traits}{table in traits.build object}
+\item{trait_data}{the traits table in a traits.build database}
 }
 \value{
 logical, TRUE indicating version traits table came from traits.build version > 1.0
