@@ -15,12 +15,12 @@ coverage](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.
 
 `austraits` allow users to **access, explore and wrangle data** from
 [traits.build](https://github.com/traitecoevo/traits.build) relational
-databases. It is also an R interface to the [Australian Plant Trait
-database](https://austraits.org/) (AusTraits). This package contains
-functions to join data from various tables, filtering to specific
-records, combining multiple databases and visualising the distribution
-of the data. We expect this package will assist users in working with
-their traits.build databases.
+databases. It is also an R interface to
+[AusTraits](https://austraits.org/), the Australian plant trait
+database. This package contains functions for joining data from various
+tables, filtering to specific records, combining multiple databases and
+visualising the distribution of the data. We expect this package will
+assist users in working with the traits.build databases.
 
 ### Installation
 
@@ -43,10 +43,12 @@ vignettes will not be installed, use:
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 ```
 
+### Details for AusTraits users
+
 #### Retrieve AusTraits data
 
-- **For R users**, access and manipulation of the data is assisted with
-  the `austraits` package using `load_austraits()`
+- **For R users**, the AusTraits database can be accessed through the
+  `austraits` package using `load_austraits()`
 
 - **For Python or other users**, the [Zenodo
   download](https://zenodo.org/record/5112001#collapseTwo) includes a
@@ -85,7 +87,7 @@ austraits$build_info$version
 
 We highly recommend taking a look at our [Getting Started
 tutorial](https://traitecoevo.github.io/austraits/) on our website
-before jumping into the `austraits` R packkage!
+before jumping into the `austraits` R package!
 
 If you prefer to view this vignette in R, we recommend installing the
 package with `build_vignettes = TRUE`.
@@ -105,8 +107,7 @@ structure from the [traits.build
 book](https://traitecoevo.github.io/traits.build-book/AusTraits_tutorial.html).
 
 You can also learn about the definitions of each plant trait with the
-[AusTraits Plant
-Dictionary!](https://traitecoevo.github.io/austraits/articles/dictionary.html)
+[AusTraits Plant Dictionary!](https://w3id.org/APD)
 
 ### Show us some support 💚
 
