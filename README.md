@@ -55,17 +55,17 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 
 #### Backwards compatibility with past AusTraits versions
 
-From September 2024 austraits functions were revamped to support all
+From September 2024, `austraits` functions were revamped to support all
 [traits.build](https://github.com/traitecoevo/traits.build) compiled
 databases, rather than being linked to
 [austraits.build](https://github.com/traitecoevo/austraits.build).
 
-Versions of austraits.build (the AusTraits plant trait database) **\<
-5.0 are no longer supported** by the current functions. If you are
-working with an older version of AusTraits, please install an older
-version of austraits:
+Versions of `austraits.build` (the AusTraits plant trait database) **\<
+5.0 are no longer supported** by the latest version of the package. If
+you are working with an older version of AusTraits, please install an
+older version of austraits:
 
-For austraits.build versions 4.2 and older:
+For `austraits.build` versions 4.2 and older:
 
 ``` r
 #install.packages("remotes")
@@ -81,13 +81,13 @@ run:
 austraits$build_info$version
 ```
 
-### Getting started
+### Getting started 👀
 
 We highly recommend taking a look at our [Getting Started
 tutorial](https://traitecoevo.github.io/austraits/) on our website
-before jumping into the austraits R packkage!
+before jumping into the `austraits` R packkage!
 
-If you prefer to view this vignettes in R, we recommend installing the
+If you prefer to view this vignette in R, we recommend installing the
 package with `build_vignettes = TRUE`.
 
 ``` r
@@ -98,7 +98,7 @@ remotes::install_github("traitecoevo/austraits",
 vignette("austraits")
 ```
 
-### Learn more about AusTraits 👀
+### Learn more about AusTraits
 
 AusTraits is a relational database, you can learn more about it’s
 structure from the [traits.build
@@ -134,11 +134,12 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🛠
+### Behind the scenes 🔧
 
 Check out
-[austraits.build](http://traitecoevo.github.io/austraits.build/), if you
-are interested in how AusTraits the database is managed and created
+[austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file),
+if you are interested in how AusTraits the database is managed and
+created
 
 ### Find a bug? 🐛
 

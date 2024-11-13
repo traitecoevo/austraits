@@ -108,7 +108,7 @@ citation("austraits")
 
 ### Behind the scenes `r emo::ji("spanner")`
 
-Check out [austraits.build](http://traitecoevo.github.io/austraits.build/), if you are interested in how AusTraits the database is managed and created
+Check out [austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file), if you are interested in how AusTraits the database is managed and created
 
 ### Find a bug? `r emo::ji("bug")`
 
