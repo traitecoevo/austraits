@@ -19,8 +19,8 @@ databases. It is also an R interface to the [Australian Plant Trait
 database](https://austraits.org/) (AusTraits). This package contains
 functions to join data from various tables, filtering to specific
 records, combining multiple databases and visualising the distribution
-of the data. We expect this package will assist users in work with their
-trait databases.
+of the data. We expect this package will assist users in working with
+their traits.build databases.
 
 ### Installation
 
@@ -36,8 +36,8 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits) 
 ```
 
-Otherwise, for a lightweight installation where dependencies for
-plotting and the vignettes will not be installed, use:
+For a lightweight installation where dependencies for plotting and the
+vignettes will not be installed, use:
 
 ``` r
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
@@ -45,13 +45,13 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 
 #### Retrieve AusTraits data
 
-**For R users**, access and manipulation of the data is assisted with
-the `austraits` package using `load_austraits()`
+- **For R users**, access and manipulation of the data is assisted with
+  the `austraits` package using `load_austraits()`
 
-**For Python or other users**, the [Zenodo
-download](https://zenodo.org/record/5112001#collapseTwo) includes a .zip
-file containing all the data in plain text (.csv files) and associated
-meta-data
+- **For Python or other users**, the [Zenodo
+  download](https://zenodo.org/record/5112001#collapseTwo) includes a
+  .zip file containing all the data in plain text (.csv files) and
+  associated meta-data
 
 #### Backwards compatibility with past AusTraits versions
 
@@ -81,20 +81,13 @@ run:
 austraits$build_info$version
 ```
 
-### Take a good look at our vignettes! 👀
+### Getting started
 
-In our website, we have also included information about the [structure
-of the AusTraits
-database](https://traitecoevo.github.io/austraits/articles/structure.html),
-[definitions of the
-traits](https://traitecoevo.github.io/austraits/articles/dictionary.html)
-and some
-[tutorials](https://traitecoevo.github.io/austraits/articles/austraits.html)
-that uses our functions as well as some `tidyverse` functions to create
-some commonly used data output formats. We highly recommend starting
-here before jumping into the database!
+We highly recommend taking a look at our [Getting Started
+tutorial](https://traitecoevo.github.io/austraits/) on our website
+before jumping into the austraits R packkage!
 
-If you prefer to view the vignettes in R, we recommend installing the
+If you prefer to view this vignettes in R, we recommend installing the
 package with `build_vignettes = TRUE`.
 
 ``` r
@@ -104,6 +97,16 @@ remotes::install_github("traitecoevo/austraits",
 
 vignette("austraits")
 ```
+
+### Learn more about AusTraits 👀
+
+AusTraits is a relational database, you can learn more about it’s
+structure from the [traits.build
+book](https://traitecoevo.github.io/traits.build-book/AusTraits_tutorial.html).
+
+You can also learn about the definitions of each plant trait with the
+[AusTraits Plant
+Dictionary!](https://traitecoevo.github.io/austraits/articles/dictionary.html)
 
 ### Show us some support 💚
 
@@ -131,7 +134,7 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🔧
+### Behind the scenes 🛠
 
 Check out
 [austraits.build](http://traitecoevo.github.io/austraits.build/), if you
