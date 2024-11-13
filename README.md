@@ -1,6 +1,7 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# austraits <img src="man/figures/austraits_hex.png" align="right" width="120"/>
+# austraits <img src="man/figures/austraits_hex.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -8,20 +9,18 @@
 [![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 [![](https://img.shields.io/badge/doi-10.1038/s41597--021--01006--6-blue.svg)](https://doi.org/10.1038/s41597-021-01006-6)
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-
+[![Codecov test
+coverage](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg)](https://app.codecov.io/gh/traitecoevo/austraits?branch=master)
 <!-- badges: end -->
 
-`austraits` allow users to access, explore and wrangle data from the
-AusTraits database in `R`. This package includes several functions such
-as filtering and pivoting the dataset that we expect will come in handy.
-
-**For R users**, access and manipulation of the data is assisted with
-the `austraits` package
-
-**For Python or other users**, the [Zenodo
-download](https://zenodo.org/record/5112001#collapseTwo) includes a .zip
-file containing all the data in plain text (.csv files) and associated
-meta-data
+`austraits` allow users to **access, explore and wrangle data** from
+[traits.build](https://github.com/traitecoevo/traits.build) relational
+databases. It is also an R interface to the [Australian Plant Trait
+database](https://austraits.org/) (AusTraits). This package contains
+functions to join data from various tables, filtering to specific
+records, combining multiple databases and visualising the distribution
+of the data. We expect this package will assist users in work with their
+trait databases.
 
 ### Installation
 
@@ -44,10 +43,48 @@ plotting and the vignettes will not be installed, use:
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 ```
 
+#### Retrieve AusTraits data
+
+**For R users**, access and manipulation of the data is assisted with
+the `austraits` package using `load_austraits()`
+
+**For Python or other users**, the [Zenodo
+download](https://zenodo.org/record/5112001#collapseTwo) includes a .zip
+file containing all the data in plain text (.csv files) and associated
+meta-data
+
+#### Backwards compatibility with past AusTraits versions
+
+From September 2024 austraits functions were revamped to support all
+[traits.build](https://github.com/traitecoevo/traits.build) compiled
+databases, rather than being linked to
+[austraits.build](https://github.com/traitecoevo/austraits.build).
+
+Versions of austraits.build (the AusTraits plant trait database) **\<
+5.0 are no longer supported** by the current functions. If you are
+working with an older version of AusTraits, please install an older
+version of austraits:
+
+For austraits.build versions 4.2 and older:
+
+``` r
+#install.packages("remotes")
+remotes::install_github("traitecoevo/austraits@v2.2.2", dependencies = TRUE, upgrade = "ask")
+
+library(austraits)
+```
+
+Note, if you are unsure what version of AusTraits you are working with,
+run:
+
+``` r
+austraits$build_info$version
+```
+
 ### Take a good look at our vignettes! 👀
 
 In our website, we have also included information about the [structure
-of the
+of the AusTraits
 database](https://traitecoevo.github.io/austraits/articles/structure.html),
 [definitions of the
 traits](https://traitecoevo.github.io/austraits/articles/dictionary.html)
@@ -74,7 +111,6 @@ Please consider citing `austraits`, we would super appreciate it!
 
 ``` r
 citation("austraits")
-#> 
 #> To cite austraits in publications use:
 #> 
 #>   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated
