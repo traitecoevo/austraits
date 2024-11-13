@@ -1,7 +1,7 @@
 ---
 title: "austraits"
 author: "Fonti Kar, Daniel Falster"
-date: "2022-11-26"
+date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
   toc: yes
@@ -13,17 +13,28 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  comment = "#>",
+  fig.path = "man/figures/"
+)
 
+library(dplyr)
+library(stringr)
+library(austraits)
 
-The `austraits` package is designed to aid users in accessing data from [AusTraits](https://zenodo.org/record/5112001), a curated plant trait database for the Australian flora. This package contains several core functions to wrangle and visualise data. Below, we include a tutorial to illustrate how to use these functions in greater detail.
+path = "ignore/data/austraits/"
+austraits <- load_austraits(version = "6.0.0", path = path)
+```
 
-**Note that we are using a reduced subset of v.3.0.2, so the number of records and taxa will not be match your values**
+`austraits` allow users to **access, explore and wrangle data** from [traits.build](https://github.com/traitecoevo/traits.build) relational databases. It is also an R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. Below, we've include a tutorial using the AusTraits database to illustrate how some these functions work together to generate useful outputs.
 
-## Getting started
+## Install and load `austraits`
 `austraits` is still under development. To install the current version from GitHub: 
 
-
-```r
+```{r setup, eval = FALSE}
 #install.packages("remotes")
 remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
 
@@ -31,532 +42,230 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits)
 ```
 
-### Loading AusTraits database
+### Retrieve AusTraits database
 
-By default, `load_austraits` will download AusTraits to a specified path e.g. `data/austraits` and will reload it from this location in the future. You can set `update = TRUE` so the austrait versions are downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note that `load_austraits` will happily accept a DOI of a particular version.
+We will use the latest AusTraits database as an example database. 
 
+We can download the AusTraits database by calling `load_austraits()`. This function will download AusTraits to a specified path. By default it is `data/austraits`. The function will reload the database from this location in the future. You can set `update = TRUE` so the database is downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note that `load_austraits()` will happily accept a DOI of a particular version.
 
-```r
-austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+```{r, load_data, eval = FALSE}
+austraits <- load_austraits(version = "6.0.0", path = "data/austraits")
 ```
 
 You can check out different versions and their associated DOI of AusTraits by using: 
 
-
-```r
+```{r, eval = FALSE}
 get_versions(path = "data/austraits")
 ```
 
-The AusTraits object is a very *long* list with various of elements. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
+AusTraits is a relational database. In R, it is a very *large* list with multiple tables. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
 
-
-```r
+```{r}
 austraits
-```
-
-```
-#> This is version 0.0.0.900 of austraits!
-#>  
-#> This object contains a total of 5859 records for 1245 species and 33 traits.
-#> 
-#> This object is a 'list' with the following components:
-#> 
-#>  - `traits`: A table containing measurements of plant traits.
-#> - `sites`: A table containing observations of site characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `site_name`.
-#> - `contexts`: A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `context_name`.
-#> - `methods`: A table containing details on methods with which data were collected, including time frame and source.
-#> - `excluded_data`: A table of data that did not pass quality test and so were excluded from the master dataset.
-#> - `taxa`: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.
-#> - `definitions`: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.
-#> - `sources`: Bibtex entries for all primary and secondary sources in the compilation.
-#> - `contributors`: A table of people contributing to each study.
-#> - `taxonomic_updates`: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
-#> - `build_info`: A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.
-#> 
-#> To access a component, try using the $ e.g. austraits$traits
 ```
 
 ## Descriptive summaries of traits and taxa
 
-AusTraits contains 33 plant traits. Check out [definitions of the traits](https://traitecoevo.github.io/austraits/articles/dictionary.html) to learn more about how each trait is defined. 
+AusTraits contains `r length(unique(austraits$traits$trait_name))` plant traits. Check out [definitions of the traits](https://w3id.org/APD) to learn more about how each trait is defined. 
 
 Have a look at what trait or taxa we have with: 
 
+```{r}
+summarise_austraits(austraits, "trait_name") 
 
-```r
-summarise_austraits(austraits, "trait_name") %>% head()
+summarise_austraits(austraits, "family") 
+
+summarise_austraits(austraits, "genus") 
 ```
 
-```
-#>            trait_name n_records n_dataset n_taxa percent_total
-#>  branch_mass_fraction        45         1     45      0.007680
-#>     fire_cued_seeding         5         1      5      0.000853
-#>         fire_response        73         2     72      0.012500
-#>        flowering_time        31         1     31      0.005290
-#>           huber_value       193         2     57      0.032900
-#>            leaf_angle        38         1     38      0.006490
-```
+## Quickly look up data
 
-```r
-summarise_austraits(austraits, var =  "family") %>% head()
-```
+Interested in a specific trait or context property? Try our `lookup_` functions
 
-```
-#>         family n_records n_dataset n_taxa percent_total
-#>    Acanthaceae         1         1      1      0.000171
-#>     Akaniaceae         3         1      1      0.000512
-#>  Anacardiaceae        20         2      7      0.003410
-#>     Annonaceae        15         2      5      0.002560
-#>       Apiaceae        17         1      2      0.002900
-#>    Apocynaceae        32         3      9      0.005460
-```
-
-```r
-summarise_austraits(austraits, "genus") %>% head()
-```
-
-```
-#>       genus n_records n_dataset n_taxa percent_total
-#>      Acacia       184         4     77      0.031400
-#>   Aceratium         5         1      3      0.000854
-#>      Ackama        10         1      2      0.001710
-#>   Acradenia         3         1      2      0.000512
-#>  Acronychia        21         3      7      0.003590
-#>   Actinotus        10         1      1      0.001710
-```
-
-Interested in a specific trait? Try `lookup_trait`
-
-
-```r
+```{r}
 lookup_trait(austraits, "leaf") %>% head()
-```
-
-```
-#> [1] "leaf_angle"              "leaf_area"               "leaf_compoundness"      
-#> [4] "leaf_N_per_dry_mass"     "specific_leaf_area"      "leaf_cell_wall_fraction"
+lookup_context_property(austraits, "fire") %>% head() 
+lookup_location_property(austraits, "temperature") %>% head()
 ```
 
 ## Extracting data
 
-In most cases, users would like to extract a subset of `austraits` for their own research purposes.`extract_dataset` subsets a particular study, whereas `extract_trait`subsets by certain traits. Note that the other tables and elements of the AusTraits data are extracted too, not just the main trait table. See `?extract_dataset` and `?extract_trait` for more details
+In most cases, users would like to extract a subset of their database for their own research purposes. 
+
+- `extract_dataset()` filters for a particular study
+- `extract_trait()` filters for a certain trait
+- `extract_taxa()` filters for a specific taxa 
+
+Note you can supply a vector to each of these functions to filter for more than one study/trait/taxa. All our `extract_` function supports partial matching e.g. extract_`leaf` would return all traits containing `leaf`. 
+
+If you would like to extract from other tables or columns, consider using [`extract_data`](#extract-data)
 
 ### Extracting by study
 
 Filtering **one particular study** and assigning it to an object
 
+```{r, extract_study}
+one_study <- extract_dataset(austraits, "Falster_2005_2")
 
-```r
-subset_data <- extract_dataset(austraits, "Falster_2005_2")
-
-subset_data$traits %>% head()
-```
-
-```
-#> # A tibble: 6 × 12
-#>   dataset_id    taxon…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>         <chr>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2005… Acacia… Myall_… <NA>    Falste… fire_r… fire… <NA>  2002… expert… <NA>    Acacia…
-#> 2 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 3 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 4 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 5 Falster_2005… Acacia… Myall_… <NA>    Falste… huber_… 0.00… mm2_… 2002… site_m… unknown Acacia…
-#> 6 Falster_2005… Acacia… Myall_… <NA>    Falste… leaf_a… 1761  mm2   2002… site_m… 4       Acacia…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+one_study$traits 
 ```
 
 Filtering **multiple studies by two different lead authors**  and assigning it to an object
 
-
-```r
-subset_multi_studies <- extract_dataset(austraits, 
+```{r, extract_studies}
+multi_studies <- extract_dataset(austraits, 
                                         dataset_id = c("Thompson_2001","Ilic_2000"))
  
-subset_multi_studies$traits %>% head()
-```
-
-```
-#> # A tibble: 6 × 12
-#>   dataset_id taxon_name site_…¹ conte…² obser…³ trait…⁴ value unit  date  value…⁵ repli…⁶ origi…⁷
-#>   <chr>      <chr>      <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Ilic_2000  Acacia ac… <NA>    <NA>    Ilic_2… wood_d… 0.904 mg/m… <NA>  unknown unknown Acacia…
-#> 2 Ilic_2000  Acacia ac… <NA>    <NA>    Ilic_2… wood_d… 0.895 mg/m… <NA>  unknown unknown Acacia…
-#> 3 Ilic_2000  Acacia ac… <NA>    <NA>    Ilic_2… wood_d… 1.008 mg/m… <NA>  unknown unknown Acacia…
-#> 4 Ilic_2000  Acacia ad… <NA>    <NA>    Ilic_2… wood_d… 0.887 mg/m… <NA>  unknown unknown Acacia…
-#> 5 Ilic_2000  Acacia am… <NA>    <NA>    Ilic_2… wood_d… 0.568 mg/m… <NA>  unknown unknown Acacia…
-#> 6 Ilic_2000  Acacia an… <NA>    <NA>    Ilic_2… wood_d… 1.035 mg/m… <NA>  unknown unknown Acacia…
-#> # … with abbreviated variable names ¹​site_name, ²​context_name, ³​observation_id, ⁴​trait_name,
-#> #   ⁵​value_type, ⁶​replicates, ⁷​original_name
+multi_studies$traits 
 ```
 
 Filtering **multiple studies by same lead author** (e.g. Falster) and assigning it to an object.  
 
+```{r, extract_Falster_studies}
+falster_studies <- extract_dataset(austraits, "Falster")
 
-```r
-# First, we need to identify all studies with an id that includes "Falster"
-
-( dataset_ids <- austraits$methods$dataset_id %>% unique() %>% subset(., grepl("Falster",.))) 
-```
-
-```
-#> [1] "Falster_2003"   "Falster_2005_1" "Falster_2005_2"
-```
-
-```r
-# Then we extract
-data_falster_studies <- extract_dataset(austraits, dataset_ids)
-
-data_falster_studies$traits %>% head()
-```
-
-```
-#> # A tibble: 6 × 12
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 66.1  degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 71.7  degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+falster_studies$traits 
 ```
 
 ### Extracting by taxonomic level
 
-
-```r
+```{r extract_taxa}
 # By family 
 proteaceae <- extract_taxa(austraits, family = "Proteaceae")
 # Checking that only taxa in Proteaceae have been extracted
-proteaceae$taxa$family %>% unique()
-```
+proteaceae$taxa$family %>% head()
 
-```
-#> [1] "Proteaceae"
-```
-
-```r
 # By genus 
 acacia <- extract_taxa(austraits, genus = "Acacia")
 # Checking that only taxa in Acacia have been extracted
 acacia$traits$taxon_name %>% unique() %>% head()
 ```
 
-```
-#> [1] "Acacia myrtifolia" "Acacia suaveolens" "Acacia floribunda" "Acacia celsa"     
-#> [5] "Acacia longifolia" "Acacia terminalis"
-```
+### Extracting by trait 
 
-### Extracting by trait
+```{r, extract_trait}
+data_fruit <- extract_trait(austraits, "fruit")
 
-Filtering **one particular trait** and assigning it to an object
-
-
-```r
-data_wood_dens <- extract_trait(austraits, "wood_density")
-
-head(data_wood_dens$traits)
-```
-
-```
-#> # A tibble: 6 × 12
-#>   dataset_id    taxon…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>         <chr>   <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2005… Acacia… Athert… <NA>    Falste… wood_d… 0.498 mg/m… 2002… site_m… 3       Acacia…
-#> 2 Falster_2005… Acrony… Athert… <NA>    Falste… wood_d… 0.525 mg/m… 2002… site_m… 3       Acrony…
-#> 3 Falster_2005… Alphit… Athert… <NA>    Falste… wood_d… 0.413 mg/m… 2002… site_m… 3       Alphit…
-#> 4 Falster_2005… Glochi… Athert… <NA>    Falste… wood_d… 0.566 mg/m… 2002… site_m… 3       Glochi…
-#> 5 Falster_2005… Homala… Athert… <NA>    Falste… wood_d… 0.319 mg/m… 2002… site_m… 3       Homala…
-#> 6 Falster_2005… Melico… Athert… <NA>    Falste… wood_d… 0.346 mg/m… 2002… site_m… 3       Melico…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+data_fruit$traits 
 ```
 
 Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf' in the trait name** and assigning it to an object. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
 
+```{r}
+leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
 
-```r
-data_leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
-
-head(data_leaf$traits)
+leaf$traits 
 ```
 
-```
-#> # A tibble: 6 × 12
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
+### Extracting from other tables {#extract-data}
+
+You may want to extract data from tables that have specific column values. For example calling the code below will return data where "fire" is mentioned in the `context_property` column
+
+```{r}
+data_fire <- extract_data(austraits, 
+                          table =  "contexts",
+                          col =  "context_property", 
+                          col_value = "fire")
 ```
 
 ## Join data from other tables and elements
 
 Once users have extracted the data they want, they may want to merge other study details into the main `traits` dataframe for their analyses. For example, users may require taxonomic information for a phylogenetic analysis. This is where the `join_` functions come in. 
-There are six `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxa` appends taxonomic information to the `traits` dataframe. See `?join_location_coordinates` for more details. 
 
+There are five `join_` functions in total, each designed to append specific information from other tables and elements in the `austraits` object. Their suffixes refer to the type of information that is joined, e.g. `join_taxa` appends taxonomic information to the `traits` dataframe. 
 
-```r
+- `join_taxa()`
+- `join_methods()`
+- `join_location_coordinates()`
+- `join_location_properties()`
+- `join_context_properties()`
+
+We recommend pulling up the help file for each one for more details e.g `?join_location_coordinates()` 
+```{r, join_}
 # Join taxonomic information 
-(data_leaf %>% join_taxa)$traits %>% head()
-```
+(data_fire %>% join_taxa)$traits 
 
-```
-#> # A tibble: 6 × 16
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 4 more variables: family <chr>, genus <chr>, taxonRank <chr>,
-#> #   acceptedNameUsageID <chr>, and abbreviated variable names ¹​taxon_name, ²​site_name,
-#> #   ³​context_name, ⁴​observation_id, ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
-```
-
-```r
 # Join methodological information 
-(data_leaf %>% join_methods)$traits %>% head()
-```
+(data_fire %>% join_methods)$traits 
 
-```
-#> # A tibble: 6 × 16
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 4 more variables: methods <chr>, year_collected_start <chr>, year_collected_end <chr>,
-#> #   collection_type <chr>, and abbreviated variable names ¹​taxon_name, ²​site_name,
-#> #   ³​context_name, ⁴​observation_id, ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
-```
+# Join location coordinates 
+(data_fire %>% join_location_coordinates)$traits 
 
-```r
-# Join site based information 
-(data_leaf %>% join_location_coordinates)$traits %>% head()
-```
+# Join information pertaining to location properties 
+(data_fire %>% join_location_properties)$traits 
 
-```
-#> # A tibble: 6 × 14
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 2 more variables: `latitude (deg)` <chr>, `longitude (deg)` <chr>, and abbreviated
-#> #   variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id, ⁵​trait_name,
-#> #   ⁶​value_type, ⁷​replicates, ⁸​original_name
-```
-
-```r
 # Join context information 
-(data_leaf %>% join_context_properties)$traits %>% head()
+(data_fire %>% join_context_properties)$traits 
 ```
 
-```
-#> # A tibble: 6 × 16
-#>   datas…¹ taxon…² site_…³ conte…⁴ obser…⁵ trait…⁶ value unit  date  value…⁷ repli…⁸ origi…⁹ type 
-#>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>   <chr>
-#> 1 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia… <NA> 
-#> 2 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia… <NA> 
-#> 3 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia… <NA> 
-#> 4 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia… <NA> 
-#> 5 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia… <NA> 
-#> 6 Falste… Acacia… Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia… <NA> 
-#> # … with 3 more variables: description <chr>, leaf_parts <chr>, plant_age <chr>, and abbreviated
-#> #   variable names ¹​dataset_id, ²​taxon_name, ³​site_name, ⁴​context_name, ⁵​observation_id,
-#> #   ⁶​trait_name, ⁷​value_type, ⁸​replicates, ⁹​original_name
-```
+Alternatively,users can join **all** information using `flatten_database()`: 
 
-```r
-# Alternatively users can join *all* information 
-data_leaf %>% flatten_database() %>% head()
-```
-
-```
-#> # A tibble: 6 × 66
-#>   dataset_id   taxon_…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>   <chr>        <chr>    <chr>   <chr>   <chr>   <chr>   <dbl> <chr> <chr> <fct>   <chr>   <chr>  
-#> 1 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  66.1 degr… <NA>  site_m… 3       Acacia…
-#> 2 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  site_m… 3       Acacia…
-#> 3 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> 4 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a…  71.7 degr… <NA>  site_m… 3       Acacia…
-#> 5 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  site_m… 3       Acacia…
-#> 6 Falster_2003 Acacia … Ku-rin… <NA>    Falste… leaf_c…  NA   <NA>  <NA>  expert… <NA>    Acacia…
-#> # … with 10 more variables: `latitude (deg)` <chr>, `longitude (deg)` <chr>, family <chr>,
-#> #   genus <chr>, taxonRank <chr>, acceptedNameUsageID <chr>, methods <chr>,
-#> #   year_collected_start <chr>, year_collected_end <chr>, collection_type <chr>, and abbreviated
-#> #   variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id, ⁵​trait_name,
-#> #   ⁶​value_type, ⁷​replicates, ⁸​original_name
+```{r}
+data_fire %>% flatten_database() 
 ```
 
 ## Visualising data by site
 
-`plot_site_locations` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_location_coordinates` to append latitude and longitude information into the trait dataframe before plotting
+`plot_site_locations()` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_location_coordinates()` to append latitude and longitude information into the trait dataframe before plotting
 
-
-```r
-data_wood_dens <- data_wood_dens %>% join_location_coordinates()
-plot_site_locations(data_wood_dens$traits)
+```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
+data_fire <- data_fire %>% join_location_coordinates()
+plot_locations(data_fire$traits)
 ```
-
-<img src="man/figures/site_plot-1.png" alt="plot of chunk site_plot" style="display: block; margin: auto;" />
 
 ## Visualising data distribution and variance
 
-`plot_trait_distribution` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id`
+`plot_trait_distribution()` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family or for each `dataset_id`
 
-
-```r
+```{r, beeswarm, fig.align = "center", fig.width=6, fig.height=7}
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "family")
-```
-
-<img src="man/figures/beeswarm-1.png" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
-
-```r
 austraits %>% plot_trait_distribution_beeswarm("wood_density", "dataset_id")
 ```
 
-<img src="man/figures/beeswarm-2.png" alt="plot of chunk beeswarm" style="display: block; margin: auto;" />
+## Reshaping the traits table
 
-## Pivotting from long to wide format 
+The traits table in AusTraits is in **long** format, where data for all trait information are denoted by two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider()`. 
 
-The table of traits in AusTraits comes in **long** format, where data for all trait information are denoted by two columns called `trait_name` and `value`. You can convert this to wide format, where each trait is in a separate column, using the function `trait_pivot_wider`. 
+Note that this function operates differently depending on the version of AusTraits
 
-The function operates differently depending on the version of AusTraits
+### Pivot wider 
 
-### Pivot wider <=3.0.2 
+**Note** that the latest version of `trait_pivot_wider()` is not longer AusTraits <=4.0.2. Please refer to our [README](https://github.com/traitecoevo/austraits) to install an older version of the `austraits` R package to work old versions of the AusTraits database. 
 
-In AusTraits <=3.0.2, some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to collapse multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
-
-Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
-
-#### bind_trait_values
-
-
-```r
-data_wide_bound <- data_falster_studies$traits %>%
-  bind_trait_values() %>% # Joining multiple obs with `--`
-  trait_pivot_wider() #Pivot wide
-
-data_wide_bound$value # The trait values table
+```{r}
+data_fire |> trait_pivot_wider()
 ```
 
-```
-#> # A tibble: 103 × 17
-#>    dataset_id   taxon_n…¹ site_…² conte…³ obser…⁴ leaf_…⁵ leaf_…⁶ leaf_…⁷ branc…⁸ huber…⁹ leaf_…˟
-#>    <chr>        <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
-#>  1 Falster_2003 Acacia m… Ku-rin… <NA>    Falste… 66.1    319     simple  <NA>    <NA>    <NA>   
-#>  2 Falster_2003 Acacia s… Ku-rin… <NA>    Falste… 71.7    562     simple  <NA>    <NA>    <NA>   
-#>  3 Falster_2003 Angophor… Ku-rin… <NA>    Falste… 50.8    1590    simple  <NA>    <NA>    <NA>   
-#>  4 Falster_2003 Banksia … Ku-rin… <NA>    Falste… 53.1    198     simple  <NA>    <NA>    <NA>   
-#>  5 Falster_2003 Banksia … Ku-rin… <NA>    Falste… 45      1061    simple  <NA>    <NA>    <NA>   
-#>  6 Falster_2003 Boronia … Ku-rin… <NA>    Falste… 43.9    151     simple  <NA>    <NA>    <NA>   
-#>  7 Falster_2003 Conosper… Ku-rin… <NA>    Falste… 72.3    1363    simple  <NA>    <NA>    <NA>   
-#>  8 Falster_2003 Epacris … Ku-rin… <NA>    Falste… 42.9    5       simple  <NA>    <NA>    <NA>   
-#>  9 Falster_2003 Eriostem… Ku-rin… <NA>    Falste… 62.1    102     simple  <NA>    <NA>    <NA>   
-#> 10 Falster_2003 Corymbia… Ku-rin… <NA>    Falste… 59.3    1111    simple  <NA>    <NA>    <NA>   
-#> # … with 93 more rows, 6 more variables: seed_mass <chr>, specific_leaf_area <chr>,
-#> #   wood_density <chr>, fire_response <chr>, plant_height <chr>, original_name <chr>, and
-#> #   abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name, ⁴​observation_id,
-#> #   ⁵​leaf_angle, ⁶​leaf_area, ⁷​leaf_compoundness, ⁸​branch_mass_fraction, ⁹​huber_value,
-#> #   ˟​leaf_N_per_dry_mass
-```
+### Binding trait values 
 
-```r
-# Check out the 'bounded' trait values
-data_wide_bound$value %>% 
-  select(-c(1:5)) %>% #Excluding values that are not traits so we can see which columns contains bounded values
-  filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
-```
+Some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to condense multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
 
-```
-#> # A tibble: 55 × 12
-#>    leaf_angle leaf_area leaf_co…¹ branc…² huber…³ leaf_…⁴ seed_…⁵ speci…⁶ wood_…⁷ fire_…⁸ plant…⁹
-#>    <chr>      <chr>     <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <chr>  
-#>  1 <NA>       2786      <NA>      0.67    0.0003… 21.4    10.3    6.8965… 0.498   <NA>    <NA>   
-#>  2 <NA>       14302     <NA>      0.48    0.0001… 24.3    <NA>    11.764… 0.525   <NA>    <NA>   
-#>  3 <NA>       6820      <NA>      0.42    0.0002… 16.3    27.2    6.7114… 0.413   <NA>    <NA>   
-#>  4 <NA>       3209      <NA>      0.41    0.0005… 13.7    10.41   9.4339… 0.566   <NA>    <NA>   
-#>  5 <NA>       10682     <NA>      0.47    0.0004… 22      7       12.195… 0.319   <NA>    <NA>   
-#>  6 <NA>       6955      <NA>      0.58    0.0002… 26.8    1.61    13.333… 0.346   <NA>    <NA>   
-#>  7 <NA>       5228      <NA>      0.58    0.0005… 16.4    176.1   10.752… 0.352   <NA>    <NA>   
-#>  8 <NA>       6806      <NA>      0.42    0.0001… 15.4    8.35    12.658… 0.397   <NA>    <NA>   
-#>  9 <NA>       11157     <NA>      0       0.0002… 17.9    23.09   9.2592… 0.582   <NA>    <NA>   
-#> 10 <NA>       3401      <NA>      0.34    0.0002… 11.1    <NA>    7.7519… 0.763   <NA>    <NA>   
-#> # … with 45 more rows, 1 more variable: original_name <chr>, and abbreviated variable names
-#> #   ¹​leaf_compoundness, ²​branch_mass_fraction, ³​huber_value, ⁴​leaf_N_per_dry_mass, ⁵​seed_mass,
-#> #   ⁶​specific_leaf_area, ⁷​wood_density, ⁸​fire_response, ⁹​plant_height
+#### `bind_trait_values`
+
+```{r, pivot}
+data_trait_bound <- data_fruit$traits %>%
+  bind_trait_values() # Joining multiple obs with `--`
+  
+data_trait_bound  %>%   
+  dplyr::filter(stringr::str_detect(trait_name, "--"))
 ```
 
 If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then call `separate_trait_values`: 
 
-
-```r
-data_wide_bound %>% 
-  trait_pivot_longer() %>% 
+```{r}
+data_trait_bound %>% 
   separate_trait_values(., austraits$definitions)
 ```
 
-```
-#> # A tibble: 691 × 12
-#>    dataset_id   taxon…¹ site_…² conte…³ obser…⁴ trait…⁵ value unit  date  value…⁶ repli…⁷ origi…⁸
-#>    <chr>        <chr>   <chr>   <chr>   <chr>   <chr>   <chr> <chr> <chr> <fct>   <chr>   <chr>  
-#>  1 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 66.1  degr… <NA>  <NA>    3       Acacia…
-#>  2 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 319   mm2   <NA>  <NA>    3       Acacia…
-#>  3 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  <NA>    <NA>    Acacia…
-#>  4 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 71.7  degr… <NA>  <NA>    3       Acacia…
-#>  5 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_a… 562   mm2   <NA>  <NA>    3       Acacia…
-#>  6 Falster_2003 Acacia… Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  <NA>    <NA>    Acacia…
-#>  7 Falster_2003 Angoph… Ku-rin… <NA>    Falste… leaf_a… 50.8  degr… <NA>  <NA>    3       Angoph…
-#>  8 Falster_2003 Angoph… Ku-rin… <NA>    Falste… leaf_a… 1590  mm2   <NA>  <NA>    3       Angoph…
-#>  9 Falster_2003 Angoph… Ku-rin… <NA>    Falste… leaf_c… simp… <NA>  <NA>  <NA>    <NA>    Angoph…
-#> 10 Falster_2003 Banksi… Ku-rin… <NA>    Falste… leaf_a… 53.1  degr… <NA>  <NA>    3       Banksi…
-#> # … with 681 more rows, and abbreviated variable names ¹​taxon_name, ²​site_name, ³​context_name,
-#> #   ⁴​observation_id, ⁵​trait_name, ⁶​value_type, ⁷​replicates, ⁸​original_name
-```
+#### `summarise_trait_means()`
 
-#### `summarise_trait_means`
+Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a try, which computes means with multiple observations. Once the  the traits table is condensed, you won't be able to revert it back.   Note that function uses an uninformed method to compute means, we recommend using it with caution. 
 
-
-```r
-data_wide_summarised <- data_falster_studies$traits %>%
+```{r, pivot_summarised}
+data_wide_summarised <- data_fire$traits %>%
   summarise_trait_means() %>% 
   trait_pivot_wider()
 
 data_wide_summarised$value %>% head()
-```
-
-```
-#> # A tibble: 6 × 17
-#>   datas…¹ taxon…² site_…³ conte…⁴ obser…⁵ leaf_…⁶ leaf_…⁷ leaf_…⁸ branc…⁹ leaf_…˟ seed_…˟ speci…˟
-#>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1 Falste… Acacia… Ku-rin… <NA>    Falste…    66.1     319      NA      NA      NA      NA      NA
-#> 2 Falste… Acacia… Ku-rin… <NA>    Falste…    71.7     562      NA      NA      NA      NA      NA
-#> 3 Falste… Angoph… Ku-rin… <NA>    Falste…    50.8    1590      NA      NA      NA      NA      NA
-#> 4 Falste… Banksi… Ku-rin… <NA>    Falste…    53.1     198      NA      NA      NA      NA      NA
-#> 5 Falste… Banksi… Ku-rin… <NA>    Falste…    45      1061      NA      NA      NA      NA      NA
-#> 6 Falste… Boroni… Ku-rin… <NA>    Falste…    43.9     151      NA      NA      NA      NA      NA
-#> # … with 5 more variables: wood_density <dbl>, huber_value <dbl>, fire_response <dbl>,
-#> #   plant_height <dbl>, original_name <chr>, and abbreviated variable names ¹​dataset_id,
-#> #   ²​taxon_name, ³​site_name, ⁴​context_name, ⁵​observation_id, ⁶​leaf_angle, ⁷​leaf_area,
-#> #   ⁸​leaf_compoundness, ⁹​branch_mass_fraction, ˟​leaf_N_per_dry_mass, ˟​seed_mass,
-#> #   ˟​specific_leaf_area
 ```
 
