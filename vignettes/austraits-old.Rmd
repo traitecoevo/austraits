@@ -83,9 +83,9 @@ summarise_austraits(austraits, "genus")
 Interested in a specific trait or context property? Try our `lookup_` functions
 
 ```{r}
-lookup_trait(austraits, "leaf") 
-lookup_context_property(austraits, "fire") 
-lookup_location_property(austraits, "temperature") 
+lookup_trait(austraits, "leaf") %>% head()
+lookup_context_property(austraits, "fire") %>% head() 
+lookup_location_property(austraits, "temperature") %>% head()
 ```
 
 ## Extracting data
@@ -133,7 +133,7 @@ falster_studies$traits
 # By family 
 proteaceae <- extract_taxa(austraits, family = "Proteaceae")
 # Checking that only taxa in Proteaceae have been extracted
-proteaceae$taxa$family %>% unique()
+proteaceae$taxa$family %>% head()
 
 # By genus 
 acacia <- extract_taxa(austraits, genus = "Acacia")
@@ -144,9 +144,9 @@ acacia$traits$taxon_name %>% unique() %>% head()
 ### Extracting by trait 
 
 ```{r, extract_trait}
-wood_dens <- extract_trait(austraits, "wood_density")
+data_fruit <- extract_trait(austraits, "fruit")
 
-head(wood_dens$traits)
+data_fruit
 ```
 
 Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf' in the trait name** and assigning it to an object. Note we use the `.` notation to pass on the `lookup_trait` results to `extract_trait`
@@ -154,7 +154,7 @@ Combining `lookup_trait` with `extract_trait` to obtain **all traits with 'leaf'
 ```{r}
 leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
 
-head(leaf$traits)
+leaf
 ```
 
 ### Extracting from other tables {#extract-data}
@@ -180,7 +180,7 @@ There are five `join_` functions in total, each designed to append specific info
 - `join_location_properties()`
 - `join_context_properties()`
 
-We recommend pulling up the help file for each one for more details e.g `?join_location_coordinates` 
+We recommend pulling up the help file for each one for more details e.g `?join_location_coordinates()` 
 ```{r, join_}
 # Join taxonomic information 
 (data_fire %>% join_taxa)$traits 
@@ -209,8 +209,8 @@ data_fire %>% flatten_database()
 `plot_site_locations()` graphically summarises where trait data was collected from and how much data is available. The legend refers to the number of neighbouring points: the warmer the colour, the more data that is available. This function only works for studies that are geo-referenced. Users must first use `join_location_coordinates()` to append latitude and longitude information into the trait dataframe before plotting
 
 ```{r, site_plot, fig.align = "center", fig.width=5, fig.height=5}
-data_wood_dens <- data_wood_dens %>% join_location_coordinates()
-plot_site_locations(data_wood_dens$traits)
+data_fire <- data_fire %>% join_location_coordinates()
+plot_locations(data_fire$traits)
 ```
 
 ## Visualising data distribution and variance
@@ -236,39 +236,33 @@ Note that this function operates differently depending on the version of AusTrai
 data_fire |> trait_pivot_wider()
 ```
 
+### Binding trait values 
 
-
-some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to collapse multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
-
-Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a go, which computes means with multiple observations. Note that this method condenses the traits table and you won't be able to revert it back unless you `load_austraits` again
+Some studies will have *multiple observations* for some traits, e.g. huber values. This can prevent pivoting from long format to wide. There are two ways to condense multiple observations. The first option `bind_trait_values` concatenates the observations into a single string, thereby retaining all information.
 
 #### `bind_trait_values`
 
 ```{r, pivot}
-data_wide_bound <- data_falster_studies$traits %>%
-  bind_trait_values() %>% # Joining multiple obs with `--`
-  trait_pivot_wider() #Pivot wide
-
-data_wide_bound$value # The trait values table
-
-# Check out the 'bounded' trait values
-data_wide_bound$value %>% 
-  select(-c(1:5)) %>% #Excluding values that are not traits so we can see which columns contains bounded values
-  filter_all(.vars_predicate = any_vars(str_detect(., "--"))) 
+data_trait_bound <- data_fruit$traits %>%
+  bind_trait_values() # Joining multiple obs with `--`
+  
+data_trait_bound  %>%   
+  dplyr::filter(stringr::str_detect(trait_name, "--"))
 ```
 
 If you would like to revert the bounded trait values, you have to use `trait_pivot_longer` first, then call `separate_trait_values`: 
 
 ```{r}
-data_wide_bound %>% 
-  trait_pivot_longer() %>% 
+data_trait_bound %>% 
   separate_trait_values(., austraits$definitions)
 ```
 
-#### `summarise_trait_means`
+#### `summarise_trait_means()`
+
+Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a try, which computes means with multiple observations. Once the  the traits table is condensed, you won't be able to revert it back.   Note that function uses an uninformed method to compute means, we recommend using it with caution. 
 
 ```{r, pivot_summarised}
-data_wide_summarised <- data_falster_studies$traits %>%
+data_wide_summarised <- data_fire$traits %>%
   summarise_trait_means() %>% 
   trait_pivot_wider()
 
