@@ -11,28 +11,36 @@
 #' }
 #' @author Elizabeth Wenk - e.wenk@unsw.edu.au
 
-check_compatibility <- function(database) {
+check_compatibility <- function(database, single_table_allowed = FALSE) {
   
-  if (is.null(database$metadata)) {
+  if (!is.null(dim(database)) & single_table_allowed == TRUE) {
     
-    compatible <- FALSE
-    
-    # message("You are working with AusTraits version 3.0 or earlier. \nThis database structure is unsupported by the current version of this package. \nPlease see https://github.com/traitecoevo/austraits for details on installing old versions of the package.")
+    compatible <- TRUE
     
   } else {
     
-    compiled_by_traits.build <-
-      database$metadata$related_identifiers %>% 
-      convert_list_to_df2() %>%
-      dplyr::filter(relation_type == "isCompiledBy") %>% 
-      dplyr::filter(stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
-    
-    if(is.null(compiled_by_traits.build) | nrow(compiled_by_traits.build) > 0) {
-      compatible <- TRUE
-    } else{
+    if (is.null(database$metadata)) {
+      
       compatible <- FALSE
       
-      # message("You are working with AusTraits version 4, which is unsupported by the current version of this package. \nPlease see https://github.com/traitecoevo/austraits for details on installing old versions of the package.")
+      # message("You are working with AusTraits version 3.0 or earlier. \nThis database structure is unsupported by the current version of this package. \nPlease see https://github.com/traitecoevo/austraits for details on installing old versions of the package.")
+      
+    } else {
+      
+      compiled_by_traits.build <-
+        database$metadata$related_identifiers %>% 
+        convert_list_to_df2() %>%
+        dplyr::filter(relation_type == "isCompiledBy") %>% 
+        dplyr::filter(stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
+      
+      if(is.null(compiled_by_traits.build) | nrow(compiled_by_traits.build) > 0) {
+        compatible <- TRUE
+      } else{
+        compatible <- FALSE
+        
+        # message("You are working with AusTraits version 4, which is unsupported by the current version of this package. \nPlease see https://github.com/traitecoevo/austraits for details on installing old versions of the package.")
+      }
+      
     }
     
   }

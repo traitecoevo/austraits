@@ -27,7 +27,7 @@
 
 extract_taxa <- function(database, family = NULL, genus = NULL, taxon_name = NULL){
   # Check compatability
-  status <- check_compatibility(database)
+  status <- check_compatibility(database, single_table_allowed = TRUE)
   
   # If compatible
   if(!status){
