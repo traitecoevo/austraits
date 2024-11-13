@@ -4,10 +4,10 @@
 \alias{get_traits_table}
 \title{Retrieve traits table if user passes traits.build object.}
 \usage{
-get_traits_table(aus_traits)
+get_traits_table(database)
 }
 \arguments{
-\item{aus_traits}{traits.build object or traits table}
+\item{database}{traits.build database or traits table in a traits.build database}
 }
 \description{
 Retrieve traits table if user passes traits.build object.

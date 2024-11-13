@@ -7,7 +7,7 @@
 extract_dataset(database, dataset_id)
 }
 \arguments{
-\item{database}{a large list of tibbles built by \code{traits.build} workflow}
+\item{database}{traits.build database (list object)}
 
 \item{dataset_id}{character string that matches a \code{dataset_id} in the database}
 }

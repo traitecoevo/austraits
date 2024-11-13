@@ -7,7 +7,7 @@
 extract_trait(database, trait_names, taxon_names)
 }
 \arguments{
-\item{database}{a large list of tibbles built by \code{traits.build}}
+\item{database}{traits.build database (list object)}
 
 \item{trait_names}{character string of trait(s) for which data will be extracted}
 
@@ -33,7 +33,7 @@ Note to AusTraits users:
 }
 \examples{
 \dontrun{
-extract_trait(database, "wood_density", taxon_name = "Acacia celsa")
+extract_trait(database = austraits, trait_names = "wood_density", taxon_names = "Acacia celsa")
 }
 }
 \author{
