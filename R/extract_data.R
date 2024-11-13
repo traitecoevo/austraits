@@ -10,7 +10,7 @@
 #' @param table Table within a traits.build database
 #' @param col Column name within the specified table.
 #' @param col_value Value (of column, from with a table) that is used to subset database. This can be a single value or a vector. It includes partial string matches. 
-#'
+#' @importFrom rlang :=
 #' @return subset traits.build database
 #' @export
 #'

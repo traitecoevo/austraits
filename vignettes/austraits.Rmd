@@ -1,10 +1,8 @@
 ---
 title: "austraits"
-author: "Fonti Kar, Daniel Falster"
+author: "Fonti Kar, Elizbeth Wenk, Daniel Falster"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette:
-  toc: yes
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{austraits}
   %\VignetteEncoding{UTF-8}
