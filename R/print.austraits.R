@@ -1,13 +1,14 @@
 #' @title Generic for outputting a nice summary for austraits objects
 #'
-#' @name print.austraits
+#' @name print.traits.build
 #' @param database traits.build database
 #' @param \dots passed to print
 #'
 #' @return nicely printed table
 #' @export
 
-print.austraits <- function(database, ...){
+print.traits.build <- function(database, ...){
+  browser()
   
   # Setting up
   version <- database$build_info$version %>% as.character()
@@ -18,7 +19,7 @@ print.austraits <- function(database, ...){
   cat("This is version",
          version, 
          "of austraits!\n", 
-         "\nThis object contains a total of",
+         "\nThis database contains a total of",
          nrecords, "records",
          "for", nspecies, "taxa and",
          ntraits, "traits.\n")

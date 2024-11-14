@@ -232,7 +232,7 @@ extract_data <- function(database, table = NA, col, col_value) {
                  "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
       
     # Assign class
-    attr(ret, "class") <- "austraits"
+    attr(data, "class") <- "traits.build"
 
   }
   
