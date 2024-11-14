@@ -4,10 +4,10 @@
 \alias{print.traits.build}
 \title{Generic for outputting a nice summary for austraits objects}
 \usage{
-\method{print}{traits.build}(database, ...)
+\method{print}{traits.build}(x, ...)
 }
 \arguments{
-\item{database}{traits.build database}
+\item{x}{traits.build database}
 
 \item{\dots}{passed to print}
 }
