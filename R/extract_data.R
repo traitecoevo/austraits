@@ -168,9 +168,11 @@ extract_data <- function(database, table = NA, col, col_value) {
         ret_tmp[["traits"]] <- database[["traits"]]%>% 
           dplyr::semi_join(cc_traits, by = columns_to_select)
         
+        columns_to_select_excluded <- intersect(setdiff(names(database$excluded_data), "value"), names(database[[table[[i]]]]))
+        
         # Use same filtering join to trim excluded data
         ret_tmp[["excluded_data"]] <- database[["excluded_data"]]  %>% 
-          dplyr::semi_join(cc_traits, by = columns_to_select)
+          dplyr::semi_join(cc_traits, by = columns_to_select_excluded)
         
         
         for (j in seq_along(tables_tmp$tables_to_cut)) {
