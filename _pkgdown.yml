@@ -25,7 +25,6 @@ reference:
 - contents:
   - starts_with("extract")
   - starts_with("trait_pivot")
-  - summarise_trait_means
   - starts_with("join")
   - ends_with("trait_values")
   - as_wide_table
