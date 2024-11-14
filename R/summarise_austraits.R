@@ -1,6 +1,6 @@
 #' @title Summarise counts for a particular variable of interest
 #'
-#' @name summarise_austraits
+#' @name summarise_database
 #' @param database traits.build database (list object)
 #' @param var variable you use wish to see summary of (trait_name, genus, family)
 #'
@@ -8,28 +8,28 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' summarise_austraits(database = austraits, "trait_name")
-#' summarise_austraits(database = austraits, "family")
+#' summarise_database(database = austraits, "trait_name")
+#' summarise_database(database = austraits, "family")
 #' }
 
 
-summarise_austraits <- function(database, var){
+summarise_database <- function(database, var){
   
   if(!var %in% c("trait_name", "family", "genus")){
     stop(paste0("Print summary for ", var, " has not been implemented! see examples)"))
   }
   
   switch(var,
-         trait_name = summarise_austraits_traits(database, var),
-         genus =  summarise_austraits_taxa(database, var),
-         family = summarise_austraits_taxa(database, var)
+         trait_name = summarise_database_traits(database, var),
+         genus =  summarise_database_taxa(database, var),
+         family = summarise_database_taxa(database, var)
   )
 }
 
 #' @noRd
 #' @keywords internal
          
-summarise_austraits_traits <-function(database, var) {
+summarise_database_traits <-function(database, var) {
 
   ret <- 
     database[["traits"]] %>% 
@@ -60,7 +60,7 @@ summarise_austraits_traits <-function(database, var) {
 #' @noRd
 #' @keywords internal
 
-summarise_austraits_taxa <-function(database, var) {
+summarise_database_taxa <-function(database, var) {
   
   #Join taxonomic info
   database <- database %>% join_taxa()
