@@ -82,7 +82,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   data <- readRDS(file_nm) 
   
   # Assign class
-  attr(data, "class") <- "austraits"
+  attr(data, "class") <- "traits.build"
   
   data
 }
