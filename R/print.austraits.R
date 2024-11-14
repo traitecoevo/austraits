@@ -1,41 +1,28 @@
 #' @title Generic for outputting a nice summary for austraits objects
 #'
 #' @name print.traits.build
-#' @param database traits.build database
+#' @param x traits.build database
 #' @param \dots passed to print
 #'
 #' @return nicely printed table
 #' @export
 
-print.traits.build <- function(database, ...){
-  
+print.traits.build <- function(x, ...){
+  # browser()
   # Setting up
-  database_name <- database$metadata$title
-  
-  traits.build_version <- at_six$metadata$related_identifiers |> 
-    convert_list_to_df2() |> 
-    dplyr::filter(resource_type == "software") |> 
-    dplyr::pull(version)
-  
-  version <- database$build_info$version %>% as.character()
-  nrecords <- nrow(database$traits)
-  nspecies <- unique(database$traits$taxon_name) %>% length()
-  ntraits <- unique(database$traits$trait_name) %>% length()
+  version <- x$build_info$version %>% as.character()
+  nrecords <- nrow(x$traits)
+  nspecies <- unique(x$traits$taxon_name) %>% length()
+  ntraits <- unique(x$traits$trait_name) %>% length()
 
   
-  if(package_version(version) <= '3.0.2'){
+  if(package_version(version) < '5.0.0'){
     
     # Setting up
-    database_name <- database$definitions$austraits$description
+    database_name <- x$definitions$austraits$description
   
     fun <- function() {
-      cli::cli_h1("This is {version} of {database_name}!")
-      
-      cli::cli_bullets(c(
-        "i" = "A database built using traits.build version {traits.build_version}",
-        "i" = "This database contains a total of {nrecords} records, for {nspecies} taxa and {ntraits} traits."
-      )
-      )
+      cli::cli_h1("This database contains a total of {nrecords} records, for {nspecies} taxa and {ntraits} traits.")
       
       cli::cli_h2("This object is a 'list' with the following components:")
       cli::cli_div(theme = list(span.emph = list(color = "forestgreen")))
@@ -58,11 +45,18 @@ print.traits.build <- function(database, ...){
     
     fun()
   } else{
+    database_name <- x$metadata$title
+    
+    traits.build_version <- x$metadata$related_identifiers |> 
+      convert_list_to_df2() |> 
+      dplyr::filter(resource_type == "software") |> 
+      dplyr::pull(version)
+    
     fun <- function() {
             cli::cli_h1("This is {version} of {database_name}!")
       
       cli::cli_bullets(c(
-        "i" = "A database built using traits.build version {traits.build_version}",
+        "i" = "This database is built using traits.build version {traits.build_version}",
         "i" = "This database contains a total of {nrecords} records, for {nspecies} taxa and {ntraits} traits."
       )
       )
