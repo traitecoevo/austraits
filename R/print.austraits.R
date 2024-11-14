@@ -8,7 +8,7 @@
 #' @export
 
 print.traits.build <- function(database, ...){
-  browser()
+  # browser()
   
   # Setting up
   version <- database$build_info$version %>% as.character()
@@ -16,13 +16,21 @@ print.traits.build <- function(database, ...){
   nspecies <- unique(database$traits$taxon_name) %>% length()
   ntraits <- unique(database$traits$trait_name) %>% length()
   
-  cat("This is version",
-         version, 
-         "of austraits!\n", 
-         "\nThis database contains a total of",
-         nrecords, "records",
-         "for", nspecies, "taxa and",
-         ntraits, "traits.\n")
+  database_name <- database$metadata$title
+  
+  traits.build_version <- at_six$metadata$related_identifiers |> 
+    convert_list_to_df2() |> 
+    dplyr::filter(resource_type == "software") |> 
+    dplyr::pull(version)
+  
+  # Formulate message
+  cli::cli_h1("This is {database_name}!")
+  
+  cli::cli_bullets(c(
+    "i" = "A database built using traits.build version {traits.build_version}",
+    "i" = "This database contains a total of {nrecords} records, for {nspecies} taxa and {ntraits} traits."
+  )
+  )
   
   if(package_version(version) <= '3.0.2'){
   
@@ -43,7 +51,6 @@ print.traits.build <- function(database, ...){
     )
   }
 
-  
   cat("\n\nTo access a component, try using the $ e.g. austraits$traits")  
 }
 
