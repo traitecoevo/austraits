@@ -287,18 +287,3 @@ If you would like to revert the bounded trait values, you have to use `trait_piv
 data_trait_bound %>% 
   separate_trait_values(., austraits$definitions)
 ```
-
-### Summarise trait values
-
-**THIS FUNCTION IS CURRENTLY BROKEN. IT'S OUTPUT IS MISLEADING! DO NOT USE**
-
-Alternatively, if you don't want to bind the trait values, you can give `summarise_trait_means` a try, which computes means with multiple observations. Once the  the traits table is condensed, you won't be able to revert it back.   Note that function uses an uninformed method to compute means, we recommend using it with caution. 
-
-```{r, pivot_summarised}
-data_wide_summarised <- data_fire$traits %>%
-  summarise_trait_means() %>% 
-  trait_pivot_wider()
-
-data_wide_summarised$value %>% head()
-```
-
