@@ -24,8 +24,8 @@ plot_trait_distribution_beeswarm <- function(database,
                                              hide_ids = FALSE) {
   
   # Check compatability
-  status <- check_compatibility(database)
-  
+  status <- check_compatibility(database, single_table_allowed = TRUE)
+
   # If compatible
   if(!status) {
     function_not_supported(database)
@@ -44,17 +44,27 @@ plot_trait_distribution_beeswarm <- function(database,
     factor(p, levels=names(my_shapes))
   }
   
-  tax_info  <- database_trait$taxa %>% dplyr::select(taxon_name, family)
+  if (is.null(dim(database_trait))) {
+
+    tax_info  <- database_trait$taxa %>% dplyr::select(taxon_name, family, genus)
+    
+    data <-
+      database_trait$traits %>%
+      dplyr::left_join(by = "taxon_name", tax_info) 
+
+  } else {
+    
+    data <- database_trait
   
-  data <-
-    database_trait$traits %>%
+  }
+
+  data <- data %>%
     dplyr::mutate(shapes = as_shape(value_type)) %>%
-    dplyr::left_join(by = "taxon_name", tax_info) %>%
     dplyr::mutate(value = as.numeric(value))
   
   # Define grouping variables and derivatives
   if(!y_axis_category %in% names(data)) {
-    stop("Incorrect grouping variable! Currently implemented for `family` or `dataset_id`")
+    stop("Incorrect grouping variable! Grouping variable must be a variable in or joined to the traits table. Family and genus are supported if your input is a complete traits.build database.")
   }
   
   # define grouping variable, ordered by group-level by mean values
@@ -77,10 +87,17 @@ plot_trait_distribution_beeswarm <- function(database,
   if(!is.na(highlight) & highlight %in% data$Group) {
     data <- dplyr::mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
   }
-  
 
-  vals <- list(minimum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_min"),
-           maximum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_max"))
+  if (is.null(dim(database))) {
+  
+    vals <- list(minimum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_min"),
+                 maximum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_max"))
+  
+  } else {
+    
+    vals <- list(minimum = 0.8*min(data$value),
+                 maximum = 1.2*max(data$value))
+  }
   
   range <- (vals$maximum/vals$minimum)
   

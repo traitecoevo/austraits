@@ -29,7 +29,7 @@ reference:
 - title: Reshape traits table
 - contents:  
   - starts_with("trait_pivot")
-  - summarise_trait_means
+  - starts_with("join")
   - ends_with("trait_values")
   
 - title: Reshape database(s)

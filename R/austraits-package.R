@@ -6,7 +6,7 @@
 if(getRversion() >= "2.15.1")  utils::globalVariables(c(".", "dplyr::n()"))
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Thanks for showing interest in `austraits`! Please consider citing this package - citation('austraits')")
+    cli::cli_inform("Thanks for showing interest in `austraits`! Please consider citing this package - citation('austraits')", class = "packageStartupMessage")
 }
 
 #' @keywords internal
