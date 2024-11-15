@@ -20,11 +20,11 @@ databases. It is also an R interface to
 database. This package contains functions for joining data from various
 tables, filtering to specific records, combining multiple databases and
 visualising the distribution of the data. We expect this package will
-assist users in working with the traits.build databases.
+assist users in working with `traits.build` databases.
 
 ### Installation
 
-The package is not on CRAN yet and is still under active development.
+This package is not on CRAN yet and is still under active development.
 For the current stable release of `austraits`, which has full
 capabilities of the functions used in vignettes (e.g. plotting
 functions), use:
@@ -36,8 +36,8 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits) 
 ```
 
-For a lightweight installation where dependencies for plotting and the
-vignettes will not be installed, use:
+For a lightweight installation where dependencies for plotting and
+producing the vignettes will not be installed, use:
 
 ``` r
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
@@ -52,7 +52,7 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 
 - **For Python or other users**, the [Zenodo
   download](https://zenodo.org/record/5112001#collapseTwo) includes a
-  .zip file containing all the data in plain text (.csv files) and
+  `.zip` file containing all the data in plain text (`.csv` files) and
   associated meta-data
 
 #### Backwards compatibility with past AusTraits versions
