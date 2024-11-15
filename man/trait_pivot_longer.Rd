@@ -22,7 +22,7 @@ In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
 }
 \details{
 \itemize{
-\item If \code{bind_trait_values} or \code{summarise_trait_means} was applied prior to \code{trait_pivot_wider} for AusTraits
+\item If \code{bind_trait_values} was applied prior to \code{trait_pivot_wider} for AusTraits
 <= v3.0.2, \code{trait_pivot_longer} will return a tibble with fewer observations than the original traits table.
 \item For AusTraits version >3.0.2,  \code{trait_pivot_longer} will return a tibble with fewer columns than that original traits table
 \itemize{

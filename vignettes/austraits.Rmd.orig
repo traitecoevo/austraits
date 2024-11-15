@@ -231,13 +231,4 @@ data_wide_bound %>%
   separate_trait_values(., austraits$definitions)
 ```
 
-#### `summarise_trait_means`
-
-```{r, pivot_summarised}
-data_wide_summarised <- data_falster_studies$traits %>%
-  summarise_trait_means() %>% 
-  trait_pivot_wider()
-
-data_wide_summarised$value %>% head()
-```
 
