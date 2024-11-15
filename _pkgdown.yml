@@ -15,7 +15,7 @@ reference:
 - contents:
   - load_austraits
   - starts_with("get_")
-  - summarise_austraits
+  - summarise_database
   - starts_with("lookup_")
 
 - title: Filter from the database
