@@ -29,10 +29,7 @@ check_compatibility <- function(database, single_table_allowed = FALSE) {
     } else {
       
       compiled_by_traits.build <-
-        database$metadata$related_identifiers %>% 
-        convert_list_to_df2() %>%
-        dplyr::filter(relation_type == "isCompiledBy") %>% 
-        dplyr::filter(stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
+        get_compiled_by_traits.build(database)
       
       if(is.null(compiled_by_traits.build) | nrow(compiled_by_traits.build) > 0) {
         compatible <- TRUE
@@ -67,4 +64,18 @@ check_traits_compatibility <- function(trait_data){
     compatible <- FALSE
   
   invisible(compatible)
+}
+
+
+#' Retrieve compiled by information from metadata table
+#'
+#' @param database traits.build database
+#'
+#' @return logical, TRUE indicating version traits table came from traits.build version > 1.0
+
+get_compiled_by_traits.build <- function(database){
+  database$metadata$related_identifiers %>% 
+  convert_list_to_df2() %>%
+  dplyr::filter(relation_type == "isCompiledBy") %>% 
+  dplyr::filter(stringr::str_detect(identifier, "github.com/traitecoevo/traits.build"))
 }
