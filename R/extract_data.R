@@ -236,10 +236,9 @@ extract_data <- function(database, table = NA, col, col_value) {
   }
   
   # Assign class
-  attr(data, "class") <- "traits.build"
+  attr(ret, "class") <- "traits.build"
   
   ret
-    
 }
 
 
