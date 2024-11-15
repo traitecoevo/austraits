@@ -9,10 +9,7 @@
 #' @return Compiled database as a single large list
 #' @importFrom rlang .data
 #' @export
-bind_databases <- function(database_1, ...) {
-  
-  # List of databases to combine
-  databases = list(database_1, ...)
+bind_databases <- function(..., databases = list(...)) {
   
   combine <- function(name, databases) {
     dplyr::bind_rows(lapply(databases, "[[", name)) %>% dplyr::distinct()
