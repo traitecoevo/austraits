@@ -56,6 +56,10 @@ You can check out different versions of AusTraits and their associated DOI by us
 get_versions(path = "data/austraits")
 ```
 
+```{r, include = FALSE}
+get_versions(path = path)
+```
+
 AusTraits, like all traits.build databases, is a relational database. In R, it is a very *large* list with multiple tables. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
 
 ```{r}
@@ -178,11 +182,11 @@ seedling_data <- extract_data(austraits$traits,
                           col =  "life_stage", 
                           col_value = "seedling")
 
-Falster_data <- extract_data(trait_table,
+Falster_data <- extract_data(austraits$traits,
                           col =  "dataset_id", 
                           col_value = "Falster")
 
-leaf_data <- extract_trait(trait_table, 
+leaf_data <- extract_trait(austraits$traits, 
                           c("leaf_area", "leaf_N_per_dry_mass"))
 ```
 
