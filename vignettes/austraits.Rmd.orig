@@ -25,6 +25,8 @@ library(austraits)
 
 path = "ignore/data/austraits/"
 austraits <- load_austraits(version = "6.0.0", path = path)
+
+# knitr::knit("vignettes/austraits.Rmd.orig", "vignettes/austraits.Rmd")
 ```
 
 `austraits` allow users to **access, explore and wrangle data** from [traits.build](https://github.com/traitecoevo/traits.build) relational databases. It is also an R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. Below, we've include a tutorial using the AusTraits database to illustrate how some these functions work together to generate useful outputs.

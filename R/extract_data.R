@@ -232,11 +232,11 @@ extract_data <- function(database, table = NA, col, col_value) {
     # Reorder list to match database
     ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
                  "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
-      
-    # Assign class
-    attr(data, "class") <- "traits.build"
 
   }
+  
+  # Assign class
+  attr(data, "class") <- "traits.build"
   
   ret
     
