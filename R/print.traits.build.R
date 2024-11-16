@@ -5,7 +5,7 @@
 #' @param \dots passed to print
 #'
 #' @return nicely printed table
-#' @export
+#' @keywords internal
 
 print.traits.build <- function(x, ...){
 

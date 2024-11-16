@@ -8,7 +8,8 @@ development:
   mode: release
 
 template:
-  bootswatch: cerulean
+  bootswatch: litera
+  bootstrap: 5
   
 reference:
 - title: Accessing and exploring the database
