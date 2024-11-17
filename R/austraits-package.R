@@ -35,6 +35,7 @@ utils::globalVariables(c(
   "context_property",
   "contributor",
   "data",
+  "database",
   "dataset_id",
   "data_contributors",
   "identifier",

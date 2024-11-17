@@ -10,7 +10,7 @@
 #' @param table Table within a traits.build database
 #' @param col Column name within the specified table.
 #' @param col_value Value (of column, from with a table) that is used to subset database. This can be a single value or a vector. It includes partial string matches. 
-#'
+#' @importFrom rlang :=
 #' @return subset traits.build database
 #' @export
 #'
@@ -232,14 +232,13 @@ extract_data <- function(database, table = NA, col, col_value) {
     # Reorder list to match database
     ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
                  "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
-      
-    # Assign class
-    attr(data, "class") <- "traits.build"
 
   }
   
+  # Assign class
+  attr(ret, "class") <- "traits.build"
+  
   ret
-    
 }
 
 

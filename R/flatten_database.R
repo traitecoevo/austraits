@@ -50,4 +50,6 @@ flatten_database <- function(database,
     join_taxonomic_updates(vars = vars$taxonomic_updates)
   
   combined_table <- combined_table_relational$traits
+  
+  return(combined_table)
 }

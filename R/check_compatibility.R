@@ -5,6 +5,7 @@
 #' @param single_table_allowed logical for when the input might be a single table instead of a complete database; defaults to FALSE
 #'
 #' @return logical (T/F) output and messaging for uncompatible versions
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
@@ -53,7 +54,7 @@ check_compatibility <- function(database, single_table_allowed = FALSE) {
 #' Check compatibility of traits table
 #'
 #' @param trait_data the traits table in a traits.build database
-#'
+#' @keywords internal
 #' @return logical, TRUE indicating version traits table came from traits.build version > 1.0
 
 check_traits_compatibility <- function(trait_data){

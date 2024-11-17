@@ -43,6 +43,7 @@ doc/*.html
 # R Environment Variables
 .Renviron
 inst/doc
+inst/cheatsheet/
 /doc/
 /docs/
 /Meta/
