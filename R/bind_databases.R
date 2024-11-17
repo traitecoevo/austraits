@@ -4,7 +4,7 @@
 #' database object as a large list.
 #'
 #' @param ... Arguments passed to other functions
-#' @param database_1 List of traits.build databases to bind together
+#' @param databases List of traits.build databases to be bond together
 #'
 #' @return Compiled database as a single large list
 #' @importFrom rlang .data

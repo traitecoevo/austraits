@@ -4,12 +4,12 @@
 \alias{bind_databases}
 \title{Bind multiple traits.build data objects into a single data object}
 \usage{
-bind_databases(database_1, ...)
+bind_databases(..., databases = list(...))
 }
 \arguments{
-\item{database_1}{List of traits.build databases to bind together}
-
 \item{...}{Arguments passed to other functions}
+
+\item{databases}{List of traits.build databases to be bond together}
 }
 \value{
 Compiled database as a single large list

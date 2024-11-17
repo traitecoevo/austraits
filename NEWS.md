@@ -1,4 +1,4 @@
-# austraits 3.0.0.9000
+# austraits 3.0.0
 - Updated dependencies, placing graphics related packages in Suggests
 - Added internal function to check the compatibility of databases
 - Added internal function notify users that some database versions will not be supported

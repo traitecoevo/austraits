@@ -1,6 +1,6 @@
 Package: austraits
-Title: Helpful functions to access, summarise and wrangle austraits data
-Version: 3.0.0.9000
+Title: Helpful functions to access the AusTraits database and wrangle data from other traits.build databases
+Version: 3.0.0
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
@@ -21,7 +21,7 @@ Authors@R:
              family = "Indiarto",
              role = c("aut"),
              comment = c(ORCID = "0000-0001-9546-8201")))
-Description: austraits is a package for accessing, summarising and wrangling austraits data. The package allows users to explore the scope and type of data available, as well as subset and wrangle relevant specific data for furture research. This package is still under development. See README and vignette('austraits') for further information.
+Description: `austraits` allow users to **access, explore and wrangle data** from traits.build relational databases. It is also an R interface to AusTraits, the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. We expect this package will assist users in working with `traits.build` databases.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en
