@@ -8,7 +8,6 @@ combined_table <- flatten_database(database)
 # Crous_2013 has many context properties, from 4 of 5 possible categories
 dataset_id_2 <- "Crous_2013"
 database_2 <- extract_dataset(austraits_5.0.0_lite, dataset_id_2)
-combined_table_2 <- flatten_database(database_2)
 
 #expected_output <- readr::read_csv("tests/testthat/Falster_2003_combined_format.csv", show_col_types = FALSE)
 expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_types = FALSE)
@@ -20,6 +19,27 @@ test_that("`flatten_database` is working with format = single_column_pretty", {
     expect_true(stringr::str_detect(combined_table$location_properties[1], "=="))
     expect_true(stringr::str_detect(combined_table$data_contributors[1], "<"))
 })
+
+database_3 <- extract_dataset(austraits_5.0.0_lite, "Bloomfield_2018")
+combined_table_3a <- flatten_database(database_3, format = "single_column_pretty")
+combined_table_3b <- flatten_database(database_3, format = "many_columns")
+
+test_that("`flatten_database` defaults to `single_column_pretty` for contributors", {
+  expect_equal(combined_table_3a$data_contributors, combined_table_3b$data_contributors)
+})
+
+# test that join_location_coordinates works as intended
+
+database_no_coord <- austraits_5.0.0_lite %>% extract_dataset("Kooyman_2011")
+
+test_that("`join_location_coordinate` works as intended", {
+  
+expect_contains(names(combined_table), c("latitude (deg)", "longitude (deg)")) # proper columns present in full combined table
+expect_contains(names(join_location_coordinates(database)$traits), c("latitude (deg)", "longitude (deg)"))  # proper columns present when just `join_location_coordinate` used
+expect_contains(names(join_location_coordinates(database_no_coord)$traits), c("latitude (deg)", "longitude (deg)"))  # proper columns present if dataset without location coordinates is used
+                
+})
+
 
 # test different packing formats for locations
 
@@ -51,12 +71,14 @@ test_that("`join_locations` is working with different formats, vars", {
 contributors_no_ORCID <- (database %>% join_contributors(vars = c("affiliation", "additional_role")))$traits
 contributors_with_ORCID <- (database %>% join_contributors(vars = "all"))$traits
 contributors_default <- (database %>% join_contributors())$traits
+contributors_json <- (database %>% join_contributors(format = "single_column_json"))$traits
 
 test_that("`join_contributors` is working with vars options", {
   expect_equal(length(contributors_no_ORCID), length(contributors_default))
   expect_equal(contributors_with_ORCID, contributors_default)
   expect_true(stringr::str_detect(contributors_with_ORCID$data_contributors[3], "ORCID"))
   expect_false(stringr::str_detect(contributors_no_ORCID$data_contributors[3], "ORCID"))
+  expect_equal(stringr::str_extract(contributors_json$data_contributors[[1]], "^[:punct:]+"), "[{\"")
 })
 
 # test different packing formats & `include_description` for contexts

@@ -280,7 +280,7 @@ join_contributors <- function(database,
 
     compacted_contributors_column <-
       contributors_tmp %>% 
-      tidyr::nest(-dplyr::all_of("dataset_id")) %>%
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id"))) %>%
       dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) %>%
       dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
