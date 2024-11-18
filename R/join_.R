@@ -284,6 +284,8 @@ join_contributors <- function(database,
       dplyr::mutate(data_contributors = purrr::map_chr(data, jsonlite::toJSON)) %>%
       dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
+  } else {
+    stop("format not supported: ", format)
   }
 
   database$traits <- database$traits %>%
@@ -392,6 +394,8 @@ join_location_properties <- function(database,
     database$traits <- database$traits %>%
       dplyr::left_join(by = join_vars, compacted_locations_column)
 
+  } else {
+    stop("format not supported: ", format)
   }
 
   database
