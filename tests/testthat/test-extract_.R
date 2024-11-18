@@ -17,6 +17,8 @@ test_extract_error <- function(austraits){
     expect_error(austraits %>% extract_taxa())
     expect_error(austraits %>% extract_dataset())
     expect_error(austraits %>% extract_trait())
+    expect_error(austraits_3.0.2_lite %>% extract_data())
+    expect_error(austraits_4.2.0_lite %>% extract_data())
   })
 }
 
@@ -186,6 +188,11 @@ test_that("Extraction of dataset was successful", {
   # this isn't an exact match, because the matches use partial string matches and for this example, both `leaf_area` and `leaf_area_ratio` being matched
   expect_match(trait_name, unique(trait_subset$traits$trait_name))
   expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name))
+})
+
+test_that("Expect error if taxon_name column missing", {
+  traits_without_taxon_name <- database$traits %>% dplyr::select(-taxon_name)
+  expect_error((traits_without_taxon_name %>% extract_trait("leaf_area"))$traits)
 })
 
 test_that("Extraction of dataset was successful using `extract_data`", {
