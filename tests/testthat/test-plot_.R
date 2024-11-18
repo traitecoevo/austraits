@@ -35,6 +35,8 @@ test_that("Function throws error", {
   expect_error(austraits_5.0.0_lite$traits |> plot_locations())
   expect_error(austraits_3.0.2_lite$traits |> plot_site_locations())
   expect_error(austraits_3.0.2_lite |> plot_site_locations())
+  expect_error(austraits_3.0.2_lite |> plot_trait_distribution_beeswarm())
+  expect_error(austraits_5.0.0_lite |> plot_trait_distribution_beeswarm("branch_mass_fraction", y_axis_category = "location_property"))
 }) 
 
 
