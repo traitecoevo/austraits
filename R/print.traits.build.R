@@ -3,9 +3,8 @@
 #' @name print.traits.build
 #' @param x traits.build database
 #' @param \dots passed to print
-#'
+#' @export
 #' @return nicely printed table
-#' @keywords internal
 
 print.traits.build <- function(x, ...){
 
@@ -14,7 +13,6 @@ print.traits.build <- function(x, ...){
   nrecords <- nrow(x$traits)
   nspecies <- unique(x$traits$taxon_name) %>% length()
   ntraits <- unique(x$traits$trait_name) %>% length()
-
   
   if(check_compatibility(x)){
     database_name <- x$metadata$title

@@ -64,7 +64,7 @@ plot_trait_distribution_beeswarm <- function(database,
   
   # Define grouping variables and derivatives
   if(!y_axis_category %in% names(data)) {
-    stop("Incorrect grouping variable! Grouping variable must be a variable in or joined to the traits table. Family and genus are supported if your input is a complete traits.build database.")
+    cli::cli_abort("Incorrect grouping variable! Grouping variable must be a variable in or joined to the traits table. Family and genus are supported if your input is a complete traits.build database.")
   }
   
   # define grouping variable, ordered by group-level by mean values
