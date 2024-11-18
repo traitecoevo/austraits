@@ -17,4 +17,3 @@ nicely printed table
 \description{
 Generic for outputting a nice summary for austraits objects
 }
-\keyword{internal}
