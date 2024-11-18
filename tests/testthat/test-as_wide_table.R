@@ -24,5 +24,5 @@ test_that("function `collapse_cols` works", {
     data <- (austraits_5.0.0_lite %>% extract_dataset("Bloomfield_2018"))$locations
     data_collapsed <- (data %>% collapse_cols())[[1]]
     expect_equal(stringr::str_count(data_collapsed, "="), 5)
-    expect_equal(str_count(data_collapsed, "; "), 4)
+    expect_equal(stringr::str_count(data_collapsed, "; "), 4)
 })
