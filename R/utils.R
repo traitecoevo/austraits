@@ -127,6 +127,17 @@ clean_NA <- function(x) {
   ifelse(x == "NA", NA_character_, x)
 }
 
+#' Print version of AusTraits object
+#'
+#' @param database traits.build database (list object)
+#' @return binary version for switch statements
+#' @noRd
+#' @keywords internal
+#' 
+print_version <- function(database){
+  database$build_info$version %>% as.character()
+}
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
