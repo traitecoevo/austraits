@@ -100,6 +100,10 @@ remotes::install_github("traitecoevo/austraits",
 vignette("austraits")
 ```
 
+### Cheat sheet
+
+<a href="https://github.com/traitecoevo/austraits/tree/develop/inst/cheatsheet/austraits-cheatsheet.pdf"><img src="man/figures/austraits-cheatsheet.png" width="60%"/></a>
+
 ### Learn more about AusTraits
 
 AusTraits is a relational database, you can learn more about it’s
@@ -135,7 +139,7 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🔧
+### Behind the scenes 🛠
 
 Check out
 [austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file),
