@@ -41,3 +41,12 @@ test_that("variables are added", {
   expect_true(any(names(join_taxa(austraits_5.0.0_lite)$traits) %in%c("family", "genus")))
   expect_true(any(names(join_methods(austraits_5.0.0_lite)$traits) %in%c("methods")))
 })
+
+test_that("fails appropriately", {
+  expect_error(join_context_properties(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_location_coordinates(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_location_properties(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_taxa(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_contributors(austraits_5.0.0_lite, format = "bad"))
+  
+  })

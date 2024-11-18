@@ -43,8 +43,8 @@ test_that("Function runs", {
 
 
 test_that("extracted dataset has some structure as austraits build", {
-  subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id)
-  trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name)
+  expect_no_error(subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id))
+  expect_no_error(trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
   
   expect_s3_class(austraits_5.0.0_lite, "austraits")
   expect_equal(length(subset), length(austraits_5.0.0_lite))
@@ -57,23 +57,23 @@ test_that("extracted dataset has some structure as austraits build", {
   expect_type(austraits_5.0.0_lite %>% extract_taxa(family = family), "list")
   expect_type(austraits_5.0.0_lite %>% extract_taxa(genus = genus), "list")           
   
-  test_genus <- austraits_5.0.0_lite %>% extract_taxa(genus = genus)
+  expect_no_error(test_genus <- austraits_5.0.0_lite %>% extract_taxa(genus = genus))
   expect_equal(test_genus$taxa$genus %>% unique(), genus)
   expect_equal(stringr::word(test_genus$taxa$taxon_name, 1)[1], genus)
   expect_equal(stringr::word(test_genus$traits$taxon_name, 1)[1], genus)
   
-  test_fam <- austraits_5.0.0_lite %>% extract_taxa(family = family)
+  expect_no_error(test_fam <- austraits_5.0.0_lite %>% extract_taxa(family = family))
   expect_equal(test_fam$taxa$family %>% unique(), family)
 })
 
 test_that("extracts using generalised extract function behaves as expected - extracting by dataset_id", {
   
-  subset_by_dataset_id <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id)
+  expect_no_error(subset_by_dataset_id <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id))
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id))
   expect_equal(nrow(subset_by_dataset_id$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Falster_2003")))
   expect_equal(nrow(subset_by_dataset_id$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Falster_2003")))
   
-  subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2)
+  expect_no_error(subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2))
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id2))
   expect_equal(nrow(subset_by_dataset_id2$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Cernusak_2006")))
   expect_equal(nrow(subset_by_dataset_id2$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Cernusak_2006")))
@@ -81,7 +81,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_equal(nrow(subset_by_dataset_id2$contributors), nrow(austraits_5.0.0_lite$contributors %>% dplyr::filter(dataset_id == "Cernusak_2006")))
   expect_equal(names(subset_by_dataset_id2), names(austraits_5.0.0_lite))
   
-  subset_by_dataset_id3 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id3)
+  expect_no_error(subset_by_dataset_id3 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id3))
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id3))
   expect_equal(nrow(subset_by_dataset_id3$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Wright_2019")))
   expect_equal(nrow(subset_by_dataset_id3$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Wright_2019")))
@@ -92,12 +92,12 @@ test_that("extracts using generalised extract function behaves as expected - ext
 
 
 test_that("that you can link two calls of `extract_data` together", {
-  subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2)
+  expect_no_error(subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2))
   expect_no_error(extract_data(database = subset_by_dataset_id2, table = "traits", col = "trait_name", col_value = "leaf_mass_per_area"))
   
-  subset_by_dataset_id3 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "trait_name", col_value = "leaf_mass_per_area")
+  expect_no_error(subset_by_dataset_id3 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "trait_name", col_value = "leaf_mass_per_area"))
   expect_no_error(extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
-  subset_by_dataset_id_and_context <- extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age")
+  expect_no_error(subset_by_dataset_id_and_context <- extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
   expect_gt(nrow(subset_by_dataset_id3$contexts), nrow(subset_by_dataset_id_and_context$contexts))
   })
   
@@ -105,8 +105,8 @@ test_that("extracts using generalised extract function behaves as expected - ext
   
   life_stage_test <- "sapling"
   
-  subset_by_age_class <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "life_stage", col_value = life_stage_test)
-  datasets_in_subset <- subset_by_age_class$traits %>% dplyr::distinct(dataset_id)
+  expect_no_error(subset_by_age_class <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "life_stage", col_value = life_stage_test))
+  expect_no_error(datasets_in_subset <- subset_by_age_class$traits %>% dplyr::distinct(dataset_id))
   
   expect_lt(nrow(subset_by_age_class$locations), nrow(austraits_5.0.0_lite$locations))
   expect_lt(nrow(subset_by_age_class$contexts), nrow(austraits_5.0.0_lite$contexts))
@@ -119,8 +119,8 @@ test_that("extracts using generalised extract function behaves as expected - ext
   
   location_property_test <- "temperature"
   
-  subset_by_location_property <- extract_data(database = austraits_5.0.0_lite, table = "locations", col = "location_property", col_value = location_property_test)
-  datasets_in_subset <- subset_by_location_property$locations %>% dplyr::distinct(dataset_id)
+  expect_no_error(subset_by_location_property <- extract_data(database = austraits_5.0.0_lite, table = "locations", col = "location_property", col_value = location_property_test))
+  expect_no_error(datasets_in_subset <- subset_by_location_property$locations %>% dplyr::distinct(dataset_id))
   
   expect_lt(nrow(subset_by_location_property$traits), nrow(austraits_5.0.0_lite$traits))
   expect_lt(nrow(subset_by_location_property$locations), nrow(austraits_5.0.0_lite$locations))
@@ -151,10 +151,10 @@ test_that("extracts using generalised extract function behaves as expected - ext
   
   context_property_test <- "fire"
   
-  subset_by_context_property <- extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test)
+  expect_no_error(subset_by_context_property <- extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test))
 
-  datasets_in_subset <- subset_by_context_property$contexts %>% dplyr::distinct(dataset_id)
-  subset_using_filter <- austraits_5.0.0_lite$contexts %>% dplyr::filter(stringr::str_detect(context_property, context_property_test))
+  expect_no_error(datasets_in_subset <- subset_by_context_property$contexts %>% dplyr::distinct(dataset_id))
+  expect_no_error(subset_using_filter <- austraits_5.0.0_lite$contexts %>% dplyr::filter(stringr::str_detect(context_property, context_property_test)))
   
   expect_lt(nrow(subset_by_context_property$traits), nrow(austraits_5.0.0_lite$traits))
   expect_lt(nrow(subset_by_context_property$locations), nrow(austraits_5.0.0_lite$locations))
@@ -181,24 +181,29 @@ test_that("extracts using generalised extract function behaves as expected - ext
 })  
 
 test_that("Extraction of dataset was successful", {
-  subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id)
-  trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name)
+  expect_no_error(subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id))
+  expect_no_error(trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
   expect_match(dataset_id, unique(subset$traits$dataset_id))
   expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
   # this isn't an exact match, because the matches use partial string matches and for this example, both `leaf_area` and `leaf_area_ratio` being matched
   expect_match(trait_name, unique(trait_subset$traits$trait_name))
   expect_equal(1, dplyr::n_distinct(trait_subset$traits$trait_name))
+  # Works when taxon names also supplied
+  taxa <- c("Acacia floribunda", "Acacia myrtifolia", "Acacia suaveolens")
+  expect_no_error(subset2 <- extract_trait(subset, trait_names = "leaf_area", taxon_name = taxa))
+  expect_equal(subset2$traits$taxon_name |> unique() |> sort(), taxa)
+  expect_equal(subset2$traits$trait_name |> unique(), "leaf_area")
 })
 
 test_that("Expect error if taxon_name column missing", {
-  traits_without_taxon_name <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id)
+  expect_no_error(traits_without_taxon_name <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id))
   traits_without_taxon_name$traits <- traits_without_taxon_name$traits %>% dplyr::select(-taxon_name)
   expect_error((traits_without_taxon_name %>% extract_trait("leaf_area"))$traits)
 })
 
 test_that("Extraction of dataset was successful using `extract_data`", {
-  subset <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id)
-  trait_subset <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "trait_name", col_value = trait_name)
+  expect_no_error(subset <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id))
+  expect_no_error(trait_subset <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "trait_name", col_value = trait_name))
   expect_match(dataset_id, unique(subset$traits$dataset_id))
   expect_equal(dplyr::n_distinct(subset$traits$dataset_id), 1)
   expect_contains(unique(trait_subset$traits$trait_name), trait_name)
@@ -215,7 +220,7 @@ test_that("Extract function works when just traits table is read in", {
   expect_equal(length(extract_taxa(database = austraits_5.0.0_lite$traits, genus = "Banksia")), 26)
   expect_silent(extract_trait(database = austraits_5.0.0_lite$traits, trait_name = "photosyn"))  
   expect_equal(length(extract_trait(database = austraits_5.0.0_lite$traits, trait_name = "photosyn")), 26)
-  join_then_extract <- (austraits_5.0.0_lite %>% join_location_coordinates())$traits
+  expect_silent(join_then_extract <- (austraits_5.0.0_lite %>% join_location_coordinates())$traits)
   expect_silent(extract_data(database = join_then_extract, col = "dataset_id", col_value = dataset_id))
   expect_silent(extract_data(database = join_then_extract, col = "longitude (deg)", col_value = "145"))
 })
