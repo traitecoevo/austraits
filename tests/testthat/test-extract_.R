@@ -182,6 +182,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
 
 test_that("Extraction of dataset was successful", {
   expect_no_error(subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id))
+  test_database_structure(subset, dataset_id = dataset_id)
   expect_no_error(trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
   expect_match(dataset_id, unique(subset$traits$dataset_id))
   expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
