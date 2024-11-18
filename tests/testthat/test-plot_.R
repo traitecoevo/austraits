@@ -23,13 +23,20 @@ test_non_compatibile <- function(austraits){
     
     expect_error(austraits %>% 
                    extract_dataset("Falster_2003") %>% 
-                   purrr::pluck("traits") %>% plot_lplot_site_locationsocations()
+                   purrr::pluck("traits") %>% plot_site_locations()
     )
   })
 }
 
 purrr::walk(not_supported_austraits,
             test_non_compatibile)
+
+test_that("Function throws error", {
+  expect_error(austraits_5.0.0_lite$traits |> plot_locations())
+  expect_error(austraits_3.0.2_lite$traits |> plot_site_locations())
+  expect_error(austraits_3.0.2_lite |> plot_site_locations())
+}) 
+
 
 # Tear down code
 unlink("Rplots.pdf")

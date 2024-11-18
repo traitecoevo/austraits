@@ -115,7 +115,7 @@ plot_site_locations <- function(trait_data, feature="trait_name", ...){
   # Determine if traits table or traits.build object
   if( is.null(dim(trait_data))){
     # Extract AusTraits version
-    AusTraits_version <- print_version(database)
+    AusTraits_version <- print_version(trait_data)
   } else
     AusTraits_version <- "< 5.0.0"
   
