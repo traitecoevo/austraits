@@ -191,7 +191,8 @@ test_that("Extraction of dataset was successful", {
 })
 
 test_that("Expect error if taxon_name column missing", {
-  traits_without_taxon_name <- database$traits %>% dplyr::select(-taxon_name)
+  traits_without_taxon_name <- database
+  traits_without_taxon_name$traits <- database$traits %>% dplyr::select(-taxon_name)
   expect_error((traits_without_taxon_name %>% extract_trait("leaf_area"))$traits)
 })
 
