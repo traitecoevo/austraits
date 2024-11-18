@@ -102,7 +102,7 @@ vignette("austraits")
 
 ### Cheat sheet
 
-<a href="https://github.com/traitecoevo/austraits/tree/develop/inst/cheatsheet/austraits-cheatsheet.pdf"><img src="man/figures/austraits-cheatsheet.png" width="60%"/></a>
+<a href="https://github.com/traitecoevo/austraits/tree/master/inst/cheatsheet/austraits-cheatsheet.pdf"><img src="man/figures/austraits-cheatsheet.png" width="60%"/></a>
 
 ### Learn more about AusTraits
 
