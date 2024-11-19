@@ -1,6 +1,8 @@
 not_supported_austraits <- list(austraits_3.0.2_lite,
                                 austraits_4.2.0_lite)
 
+class(austraits_5.0.0_lite) <- c("traits.build")
+
 test_join_error <- function(austraits){
   test_that("old versions will complain", {
     expect_error(join_location_coordinates(austraits))
@@ -28,6 +30,12 @@ test_that("structure doesn't change", {
   expect_type(join_context_properties(austraits_5.0.0_lite), "list")
   expect_type(join_taxa(austraits_5.0.0_lite), "list")
   expect_type(join_taxonomic_updates(austraits_5.0.0_lite), "list")
+  expect_no_error(database_with_coordinates <- join_location_coordinates(austraits_5.0.0_lite))
+  test_database_structure(database = database_with_coordinates)
+  expect_no_error(database_with_methods <- join_methods(austraits_5.0.0_lite))
+  test_database_structure(database = database_with_methods)
+  expect_no_error(database_with_contexts <- join_context_properties(austraits_5.0.0_lite))
+  test_database_structure(database = database_with_contexts)
 })
 
 test_that("variables are added", {

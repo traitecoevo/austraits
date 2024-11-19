@@ -64,7 +64,7 @@ bind_databases <- function(..., databases = list(...)) {
               build_info = list(session_info = utils::sessionInfo())
   )
   
-  class(ret) <- c("list", "traits.build")
+  class(ret) <- c("traits.build")
   
   ret
 }

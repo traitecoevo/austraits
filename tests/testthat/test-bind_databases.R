@@ -4,9 +4,11 @@ fire <- austraits_5.0.0_lite %>% extract_data(table = "contexts", col = "context
 season <- austraits_5.0.0_lite %>% extract_data(table = "contexts", col = "context_property", col_value = "season")
 
 test_that("Function runs", {
+  expect_no_error(bound_Banksia <- bind_databases(Banksia_1, Banksia_2))
   expect_silent(bind_databases(Banksia_1))
   expect_silent(bind_databases(Banksia_1, Banksia_2))
   expect_silent(bind_databases(fire, season))
+  test_database_structure(database = bound_Banksia)
 }
 )
 

@@ -7,7 +7,7 @@ test_database_structure <- function(database, taxa = NA, dataset_id = NA, n_row 
   
   expect_type(database, "list")
   # should this be "traits.build or austraits??
-  expect_equal(class(database), "austraits")
+  #expect_equal(class(database), "austraits")
   expect_equal(class(database), "traits.build")
   
   expect_equal(names(database), table_names)

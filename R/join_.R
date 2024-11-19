@@ -51,7 +51,7 @@ join_location_coordinates <- function(database) {
         `longitude (deg)` = NA_character_,
       )
   }
-
+  
   database
 }
 
