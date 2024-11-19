@@ -45,8 +45,9 @@ test_that("Function runs", {
 test_that("extracted dataset has some structure as austraits build", {
   expect_no_error(subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id))
   expect_no_error(trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
+  test_database_structure(subset, dataset_id = dataset_id)
   
-  expect_s3_class(austraits_5.0.0_lite, "austraits")
+  expect_s3_class(austraits_5.0.0_lite, "traits.build")
   expect_equal(length(subset), length(austraits_5.0.0_lite))
   expect_equal(sort(names(subset)), sort(names(austraits_5.0.0_lite)))
   
@@ -61,6 +62,7 @@ test_that("extracted dataset has some structure as austraits build", {
   expect_equal(test_genus$taxa$genus %>% unique(), genus)
   expect_equal(stringr::word(test_genus$taxa$taxon_name, 1)[1], genus)
   expect_equal(stringr::word(test_genus$traits$taxon_name, 1)[1], genus)
+  test_database_structure(test_genus)
   
   expect_no_error(test_fam <- austraits_5.0.0_lite %>% extract_taxa(family = family))
   expect_equal(test_fam$taxa$family %>% unique(), family)
@@ -72,6 +74,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id))
   expect_equal(nrow(subset_by_dataset_id$locations), nrow(austraits_5.0.0_lite$locations %>% dplyr::filter(dataset_id == "Falster_2003")))
   expect_equal(nrow(subset_by_dataset_id$contexts), nrow(austraits_5.0.0_lite$contexts %>% dplyr::filter(dataset_id == "Falster_2003")))
+  test_database_structure(subset_by_dataset_id, dataset_id = dataset_id)
   
   expect_no_error(subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2))
   expect_equal(length(austraits_5.0.0_lite), length(subset_by_dataset_id2))
@@ -88,12 +91,14 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_equal(nrow(subset_by_dataset_id3$methods), nrow(austraits_5.0.0_lite$methods %>% dplyr::filter(dataset_id == "Wright_2019")))
   expect_equal(nrow(subset_by_dataset_id3$contributors), nrow(austraits_5.0.0_lite$contributors %>% dplyr::filter(dataset_id == "Wright_2019")))
   expect_equal(names(subset_by_dataset_id3), names(austraits_5.0.0_lite))
+  test_database_structure(subset_by_dataset_id3, dataset_id = dataset_id3)
   })
 
 
 test_that("that you can link two calls of `extract_data` together", {
   expect_no_error(subset_by_dataset_id2 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = dataset_id2))
   expect_no_error(extract_data(database = subset_by_dataset_id2, table = "traits", col = "trait_name", col_value = "leaf_mass_per_area"))
+  test_database_structure(subset_by_dataset_id2, dataset_id = dataset_id2)
   
   expect_no_error(subset_by_dataset_id3 <- extract_data(database = austraits_5.0.0_lite, table = "traits", col = "trait_name", col_value = "leaf_mass_per_area"))
   expect_no_error(extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
@@ -167,8 +172,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
   expect_contains(subset_by_context_property$traits$dataset_id, datasets_in_subset$dataset_id)
   # however contexts will only be a subset of dataset_ids, so only 1 direction is true
   expect_contains(datasets_in_subset$dataset_id, subset_by_context_property$locations$dataset_id)
-  # can't work out a way to make this run, but for locations, not all datasets will be represented
-  # expect_error(subset_by_context_property$locations$dataset_id, datasets_in_subset$dataset_id)
+  expect_contains(datasets_in_subset$dataset_id, unique(subset_by_context_property$locations$dataset_id))
   expect_equal(names(subset_by_context_property), names(austraits_5.0.0_lite))
   
   # this should be true, because the proper extract function also retains other context property data linked to the same observation
@@ -182,6 +186,7 @@ test_that("extracts using generalised extract function behaves as expected - ext
 
 test_that("Extraction of dataset was successful", {
   expect_no_error(subset <- extract_dataset(austraits_5.0.0_lite, dataset_id = dataset_id))
+  test_database_structure(subset, dataset_id = dataset_id)
   expect_no_error(trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
   expect_match(dataset_id, unique(subset$traits$dataset_id))
   expect_equal(1, dplyr::n_distinct(subset$traits$dataset_id))
@@ -224,3 +229,4 @@ test_that("Extract function works when just traits table is read in", {
   expect_silent(extract_data(database = join_then_extract, col = "dataset_id", col_value = dataset_id))
   expect_silent(extract_data(database = join_then_extract, col = "longitude (deg)", col_value = "145"))
 })
+
