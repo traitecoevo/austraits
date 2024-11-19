@@ -62,7 +62,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   version_name <- paste0("v", version)
   
   # Getting specific version
-  id <- ret[which(ret$version == version), "id"] |> as.character()
+  id <- ret[which(ret$version == version), "id"] %>% as.character()
   
   target <- res$hits$hits$files[[version_name]]
   
@@ -82,7 +82,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   data <- readRDS(file_nm) 
   
   # Assign class
-  attr(data, "class") <- "austraits"
+  attr(data, "class") <- "traits.build"
   
   data
 }
@@ -90,7 +90,8 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
 
 #' Load the austraits.json
 #'
-#' @inheritParams load_austraits
+#' @noRd
+#' @keywords internal
 
 load_json <- function(path, update){
   # Set the directory path to json
@@ -113,19 +114,21 @@ load_json <- function(path, update){
 #'
 #' @param res output of austraits.json
 #' @return dataframe of metadata (date of release, doi and version)
+#' @noRd
+#' @keywords internal
 
 create_metadata <- function(res){
   # Version table
-  ret <- res$hits$hits$metadata |> 
-    select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
-    dplyr::mutate(version = gsub("v", "", version) |> numeric_version(),
+  ret <- res$hits$hits$metadata %>% 
+    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) %>%  
+    dplyr::mutate(version = gsub("v", "", version) %>% numeric_version(),
                   id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
-                  )|>  # set as numeric version for easier filtering
-    dplyr::filter(version >= "3.0.2") |> # exclude everything pre 3.0.2
+                  )%>%  # set as numeric version for easier filtering
+    dplyr::filter(version >= "3.0.2") %>% # exclude everything pre 3.0.2
     dplyr::mutate(version = as.character(version),
-                  publication_date = lubridate::ymd(publication_date)) |>  # change back as character
-    dplyr::tibble() |> 
-    arrange(dplyr::desc(publication_date))
+                  publication_date = lubridate::ymd(publication_date)) %>%  # change back as character
+    dplyr::tibble() %>% 
+    dplyr::arrange(dplyr::desc(publication_date))
 
   ret
 }
@@ -135,6 +138,8 @@ create_metadata <- function(res){
 #' @param url url of download via Zenodo API
 #' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
 #' @param path file path to where AusTraits will be downloaded
+#' @noRd
+#' @keywords internal
 
 download_austraits <- function(url, filename, path) {
   # Get user timeout option
@@ -223,10 +228,10 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   metadata <- create_metadata(res) 
   
   # Sort old to new
-  metadata <- metadata |> 
+  metadata <- metadata %>% 
   dplyr::arrange(dplyr::desc(publication_date))
   
   # Grab the first version
-  dplyr::first(metadata$version) |> as.character()
+  dplyr::first(metadata$version) %>% as.character()
 }
 

@@ -8,39 +8,52 @@ development:
   mode: release
 
 template:
-  bootswatch: cerulean
+  bootswatch: litera
+  bootstrap: 5
   
 reference:
-- title: Accessing and exploring AusTraits
+- title: Accessing and exploring the database
 - contents:
-  - starts_with("load")
-  - download_austraits
+  - load_austraits
   - starts_with("get_")
-  - summarise_austraits
-  - lookup_trait
-  - print.austraits
-  - create_metadata
-- title: Wrangling AusTraits
-  desc: Functions to extract, pivot and join data
+  - summarise_database
+  - starts_with("lookup_")
+
+- title: Filter from the database
 - contents:
   - starts_with("extract")
+  
+- title: Join data to traits table
+- contents:  
+  - starts_with("join")
+  
+- title: Reshape traits table
+- contents:  
   - starts_with("trait_pivot")
-  - summarise_trait_means
   - starts_with("join")
   - ends_with("trait_values")
-  - as_wide_table
+  
+- title: Reshape database(s)
+- contents:  
+  -  as_wide_table
+  - flatten_database
+  - bind_databases
+  
 - title: Quick data visualisations
   desc: Plot site or variance distributions
 - contents:
   - starts_with("plot")
+  
+- title: Helpful functions
+- contents:
+  - starts_with("convert")
+  - print.traits.build
   
 navbar:
   structure:
     left:
     - home
     - intro
-    - structure
-    - traits
     - reference
     - news
     right: [search, github]
@@ -49,19 +62,14 @@ navbar:
       icon: fas fa-home fa-lg
       href: index.html
     reference:
-      text: Functions glossary
+      text: Reference
       href: reference/index.html
     intro:
-      text: Tutorial
+      text: Get Started
       href: articles/austraits.html
-    structure:
-      text: Structure of AusTraits
-      href: articles/structure.html
-    traits:
-      text: Trait definitions
-      href: articles/dictionary.html
+
     news:
-      text: What's new?
+      text: News
       href: news/index.html
     github:
       icon: fab fa-github fa-lg
