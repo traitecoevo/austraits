@@ -47,7 +47,7 @@ test_that("extracted dataset has some structure as austraits build", {
   expect_no_error(trait_subset <- extract_trait(austraits_5.0.0_lite, trait_names = trait_name))
   test_database_structure(subset, dataset_id = dataset_id)
   
-  expect_s3_class(austraits_5.0.0_lite, "austraits")
+  expect_s3_class(austraits_5.0.0_lite, "traits.build")
   expect_equal(length(subset), length(austraits_5.0.0_lite))
   expect_equal(sort(names(subset)), sort(names(austraits_5.0.0_lite)))
   

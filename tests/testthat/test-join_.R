@@ -1,8 +1,6 @@
 not_supported_austraits <- list(austraits_3.0.2_lite,
                                 austraits_4.2.0_lite)
 
-class(austraits_5.0.0_lite) <- c("traits.build")
-
 test_join_error <- function(austraits){
   test_that("old versions will complain", {
     expect_error(join_location_coordinates(austraits))
