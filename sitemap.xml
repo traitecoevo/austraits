@@ -1,108 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/404.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/articles/austraits.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/articles/dictionary.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/articles/structure.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/index.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/as_wide_table.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/austraits-package.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/bind_trait_values.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/create_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/download_austraits.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/extract_dataset.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/extract_taxa.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/extract_trait.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/get_version_latest.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/get_versions.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/join_all.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/join_sites.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/load_austraits.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/load_json.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/lookup_trait.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/plot_locations.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/plot_site_locations.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/plot_trait_distribution_beeswarm.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/print.austraits.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/separate_trait_values.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/summarise_austraits.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/summarise_trait_means.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/trait_pivot_longer.html</loc>
-  </url>
-  <url>
-    <loc>https://traitecoevo.github.io/austraits/reference/trait_pivot_wider.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://traitecoevo.github.io/austraits/404.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/LICENSE-text.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/articles/austraits.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/articles/index.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/authors.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/index.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/news/index.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/as_wide_table.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/austraits-package.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/bind_databases.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/bind_trait_values.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/check_compatibility.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/check_traits_compatibility.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/convert_df_to_list.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/convert_list_to_df1.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/convert_list_to_df2.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/extract_data.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/extract_dataset.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/extract_taxa.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/extract_trait.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/flatten_database.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/get_compiled_by_traits.build.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/get_traits_table.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/get_version_latest.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/get_versions.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/index.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_context_properties.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_contributors.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_location_coordinates.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_location_properties.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_methods.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_taxa.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/join_taxonomic_updates.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/load_austraits.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/lookup_context_property.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/lookup_location_property.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/lookup_trait.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/pipe.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/plot_locations.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/plot_site_locations.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/plot_trait_distribution_beeswarm.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/print.traits.build.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/separate_trait_values.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/summarise_database.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/trait_pivot_longer.html</loc></url>
+<url><loc>https://traitecoevo.github.io/austraits/reference/trait_pivot_wider.html</loc></url>
 </urlset>
+
