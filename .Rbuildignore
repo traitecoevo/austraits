@@ -11,4 +11,4 @@
 ^ignore$
 ^austraits$
 ^codecov\.yml$
-^austraits-cheatsheet.pptx$
+^inst/cheatsheet/.*\.ppt$
