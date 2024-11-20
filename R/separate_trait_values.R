@@ -53,7 +53,7 @@ separate_trait_values <- function(trait_data, definitions) {
     dplyr::bind_rows(out_1, out_2) %>% 
       dplyr::select(-n_vals) %>% 
       dplyr::mutate(replicates = clean_NA(replicates),
-                    value_type = factor(clean_NA(value_type), levels = names(definitions$definitions$value_type$values))
+                    value_type = clean_NA(value_type)
       ) %>% 
       dplyr::arrange(observation_id, trait_name, value_type)
   }
