@@ -5,23 +5,23 @@
 \title{Beeswarm Trait distribution}
 \usage{
 plot_trait_distribution_beeswarm(
-  austraits,
-  plant_trait_name,
+  database,
+  trait_name,
   y_axis_category,
   highlight = NA,
   hide_ids = FALSE
 )
 }
 \arguments{
-\item{austraits}{austraits data object}
+\item{database}{traits.build database (list object)}
 
-\item{plant_trait_name}{Name of trait to plot}
+\item{trait_name}{Name of trait to plot}
 
 \item{y_axis_category}{One of \code{dataset_id}, \code{family}}
 
-\item{highlight}{specify a group to highlight}
+\item{highlight}{Specify a group to highlight}
 
-\item{hide_ids}{add label on y_axis?}
+\item{hide_ids}{Logical for whether to add a label on y_axis?}
 }
 \description{
 Plots distribution of trait values by a  grouping variable using ggbeeswarm package

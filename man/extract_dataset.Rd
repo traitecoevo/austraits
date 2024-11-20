@@ -4,10 +4,10 @@
 \alias{extract_dataset}
 \title{Extract all data for a particular dataset}
 \usage{
-extract_dataset(austraits, dataset_id)
+extract_dataset(database, dataset_id)
 }
 \arguments{
-\item{austraits}{a large list of tibbles built by \code{traits.build} workflow}
+\item{database}{traits.build database (list object)}
 
 \item{dataset_id}{character string that matches a \code{dataset_id} in the database}
 }
@@ -20,18 +20,18 @@ Function to subset all data associated with a particular dataset from a traits.b
 \details{
 \code{extract_dataset} has been developed to extract data for specific datasets from databases built using the traits.build workflow.
 Learn more at:
-\link{https://github.com/traitecoevo/traits.build} &
-\link{https://github.com/traitecoevo/traits.build-book}
+\url{https://github.com/traitecoevo/traits.build} &
+\url{https://github.com/traitecoevo/traits.build-book}
 
 Note to AusTraits users:
 \itemize{
 \item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \url{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database.
 }
 }
 \examples{
 \dontrun{
-extract_dataset(austraits, "Falster_2003")
+extract_dataset(database, "Falster_2003")
 }
 }
 \author{

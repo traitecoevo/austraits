@@ -4,10 +4,10 @@
 \alias{trait_pivot_wider}
 \title{Pivot long format traits table into wide format}
 \usage{
-trait_pivot_wider(aus_traits)
+trait_pivot_wider(database)
 }
 \arguments{
-\item{aus_traits}{The traits table from traits.build database list object}
+\item{database}{The traits tibble from a traits.build database}
 }
 \value{
 traits.build traits table in wide format
@@ -22,13 +22,13 @@ The function austraits::trait_pivot_longer reverts the actions of this function.
 \details{
 `trait_pivot_wider`` has been developed to pivot the traits table for a database build using the traits.build workflow.
 Learn more at:
-\link{https://github.com/traitecoevo/traits.build} &
-\link{https://github.com/traitecoevo/traits.build-book}
+\url{https://github.com/traitecoevo/traits.build} &
+\url{https://github.com/traitecoevo/traits.build-book}
 
 Note to AusTraits users:
 \itemize{
 \item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \url{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database.
 }
 }
 \examples{

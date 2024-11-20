@@ -22,7 +22,7 @@ In other words, trait_pivot_longer reverts the actions of trait_pivot_wider
 }
 \details{
 \itemize{
-\item If \code{bind_trait_values} or \code{summarise_trait_means} was applied prior to \code{trait_pivot_wider} for AusTraits
+\item If \code{bind_trait_values} was applied prior to \code{trait_pivot_wider} for AusTraits
 <= v3.0.2, \code{trait_pivot_longer} will return a tibble with fewer observations than the original traits table.
 \item For AusTraits version >3.0.2,  \code{trait_pivot_longer} will return a tibble with fewer columns than that original traits table
 \itemize{
@@ -36,13 +36,13 @@ It begins with a derivation of a traits.build traits table, where multiple measu
 
 \code{trait_pivot_longer} has been developed to pivot the traits table for a database build using the traits.build workflow.
 Learn more at:
-\link{https://github.com/traitecoevo/traits.build} &
-\link{https://github.com/traitecoevo/traits.build-book}
+\url{https://github.com/traitecoevo/traits.build} &
+\url{https://github.com/traitecoevo/traits.build-book}
 
 Note to AusTraits users:
 \itemize{
 \item This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \link{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database."
+\item For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see \url{https://github.com/traitecoevo/austraits} for how to install old versions of the package or download a newer version of the database.
 }
 }
 \examples{

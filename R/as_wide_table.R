@@ -1,6 +1,6 @@
-#' Create a single wide table from the AusTraits data object
+#' Create a single wide table from a traits.build data object
 #'
-#' @param austraits austraits data object
+#' @param database traits.build database (list object)
 #'
 #' @return A single wide table with collapsed contexts and locations text and with 
 #' some cols renamed for alignment with other resources
@@ -8,19 +8,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' data <- austraits
-#' data %>% as_wide_table()
+#' austraits %>% as_wide_table()
 #' }
 #' @importFrom stats family
 #' @importFrom utils methods
 
-as_wide_table <- function(austraits){
+as_wide_table <- function(database){
   # Check compatability
-  status <- check_compatibility(austraits)
+  status <- check_compatibility(database)
   
   # If compatible
   if(!status){
-    function_not_supported(austraits)
+    function_not_supported(database)
   }
 
   # Function to collapse columns in locations and contexts into single column
@@ -33,39 +32,39 @@ as_wide_table <- function(austraits){
   }
   
   ################################################################################
-  # Define and adapt each table in the list of austraits to prepare for the wide table format 
+  # Define and adapt each table in the list of a traits.build database to prepare for the wide table format 
 
     # The contexts table needs the contexts collapsed to one context name per site
-  austraits %>% 
-    join_contexts_old(collapse = TRUE) -> austraits
+  database %>% 
+    join_contexts_old(collapse_context = TRUE) -> database
 
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
-  austraits$methods <- 
-    austraits$methods %>% 
+  database$methods <- 
+    database$methods %>% 
     dplyr::rename(dataset_description = "description")  %>% 
     dplyr::distinct()
   
   # collapse into one column
-  austraits$locations <- 
-    austraits$locations %>% 
+  database$locations <- 
+    database$locations %>% 
     dplyr::filter(value!="unknown") %>% 
     dplyr::rename("property" = "location_property") %>%
     split(., .$dataset_id) %>%
     purrr::map_dfr(process_table3)
 
   # rename taxonomic_dataset field to reflect the APC/APNI name matching process better
-  austraits$taxa <- 
-    austraits$taxa %>% 
+  database$taxa <- 
+    database$taxa %>% 
     dplyr::distinct()
   
-  austraits_wide <- 
-    austraits$traits %>% 
-    dplyr::left_join(by=c("dataset_id", "location_id"), austraits$locations) %>%
-    dplyr::left_join(by=c("dataset_id", "method_id", "trait_name"), austraits$methods) %>%
-    dplyr::left_join(by=c("taxon_name"), austraits$taxa)
+  database_wide <- 
+    database$traits %>% 
+    dplyr::left_join(by=c("dataset_id", "location_id"), database$locations) %>%
+    dplyr::left_join(by=c("dataset_id", "method_id", "trait_name"), database$methods) %>%
+    dplyr::left_join(by=c("taxon_name"), database$taxa)
 
     # reorder the names to be more intuitive
-    austraits_wide %>% dplyr::select(
+    database_wide %>% dplyr::select(
       
     # The most useful (if you are filtering for just one taxon_name)
       "dataset_id", "observation_id", "trait_name", "taxon_name", "value", "unit", 
@@ -92,7 +91,7 @@ as_wide_table <- function(austraits){
     "taxon_rank", "genus", "family"
     )
   
-  austraits_wide
+  database_wide
 }
 
 #' Collapse columns into text string

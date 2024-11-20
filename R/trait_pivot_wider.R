@@ -6,17 +6,17 @@
 #' 
 #' The function austraits::trait_pivot_longer reverts the actions of this function.
 #' 
-#' @param aus_traits The traits table from traits.build database list object
+#' @param database The traits tibble from a traits.build database
 #' @return traits.build traits table in wide format
 #' @details
 #' `trait_pivot_wider`` has been developed to pivot the traits table for a database build using the traits.build workflow. 
 #' Learn more at:
-#'   [https://github.com/traitecoevo/traits.build] &
-#'   [https://github.com/traitecoevo/traits.build-book]
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
 #'
 #' Note to AusTraits users:
 #' -  This function works with AusTraits version >= 5.0.0 (from Nov 2023 release)
-#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits] for how to install old versions of the package or download a newer version of the database."
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits) for how to install old versions of the package or download a newer version of the database.
 #' 
 
 #' @examples 
@@ -30,16 +30,16 @@
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 
-trait_pivot_wider <- function(aus_traits){
+trait_pivot_wider <- function(database){
   # Extract traits table if needed
-  traits <- get_traits_table(aus_traits)
+  traits <- get_traits_table(database)
   
   # Check compatibility
   status <- check_traits_compatibility(traits)
   
   # If compatible
   if(!status){
-    function_not_supported(aus_traits)
+    function_not_supported(database)
   }
 
   metadata_cols <- c("unit", "replicates", "measurement_remarks", "basis_of_value")

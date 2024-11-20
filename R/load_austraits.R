@@ -62,7 +62,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   version_name <- paste0("v", version)
   
   # Getting specific version
-  id <- ret[which(ret$version == version), "id"] |> as.character()
+  id <- ret[which(ret$version == version), "id"] %>% as.character()
   
   target <- res$hits$hits$files[[version_name]]
   
@@ -82,7 +82,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   data <- readRDS(file_nm) 
   
   # Assign class
-  attr(data, "class") <- "austraits"
+  attr(data, "class") <- "traits.build"
   
   data
 }
@@ -119,15 +119,15 @@ load_json <- function(path, update){
 
 create_metadata <- function(res){
   # Version table
-  ret <- res$hits$hits$metadata |> 
-    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) |>  
-    dplyr::mutate(version = gsub("v", "", version) |> numeric_version(),
+  ret <- res$hits$hits$metadata %>% 
+    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) %>%  
+    dplyr::mutate(version = gsub("v", "", version) %>% numeric_version(),
                   id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
-                  )|>  # set as numeric version for easier filtering
-    dplyr::filter(version >= "3.0.2") |> # exclude everything pre 3.0.2
+                  )%>%  # set as numeric version for easier filtering
+    dplyr::filter(version >= "3.0.2") %>% # exclude everything pre 3.0.2
     dplyr::mutate(version = as.character(version),
-                  publication_date = lubridate::ymd(publication_date)) |>  # change back as character
-    dplyr::tibble() |> 
+                  publication_date = lubridate::ymd(publication_date)) %>%  # change back as character
+    dplyr::tibble() %>% 
     dplyr::arrange(dplyr::desc(publication_date))
 
   ret
@@ -228,10 +228,10 @@ get_version_latest <- function(path = "data/austraits", update = TRUE){
   metadata <- create_metadata(res) 
   
   # Sort old to new
-  metadata <- metadata |> 
+  metadata <- metadata %>% 
   dplyr::arrange(dplyr::desc(publication_date))
   
   # Grab the first version
-  dplyr::first(metadata$version) |> as.character()
+  dplyr::first(metadata$version) %>% as.character()
 }
 

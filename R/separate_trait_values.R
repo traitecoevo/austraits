@@ -2,23 +2,23 @@
 #'
 #' @description This function reverts the action of bind_trait_values. 
 #' This function separates values that were concatenated so that studies that have multiple observations for a given trait will have seperate row for each observation.
-#' @usage separate_trait_values(data, definitions)
-#' @param data The trait data frame generated from austraits - see example
+#' @usage separate_trait_values(trait_data, definitions)
+#' @param trait_data The traits table in a traits.build database - see example
 #' @param definitions The austraits definitions data frame
 #' @return trait tibble
 #' @examples 
 #' \dontrun{
-#' traits <- austraits$traits %>% 
+#' trait_data <- austraits$traits %>% 
 #' dplyr::filter(dataset_id == "Falster_2005_1")
-#' traits
-#' traits_bind <- bind_trait_values(traits)
+#' trait_data
+#' traits_bind <- bind_trait_values(trait_data)
 #' separate_trait_values(traits_bind)
 #' }
 #' @author Daniel Falster - daniel.falster@unsw.edu.au
 #' @export
 
 #' 
-separate_trait_values <- function(data, definitions) {
+separate_trait_values <- function(trait_data, definitions) {
   
   separate_x <- function(x) strsplit(x, "--")[[1]]
   
@@ -34,15 +34,15 @@ separate_trait_values <- function(data, definitions) {
   }
   
   # record the number of values in each row of data
-  data$n_vals <- 1 + stringr::str_count(data$value_type, "--")
+  trait_data$n_vals <- 1 + stringr::str_count(trait_data$value_type, "--")
   
   # separate out those rows requiring no modification
-  out_1 <- data %>% 
+  out_1 <- trait_data %>% 
     dplyr::filter(n_vals == 1)
   
-  if (nrow(dplyr::filter(data, n_vals > 1)) > 0) {
+  if (nrow(dplyr::filter(trait_data, n_vals > 1)) > 0) {
     # separate out those rows requiring modification & modify
-    out_2 <- data %>% 
+    out_2 <- trait_data %>% 
       dplyr::filter(n_vals > 1) %>% 
       dplyr::group_split(stringr::str_c(dataset_id, observation_id, trait_name, method_id, method_context_id, repeat_measurements_id, sep = " ")) %>%    
       lapply(separate_values_worker) %>% 

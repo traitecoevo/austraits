@@ -1,11 +1,11 @@
 #' @title Beeswarm Trait distribution 
 #' @description Plots distribution of trait values by a  grouping variable using ggbeeswarm package  
 #'
-#' @param austraits austraits data object
-#' @param plant_trait_name Name of trait to plot
+#' @param database traits.build database (list object)
+#' @param trait_name Name of trait to plot
 #' @param y_axis_category One of `dataset_id`, `family`
-#' @param highlight specify a group to highlight
-#' @param hide_ids add label on y_axis?
+#' @param highlight Specify a group to highlight
+#' @param hide_ids Logical for whether to add a label on y_axis?
 #'
 #' @export
 #'
@@ -17,23 +17,23 @@
 #' @export
 
 #
-plot_trait_distribution_beeswarm <- function(austraits, 
-                                             plant_trait_name, 
-                                             y_axis_category, 
-                                             highlight=NA, 
+plot_trait_distribution_beeswarm <- function(database,
+                                             trait_name,
+                                             y_axis_category,
+                                             highlight = NA,
                                              hide_ids = FALSE) {
   
   # Check compatability
-  status <- check_compatibility(austraits)
-  
+  status <- check_compatibility(database, single_table_allowed = TRUE)
+
   # If compatible
-  if(!status){
-    function_not_supported(austraits)
-  } 
+  if(!status) {
+    function_not_supported(database)
+  }
   # Subset data to this trait
-  austraits_trait <- extract_trait(austraits, plant_trait_name)
+  database_trait <- extract_trait(database, trait_name)
   
-  my_shapes = c("_min" = 60, "_mean" = 16, "_max" =62, "unknown" = 18)
+  my_shapes <- c("_min" = 60, "_mean" = 16, "_max" = 62, "unknown" = 18)
   
   as_shape <- function(value_type) {
     p <- rep("unknown", length(value_type))
@@ -44,21 +44,33 @@ plot_trait_distribution_beeswarm <- function(austraits,
     factor(p, levels=names(my_shapes))
   }
   
-  tax_info  <- austraits_trait$taxa %>% dplyr::select(taxon_name, family)
+  if (is.null(dim(database_trait))) {
+
+    tax_info  <- database_trait$taxa %>% dplyr::select(taxon_name, family, genus)
+    
+    data <-
+      database_trait$traits %>%
+      dplyr::left_join(by = "taxon_name", tax_info) 
+
+  } else {
+    
+    data <- database_trait
   
-  data <- 
-    austraits_trait$traits %>%
+  }
+
+  data <- data %>%
     dplyr::mutate(shapes = as_shape(value_type)) %>%
-    dplyr::left_join(by = "taxon_name", tax_info)
+    dplyr::mutate(value = as.numeric(value))
   
   # Define grouping variables and derivatives
-  if(!y_axis_category %in% names(data)){
-    stop("Incorrect grouping variable! Currently implemented for `family` or `dataset_id`")
+  if(!y_axis_category %in% names(data)) {
+    cli::cli_abort("Incorrect grouping variable! Grouping variable must be a variable in or joined to the traits table. Family and genus are supported if your input is a complete traits.build database.")
   }
   
   # define grouping variable, ordered by group-level by mean values
   # use log_value where possible
-  if(min(data$value, na.rm=TRUE) > 0 ) {
+  
+  if(min(data$value, na.rm=TRUE) > 0) {
     data$value2 <- log10(data$value)
   } else {
     data$value2 <- data$value
@@ -75,10 +87,17 @@ plot_trait_distribution_beeswarm <- function(austraits,
   if(!is.na(highlight) & highlight %in% data$Group) {
     data <- dplyr::mutate(data, colour = ifelse(Group %in% highlight, "c", colour))
   }
-  
 
-  vals <- list(minimum = purrr::pluck(austraits_trait, "definitions", plant_trait_name, "allowed_values_min"),
-           maximum = purrr::pluck(austraits_trait, "definitions", plant_trait_name, "allowed_values_max"))
+  if (is.null(dim(database))) {
+  
+    vals <- list(minimum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_min"),
+                 maximum = purrr::pluck(database_trait, "definitions", trait_name, "allowed_values_max"))
+  
+  } else {
+    
+    vals <- list(minimum = 0.8*min(data$value),
+                 maximum = 1.2*max(data$value))
+  }
   
   range <- (vals$maximum/vals$minimum)
   
@@ -143,14 +162,14 @@ plot_trait_distribution_beeswarm <- function(austraits,
                     labels = scientific_10,
                     limits=c(vals$minimum, vals$maximum))
     p2 <- p2 +
-      ggplot2::scale_x_log10(name=paste(plant_trait_name, ' (', data$unit[1], ')'),
+      ggplot2::scale_x_log10(name=paste(trait_name, ' (', data$unit[1], ')'),
                     breaks = scales::breaks_log(),
                     labels = scientific_10,
                     limits=c(vals$minimum, vals$maximum))
   } else {
     p1 <- p1 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum))
     p2 <- p2 + ggplot2::scale_x_continuous(limits=c(vals$minimum, vals$maximum)) +
-      ggplot2::xlab(paste(plant_trait_name, ' (', data$unit[1], ')'))
+      ggplot2::xlab(paste(trait_name, ' (', data$unit[1], ')'))
     
   }
   

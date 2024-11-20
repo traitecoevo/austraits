@@ -4,9 +4,9 @@
 \name{austraits-package}
 \alias{austraits}
 \alias{austraits-package}
-\title{austraits: Helpful functions to access, summarise and wrangle austraits data}
+\title{austraits: Helpful functions to access the AusTraits database and wrangle data from other traits.build databases}
 \description{
-austraits is a package for accessing, summarising and wrangling austraits data. The package allows users to explore the scope and type of data available, as well as subset and wrangle relevant specific data for furture research. This package is still under development. See README and vignette('austraits') for further information.
+`austraits` allow users to **access, explore and wrangle data** from traits.build relational databases. It is also an R interface to AusTraits, the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. We expect this package will assist users in working with `traits.build` databases.
 }
 \seealso{
 Useful links:
@@ -23,6 +23,11 @@ Authors:
 \itemize{
   \item Daniel Falster \email{daniel.falster@unsw.edu.au} (\href{https://orcid.org/0000-0002-9814-092X}{ORCID})
   \item Dony Indiarto (\href{https://orcid.org/0000-0001-9546-8201}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Elizabeth Wenk \email{e.wenk@unsw.edu.au} (\href{https://orcid.org/0000-0001-5640-5910}{ORCID}) [contributor]
 }
 
 }

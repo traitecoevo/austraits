@@ -7,7 +7,7 @@
 bind_trait_values(trait_data)
 }
 \arguments{
-\item{trait_data}{The trait data frame generated from austraits - see example}
+\item{trait_data}{the traits table in a traits.build database -- see example}
 }
 \value{
 tibble that is condensed down where multiple observations in value, value_type and replicates are collapsed down and separated by '--'

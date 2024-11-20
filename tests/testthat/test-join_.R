@@ -28,6 +28,12 @@ test_that("structure doesn't change", {
   expect_type(join_context_properties(austraits_5.0.0_lite), "list")
   expect_type(join_taxa(austraits_5.0.0_lite), "list")
   expect_type(join_taxonomic_updates(austraits_5.0.0_lite), "list")
+  expect_no_error(database_with_coordinates <- join_location_coordinates(austraits_5.0.0_lite))
+  test_database_structure(database = database_with_coordinates)
+  expect_no_error(database_with_methods <- join_methods(austraits_5.0.0_lite))
+  test_database_structure(database = database_with_methods)
+  expect_no_error(database_with_contexts <- join_context_properties(austraits_5.0.0_lite))
+  test_database_structure(database = database_with_contexts)
 })
 
 test_that("variables are added", {
@@ -41,3 +47,12 @@ test_that("variables are added", {
   expect_true(any(names(join_taxa(austraits_5.0.0_lite)$traits) %in%c("family", "genus")))
   expect_true(any(names(join_methods(austraits_5.0.0_lite)$traits) %in%c("methods")))
 })
+
+test_that("fails appropriately", {
+  expect_error(join_context_properties(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_location_coordinates(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_location_properties(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_taxa(austraits_5.0.0_lite, format = "bad"))
+  expect_error(join_contributors(austraits_5.0.0_lite, format = "bad"))
+  
+  })

@@ -4,10 +4,10 @@
 \alias{plot_site_locations}
 \title{Produce location maps of trait values}
 \usage{
-plot_site_locations(traits, feature = "trait_name", ...)
+plot_site_locations(trait_data, feature = "trait_name", ...)
 }
 \arguments{
-\item{traits}{traits table with site details appended. See join_location_coordinates and examples}
+\item{trait_data}{traits table in a traits.build database with site details appended. See join_location_coordinates and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2}
 

@@ -17,6 +17,13 @@ test_that("get_versions is working", {
   expect_named(x)
   expect_type(x, "list")
   expect_length(x, ncol(x))
+  
+  y <- get_version_latest(path = path, update = FALSE)
+  
+  expect_visible(y)
+  expect_equal(length(y), 1)
+  expect_type(y, "character")
+  
 })
 
 test_that("Right errors are tripped", {
