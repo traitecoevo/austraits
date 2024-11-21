@@ -29,7 +29,7 @@ test_that("`flatten_database` defaults to `single_column_pretty` for contributor
 })
 
 test_that("`flatten_database` is working with format = single_column_json", {
-  expect_no_error(combined_table_json <- flatten_database(database2, format = "single_column_json"))
+  expect_no_error(combined_table_json <- flatten_database(database_2, format = "single_column_json"))
   expect_contains(names(combined_table_json), "location_name")
   expect_length(combined_table_json, 66)
   expect_true(stringr::str_detect(combined_table_json$location_properties[1], "^\\[\\{"))
@@ -37,7 +37,7 @@ test_that("`flatten_database` is working with format = single_column_json", {
 })
 
 test_that("`flatten_database` is working with format = many_columns", {
-  expect_no_error(combined_table_many <- flatten_database(database2, format = "many_columns"))
+  expect_no_error(combined_table_many <- flatten_database(database_2, format = "many_columns"))
   expect_contains(names(combined_table_many), "location_name")
   expect_contains(names(combined_table_many), "temporal_context: sampling season")
 })
