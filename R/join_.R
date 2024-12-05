@@ -386,7 +386,7 @@ join_location_properties <- function(database,
 
     compacted_locations_column <-
       locations %>% 
-      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id"))) %>%
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "location_id", "location_name"))) %>%
       dplyr::mutate(location_properties = purrr::map_chr(data, jsonlite::toJSON)) %>%
       dplyr::select(-dplyr::any_of("data")) %>%
       dplyr::ungroup()
