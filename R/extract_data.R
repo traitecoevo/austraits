@@ -29,39 +29,6 @@ extract_data <- function(database, table = NA, col, col_value) {
     function_not_supported(database)
   }
 
-  # Validate user input values in arguments
-  # Table name
-  if(! names(database) %in% table |> any()){
-    cli::cli_abort(
-      c(
-        "x" = "`{table}` is not a valid table name",
-        "i" = "Check `names(database)` and try again!"
-      )
-    )
-}
-  
-  # Col name
-  if(! names(database[[table]]) %in% col |> any()){
-    cli::cli_abort(c(
-      "x" = "`{col}` is not a valid column name in the `{table}` table",
-      "i" = "Check `names(database${table})` and try again!"
-      )  
-    )
-  }
-  
-  # Col value
-  # Accomodating for multiple values supplied
-  if(length(col_value) > 1) 
-    col_value <- paste(col_value, collapse = "|")
-  
-  if(! stringr::str_detect(unique(database[[table]][col]) |> dplyr::pull(), col_value) |> any()){
-    cli::cli_abort(c(
-      "x" = "`{col_value}` is not a valid value in `{col}` of the `{table}` table",
-      "i" = "Check `unique(database${table}${col})` and try again!"
-      )
-    )
-  }
-  
   # If just the traits table is read in
   if (tibble::is_tibble(database)) {
     

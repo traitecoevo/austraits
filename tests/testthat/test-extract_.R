@@ -10,12 +10,6 @@ taxon_name = "Banskia serrata"
 
 test_that("Error message is triggered", {
   expect_error(austraits_5.0.0_lite %>% extract_taxa())
-  expect_error(austraits_5.0.0_lite %>% extract_data("trait", "life_stage", "sapling"))
-  expect_error(austraits_5.0.0_lite %>% extract_data("traits", "lifestage", "sapling"))
-  expect_error(austraits_5.0.0_lite %>% extract_data("traits", "life_stage", "saplingsad"))
-  expect_error(austraits_5.0.0_lite %>% extract_taxa(family = "acada"))
-  expect_error(austraits_5.0.0_lite %>% extract_dataset(dataset_id = "Fasdwer201"))
-  expect_error(austraits_5.0.0_lite %>% extract_trait(trait_names = "chewy pie crust"))
 })
 
 test_extract_error <- function(austraits){
@@ -150,10 +144,12 @@ test_that("extracts using generalised extract function behaves as expected - ext
 
 test_that("extracts for which there are no matches work`", {
   context_property_test <- "platypus"
-  expect_error(extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test))
-
+  expect_message(extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test))
+  expect_equal(nrow(extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test)$traits), 0)
+  
   location_property_test <- "green flowers"
-  expect_error(extract_data(database = austraits_5.0.0_lite,  table = "locations", col = "location_property", col_value = location_property_test))
+  expect_message(extract_data(database = austraits_5.0.0_lite,  table = "locations", col = "location_property", col_value = location_property_test))
+  expect_equal(nrow(extract_data(database = austraits_5.0.0_lite,  table = "locations", col = "location_property", col_value = location_property_test)$traits), 0)
 })
   
 test_that("extracts using generalised extract function behaves as expected - extracting by `context_property`", {
