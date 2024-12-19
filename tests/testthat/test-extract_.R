@@ -10,6 +10,8 @@ taxon_name = "Banskia serrata"
 
 test_that("Error message is triggered", {
   expect_error(austraits_5.0.0_lite %>% extract_taxa())
+  expect_error(extract_taxa())
+  expect_error(extract_data(at_six))
 })
 
 test_extract_error <- function(austraits){

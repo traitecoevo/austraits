@@ -21,6 +21,9 @@
 #' }
 extract_data <- function(database, table = NA, col, col_value) {
   
+  # Check missingness
+  check_arg_missingness(database, col, col_value)
+  
   # Check compatability
   status <- check_compatibility(database, single_table_allowed = TRUE)
   
