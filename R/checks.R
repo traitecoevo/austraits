@@ -25,8 +25,16 @@ check_table_name_exists <- function(database, table){
   } 
 }
 
-# check_traits_as_database 
-
+# Check if col exists in specified table when database is traits.build object
+check_col_exists_in_table <- function(database, table, col){
+  if(! names(database[[table]]) %in% col |> any()){ # Does any names in table contain `col`
+    cli::cli_abort(c(
+      "x" = "`{col}` is not a valid column name in the `{table}` table",
+      "i" = "Check `names(database${table})` and try again!"
+    )
+    )
+  }
+}
 
 # # Validate user input values in arguments
 # # Table name

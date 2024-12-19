@@ -51,7 +51,11 @@ extract_data <- function(database, table = NA, col, col_value) {
 
   # If a full traits.build database is read in
   } else {
+    
+    # Check if col exists in table within database
+    check_col_exists_in_table(database, table, col)
 
+    # Proceed to extraction
     database$contexts <- database$contexts %>% tidyr::separate_longer_delim(link_vals, delim = ", ")
   
     database$contexts_tmp <- split(database$contexts, database$contexts$link_id)

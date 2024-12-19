@@ -11,10 +11,14 @@ taxon_name = "Banskia serrata"
 test_that("Error message is triggered", {
   expect_error(austraits_5.0.0_lite %>% extract_taxa())
   expect_error(extract_taxa())
-  expect_error(extract_data(at_six))
-  expect_error(extract_data(at_six,
+  expect_error(extract_data(austraits_5.0.0_lite))
+  expect_error(extract_data(austraits_5.0.0_lite,
                             table = "taxonomy",
                             col = "genus", 
+                            col_value = "Acacia"))
+  expect_error(extract_data(austraits_5.0.0_lite,
+                            table = "taxa",
+                            col = "genusss", 
                             col_value = "Acacia"))
 })
 
