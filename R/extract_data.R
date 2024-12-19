@@ -32,6 +32,9 @@ extract_data <- function(database, table = NA, col, col_value) {
     function_not_supported(database)
   }
 
+  # Check table value is valid 
+  check_table_name_exists(database, table)
+  
   # If just the traits table is read in
   if (tibble::is_tibble(database)) {
     

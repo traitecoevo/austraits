@@ -12,6 +12,10 @@ test_that("Error message is triggered", {
   expect_error(austraits_5.0.0_lite %>% extract_taxa())
   expect_error(extract_taxa())
   expect_error(extract_data(at_six))
+  expect_error(extract_data(at_six,
+                            table = "taxonomy",
+                            col = "genus", 
+                            col_value = "Acacia"))
 })
 
 test_extract_error <- function(austraits){
