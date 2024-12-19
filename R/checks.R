@@ -36,35 +36,39 @@ check_col_exists_in_table <- function(database, table, col){
   }
 }
 
-# # Validate user input values in arguments
-# # Table name
-# if(! names(database) %in% table |> any()){
-#   cli::cli_abort(
-#     c(
-#       "x" = "`{table}` is not a valid table name",
-#       "i" = "Check `names(database)` and try again!"
-#     )
-#   )
-# }
+# # Check if col_value exists in the col
+# # Accommodating for multiple values supplied AND partial matching
 # 
-# # Col name
-# if(! names(database[[table]]) %in% col |> any()){
-#   cli::cli_abort(c(
-#     "x" = "`{col}` is not a valid column name in the `{table}` table",
-#     "i" = "Check `names(database${table})` and try again!"
-#   )  
-#   )
-# }
+# # Get possible col values
+# available_values <- database[[table]][col] |> dplyr::pull() |> unique()
 # 
-# # Col value
-# # Accomodating for multiple values supplied
+# # Check if there are non-matches
 # if(length(col_value) > 1) 
-#   col_value <- paste(col_value, collapse = "|")
+#   concat_col_value <- paste(col_value, collapse = "|")
 # 
-# if(! stringr::str_detect(unique(database[[table]][col]) |> dplyr::pull(), col_value) |> any()){
-#   cli::cli_abort(c(
-#     "x" = "`{col_value}` is not a valid value in `{col}` of the `{table}` table",
-#     "i" = "Check `unique(database${table}${col})` and try again!"
-#   )
-#   )
+# partial_matches <- stringr::str_detect(available_values, concat_col_value)
+# 
+# if(length(partial_matches) > 1)
+# 
+# # Prompt user which one is non-match
+# if(length(no_match) >= 1){
+#   cli::cli_warn(c("x" = "`{no_match}` is not a valid value in `{col}` of the `{table}` table"))
+# }
+
+# # Check if col_value exists in the col
+# # Accommodating for multiple values supplied
+# 
+# # Get possible col values
+# available_values <- database[[table]][col] |> dplyr::pull() |> unique()
+# 
+# # Check if there are non-matches
+# no_match <- col_value[which(! col_value %in% available_values)]
+# 
+# # Identify matches
+# matches <- col_value[which(col_value %in% available_values)]
+# 
+# # Prompt user which one is non-match
+# if(length(no_match) > 0){
+#   cli::cli_warn("`{no_match}` is not a valid value in `{col}` of the `{table}` table")
+#   cli::cli_alert_success("Continuing data extraction for {.val {matches}}")
 # }
