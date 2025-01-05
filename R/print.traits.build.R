@@ -14,6 +14,8 @@ print.traits.build <- function(x, ...){
   nspecies <- unique(x$traits$taxon_name) %>% length()
   ntraits <- unique(x$traits$trait_name) %>% length()
   
+  if(tibble::is_tibble(x)) return(x)
+  
   if(check_compatibility(x)){
     database_name <- x$metadata$title
     

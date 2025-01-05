@@ -245,6 +245,8 @@ extract_data <- function(database, table = NA, col, col_value) {
 
   }
   
+  # Check full database is provided, assign class
+  if(!tibble::is_tibble(ret))
   # Assign class
   attr(ret, "class") <- "traits.build"
   
