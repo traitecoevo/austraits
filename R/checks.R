@@ -27,13 +27,24 @@ check_table_name_exists <- function(database, table){
 
 # Check if col exists in specified table when database is traits.build object
 check_col_exists_in_table <- function(database, table, col){
-  if(! names(database[[table]]) %in% col |> any()){ # Does any names in table contain `col`
-    cli::cli_abort(c(
-      "x" = "`{col}` is not a valid column name in the `{table}` table",
-      "i" = "Check `names(database${table})` and try again!"
-    )
-    )
-  }
+  # If traits table supplied and no table is specified
+  if(tibble::is_tibble(database)){
+    if(! names(database) %in% col |> any()){ # Does any names in table contain `col`
+      cli::cli_abort(c(
+        "x" = "`{col}` is not a valid column name in the `traits` table",
+        "i" = "Check `names(database$traits)` and try again!"
+      )
+      )
+    }
+  } else(
+    if(! names(database[[table]]) %in% col |> any()){ # Does any names in table contain `col`
+      cli::cli_abort(c(
+        "x" = "`{col}` is not a valid column name in the `{table}` table",
+        "i" = "Check `names(database${table})` and try again!"
+      )
+      )
+    }
+  )
 }
 
 # # Check if col_value exists in the col

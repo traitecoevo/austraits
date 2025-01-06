@@ -38,6 +38,8 @@ extract_data <- function(database, table = NA, col, col_value) {
   # If just the traits table is read in
   if (tibble::is_tibble(database)) {
     
+    check_col_exists_in_table(database, table, col)
+    
     indicies_tmp <- purrr::map(col_value, ~{
       stringr::str_which(database[[col]], 
                          pattern = stringr::regex(.x, ignore_case = TRUE))

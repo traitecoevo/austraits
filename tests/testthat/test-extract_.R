@@ -20,6 +20,9 @@ test_that("Error message is triggered", {
                             table = "taxa",
                             col = "genusss", 
                             col_value = "Acacia"))
+  expect_error(extract_data(at_six$traits, 
+                            col = "basis_of record", 
+                            col_value = "field lab"))
 })
 
 test_extract_error <- function(austraits){
@@ -231,8 +234,9 @@ test_that("Extract function works when just traits table is read in", {
   expect_equal(length(extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = dataset_id)), 26)
   expect_silent(extract_dataset(database = austraits_5.0.0_lite$traits, dataset_id = dataset_id))  
   expect_equal(length(extract_dataset(database = austraits_5.0.0_lite$traits, dataset_id = dataset_id)), 26)
-  expect_silent(extract_taxa(database = austraits_5.0.0_lite$traits, genus = "Banksia"))  
-  expect_equal(length(extract_taxa(database = austraits_5.0.0_lite$traits, genus = "Banksia")), 26)
+  expect_silent(jointaxa_then_extract <- (austraits_5.0.0_lite %>% join_taxa())$traits)
+  expect_silent(extract_data(database = jointaxa_then_extract, col = "genus", col_value = "Banksia"))
+  expect_equal(length(extract_data(database = jointaxa_then_extract, col = "genus", col_value = "Banksia")), 30)
   expect_silent(extract_trait(database = austraits_5.0.0_lite$traits, trait_name = "photosyn"))  
   expect_equal(length(extract_trait(database = austraits_5.0.0_lite$traits, trait_name = "photosyn")), 26)
   expect_silent(join_then_extract <- (austraits_5.0.0_lite %>% join_location_coordinates())$traits)
