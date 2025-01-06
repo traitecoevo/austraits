@@ -47,8 +47,28 @@ check_col_exists_in_table <- function(database, table, col){
   )
 }
 
-# # Check if col_value exists in the col
-# # Accommodating for multiple values supplied AND partial matching
+# Check if col_value exists in the col after attempted extraction
+# Accommodating for multiple values supplied AND partial matching
+
+check_col_value_exists <- function(ret, table, col, col_value){
+  if(tibble::is_tibble(ret)){
+    if(nrow(ret) == 0)
+      cli::cli_abort(c(
+        "x" = "`{col_value}` is not a valid value in `{col}` column of the `traits` table",
+        "i" = "Check spelling of `{col_value}` and try again!"
+      )
+      )
+  } else(
+  
+  if(nrow(ret$traits) == 0)
+    cli::cli_abort(c(
+      "x" = "`{col_value}` is not a valid value in `{col}` column of the `{table}` table",
+      "i" = "Check spelling of `{col_value}` and try again!"
+    )
+    )
+  )
+}
+
 # 
 # # Get possible col values
 # available_values <- database[[table]][col] |> dplyr::pull() |> unique()

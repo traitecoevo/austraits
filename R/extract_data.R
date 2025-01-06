@@ -50,6 +50,8 @@ extract_data <- function(database, table = NA, col, col_value) {
     # Trim traits, based on the columns identified
     ret <- database %>%
       dplyr::slice(found_indicies)
+    
+    check_col_value_exists(ret, table, col, col_value)
 
   # If a full traits.build database is read in
   } else {
@@ -248,11 +250,17 @@ extract_data <- function(database, table = NA, col, col_value) {
   }
   
   # Check full database is provided, assign class
-  if(!tibble::is_tibble(ret))
-  # Assign class
-  attr(ret, "class") <- "traits.build"
-  
-  ret
+  if(!tibble::is_tibble(ret)){
+    
+    # Check if extraction was successful based on col value
+    check_col_value_exists(ret, table, col, col_value)
+    
+    # Assign class
+    attr(ret, "class") <- "traits.build"
+  }
+    
+    ret
+ 
 }
 
 

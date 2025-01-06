@@ -157,12 +157,10 @@ test_that("extracts using generalised extract function behaves as expected - ext
 
 test_that("extracts for which there are no matches work`", {
   context_property_test <- "platypus"
-  expect_message(extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test))
-  expect_equal(nrow(extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test)$traits), 0)
+  expect_error(extract_data(database = austraits_5.0.0_lite,  table = "contexts", col = "context_property", col_value = context_property_test))
   
   location_property_test <- "green flowers"
-  expect_message(extract_data(database = austraits_5.0.0_lite,  table = "locations", col = "location_property", col_value = location_property_test))
-  expect_equal(nrow(extract_data(database = austraits_5.0.0_lite,  table = "locations", col = "location_property", col_value = location_property_test)$traits), 0)
+  expect_error(extract_data(database = austraits_5.0.0_lite,  table = "locations", col = "location_property", col_value = location_property_test))
 })
   
 test_that("extracts using generalised extract function behaves as expected - extracting by `context_property`", {
