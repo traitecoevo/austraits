@@ -86,6 +86,7 @@ extract_data <- function(database, table = NA, col, col_value) {
       taxa = dplyr::tibble(),
       taxonomic_updates = dplyr::tibble(),
       contributors = dplyr::tibble(),
+      identifiers = dplyr::tibble(),
       traits = dplyr::tibble(),
       excluded_data = dplyr::tibble(),
       contexts = dplyr::tibble()
@@ -104,7 +105,8 @@ extract_data <- function(database, table = NA, col, col_value) {
       methods_cc = c("dataset_id", "trait_name", "method_id"),
       taxa_cc = c("taxon_name"),
       taxonomic_updates_cc = c("dataset_id", "taxon_name", "original_name"),
-      contributors_cc = c("dataset_id")
+      contributors_cc = c("dataset_id"),
+      identifiers_cc = c("dataset_id", "observation_id"),
     )
     
     # Create table of various look-up values to be used below
@@ -112,12 +114,13 @@ extract_data <- function(database, table = NA, col, col_value) {
     # Create additional vectors for table 
     tables_to_cut <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", 
                               "plot_context_id", "treatment_context_id", 
-                              "methods", "taxa", "taxonomic_updates", "contributors")
+                              "methods", "taxa", "taxonomic_updates", "contributors", "identifiers")
     
     tables_complete_path <- c("database$locations", "database$entity_context_id", 
                               "database$method_context_id", "database$temporal_context_id", 
                               "database$plot_context_id", "database$treatment_context_id", 
-                              "database$methods", "database$taxa", "database$taxonomic_updates", "database$contributors")
+                              "database$methods", "database$taxa", "database$taxonomic_updates", 
+                              "database$contributors", "database$identifiers")
     
     # Create table
     tables <- dplyr::tibble(
@@ -230,7 +233,7 @@ extract_data <- function(database, table = NA, col, col_value) {
     
     ret <- ret[!names(ret) %in% c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")]
     
-      # Trim sources - Are these just dataset_ids...
+    # Trim sources - Are these just dataset_ids...
     from_methods_to_sources_cc <- dplyr::union(ret$methods$source_primary_key,  # Is this part really needed, aren't these just dataset_ids? 
                                                ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
       unique() %>% stats::na.omit() %>% as.character()
@@ -245,7 +248,7 @@ extract_data <- function(database, table = NA, col, col_value) {
     
     # Reorder list to match database
     ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
-                 "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
+                 "taxa", "contributors", "identifiers", "sources", "definitions", "schema", "metadata", "build_info")]
 
   }
   

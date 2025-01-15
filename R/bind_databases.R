@@ -57,6 +57,7 @@ bind_databases <- function(..., databases = list(...)) {
               taxonomic_updates = taxonomic_updates,
               taxa = combine("taxa", databases) %>% dplyr::distinct() %>% dplyr::arrange(.data$taxon_name),
               contributors = contributors,
+              identifiers = combine("identifiers", databases) %>% dplyr::distinct() %>% dplyr::arrange(.data$dataset_id, .data$identifier_type),
               sources = sources,
               definitions = definitions,
               schema = databases[[1]][["schema"]],

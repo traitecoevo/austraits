@@ -15,7 +15,7 @@
 #' @param vars List specifying which columns or properties to include from each table. The detail is for all columns/properties to be included.
 #' @param include_description A logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions; defaults to TRUE.
 #'
-#' @return A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors
+#' @return A table combining information in 8 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, contributors, and identifiers
 #' @export
 #'
 #' @usage flatten_database(database, format, vars, include_description)
@@ -26,6 +26,7 @@ flatten_database <- function(database,
       location = "all",
       context = "all",
       contributors = "all",
+      identifiers = "all",
       taxonomy = "all",
       taxonomic_updates = "all",
       methods = setdiff(names(database$methods), c("data_collectors"))
@@ -46,6 +47,7 @@ flatten_database <- function(database,
     join_context_properties(format = format, vars =  vars$context, include_description = TRUE) %>%
     join_methods(vars = vars$methods) %>%
     join_contributors(format = format_contributors, vars = vars$contributors) %>%
+    join_identifiers(format = format, vars = vars$identifiers) %>%
     join_taxa(vars = vars$taxonomy) %>%
     join_taxonomic_updates(vars = vars$taxonomic_updates)
   
