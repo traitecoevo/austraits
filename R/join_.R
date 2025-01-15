@@ -199,6 +199,10 @@ join_identifiers <- function(database,
     database$identifiers %>% 
     dplyr::filter(identifier_type %in% vars)
 
+  # variables to join_ by depends on if location_name already in traits table
+  # from joining coordinates for instances
+  join_vars <- c("dataset_id", "observation_id")
+  
   # Different options for how data are compacted and joined depending on `format` argument
   if (format == "many_columns") {
 
@@ -206,7 +210,7 @@ join_identifiers <- function(database,
     identifiers <- 
       identifiers %>%
       dplyr::mutate(identifier_type = paste0("identifier_type: ", identifier_type)) %>%
-      tidyr::pivot_wider(names_from = identifier_type)
+      tidyr::pivot_wider(names_from = identifier_type, values_from = identifier_value)
 
     # Join identifiers, based on appropriate columns
     database$traits <- 
@@ -233,7 +237,7 @@ join_identifiers <- function(database,
   } else if (format == "single_column_json") {
 
     compacted_identifiers_column <-
-      locations %>% 
+      identifiers %>% 
       tidyr::nest(data = -dplyr::all_of(c("dataset_id", "observation_id"))) %>%
       dplyr::mutate(identifier_types = purrr::map_chr(data, jsonlite::toJSON)) %>%
       dplyr::select(-dplyr::any_of("data")) %>%

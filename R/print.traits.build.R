@@ -75,7 +75,6 @@ print.traits.build <- function(x, ...){
       cli::cli_li("{.emph taxa}: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.")
       cli::cli_li("{.emph definitions}: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.")
       cli::cli_li("{.emph contributors}: A table of people contributing to each study.")
-      cli::cli_li("{.emph identifiers}: A table of identifiers that cross-references observations between datasets or with other data resources such as museum or herbarium specimens.")
       cli::cli_li("{.emph sources}: Bibtex entries for all primary and secondary sources in the compilation.")
       cli::cli_li("{.emph build_info}:  A description of the computing environment used to create this version of the dataset, including version number, git commit and R session_info.")
       cli::cli_end()

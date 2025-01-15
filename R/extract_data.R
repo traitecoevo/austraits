@@ -92,7 +92,7 @@ extract_data <- function(database, table = NA, col, col_value) {
       contexts = dplyr::tibble()
     )
     
-    ret_tmp <- ret[1:10]
+    ret_tmp <- ret[1:11]
   
     # Cookie cutters
     cookie_cutters <- list(
@@ -106,7 +106,7 @@ extract_data <- function(database, table = NA, col, col_value) {
       taxa_cc = c("taxon_name"),
       taxonomic_updates_cc = c("dataset_id", "taxon_name", "original_name"),
       contributors_cc = c("dataset_id"),
-      identifiers_cc = c("dataset_id", "observation_id"),
+      identifiers_cc = c("dataset_id", "observation_id")
     )
     
     # Create table of various look-up values to be used below
@@ -129,6 +129,10 @@ extract_data <- function(database, table = NA, col, col_value) {
       tables_complete_path = tables_complete_path
     )
     
+    if (is.null(database$identifiers)) {
+      tables <- tables[1:10,]
+    }
+
     # For any context property categories that do not exist, create empty tibbles.
     for (v in c("entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id")) { 
       if (is.null(database$contexts_tmp[[v]])) {
@@ -190,7 +194,6 @@ extract_data <- function(database, table = NA, col, col_value) {
         # Use same filtering join to trim excluded data
         ret_tmp[["excluded_data"]] <- database[["excluded_data"]]  %>% 
           dplyr::semi_join(cc_traits, by = columns_to_select_excluded)
-        
         
         for (j in seq_along(tables_tmp$tables_to_cut)) {
         
