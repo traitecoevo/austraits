@@ -253,6 +253,10 @@ extract_data <- function(database, table = NA, col, col_value) {
     ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
                  "taxa", "contributors", "identifiers", "sources", "definitions", "schema", "metadata", "build_info")]
 
+    if (is.null(database$identifiers)) {
+      ret$identifiers <- NULL
+    }
+
   }
   
   # Check full database is provided, assign class

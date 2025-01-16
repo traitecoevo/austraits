@@ -47,9 +47,13 @@ flatten_database <- function(database,
     join_context_properties(format = format, vars =  vars$context, include_description = TRUE) %>%
     join_methods(vars = vars$methods) %>%
     join_contributors(format = format_contributors, vars = vars$contributors) %>%
-    join_identifiers(format = format, vars = vars$identifiers) %>%
     join_taxa(vars = vars$taxonomy) %>%
     join_taxonomic_updates(vars = vars$taxonomic_updates)
+
+  if(!is.null(database$identifiers)) {
+    combined_table_relational <- combined_table_relational %>%
+      join_identifiers(format = format, vars = vars$identifiers)
+  }
   
   combined_table <- combined_table_relational$traits
   

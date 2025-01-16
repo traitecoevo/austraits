@@ -3,6 +3,9 @@
 test_database_structure <- function(database, taxa = NA, dataset_id = NA, n_row = NA) {
   
   table_names <- c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", "taxa", "contributors", 
+                   "sources", "definitions", "schema", "metadata", "build_info")
+  
+  table_names_deintifiers <- c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", "taxa", "contributors", 
                    "identifiers", "sources", "definitions", "schema", "metadata", "build_info")
   
   testthat::expect_type(database, "list")
