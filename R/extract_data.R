@@ -214,7 +214,7 @@ extract_data <- function(database, table = NA, col, col_value) {
          
          }
         
-        if (database[["excluded_data"]] == 0) {
+        if (ncol(database[["excluded_data"]]) == 0) {
             database[["excluded_data"]] <- database[["traits"]][0,]
         }
         
