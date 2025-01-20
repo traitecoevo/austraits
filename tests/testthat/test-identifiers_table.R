@@ -1,4 +1,4 @@
-austraits_identifiers <- read_rds("benchmarks/austraits_identifiers.rds")
+austraits_identifiers <- readRDS("benchmarks/austraits_identifiers.rds")
 
 test_that("extract functions work with identifiers table", {
   expect_no_error(austraits_identifiers %>% extract_dataset("Schulze_2014"))
