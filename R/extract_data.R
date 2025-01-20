@@ -21,6 +21,9 @@
 #' }
 extract_data <- function(database, table = NA, col, col_value) {
   
+  # Check missingness
+  check_arg_missingness(database, col, col_value)
+  
   # Check compatability
   status <- check_compatibility(database, single_table_allowed = TRUE)
   
@@ -29,8 +32,13 @@ extract_data <- function(database, table = NA, col, col_value) {
     function_not_supported(database)
   }
 
+  # Check table value is valid 
+  check_table_name_exists(database, table)
+  
   # If just the traits table is read in
   if (tibble::is_tibble(database)) {
+    
+    check_col_exists_in_table(database, table, col)
     
     indicies_tmp <- purrr::map(col_value, ~{
       stringr::str_which(database[[col]], 
@@ -42,10 +50,16 @@ extract_data <- function(database, table = NA, col, col_value) {
     # Trim traits, based on the columns identified
     ret <- database %>%
       dplyr::slice(found_indicies)
+    
+    check_col_value_exists(ret, table, col, col_value)
 
   # If a full traits.build database is read in
   } else {
+    
+    # Check if col exists in table within database
+    check_col_exists_in_table(database, table, col)
 
+    # Proceed to extraction
     database$contexts <- database$contexts %>% tidyr::separate_longer_delim(link_vals, delim = ", ")
   
     database$contexts_tmp <- split(database$contexts, database$contexts$link_id)
@@ -235,10 +249,18 @@ extract_data <- function(database, table = NA, col, col_value) {
 
   }
   
-  # Assign class
-  attr(ret, "class") <- "traits.build"
-  
-  ret
+  # Check full database is provided, assign class
+  if(!tibble::is_tibble(ret)){
+    
+    # Check if extraction was successful based on col value
+    check_col_value_exists(ret, table, col, col_value)
+    
+    # Assign class
+    attr(ret, "class") <- "traits.build"
+  }
+    
+    ret
+ 
 }
 
 
