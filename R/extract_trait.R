@@ -26,7 +26,7 @@
 
 
 
-extract_trait <- function(database, trait_names, taxon_names=NULL) {
+extract_trait <- function(database, trait_names, taxon_names=NULL, partial_matches_allowed = TRUE) {
   # Check compatability
   status <- check_compatibility(database, single_table_allowed = TRUE)
   
@@ -35,10 +35,10 @@ extract_trait <- function(database, trait_names, taxon_names=NULL) {
     function_not_supported(database)
   } 
 
-  ret <- extract_data(database, "traits", "trait_name", col_value = trait_names)
+  ret <- extract_data(database, "traits", "trait_name", col_value = trait_names, partial_matches_allowed = partial_matches_allowed)
   
   if(!is.null(taxon_names))
-    ret <- extract_data(ret, "traits", "taxon_name", col_value = taxon_names)
+    ret <- extract_data(ret, "traits", "taxon_name", col_value = taxon_names, partial_matches_allowed = partial_matches_allowed)
   
   return(ret)
 }
