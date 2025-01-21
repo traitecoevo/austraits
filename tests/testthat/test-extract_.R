@@ -117,6 +117,7 @@ test_that("that you can link two calls of `extract_data` together", {
   expect_no_error(extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
   expect_no_error(subset_by_dataset_id_and_context <- extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
   expect_gt(nrow(subset_by_dataset_id3$contexts), nrow(subset_by_dataset_id_and_context$contexts))
+  expect_equal(c("error", names(subset_by_dataset_id3$traits)), names(subset_by_dataset_id3$excluded_data))
   })
   
 test_that("extracts using generalised extract function behaves as expected - extracting by `life_stage", {

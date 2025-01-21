@@ -225,6 +225,13 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
               dplyr::distinct()
          
          }
+
+        if (ncol(database[["excluded_data"]]) == 0) {
+            database[["excluded_data"]] <- database[["traits"]][0,]
+            database[["excluded_data"]] <- database[["excluded_data"]] %>% 
+              dplyr::mutate(error = character()) %>%
+              dplyr::select(error, everything())
+        }
         
       }
     
