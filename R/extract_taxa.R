@@ -25,7 +25,7 @@
 #' @author Fonti Kar - f.kar@unsw.edu.au
 #' @export
 
-extract_taxa <- function(database, family = NULL, genus = NULL, taxon_name = NULL){
+extract_taxa <- function(database, family = NULL, genus = NULL, taxon_name = NULL, partial_matches_allowed = TRUE){
   # Check compatability
   status <- check_compatibility(database, single_table_allowed = TRUE)
   
@@ -40,15 +40,15 @@ extract_taxa <- function(database, family = NULL, genus = NULL, taxon_name = NUL
   }
   
   if( ! is.null(family) ){
-    return(extract_data(database, "taxa", "family", col_value = family))
+    return(extract_data(database, "taxa", "family", col_value = family, partial_matches_allowed = partial_matches_allowed))
   }
   
   if( ! is.null(genus) ){
-    return(extract_data(database, "taxa", "genus", col_value = genus))
+    return(extract_data(database, "taxa", "genus", col_value = genus, partial_matches_allowed = partial_matches_allowed))
   }
   
   if( ! is.null(taxon_name))
-    return(extract_data(database, "traits", "taxon_name", col_value = taxon_name))
+    return(extract_data(database, "traits", "taxon_name", col_value = taxon_name, partial_matches_allowed = partial_matches_allowed))
 }
 
   

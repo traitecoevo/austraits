@@ -19,7 +19,7 @@
 #' extract_data(database = traits.build_database, table = "traits", 
 #' col = "trait_name", col_value = "leaf_area")
 #' }
-extract_data <- function(database, table = NA, col, col_value) {
+extract_data <- function(database, table = NA, col, col_value, partial_matches_allowed = TRUE) {
   
   # Check missingness
   check_arg_missingness(database, col, col_value)
@@ -40,10 +40,16 @@ extract_data <- function(database, table = NA, col, col_value) {
     
     check_col_exists_in_table(database, table, col)
     
-    indicies_tmp <- purrr::map(col_value, ~{
-      stringr::str_which(database[[col]], 
-                         pattern = stringr::regex(.x, ignore_case = TRUE))
-    })
+    if (partial_matches_allowed == TRUE) {
+      indicies_tmp <- purrr::map(col_value, ~{
+        stringr::str_which(database[[col]], 
+                          pattern = stringr::regex(.x, ignore_case = TRUE))
+      })
+    } else {
+      indicies_tmp <- purrr::map(col_value, ~{
+        which(database[[col]] == .x)
+      })
+    }
     
     found_indicies <- purrr::reduce(indicies_tmp, union)
     
@@ -164,10 +170,16 @@ extract_data <- function(database, table = NA, col, col_value) {
         # chose columns to select, ensuring "value" isn't among the columns, since it has a different meaning for each table
         columns_to_select <- intersect(setdiff(names(database$traits), "value"), names(database[[table[[i]]]]))
         
-        indicies_tmp <- purrr::map(col_value, ~{
-          stringr::str_which(database[[table[[i]]]][[col]], 
-                             pattern = stringr::regex(.x, ignore_case = TRUE))
-        })
+        if (partial_matches_allowed == TRUE) {
+          indicies_tmp <- purrr::map(col_value, ~{
+            stringr::str_which(database[[table[[i]]]][[col]], 
+                               pattern = stringr::regex(.x, ignore_case = TRUE))
+          })
+        } else {
+          indicies_tmp <- purrr::map(col_value, ~{
+            which(database[[table[[i]]]][[col]] == .x)
+          })
+        }
         
         found_indicies <- purrr::reduce(indicies_tmp, union)
     
@@ -224,6 +236,7 @@ extract_data <- function(database, table = NA, col, col_value) {
                 ret[["treatment_context_id"]]) %>%
       dplyr::select(-dplyr::any_of(c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id"))) %>%
       dplyr::group_by(dataset_id, category, link_id, value, description) %>%
+        dplyr::distinct(link_vals, .keep_all = TRUE) %>%
         dplyr::mutate(link_vals = paste0(link_vals, collapse = ", ")) %>%
       dplyr::ungroup() %>%
       dplyr::distinct()
