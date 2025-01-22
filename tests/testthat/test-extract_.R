@@ -117,6 +117,7 @@ test_that("that you can link two calls of `extract_data` together", {
   expect_no_error(extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
   expect_no_error(subset_by_dataset_id_and_context <- extract_data(database = subset_by_dataset_id3, table = "contexts", col = "context_property", col_value = "age"))
   expect_gt(nrow(subset_by_dataset_id3$contexts), nrow(subset_by_dataset_id_and_context$contexts))
+  expect_equal(c("error", names(subset_by_dataset_id3$traits)), names(subset_by_dataset_id3$excluded_data))
   })
   
 test_that("extracts using generalised extract function behaves as expected - extracting by `life_stage", {
@@ -240,5 +241,29 @@ test_that("Extract function works when just traits table is read in", {
   expect_silent(join_then_extract <- (austraits_5.0.0_lite %>% join_location_coordinates())$traits)
   expect_silent(extract_data(database = join_then_extract, col = "dataset_id", col_value = dataset_id))
   expect_silent(extract_data(database = join_then_extract, col = "longitude (deg)", col_value = "145"))
+})
+
+test_that("Extract function works with partial match parameter", {
+  expect_silent(extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = "Falster"))
+  expect_silent(extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = "Falster", partial_matches_allowed = T))
+  expect_error(extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = "Falster", partial_matches_allowed = F))
+  expect_silent(extract_data(database = austraits_5.0.0_lite, table = "traits", col = "dataset_id", col_value = "Falster_2003", partial_matches_allowed = F))
+  expect_silent(extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = "Falster"))
+  expect_silent(Falster_partial <- extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = "Falster", partial_matches_allowed = T))
+  expect_error(extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = "Falster", partial_matches_allowed = F))
+  expect_silent(Falster_exact <- extract_data(database = austraits_5.0.0_lite$traits, col = "dataset_id", col_value = "Falster_2003", partial_matches_allowed = F))
+  expect_equal(nrow(Falster_partial %>% dplyr::distinct(dataset_id)), 3)
+  expect_equal(nrow(Falster_exact %>% dplyr::distinct(dataset_id)), 1)
+  expect_silent(extract_dataset(database = austraits_5.0.0_lite, "Falster", partial_matches_allowed = T))
+  expect_error(extract_dataset(database = austraits_5.0.0_lite, "Falster", partial_matches_allowed = F))
+  expect_silent(extract_dataset(database = austraits_5.0.0_lite, "Falster_2003", partial_matches_allowed = F))
+  expect_silent(extract_trait(database = austraits_5.0.0_lite, "photosynth", partial_matches_allowed = T))
+  expect_error(extract_trait(database = austraits_5.0.0_lite, "photosynth", partial_matches_allowed = F))
+  expect_silent(extract_trait(database = austraits_5.0.0_lite, "photosynthetic_pathway", partial_matches_allowed = F))
+  expect_silent(Acacia_dealbata_partial <- extract_taxa(database = austraits_5.0.0_lite, taxon_name = "Acacia dealbata", partial_matches_allowed = T))
+  expect_silent(Acacia_dealbata_exact <- extract_taxa(database = austraits_5.0.0_lite, taxon_name = "Acacia dealbata", partial_matches_allowed = F))
+  expect_gt(nrow(Acacia_dealbata_partial$traits),nrow(Acacia_dealbata_exact$traits))
+  expect_equal(Acacia_dealbata_partial$traits %>% dplyr::distinct(taxon_name) %>% nrow(), 3)
+  expect_equal(Acacia_dealbata_exact$traits %>% dplyr::distinct(taxon_name) %>% nrow(), 1)
 })
 
