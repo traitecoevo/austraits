@@ -1,7 +1,7 @@
 #' @title Separate bounded trait values
 #'
 #' @description This function reverts the action of bind_trait_values. 
-#' This function separates values that were concatenated so that studies that have multiple observations for a given trait will have seperate row for each observation.
+#' This function separates values that were concatenated so that studies that have multiple observations for a given trait will have separate row for each observation.
 #' @usage separate_trait_values(trait_data, definitions)
 #' @param trait_data The traits table in a traits.build database - see example
 #' @param definitions The austraits definitions data frame
