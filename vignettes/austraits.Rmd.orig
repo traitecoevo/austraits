@@ -45,7 +45,7 @@ austraits <- load_austraits(version = "6.0.0", path = path)
 #> referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.
 #> • excluded_data: A table of data that did not pass quality test and so were excluded from the master dataset.
 #> • taxonomic_updates: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are
-#> determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
+#> determined by comparing against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
 #> • taxa: A table containing details on taxa associated with information in `traits`. This information has been sourced
 #> from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.
 #> • contributors: A table of people contributing to each study.
