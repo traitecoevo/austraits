@@ -86,8 +86,8 @@ austraits$build_info$version
 ### Getting started 👀
 
 We highly recommend taking a look at our [Getting Started
-tutorial](https://traitecoevo.github.io/austraits/) on our website
-before jumping into the `austraits` R package!
+tutorial](https://traitecoevo.github.io/austraits/austraits.html) on our
+website before jumping into the `austraits` R package!
 
 If you prefer to view this vignette in R, we recommend installing the
 package with `build_vignettes = TRUE`.
@@ -125,7 +125,7 @@ citation("austraits")
 #>   plant trait database for the Australian flora. Sci Data 8, 254
 #>   (2021). https://doi.org/10.1038/s41597-021-01006-6
 #> 
-#> A BibTeX entry for LaTeX users is
+#> Une entrée BibTeX pour les utilisateurs LaTeX est
 #> 
 #>   @Article{,
 #>     title = {AusTraits, a curated plant trait database for the Australian flora},
@@ -139,7 +139,7 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes 🛠
+### Behind the scenes 🔧
 
 Check out
 [austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file),
