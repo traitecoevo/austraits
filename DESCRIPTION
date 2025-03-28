@@ -1,6 +1,6 @@
 Package: austraits
 Title: Helpful functions to access the AusTraits database and wrangle data from other traits.build databases
-Version: 3.0.2
+Version: 3.0.2.9000
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
