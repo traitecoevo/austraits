@@ -86,8 +86,8 @@ austraits$build_info$version
 ### Getting started 👀
 
 We highly recommend taking a look at our [Getting Started
-tutorial](https://traitecoevo.github.io/austraits/) on our website
-before jumping into the `austraits` R package!
+tutorial](https://traitecoevo.github.io/austraits/articles/austraits.html)
+on our website before jumping into the `austraits` R package!
 
 If you prefer to view this vignette in R, we recommend installing the
 package with `build_vignettes = TRUE`.
