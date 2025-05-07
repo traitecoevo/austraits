@@ -56,7 +56,7 @@
                         <h4 data-toc-skip class="author">Fonti Kar,
 Elizabeth Wenk, Daniel Falster</h4>
             
-            <h4 data-toc-skip class="date">2024-11-15</h4>
+            <h4 data-toc-skip class="date">2025-03-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/traitecoevo/austraits/blob/master/vignettes/austraits.Rmd" class="external-link"><code>vignettes/austraits.Rmd</code></a></small>
       <div class="d-none name"><code>austraits.Rmd</code></div>
@@ -119,37 +119,39 @@ learn more about the structure of <code>austraits</code>, check out the
 of the database</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#&gt; ── This is 6.0.0 of AusTraits: a curated plant trait database for the Australian flora! #&gt; ──────────────────────────────────</span></span>
+<pre><code><span><span class="co">#&gt; ── This is 6.0.0 of AusTraits: a curated plant trait database for the Australian flora! ──────────────────────────────</span></span>
+<span></span>
 <span><span class="co">#&gt; ℹ This database is built using traits.build version 1.1.0.9000</span></span>
-<span><span class="co">#&gt; ℹ This database contains a total of 1822 records, for 454 taxa and 26 traits.</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ℹ This database contains a total of 1726024 records, for 33494 taxa and 497 traits.</span></span>
+<span></span>
 <span><span class="co">#&gt; ── This object is a 'list' with the following components: ──</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; • traits: A table containing measurements of traits.</span></span>
-<span><span class="co">#&gt; • locations: A table containing observations of location/site characteristics associated with information in `traits`.</span></span>
-<span><span class="co">#&gt; Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`,</span></span>
+<span><span class="co">#&gt; • locations: A table containing observations of location/site characteristics associated with information in</span></span>
+<span><span class="co">#&gt; `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`,</span></span>
 <span><span class="co">#&gt; `location_name`.</span></span>
-<span><span class="co">#&gt; • contexts: A table containing observations of contextual characteristics associated with information in `traits`. Cross</span></span>
-<span><span class="co">#&gt; referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`, and</span></span>
-<span><span class="co">#&gt; `link_vals`.</span></span>
-<span><span class="co">#&gt; • methods: A table containing details on methods with which data were collected, including time frame and source. Cross</span></span>
-<span><span class="co">#&gt; referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.</span></span>
+<span><span class="co">#&gt; • contexts: A table containing observations of contextual characteristics associated with information in `traits`.</span></span>
+<span><span class="co">#&gt; Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`,</span></span>
+<span><span class="co">#&gt; and `link_vals`.</span></span>
+<span><span class="co">#&gt; • methods: A table containing details on methods with which data were collected, including time frame and source.</span></span>
+<span><span class="co">#&gt; Cross referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.</span></span>
 <span><span class="co">#&gt; • excluded_data: A table of data that did not pass quality test and so were excluded from the master dataset.</span></span>
 <span><span class="co">#&gt; • taxonomic_updates: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are</span></span>
-<span><span class="co">#&gt; determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).</span></span>
+<span><span class="co">#&gt; determined by comparing against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).</span></span>
 <span><span class="co">#&gt; • taxa: A table containing details on taxa associated with information in `traits`. This information has been sourced</span></span>
-<span><span class="co">#&gt; from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.</span></span>
+<span><span class="co">#&gt; from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3</span></span>
+<span><span class="co">#&gt; license.</span></span>
 <span><span class="co">#&gt; • contributors: A table of people contributing to each study.</span></span>
 <span><span class="co">#&gt; • sources: Bibtex entries for all primary and secondary sources in the compilation.</span></span>
-<span><span class="co">#&gt; • definitions: A copy of the definitions for all tables and terms. Information included here was used to process data #&gt; and</span></span>
+<span><span class="co">#&gt; • definitions: A copy of the definitions for all tables and terms. Information included here was used to process data</span></span>
+<span><span class="co">#&gt; and generate any documentation for the study.</span></span>
+<span><span class="co">#&gt; • schema: A copy of the schema for all tables and terms. Information included here was used to process data and</span></span>
 <span><span class="co">#&gt; generate any documentation for the study.</span></span>
-<span><span class="co">#&gt; • schema: A copy of the schema for all tables and terms. Information included here was used to process data and generate</span></span>
-<span><span class="co">#&gt; any documentation for the study.</span></span>
 <span><span class="co">#&gt; • metadata: Metadata associated with the dataset, including title, creators, license, subject, funding sources.</span></span>
-<span><span class="co">#&gt; • build_info: A description of the computing environment used to create this version of the dataset, including version</span></span>
-<span><span class="co">#&gt; number, git commit and R session_info.</span></span>
-<span><span class="co">#&gt; ℹ To access a component, try using the $ e.g. austraits$traits</span></span></code></pre></div>
+<span><span class="co">#&gt; • build_info: A description of the computing environment used to create this version of the dataset, including</span></span>
+<span><span class="co">#&gt; version number, git commit and R session_info.</span></span>
+<span></span>
+<span><span class="co">#&gt; ℹ To access a component, try using the $ e.g. austraits$traits</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -254,23 +256,23 @@ an object</p>
 <span></span>
 <span><span class="va">one_study</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 165 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id     taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Falster_2005_2 Acacia longifolia 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
-<span><span class="co">#&gt;  2 Falster_2005_2 Acacia longifolia 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
-<span><span class="co">#&gt;  3 Falster_2005_2 Acacia longifolia 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
-<span><span class="co">#&gt;  4 Falster_2005_2 Acacia longifolia 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
-<span><span class="co">#&gt;  5 Falster_2005_2 Acacia longifolia 01             leaf_N_pe… 23.2  mg/g  population  mean       measurement    4         </span></span>
-<span><span class="co">#&gt;  6 Falster_2005_2 Acacia longifolia 01             leaf_area  1761  mm2   population  mean       measurement    4         </span></span>
-<span><span class="co">#&gt;  7 Falster_2005_2 Acacia longifolia 01             leaf_mass… 128   g/m2  population  mean       measurement    4         </span></span>
-<span><span class="co">#&gt;  8 Falster_2005_2 Acacia longifolia 01             plant_hei… 4     m     population  maximum    measurement    unknown   </span></span>
-<span><span class="co">#&gt;  9 Falster_2005_2 Acacia longifolia 01             resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Falster_2005_2 Acacia longifolia 01             seed_dry_… 14    mg    population  mean       measurement    unknown   </span></span>
+<span><span class="co">#&gt;    dataset_id     taxon_name    observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
+<span><span class="co">#&gt;  2 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
+<span><span class="co">#&gt;  3 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
+<span><span class="co">#&gt;  4 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   </span></span>
+<span><span class="co">#&gt;  5 Falster_2005_2 Acacia longi… 01             leaf_N_pe… 23.2  mg/g  population  mean       measurement    4         </span></span>
+<span><span class="co">#&gt;  6 Falster_2005_2 Acacia longi… 01             leaf_area  1761  mm2   population  mean       measurement    4         </span></span>
+<span><span class="co">#&gt;  7 Falster_2005_2 Acacia longi… 01             leaf_mass… 128   g/m2  population  mean       measurement    4         </span></span>
+<span><span class="co">#&gt;  8 Falster_2005_2 Acacia longi… 01             plant_hei… 4     m     population  maximum    measurement    unknown   </span></span>
+<span><span class="co">#&gt;  9 Falster_2005_2 Acacia longi… 01             resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Falster_2005_2 Acacia longi… 01             seed_dry_… 14    mg    population  mean       measurement    unknown   </span></span>
 <span><span class="co">#&gt; # ℹ 155 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>Filtering <strong>multiple datasets</strong> and assigning it to an
 object</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -279,23 +281,23 @@ object</p>
 <span> </span>
 <span><span class="va">multi_studies</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 2,209 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id taxon_name       observation_id trait_name   value unit   entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Ilic_2000  Acacia acradenia 0001           wood_density 0.904 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  2 Ilic_2000  Acacia acuminata 0002           wood_density 0.895 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  3 Ilic_2000  Acacia acuminata 0003           wood_density 1.008 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  4 Ilic_2000  Acacia adsurgens 0004           wood_density 0.887 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  5 Ilic_2000  Acacia alleniana 0005           wood_density 0.56  mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  6 Ilic_2000  Acacia ampliceps 0006           wood_density 0.568 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  7 Ilic_2000  Acacia aneura    0007           wood_density 1.035 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  8 Ilic_2000  Acacia aneura    0008           wood_density 1.019 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt;  9 Ilic_2000  Acacia aneura    0009           wood_density 0.861 mg/mm3 individual  raw        measurement    unknown   </span></span>
-<span><span class="co">#&gt; 10 Ilic_2000  Acacia aneura    0010           wood_density 0.996 mg/mm3 individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;    dataset_id taxon_name       observation_id trait_name  value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Ilic_2000  Acacia acradenia 0001           wood_densi… 0.904 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  2 Ilic_2000  Acacia acuminata 0002           wood_densi… 0.895 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  3 Ilic_2000  Acacia acuminata 0003           wood_densi… 1.008 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  4 Ilic_2000  Acacia adsurgens 0004           wood_densi… 0.887 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  5 Ilic_2000  Acacia alleniana 0005           wood_densi… 0.56  mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  6 Ilic_2000  Acacia ampliceps 0006           wood_densi… 0.568 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  7 Ilic_2000  Acacia aneura    0007           wood_densi… 1.035 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  8 Ilic_2000  Acacia aneura    0008           wood_densi… 1.019 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt;  9 Ilic_2000  Acacia aneura    0009           wood_densi… 0.861 mg/m… individual  raw        measurement    unknown   </span></span>
+<span><span class="co">#&gt; 10 Ilic_2000  Acacia aneura    0010           wood_densi… 0.996 mg/m… individual  raw        measurement    unknown   </span></span>
 <span><span class="co">#&gt; # ℹ 2,199 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>Filtering <strong>multiple datasets by same lead author</strong>
 (e.g. Falster) and assigning it to an object.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -303,23 +305,23 @@ object</p>
 <span></span>
 <span><span class="va">falster_studies</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 685 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id   taxon_name        observation_id trait_name   value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Falster_2003 Acacia floribunda 01             leaf_area    142   mm2   population  mean       measurement    3         </span></span>
-<span><span class="co">#&gt;  2 Falster_2003 Acacia floribunda 01             leaf_inclin… 57    deg   population  mean       measurement    3         </span></span>
-<span><span class="co">#&gt;  3 Falster_2003 Acacia floribunda 02             leaf_compou… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Falster_2003 Acacia myrtifolia 03             leaf_area    319   mm2   population  mean       measurement    3         </span></span>
-<span><span class="co">#&gt;  5 Falster_2003 Acacia myrtifolia 03             leaf_inclin… 66.1  deg   population  mean       measurement    3         </span></span>
-<span><span class="co">#&gt;  6 Falster_2003 Acacia myrtifolia 04             leaf_compou… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Falster_2003 Acacia suaveolens 05             leaf_area    562   mm2   population  mean       measurement    3         </span></span>
-<span><span class="co">#&gt;  8 Falster_2003 Acacia suaveolens 05             leaf_inclin… 71.7  deg   population  mean       measurement    3         </span></span>
-<span><span class="co">#&gt;  9 Falster_2003 Acacia suaveolens 06             leaf_compou… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Falster_2003 Angophora hispida 07             leaf_area    1590  mm2   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;    dataset_id   taxon_name      observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Falster_2003 Acacia floribu… 01             leaf_area  142   mm2   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;  2 Falster_2003 Acacia floribu… 01             leaf_incl… 57    deg   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;  3 Falster_2003 Acacia floribu… 02             leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Falster_2003 Acacia myrtifo… 03             leaf_area  319   mm2   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;  5 Falster_2003 Acacia myrtifo… 03             leaf_incl… 66.1  deg   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;  6 Falster_2003 Acacia myrtifo… 04             leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Falster_2003 Acacia suaveol… 05             leaf_area  562   mm2   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;  8 Falster_2003 Acacia suaveol… 05             leaf_incl… 71.7  deg   population  mean       measurement    3         </span></span>
+<span><span class="co">#&gt;  9 Falster_2003 Acacia suaveol… 06             leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Falster_2003 Angophora hisp… 07             leaf_area  1590  mm2   population  mean       measurement    3         </span></span>
 <span><span class="co">#&gt; # ℹ 675 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="extracting-by-taxonomy">Extracting by taxonomy<a class="anchor" aria-label="anchor" href="#extracting-by-taxonomy"></a>
@@ -350,23 +352,23 @@ object</p>
 <span></span>
 <span><span class="va">data_fruit</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 216,465 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id taxon_name            observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                 &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 ABRS_1981  Ceratophyllum demers… 0566           fruit_len… 4     mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 ABRS_1981  Ceratophyllum demers… 0566           fruit_len… 6     mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 ABRS_1981  Ceratophyllum demers… 0566           fruit_wid… 3     mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 ABRS_1981  Ceratophyllum demers… 0566           fruit_wid… 3.5   mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 ABRS_1981  Conospermum petiolare 0680           fruit_len… 2.5   mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 ABRS_1981  Conospermum petiolare 0680           fruit_wid… 3     mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 ABRS_1981  Proiphys amboinensis  3182           fruit_len… 15    mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 ABRS_1981  Proiphys amboinensis  3182           fruit_len… 30    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 ABRS_1981  Proiphys amboinensis  3182           fruit_wid… 15    mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 ABRS_1981  Proiphys amboinensis  3182           fruit_wid… 30    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 ABRS_1981  Ceratophyllum de… 0566           fruit_len… 4     mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 ABRS_1981  Ceratophyllum de… 0566           fruit_len… 6     mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 ABRS_1981  Ceratophyllum de… 0566           fruit_wid… 3     mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 ABRS_1981  Ceratophyllum de… 0566           fruit_wid… 3.5   mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 ABRS_1981  Conospermum peti… 0680           fruit_len… 2.5   mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 ABRS_1981  Conospermum peti… 0680           fruit_wid… 3     mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 ABRS_1981  Proiphys amboine… 3182           fruit_len… 15    mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 ABRS_1981  Proiphys amboine… 3182           fruit_len… 30    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 ABRS_1981  Proiphys amboine… 3182           fruit_wid… 15    mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 ABRS_1981  Proiphys amboine… 3182           fruit_wid… 30    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 216,455 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>Combining <code>lookup_trait</code> with <code>extract_trait</code>
 to obtain <strong>all traits with ‘leaf’ in the trait name</strong> and
 assigning it to an object. Note we use the <code>.</code> notation to
@@ -377,23 +379,23 @@ pass on the <code>lookup_trait</code> results to
 <span></span>
 <span><span class="va">leaf</span><span class="op">$</span><span class="va">traits</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 511,952 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id taxon_name            observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                 &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 ABRS_1981  Acanthocarpus canali… 0001           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 ABRS_1981  Acanthocarpus humilis 0002           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 ABRS_1981  Acanthocarpus parvif… 0003           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 ABRS_1981  Acanthocarpus preiss… 0004           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 ABRS_1981  Acanthocarpus robust… 0005           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 ABRS_1981  Acanthocarpus rupest… 0006           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 ABRS_1981  Acanthocarpus vertic… 0007           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 ABRS_1981  Acer pseudoplatanus   0008           leaf_phen… deci… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 ABRS_1981  Acidonia microcarpa   0009           leaf_comp… comp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 ABRS_1981  Callitris acuminata   0010           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 ABRS_1981  Acanthocarpus ca… 0001           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 ABRS_1981  Acanthocarpus hu… 0002           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 ABRS_1981  Acanthocarpus pa… 0003           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 ABRS_1981  Acanthocarpus pr… 0004           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 ABRS_1981  Acanthocarpus ro… 0005           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 ABRS_1981  Acanthocarpus ru… 0006           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 ABRS_1981  Acanthocarpus ve… 0007           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 ABRS_1981  Acer pseudoplata… 0008           leaf_phen… deci… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 ABRS_1981  Acidonia microca… 0009           leaf_comp… comp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 ABRS_1981  Callitris acumin… 0010           leaf_comp… simp… &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 511,942 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="extract-data">Extracting from other tables<a class="anchor" aria-label="anchor" href="#extract-data"></a>
@@ -456,177 +458,181 @@ but offers versatile joining options.</p>
 <code class="sourceCode R"><span><span class="co"># Join taxonomic information </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_taxa</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 30</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 20 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, taxon_rank &lt;chr&gt;, establishment_means &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, family &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   genus &lt;chr&gt;, taxon_rank &lt;chr&gt;, establishment_means &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join methodological information </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_methods</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 27</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 17 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, methods &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, methods &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join location coordinates </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_location_coordinates</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 29</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 19 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join information pertaining to location properties </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_location_properties</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 28</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 18 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;, location_properties &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   location_properties &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join information pertaining to location properties </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_location_properties.html">join_location_properties</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"many_columns"</span>, vars <span class="op">=</span> <span class="st">"temperature, min MAT (C)"</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 28</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 18 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   `location_property: temperature, min MAT (C)` &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join context information </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_context_properties</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 31</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 21 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, treatment_context_properties &lt;chr&gt;, plot_context_properties &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   entity_context_properties &lt;chr&gt;, temporal_context_properties &lt;chr&gt;, method_context_properties &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   treatment_context_properties &lt;chr&gt;, plot_context_properties &lt;chr&gt;, entity_context_properties &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   temporal_context_properties &lt;chr&gt;, method_context_properties &lt;chr&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join information from multiple tables </span></span>
 <span><span class="op">(</span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_context_properties</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="va">join_location_coordinates</span><span class="op">)</span><span class="op">$</span><span class="va">traits</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 34</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 24 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, treatment_context_properties &lt;chr&gt;, plot_context_properties &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   entity_context_properties &lt;chr&gt;, temporal_context_properties &lt;chr&gt;, method_context_properties &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   location_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   treatment_context_properties &lt;chr&gt;, plot_context_properties &lt;chr&gt;, entity_context_properties &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   temporal_context_properties &lt;chr&gt;, method_context_properties &lt;chr&gt;, location_name &lt;chr&gt;, …</span></span></code></pre>
 <p>Alternatively,users can join <strong>all</strong> information using
 <code><a href="../reference/flatten_database.html">flatten_database()</a></code>:</p>
 <div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/flatten_database.html">flatten_database</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,822 × 66</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name         observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;              &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falciformis 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falciformis 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falciformis 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia falciformis 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia falciformis 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia falciformis 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrorata    004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrorata    004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrorata    004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrorata    005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 Campbell_2006 Acacia falcif… 002            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 Campbell_2006 Acacia falcif… 003            dispersers ants  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  &lt;NA&gt;  species     mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 Campbell_2006 Acacia irrora… 005            post_fire… post… &lt;NA&gt;  population  mode       expert_score   &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 1,812 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 56 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   location_properties &lt;chr&gt;, treatment_context_properties &lt;chr&gt;, plot_context_properties &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   entity_context_properties &lt;chr&gt;, temporal_context_properties &lt;chr&gt;, method_context_properties &lt;chr&gt;, methods &lt;chr&gt;, …</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;, location_properties &lt;chr&gt;, treatment_context_properties &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   plot_context_properties &lt;chr&gt;, entity_context_properties &lt;chr&gt;, temporal_context_properties &lt;chr&gt;, …</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="visualising-data-by-site">Visualising data by site<a class="anchor" aria-label="anchor" href="#visualising-data-by-site"></a>
@@ -649,7 +655,7 @@ contains a large number of species.</p>
 <code class="sourceCode R"><span><span class="va">data_fire</span> <span class="op">&lt;-</span> <span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/join_location_coordinates.html">join_location_coordinates</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_locations.html">plot_locations</a></span><span class="op">(</span><span class="va">data_fire</span><span class="op">$</span><span class="va">traits</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="man%2Ffigures%2Fsite_plot-1.png" alt="plot of chunk site_plot"><p class="caption">
+<img src="reference/figures/site_plot-1.png" alt="plot of chunk site_plot"><p class="caption">
 plot of chunk site_plot
 </p>
 </div>
@@ -665,14 +671,14 @@ taxonomic family, genus or by a column in the traits table, such as
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span>trait_name <span class="op">=</span> <span class="st">"wood_density"</span>, y_axis_category <span class="op">=</span> <span class="st">"family"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="man%2Ffigures%2Fbeeswarm-1.png" alt="plot of chunk beeswarm"><p class="caption">
+<img src="reference/figures/beeswarm-1.png" alt="plot of chunk beeswarm"><p class="caption">
 plot of chunk beeswarm
 </p>
 </div>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/plot_trait_distribution_beeswarm.html">plot_trait_distribution_beeswarm</a></span><span class="op">(</span>trait_name <span class="op">=</span> <span class="st">"wood_density"</span>, y_axis_category <span class="op">=</span> <span class="st">"dataset_id"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="man%2Ffigures%2Fbeeswarm-2.png" alt="plot of chunk beeswarm"><p class="caption">
+<img src="reference/figures/beeswarm-2.png" alt="plot of chunk beeswarm"><p class="caption">
 plot of chunk beeswarm
 </p>
 </div>
@@ -699,25 +705,25 @@ versions of the AusTraits database.</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_fire</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="../reference/trait_pivot_wider.html">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,366 × 49</span></span>
-<span><span class="co">#&gt;    dataset_id    taxon_name   observation_id entity_type value_type basis_of_record life_stage population_id individual_id</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;        </span></span>
-<span><span class="co">#&gt;  1 Campbell_2006 Acacia falc… 001            population  mode       field           adult      01            &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  2 Campbell_2006 Acacia falc… 002            population  mode       field           seedling   01            &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  3 Campbell_2006 Acacia falc… 003            species     mode       field           adult      &lt;NA&gt;          &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  4 Campbell_2006 Acacia irro… 004            population  mode       field           adult      01            &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  5 Campbell_2006 Acacia irro… 005            population  mode       field           seedling   01            &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  6 Campbell_2006 Acacia irro… 006            species     mode       field           adult      &lt;NA&gt;          &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  7 Campbell_2006 Acacia maid… 007            population  mode       field           adult      02            &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  8 Campbell_2006 Acacia maid… 008            population  mode       field           seedling   02            &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt;  9 Campbell_2006 Acacia maid… 009            species     mode       field           adult      &lt;NA&gt;          &lt;NA&gt;         </span></span>
-<span><span class="co">#&gt; 10 Campbell_2006 Acacia mela… 010            population  mode       field           adult      02            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;    dataset_id  taxon_name observation_id entity_type value_type basis_of_record life_stage population_id individual_id</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;        </span></span>
+<span><span class="co">#&gt;  1 Campbell_2… Acacia fa… 001            population  mode       field           adult      01            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  2 Campbell_2… Acacia fa… 002            population  mode       field           seedling   01            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  3 Campbell_2… Acacia fa… 003            species     mode       field           adult      &lt;NA&gt;          &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  4 Campbell_2… Acacia ir… 004            population  mode       field           adult      01            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  5 Campbell_2… Acacia ir… 005            population  mode       field           seedling   01            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  6 Campbell_2… Acacia ir… 006            species     mode       field           adult      &lt;NA&gt;          &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  7 Campbell_2… Acacia ma… 007            population  mode       field           adult      02            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  8 Campbell_2… Acacia ma… 008            population  mode       field           seedling   02            &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt;  9 Campbell_2… Acacia ma… 009            species     mode       field           adult      &lt;NA&gt;          &lt;NA&gt;         </span></span>
+<span><span class="co">#&gt; 10 Campbell_2… Acacia me… 010            population  mode       field           adult      02            &lt;NA&gt;         </span></span>
 <span><span class="co">#&gt; # ℹ 1,356 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 40 more variables: repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;, `longitude (deg)` &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   bud_bank_location &lt;chr&gt;, resprouting_capacity &lt;chr&gt;, seedbank_location &lt;chr&gt;, post_fire_recruitment &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   dispersers &lt;chr&gt;, plant_growth_form &lt;chr&gt;, stem_dark_respiration_per_area &lt;chr&gt;, bark_thickness &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   huber_value &lt;chr&gt;, leaf_dry_matter_content &lt;chr&gt;, leaf_dark_respiration_per_area &lt;chr&gt;, …</span></span></code></pre>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;, location_name &lt;chr&gt;, `latitude (deg)` &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   `longitude (deg)` &lt;chr&gt;, bud_bank_location &lt;chr&gt;, resprouting_capacity &lt;chr&gt;, seedbank_location &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   post_fire_recruitment &lt;chr&gt;, dispersers &lt;chr&gt;, plant_growth_form &lt;chr&gt;, stem_dark_respiration_per_area &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   bark_thickness &lt;chr&gt;, huber_value &lt;chr&gt;, leaf_dry_matter_content &lt;chr&gt;, leaf_dark_respiration_per_area &lt;chr&gt;, …</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="binding-trait-values">Binding trait values<a class="anchor" aria-label="anchor" href="#binding-trait-values"></a>
@@ -738,46 +744,46 @@ maximum fruit length for a species. You can use
 <span><span class="va">data_trait_bound</span>  <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>   </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">value</span>, <span class="st">"--"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 288 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id taxon_name            observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;                 &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 ABRS_2023  Acronychia aberrans   01324          fruit_len… 13--… mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  2 ABRS_2023  Acronychia acidula    01325          fruit_len… 13--… mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  3 ABRS_2023  Acronychia acronychi… 01326          fruit_len… 8--13 mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  4 ABRS_2023  Acronychia acuminata  01327          fruit_len… 12--… mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  5 ABRS_2023  Acronychia baeuerlen… 01328          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  6 ABRS_2023  Acronychia chooreech… 01329          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  7 ABRS_2023  Acronychia crassipet… 01330          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  8 ABRS_2023  Acronychia imperfora… 01332          fruit_len… 9--16 mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt;  9 ABRS_2023  Acronychia laevis     01333          fruit_len… 7--10 mm    species     minimum--… measurement--… NA--NA    </span></span>
-<span><span class="co">#&gt; 10 ABRS_2023  Acronychia littoralis 01334          fruit_len… 8--14 mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;    dataset_id taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;      &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 ABRS_2023  Acronychia aberr… 01324          fruit_len… 13--… mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  2 ABRS_2023  Acronychia acidu… 01325          fruit_len… 13--… mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  3 ABRS_2023  Acronychia acron… 01326          fruit_len… 8--13 mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  4 ABRS_2023  Acronychia acumi… 01327          fruit_len… 12--… mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  5 ABRS_2023  Acronychia baeue… 01328          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  6 ABRS_2023  Acronychia choor… 01329          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  7 ABRS_2023  Acronychia crass… 01330          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  8 ABRS_2023  Acronychia imper… 01332          fruit_len… 9--16 mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt;  9 ABRS_2023  Acronychia laevis 01333          fruit_len… 7--10 mm    species     minimum--… measurement--… NA--NA    </span></span>
+<span><span class="co">#&gt; 10 ABRS_2023  Acronychia litto… 01334          fruit_len… 8--14 mm    species     minimum--… measurement--… NA--NA    </span></span>
 <span><span class="co">#&gt; # ℹ 278 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>If you would like to revert the bounded trait values, call
 <code><a href="../reference/separate_trait_values.html">separate_trait_values()</a></code>:</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_trait_bound</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="../reference/separate_trait_values.html">separate_trait_values</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">austraits</span><span class="op">$</span><span class="va">definitions</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 119 × 26</span></span>
-<span><span class="co">#&gt;    dataset_id  taxon_name           observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;fct&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
-<span><span class="co">#&gt;  1 Cooper_2013 Acronychia baeuerle… 0071           fruit_len… 15    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  2 ABRS_2023   Acronychia aberrans  01324          fruit_len… 13    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  3 ABRS_2023   Acronychia aberrans  01324          fruit_len… 16    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  4 ABRS_2023   Acronychia eungelle… 01331          fruit_len… 12    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  5 ABRS_2023   Asterolasia elegans  02248          fruit_len… 10    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  6 ABRS_2023   Boronia angustisepa… 02910          fruit_len… 6     mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  7 ABRS_2023   Boronia quadrilata   03056          fruit_len… 6     mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  8 ABRS_2023   Bosistoa floydii     03120          fruit_len… 10    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt;  9 ABRS_2023   Citrus australasica  04176          fruit_len… 50    mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
-<span><span class="co">#&gt; 10 ABRS_2023   Citrus garrawayi     04178          fruit_len… 100   mm    species     &lt;NA&gt;       measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;    dataset_id  taxon_name       observation_id trait_name value unit  entity_type value_type basis_of_value replicates</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 Cooper_2013 Acronychia baeu… 0071           fruit_len… 15    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  2 ABRS_2023   Acronychia aber… 01324          fruit_len… 16    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  3 ABRS_2023   Acronychia aber… 01324          fruit_len… 13    mm    species     minimum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  4 ABRS_2023   Acronychia eung… 01331          fruit_len… 12    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  5 ABRS_2023   Asterolasia ele… 02248          fruit_len… 10    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  6 ABRS_2023   Boronia angusti… 02910          fruit_len… 6     mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  7 ABRS_2023   Boronia quadril… 03056          fruit_len… 6     mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  8 ABRS_2023   Bosistoa floydii 03120          fruit_len… 10    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt;  9 ABRS_2023   Citrus australa… 04176          fruit_len… 50    mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
+<span><span class="co">#&gt; 10 ABRS_2023   Citrus garrawayi 04178          fruit_len… 100   mm    species     maximum    measurement    &lt;NA&gt;      </span></span>
 <span><span class="co">#&gt; # ℹ 109 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: basis_of_record &lt;chr&gt;, life_stage &lt;chr&gt;, population_id &lt;chr&gt;, individual_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;, entity_context_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;, measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
+<span><span class="co">#&gt; #   repeat_measurements_id &lt;chr&gt;, temporal_context_id &lt;chr&gt;, source_id &lt;chr&gt;, location_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   entity_context_id &lt;chr&gt;, plot_context_id &lt;chr&gt;, treatment_context_id &lt;chr&gt;, collection_date &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -791,7 +797,7 @@ maximum fruit length for a species. You can use
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
