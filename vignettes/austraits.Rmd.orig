@@ -20,45 +20,14 @@ knitr::opts_chunk$set(
 )
 
 library(dplyr)
+library(here)
 library(stringr)
 library(austraits)
 
 path = "ignore/data/austraits/"
-austraits <- load_austraits(version = "6.0.0", path = path)
+austraits <- load_austraits(version = "6.0.0", path = here(path))
 
 # knitr::knit("vignettes/austraits.Rmd.orig", "vignettes/austraits.Rmd")
-
-#> ── This is 6.0.0 of AusTraits: a curated plant trait database for the Australian flora! #> ──────────────────────────────────
-#> ℹ This database is built using traits.build version 1.1.0.9000
-#> ℹ This database contains a total of 1822 records, for 454 taxa and 26 traits.
-#> 
-#> ── This object is a 'list' with the following components: ──
-#> 
-#> • traits: A table containing measurements of traits.
-#> • locations: A table containing observations of location/site characteristics associated with information in `traits`.
-#> Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`,
-#> `location_name`.
-#> • contexts: A table containing observations of contextual characteristics associated with information in `traits`. Cross
-#> referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`, and
-#> `link_vals`.
-#> • methods: A table containing details on methods with which data were collected, including time frame and source. Cross
-#> referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.
-#> • excluded_data: A table of data that did not pass quality test and so were excluded from the master dataset.
-#> • taxonomic_updates: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are
-#> determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
-#> • taxa: A table containing details on taxa associated with information in `traits`. This information has been sourced
-#> from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.
-#> • contributors: A table of people contributing to each study.
-#> • sources: Bibtex entries for all primary and secondary sources in the compilation.
-#> • definitions: A copy of the definitions for all tables and terms. Information included here was used to process data #> and
-#> generate any documentation for the study.
-#> • schema: A copy of the schema for all tables and terms. Information included here was used to process data and generate
-#> any documentation for the study.
-#> • metadata: Metadata associated with the dataset, including title, creators, license, subject, funding sources.
-#> • build_info: A description of the computing environment used to create this version of the dataset, including version
-#> number, git commit and R session_info.
-#> ℹ To access a component, try using the $ e.g. austraits$traits
-
 ```
 
 `austraits` allow users to **access, explore and wrangle data** from [traits.build](https://github.com/traitecoevo/traits.build) relational databases. It is also an R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. Below, we've include a tutorial using the AusTraits database to illustrate how some these functions work together to generate useful outputs.
@@ -96,7 +65,7 @@ get_versions(path = path)
 
 AusTraits, like all traits.build databases, is a relational database. In R, it is a very *large* list with multiple tables. If you are not familiar with working with lists in R, we recommend having a quick look at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To learn more about the structure of `austraits`, check out the [structure of the database](https://traitecoevo.github.io/austraits/articles/structure.html). 
 
-```{r}
+```{r, message=TRUE}
 austraits
 ```
 

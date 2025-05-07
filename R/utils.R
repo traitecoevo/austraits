@@ -1,7 +1,7 @@
 #' Convert dataframe to list
 #'
 #' @description Convert a dataframe to a named list, 
-#' useful when converting a datafreme a to yaml.
+#' useful when converting a dataframe a to yaml.
 #'
 #' @param df A dataframe
 #' @return A (yaml) list
