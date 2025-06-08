@@ -209,7 +209,7 @@ join_identifiers <- function(database,
     # Pivot wider, so each `identifier_type` in its own column
     identifiers <- 
       identifiers %>%
-      dplyr::mutate(identifier_type = paste0("identifier_type: ", identifier_type)) %>%
+      dplyr::mutate(identifier_type = paste0("identifier_type: ", identifier_type, " <<institution code: ", institution_code, ">>")) %>%
       tidyr::pivot_wider(names_from = identifier_type, values_from = identifier_value)
 
     # Join identifiers, based on appropriate columns
@@ -222,7 +222,7 @@ join_identifiers <- function(database,
     # Merge each identifier type and its corresponding value
     compacted_identifiers_column <- 
       identifiers %>%
-      dplyr::mutate(identifier_types = paste0(identifier_type, "==", identifier_value)) %>%
+      dplyr::mutate(identifier_types = paste0(identifier_type, "==", identifier_value, " <<institution code: ", institution_code, ">>")) %>%
       dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "identifier_types"))) %>%
       dplyr::group_by(dataset_id, observation_id) %>%
       # collapse all identifier types associated with a measurement into a single cell
