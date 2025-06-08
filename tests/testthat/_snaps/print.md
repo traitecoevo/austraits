@@ -27,7 +27,7 @@
       * excluded_data: A table of data that did not pass quality test and so were
       excluded from the master dataset.
       * taxonomic_updates: A table of all taxonomic changes implemented in the
-      construction of AusTraits. Changes are determined by comapring against the APC
+      construction of AusTraits. Changes are determined by comparing against the APC
       (Australian Plant Census) and APNI (Australian Plant Names Index).
       * taxa: A table containing details on taxa associated with information in
       `traits`. This information has been sourced from the APC (Australian Plant
@@ -74,7 +74,7 @@
       * excluded_data: A table of data that did not pass quality test and so were
       excluded from the master dataset.
       * taxonomic_updates: A table of all taxonomic changes implemented in the
-      construction of AusTraits. Changes are determined by comapring against the APC
+      construction of AusTraits. Changes are determined by comparing against the APC
       (Australian Plant Census) and APNI (Australian Plant Names Index).
       * taxa: A table containing details on taxa associated with information in
       `traits`. This information has been sourced from the APC (Australian Plant

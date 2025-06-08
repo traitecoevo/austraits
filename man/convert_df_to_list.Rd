@@ -14,7 +14,7 @@ A (yaml) list
 }
 \description{
 Convert a dataframe to a named list,
-useful when converting a datafreme a to yaml.
+useful when converting a dataframe a to yaml.
 }
 \examples{
 convert_df_to_list(dplyr::starwars)

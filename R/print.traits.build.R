@@ -41,7 +41,7 @@ print.traits.build <- function(x, ...){
       cli::cli_li("{.emph contexts}: A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`, and `link_vals`.")
       cli::cli_li("{.emph methods}: A table containing details on methods with which data were collected, including time frame and source. Cross referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.")
       cli::cli_li("{.emph excluded_data}: A table of data that did not pass quality test and so were excluded from the master dataset.")
-      cli::cli_li("{.emph taxonomic_updates}: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).")
+      cli::cli_li("{.emph taxonomic_updates}: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comparing against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).")
       cli::cli_li("{.emph taxa}: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.")
       cli::cli_li("{.emph contributors}: A table of people contributing to each study.")
       if (!is.null(x$identifiers)) {
@@ -73,7 +73,7 @@ print.traits.build <- function(x, ...){
       cli::cli_li("{.emph contexts}: A table containing observations of contextual characteristics associated with information in `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`, and `link_vals`.")
       cli::cli_li("{.emph methods}: A table containing details on methods with which data were collected, including time frame and source. Cross referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.")
       cli::cli_li("{.emph excluded_data}: A table of data that did not pass quality test and so were excluded from the master dataset.")
-      cli::cli_li("{.emph taxonomic_updates}: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comapring against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).")
+      cli::cli_li("{.emph taxonomic_updates}: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comparing against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).")
       cli::cli_li("{.emph taxa}: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.")
       cli::cli_li("{.emph definitions}: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.")
       cli::cli_li("{.emph contributors}: A table of people contributing to each study.")
