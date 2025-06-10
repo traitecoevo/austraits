@@ -14,4 +14,4 @@
 - Added new function `extract_data`
 - Added new function `bind_databases`
 - Added new function `flatten_databases`
-- Updated print function `print.traits.build`
+- Updated print function `print.traits.build` - thanks @Rekyt!
