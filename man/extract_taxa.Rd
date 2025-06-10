@@ -4,7 +4,13 @@
 \alias{extract_taxa}
 \title{Extract all data for specific taxa}
 \usage{
-extract_taxa(database, family = NULL, genus = NULL, taxon_name = NULL)
+extract_taxa(
+  database,
+  family = NULL,
+  genus = NULL,
+  taxon_name = NULL,
+  partial_matches_allowed = TRUE
+)
 }
 \arguments{
 \item{database}{traits.build database (list object)}

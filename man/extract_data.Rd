@@ -4,7 +4,13 @@
 \alias{extract_data}
 \title{Extract data from traits.build database}
 \usage{
-extract_data(database, table = NA, col, col_value)
+extract_data(
+  database,
+  table = NA,
+  col,
+  col_value,
+  partial_matches_allowed = TRUE
+)
 }
 \arguments{
 \item{database}{traits.build database (list object)}
@@ -21,7 +27,7 @@ subset traits.build database
 \description{
 Function to extract data from a traits.build database based on
 any value(s) from any column in the traits, locations, contexts, methods,
-taxa, taxonomic_updates, contributors, and identifiers tables.
+taxa, taxonomic_updates, and contributors tables.
 The output a traits.build formatted database with all tables subset
 based on the specified table, column (variable) and column value.
 }
