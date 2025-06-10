@@ -12,7 +12,19 @@
 bind_databases <- function(..., databases = list(...)) {
   
   combine <- function(name, databases) {
-    dplyr::bind_rows(lapply(databases, "[[", name)) %>% dplyr::distinct()
+    
+    # Check for null elements and remove them
+    databases <- databases[!sapply(databases, is.null)]
+    
+    # No data in any parts
+    if(length(databases) == 0) {
+      return(NULL)
+    }
+
+    databases %>%
+    lapply("[[", name) %>%
+    dplyr::bind_rows() %>%
+    dplyr::distinct()
   }
   
   # Bind sources and remove duplicates
@@ -49,11 +61,11 @@ bind_databases <- function(..., databases = list(...)) {
     dplyr::arrange(.data$last_name, .data$given_name) %>%
     convert_df_to_list()
   
+  # Modify this to allow any dataset to have identifiers, not just the first one
   identifiers <- databases[[1]][["identifiers"]]
-
   if (!is.null(identifiers)) {
     identifiers <- combine("identifiers", databases) %>% dplyr::distinct()
-  )
+  }
   
   ret <- list(traits = combine("traits", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
               locations = combine("locations", databases) %>% dplyr::arrange(.data$dataset_id, .data$location_id),
