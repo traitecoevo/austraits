@@ -232,11 +232,12 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
          
          }
 
-        if (ncol(database[["excluded_data"]]) == 0) {
-            database[["excluded_data"]] <- database[["traits"]][0,]
-            database[["excluded_data"]] <- database[["excluded_data"]] %>% 
+        if (nrow(ret_tmp[["excluded_data"]]) == 0) {
+            ret[["excluded_data"]] <- database[["traits"]][0,] %>% 
               dplyr::mutate(error = character()) %>%
               dplyr::select(error, everything())
+        } else {
+            ret[["excluded_data"]] <- ret_tmp[["excluded_data"]] 
         }
         
       }
