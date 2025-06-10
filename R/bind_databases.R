@@ -49,29 +49,28 @@ bind_databases <- function(..., databases = list(...)) {
     dplyr::arrange(.data$last_name, .data$given_name) %>%
     convert_df_to_list()
   
-    ret <- list(traits = combine("traits", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
-                locations = combine("locations", databases) %>% dplyr::arrange(.data$dataset_id, .data$location_id),
-                contexts = combine("contexts", databases) %>% dplyr::arrange(.data$dataset_id, .data$category),
-                methods = combine("methods", databases) %>% dplyr::arrange(.data$dataset_id, .data$trait_name),
-                excluded_data = combine("excluded_data", databases),
-                taxonomic_updates = taxonomic_updates,
-                taxa = combine("taxa", databases) %>% dplyr::distinct() %>% dplyr::arrange(.data$taxon_name),
-                identifiers = switch(!is.null(databases[[1]][["identifiers"]]),
-                  combine("identifiers", databases) %>% dplyr::distinct(),
-                  NULL
-                ),
-                contributors = contributors,
-                sources = sources,
-                definitions = definitions,
-                schema = databases[[1]][["schema"]],
-                metadata = metadata,
-                build_info = list(session_info = utils::sessionInfo())
-    )
-    
-    if (is.null(ret$identifiers)) {
-      ret$identifiers <- NULL
-    }
+  identifiers <- databases[[1]][["identifiers"]]
 
+  if (!is.null(identifiers)) {
+    identifiers <- combine("identifiers", databases) %>% dplyr::distinct()
+  )
+  
+  ret <- list(traits = combine("traits", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
+              locations = combine("locations", databases) %>% dplyr::arrange(.data$dataset_id, .data$location_id),
+              contexts = combine("contexts", databases) %>% dplyr::arrange(.data$dataset_id, .data$category),
+              methods = combine("methods", databases) %>% dplyr::arrange(.data$dataset_id, .data$trait_name),
+              excluded_data = combine("excluded_data", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
+              taxonomic_updates = taxonomic_updates,
+              taxa = combine("taxa", databases) %>% dplyr::distinct() %>% dplyr::arrange(.data$taxon_name),
+              identifiers = identifiers,
+              contributors = contributors,
+              sources = sources,
+              definitions = definitions,
+              schema = databases[[1]][["schema"]],
+              metadata = metadata,
+              build_info = list(session_info = utils::sessionInfo())
+  )
+  
   class(ret) <- c("traits.build")
   
   ret
