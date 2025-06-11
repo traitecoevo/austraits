@@ -22,9 +22,14 @@ test_that("Function returned expected number of rows", {
 )
 
 test_that("Order of tables has not changed", {
-  expect_equal(names(bind_databases(Banksia_1, Banksia_2)), names(austraits_5.0.0_lite))
-  expect_equal(names(bind_databases(fire, season)), names(austraits_5.0.0_lite))
-  expect_equal(names(bind_databases(Banksia_1, fire)), names(austraits_5.0.0_lite))
+  names_minus_identifiers <- function(x) {
+    names(x) %>% purrr::discard(~ .x == "identifiers")
+  }
+  expect_equal(
+    names_minus_identifiers(bind_databases(Banksia_1, Banksia_2)), 
+    names(austraits_5.0.0_lite))
+  expect_equal(names_minus_identifiers(bind_databases(fire, season)), names(austraits_5.0.0_lite))
+  expect_equal(names_minus_identifiers(bind_databases(Banksia_1, fire)), names(austraits_5.0.0_lite))
 }
 )
 
