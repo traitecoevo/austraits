@@ -2,7 +2,7 @@
 #' 
 #' @description Function to extract data from a traits.build database based on 
 #' any value(s) from any column in the traits, locations, contexts, methods, 
-#' taxa, taxonomic_updates, , and identifers tables.
+#' taxa, taxonomic_updates, and identifiers tables.
 #' The output a traits.build formatted database with all tables subset 
 #' based on the specified table, column (variable) and column value.
 #'
