@@ -60,13 +60,7 @@ bind_databases <- function(..., databases = list(...)) {
     dplyr::distinct() %>%
     dplyr::arrange(.data$last_name, .data$given_name) %>%
     convert_df_to_list()
-  
-  # Modify this to allow any dataset to have identifiers, not just the first one
-  identifiers <- databases[[1]][["identifiers"]]
-  if (!is.null(identifiers)) {
-    identifiers <- combine("identifiers", databases) %>% dplyr::distinct()
-  }
-  
+
   ret <- list(traits = combine("traits", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
               locations = combine("locations", databases) %>% dplyr::arrange(.data$dataset_id, .data$location_id),
               contexts = combine("contexts", databases) %>% dplyr::arrange(.data$dataset_id, .data$category),
@@ -74,7 +68,7 @@ bind_databases <- function(..., databases = list(...)) {
               excluded_data = combine("excluded_data", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
               taxonomic_updates = taxonomic_updates,
               taxa = combine("taxa", databases) %>% dplyr::distinct() %>% dplyr::arrange(.data$taxon_name),
-              identifiers = identifiers,
+              identifiers = combine("identifiers", databases) %>% dplyr::distinct(),
               contributors = contributors,
               sources = sources,
               definitions = definitions,
