@@ -4,7 +4,13 @@
 \alias{extract_data}
 \title{Extract data from traits.build database}
 \usage{
-extract_data(database, table = NA, col, col_value)
+extract_data(
+  database,
+  table = NA,
+  col,
+  col_value,
+  partial_matches_allowed = TRUE
+)
 }
 \arguments{
 \item{database}{traits.build database (list object)}

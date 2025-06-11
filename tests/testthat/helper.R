@@ -2,12 +2,17 @@
 
 test_database_structure <- function(database, taxa = NA, dataset_id = NA, n_row = NA) {
   
-  table_names <- c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", "taxa", "contributors", 
+  table_names <- c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", "taxa", "identifiers", "contributors", 
                    "sources", "definitions", "schema", "metadata", "build_info")
   
   testthat::expect_type(database, "list")
   testthat::expect_equal(class(database), "traits.build")
   
+  # idnetifiers are optional
+  if(!("identifiers" %in% names(database))) {
+    table_names <- table_names[table_names != "identifiers"]
+  }
+
   testthat::expect_equal(names(database), table_names)
   
   testthat::expect_contains(database$traits$taxon_name |> unique(), database$taxa$taxon_name |> unique())

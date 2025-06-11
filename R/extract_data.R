@@ -2,7 +2,7 @@
 #' 
 #' @description Function to extract data from a traits.build database based on 
 #' any value(s) from any column in the traits, locations, contexts, methods, 
-#' taxa, taxonomic_updates, and contributors tables.
+#' taxa, taxonomic_updates, and identifiers tables.
 #' The output a traits.build formatted database with all tables subset 
 #' based on the specified table, column (variable) and column value.
 #'
@@ -92,12 +92,15 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
       taxa = dplyr::tibble(),
       taxonomic_updates = dplyr::tibble(),
       contributors = dplyr::tibble(),
+      identifiers = dplyr::tibble(),
       traits = dplyr::tibble(),
       excluded_data = dplyr::tibble(),
       contexts = dplyr::tibble()
     )
+
+    v <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id", "methods", "taxa", "taxonomic_updates", "contributors", "identifiers")
     
-    ret_tmp <- ret[1:10]
+    ret_tmp <- ret[v]
   
     # Cookie cutters
     cookie_cutters <- list(
@@ -110,7 +113,8 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
       methods_cc = c("dataset_id", "trait_name", "method_id"),
       taxa_cc = c("taxon_name"),
       taxonomic_updates_cc = c("dataset_id", "taxon_name", "original_name"),
-      contributors_cc = c("dataset_id")
+      contributors_cc = c("dataset_id"),
+      identifiers_cc = c("dataset_id", "observation_id")
     )
     
     # Create table of various look-up values to be used below
@@ -118,12 +122,13 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     # Create additional vectors for table 
     tables_to_cut <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", 
                               "plot_context_id", "treatment_context_id", 
-                              "methods", "taxa", "taxonomic_updates", "contributors")
+                              "methods", "taxa", "taxonomic_updates", "contributors", "identifiers")
     
     tables_complete_path <- c("database$locations", "database$entity_context_id", 
                               "database$method_context_id", "database$temporal_context_id", 
                               "database$plot_context_id", "database$treatment_context_id", 
-                              "database$methods", "database$taxa", "database$taxonomic_updates", "database$contributors")
+                              "database$methods", "database$taxa", "database$taxonomic_updates", 
+                              "database$contributors", "database$identifiers")
     
     # Create table
     tables <- dplyr::tibble(
@@ -132,6 +137,10 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
       tables_complete_path = tables_complete_path
     )
     
+    if (is.null(database$identifiers)) {
+      tables <- tables |> dplyr::filter(tables_to_cut != "identifiers")
+    }
+
     # For any context property categories that do not exist, create empty tibbles.
     for (v in c("entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id")) { 
       if (is.null(database$contexts_tmp[[v]])) {
@@ -163,7 +172,7 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     }
     
-    for (i in seq_along(1:length(table))) {
+    for (i in seq_len(length(table))) {
       
         tables_tmp <- tables
         
@@ -200,7 +209,6 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
         ret_tmp[["excluded_data"]] <- database[["excluded_data"]]  %>% 
           dplyr::semi_join(cc_traits, by = columns_to_select_excluded)
         
-        
         for (j in seq_along(tables_tmp$tables_to_cut)) {
         
           cut_traits <- ret_tmp[["traits"]] %>% 
@@ -226,11 +234,12 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
          
          }
 
-        if (ncol(database[["excluded_data"]]) == 0) {
-            database[["excluded_data"]] <- database[["traits"]][0,]
-            database[["excluded_data"]] <- database[["excluded_data"]] %>% 
+        if (nrow(ret_tmp[["excluded_data"]]) == 0) {
+            ret[["excluded_data"]] <- database[["traits"]][0,] %>% 
               dplyr::mutate(error = character()) %>%
               dplyr::select(error, everything())
+        } else {
+            ret[["excluded_data"]] <- ret_tmp[["excluded_data"]] 
         }
         
       }
@@ -250,7 +259,7 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     ret <- ret[!names(ret) %in% c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")]
     
-      # Trim sources - Are these just dataset_ids...
+    # Trim sources - Are these just dataset_ids...
     from_methods_to_sources_cc <- dplyr::union(ret$methods$source_primary_key,  # Is this part really needed, aren't these just dataset_ids? 
                                                ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
       unique() %>% stats::na.omit() %>% as.character()
@@ -265,7 +274,11 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     # Reorder list to match database
     ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
-                 "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
+                 "taxa", "contributors", "identifiers", "sources", "definitions", "schema", "metadata", "build_info")]
+
+    if (is.null(database$identifiers)) {
+      ret$identifiers <- NULL
+    }
 
   }
   

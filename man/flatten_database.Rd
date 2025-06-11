@@ -20,7 +20,7 @@ the contributors column defaults to "single_column_pretty" when this option is s
 \item{include_description}{A logical indicating whether to include (TRUE) or omit (FALSE) the context_property descriptions; defaults to TRUE.}
 }
 \value{
-A table combining information in 7 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, and contributors
+A table combining information in 8 traits.build relational tables: traits, locations, contexts, methods, taxa, taxonomic_updates, contributors, and identifiers
 }
 \description{
 Create a single database output that merges together the information
