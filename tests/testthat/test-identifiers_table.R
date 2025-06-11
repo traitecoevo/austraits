@@ -1,5 +1,6 @@
+austraits_identifiers <- readRDS("benchmarks/austraits_identifiers.rds")
+
 test_that("extract functions work with identifiers table", {
-  expect_silent(austraits_identifiers <- readRDS("benchmarks/austraits_identifiers.rds"))
   expect_no_error(austraits_identifiers %>% extract_dataset("Schulze_2014"))
   expect_no_error(austraits_identifiers %>% extract_dataset("Falster_2003"))
   expect_no_error(austraits_identifiers %>% extract_data(table = "identifiers", col = "identifier_type", col_value = "catalogNumber"))
