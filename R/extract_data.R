@@ -97,8 +97,10 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
       excluded_data = dplyr::tibble(),
       contexts = dplyr::tibble()
     )
+
+    v <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id", "methods", "taxa", "taxonomic_updates", "contributors", "identifiers")
     
-    ret_tmp <- ret[1:11]
+    ret_tmp <- ret[v]
   
     # Cookie cutters
     cookie_cutters <- list(
@@ -136,7 +138,7 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     )
     
     if (is.null(database$identifiers)) {
-      tables <- tables[1:10,]
+      tables <- tables |> dplyr::filter(tables_to_cut != "identifiers")
     }
 
     # For any context property categories that do not exist, create empty tibbles.
@@ -170,7 +172,7 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     }
     
-    for (i in seq_along(1:length(table))) {
+    for (i in seq_len(length(table))) {
       
         tables_tmp <- tables
         
