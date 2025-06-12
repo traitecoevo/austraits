@@ -1,4 +1,7 @@
-# austraits 3.0.2.9000
+# austraits 3.1.0
+- Change functions to work with traits.build databases that include an identifiers table (or ones that don't)
+
+# austraits 3.0.2
 - Updated dependencies, placing graphics related packages in Suggests
 - Added internal function to check the compatibility of databases
 - Added internal function notify users that some database versions will not be supported
