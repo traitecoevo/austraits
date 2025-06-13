@@ -151,6 +151,108 @@ join_taxonomic_updates <- function(database, vars =  c("aligned_name")) {
   database
 }
 
+#' @title Joining identifiers to traits table
+#' 
+#' @description Function to merge metadata from the identifiers table of a traits.build database into the core traits table.
+#' 
+#' @param database traits.build database (list object)
+#' @param format Specifies whether metadata from the identifiers is output in a human readable format ("single_column_pretty"; default), with each location property added as a separate column ("many_columns") or using json syntax ("single_column_json").
+#' @param vars Identifier types for which data is to be appended to the traits table, defaulting to all identifier types (vars = "all").
+#' 
+#' @return traits.build list object, but with identifiers from the identifiers table appended to the traits table.
+#' @details
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow. 
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' Note to AusTraits users:
+#' -  This function works with AusTraits version >=7.0.0 (2025 releases)
+#' -  For AusTraits versions <= 4.2.0 (up to Sept 2023 release) see [https://github.com/traitecoevo/austraits](https://github.com/traitecoevo/austraits)  for how to install old versions of the package or download a newer version of the database.
+#'
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' (database %>% join_identifiers(format = "single_column_pretty", vars = "all"))$traits
+#' }
+join_identifiers <- function(database,
+                                     format = "single_column_pretty",
+                                     vars =  "all") {
+
+  # Check compatibility
+  if(!check_compatibility(database)){
+    function_not_supported(database)
+  }
+
+  # If all identifier types to be added, create `vars` vector that is unique list 
+  # of identifier types in the database
+  if (vars[1] == "all") {
+
+    vars_tmp <- database$identifiers %>%
+      dplyr::distinct(identifier_type)
+
+    vars <- vars_tmp$identifier_type
+  }
+
+  identifiers <- 
+    database$identifiers %>% 
+    dplyr::filter(identifier_type %in% vars)
+
+  # variables to join_ by depends on if location_name already in traits table
+  # from joining coordinates for instances
+  join_vars <- c("dataset_id", "observation_id")
+  
+  # Different options for how data are compacted and joined depending on `format` argument
+  if (format == "many_columns") {
+
+    # Pivot wider, so each `identifier_type` in its own column
+    identifiers <- 
+      identifiers %>%
+      dplyr::mutate(identifier_type = paste0("identifier_type: ", identifier_type, " <<institution code: ", institution_code, ">>")) %>%
+      tidyr::pivot_wider(names_from = identifier_type, values_from = identifier_value)
+
+    # Join identifiers, based on appropriate columns
+    database$traits <- 
+      database$traits %>%
+      dplyr::left_join(by = join_vars, identifiers)
+
+  } else if (format == "single_column_pretty") {
+
+    # Merge each identifier type and its corresponding value
+    compacted_identifiers_column <- 
+      identifiers %>%
+      dplyr::mutate(identifier_types = paste0(identifier_type, "==", identifier_value, " <<institution code: ", institution_code, ">>")) %>%
+      dplyr::select(dplyr::all_of(c("dataset_id", "observation_id", "identifier_types"))) %>%
+      dplyr::group_by(dataset_id, observation_id) %>%
+      # collapse all identifier types associated with a measurement into a single cell
+      dplyr::mutate(identifier_types = paste0(identifier_types, collapse = ";; ")) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct()
+
+    database$traits <- 
+      database$traits %>%
+      dplyr::left_join(by = join_vars, compacted_identifiers_column)
+
+  } else if (format == "single_column_json") {
+
+    compacted_identifiers_column <-
+      identifiers %>% 
+      tidyr::nest(data = -dplyr::all_of(c("dataset_id", "observation_id"))) %>%
+      dplyr::mutate(identifier_types = purrr::map_chr(data, jsonlite::toJSON)) %>%
+      dplyr::select(-dplyr::any_of("data")) %>%
+      dplyr::ungroup()
+    
+    database$traits <- database$traits %>%
+      dplyr::left_join(by = join_vars, compacted_identifiers_column)
+
+  } else {
+    stop("format not supported: ", format)
+  }
+
+  database
+}
+
 #' @title Joining methodological information to traits table
 #' 
 #' @description Function to merge metadata from the methods table of a traits.build database into the core traits table.

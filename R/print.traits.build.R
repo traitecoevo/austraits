@@ -44,6 +44,9 @@ print.traits.build <- function(x, ...){
       cli::cli_li("{.emph taxonomic_updates}: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are determined by comparing against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).")
       cli::cli_li("{.emph taxa}: A table containing details on taxa associated with information in `traits`. This information has been sourced from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3 license.")
       cli::cli_li("{.emph contributors}: A table of people contributing to each study.")
+      if (!is.null(x$identifiers)) {
+        cli::cli_li("{.emph identifiers}: A table of identifiers that cross-references observations between datasets or with other data resources such as museum or herbarium specimens.")
+      }
       cli::cli_li("{.emph sources}: Bibtex entries for all primary and secondary sources in the compilation.")
       cli::cli_li("{.emph definitions}: A copy of the definitions for all tables and terms. Information included here was used to process data and generate any documentation for the study.")
       cli::cli_li("{.emph schema}: A copy of the schema for all tables and terms. Information included here was used to process data and generate any documentation for the study.")

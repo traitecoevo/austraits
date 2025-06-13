@@ -12,7 +12,19 @@
 bind_databases <- function(..., databases = list(...)) {
   
   combine <- function(name, databases) {
-    dplyr::bind_rows(lapply(databases, "[[", name)) %>% dplyr::distinct()
+    
+    # Check for null elements and remove them
+    databases <- databases[!sapply(databases, is.null)]
+    
+    # No data in any parts
+    if(length(databases) == 0) {
+      return(NULL)
+    }
+
+    databases %>%
+    lapply("[[", name) %>%
+    dplyr::bind_rows() %>%
+    dplyr::distinct()
   }
   
   # Bind sources and remove duplicates
@@ -48,7 +60,7 @@ bind_databases <- function(..., databases = list(...)) {
     dplyr::distinct() %>%
     dplyr::arrange(.data$last_name, .data$given_name) %>%
     convert_df_to_list()
-  
+
   ret <- list(traits = combine("traits", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
               locations = combine("locations", databases) %>% dplyr::arrange(.data$dataset_id, .data$location_id),
               contexts = combine("contexts", databases) %>% dplyr::arrange(.data$dataset_id, .data$category),
@@ -56,6 +68,7 @@ bind_databases <- function(..., databases = list(...)) {
               excluded_data = combine("excluded_data", databases) %>% dplyr::arrange(.data$dataset_id, .data$observation_id, .data$trait_name),
               taxonomic_updates = taxonomic_updates,
               taxa = combine("taxa", databases) %>% dplyr::distinct() %>% dplyr::arrange(.data$taxon_name),
+              identifiers = combine("identifiers", databases) %>% dplyr::distinct(),
               contributors = contributors,
               sources = sources,
               definitions = definitions,

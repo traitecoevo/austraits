@@ -24,7 +24,7 @@
 #' @export
 
 
-extract_dataset <- function(database, dataset_id) {
+extract_dataset <- function(database, dataset_id, partial_matches_allowed = TRUE) {
   
   # Check compatability
   status <- check_compatibility(database, single_table_allowed = TRUE)
@@ -34,7 +34,7 @@ extract_dataset <- function(database, dataset_id) {
     function_not_supported(database)
   }
   
-  extract_data(database, "traits", "dataset_id", col_value = dataset_id)
+  extract_data(database, "traits", "dataset_id", col_value = dataset_id, partial_matches_allowed = partial_matches_allowed)
 }
 
 

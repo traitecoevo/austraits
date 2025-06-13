@@ -2,7 +2,7 @@
 #' 
 #' @description Function to extract data from a traits.build database based on 
 #' any value(s) from any column in the traits, locations, contexts, methods, 
-#' taxa, taxonomic_updates, and contributors tables.
+#' taxa, taxonomic_updates, contributors and identifiers tables.
 #' The output a traits.build formatted database with all tables subset 
 #' based on the specified table, column (variable) and column value.
 #'
@@ -19,7 +19,7 @@
 #' extract_data(database = traits.build_database, table = "traits", 
 #' col = "trait_name", col_value = "leaf_area")
 #' }
-extract_data <- function(database, table = NA, col, col_value) {
+extract_data <- function(database, table = NA, col, col_value, partial_matches_allowed = TRUE) {
   
   # Check missingness
   check_arg_missingness(database, col, col_value)
@@ -40,10 +40,16 @@ extract_data <- function(database, table = NA, col, col_value) {
     
     check_col_exists_in_table(database, table, col)
     
-    indicies_tmp <- purrr::map(col_value, ~{
-      stringr::str_which(database[[col]], 
-                         pattern = stringr::regex(.x, ignore_case = TRUE))
-    })
+    if (partial_matches_allowed == TRUE) {
+      indicies_tmp <- purrr::map(col_value, ~{
+        stringr::str_which(database[[col]], 
+                          pattern = stringr::regex(.x, ignore_case = TRUE))
+      })
+    } else {
+      indicies_tmp <- purrr::map(col_value, ~{
+        which(database[[col]] == .x)
+      })
+    }
     
     found_indicies <- purrr::reduce(indicies_tmp, union)
     
@@ -86,12 +92,15 @@ extract_data <- function(database, table = NA, col, col_value) {
       taxa = dplyr::tibble(),
       taxonomic_updates = dplyr::tibble(),
       contributors = dplyr::tibble(),
+      identifiers = dplyr::tibble(),
       traits = dplyr::tibble(),
       excluded_data = dplyr::tibble(),
       contexts = dplyr::tibble()
     )
+
+    v <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id", "methods", "taxa", "taxonomic_updates", "contributors", "identifiers")
     
-    ret_tmp <- ret[1:10]
+    ret_tmp <- ret[v]
   
     # Cookie cutters
     cookie_cutters <- list(
@@ -104,7 +113,8 @@ extract_data <- function(database, table = NA, col, col_value) {
       methods_cc = c("dataset_id", "trait_name", "method_id"),
       taxa_cc = c("taxon_name"),
       taxonomic_updates_cc = c("dataset_id", "taxon_name", "original_name"),
-      contributors_cc = c("dataset_id")
+      contributors_cc = c("dataset_id"),
+      identifiers_cc = c("dataset_id", "observation_id")
     )
     
     # Create table of various look-up values to be used below
@@ -112,12 +122,13 @@ extract_data <- function(database, table = NA, col, col_value) {
     # Create additional vectors for table 
     tables_to_cut <- c("locations", "entity_context_id", "method_context_id", "temporal_context_id", 
                               "plot_context_id", "treatment_context_id", 
-                              "methods", "taxa", "taxonomic_updates", "contributors")
+                              "methods", "taxa", "taxonomic_updates", "contributors", "identifiers")
     
     tables_complete_path <- c("database$locations", "database$entity_context_id", 
                               "database$method_context_id", "database$temporal_context_id", 
                               "database$plot_context_id", "database$treatment_context_id", 
-                              "database$methods", "database$taxa", "database$taxonomic_updates", "database$contributors")
+                              "database$methods", "database$taxa", "database$taxonomic_updates", 
+                              "database$contributors", "database$identifiers")
     
     # Create table
     tables <- dplyr::tibble(
@@ -126,6 +137,10 @@ extract_data <- function(database, table = NA, col, col_value) {
       tables_complete_path = tables_complete_path
     )
     
+    if (is.null(database$identifiers)) {
+      tables <- tables |> dplyr::filter(tables_to_cut != "identifiers")
+    }
+
     # For any context property categories that do not exist, create empty tibbles.
     for (v in c("entity_context_id", "method_context_id", "temporal_context_id", "plot_context_id", "treatment_context_id")) { 
       if (is.null(database$contexts_tmp[[v]])) {
@@ -157,17 +172,23 @@ extract_data <- function(database, table = NA, col, col_value) {
     
     }
     
-    for (i in seq_along(1:length(table))) {
+    for (i in seq_len(length(table))) {
       
         tables_tmp <- tables
         
         # chose columns to select, ensuring "value" isn't among the columns, since it has a different meaning for each table
         columns_to_select <- intersect(setdiff(names(database$traits), "value"), names(database[[table[[i]]]]))
         
-        indicies_tmp <- purrr::map(col_value, ~{
-          stringr::str_which(database[[table[[i]]]][[col]], 
-                             pattern = stringr::regex(.x, ignore_case = TRUE))
-        })
+        if (partial_matches_allowed == TRUE) {
+          indicies_tmp <- purrr::map(col_value, ~{
+            stringr::str_which(database[[table[[i]]]][[col]], 
+                               pattern = stringr::regex(.x, ignore_case = TRUE))
+          })
+        } else {
+          indicies_tmp <- purrr::map(col_value, ~{
+            which(database[[table[[i]]]][[col]] == .x)
+          })
+        }
         
         found_indicies <- purrr::reduce(indicies_tmp, union)
     
@@ -187,7 +208,6 @@ extract_data <- function(database, table = NA, col, col_value) {
         # Use same filtering join to trim excluded data
         ret_tmp[["excluded_data"]] <- database[["excluded_data"]]  %>% 
           dplyr::semi_join(cc_traits, by = columns_to_select_excluded)
-        
         
         for (j in seq_along(tables_tmp$tables_to_cut)) {
         
@@ -213,6 +233,14 @@ extract_data <- function(database, table = NA, col, col_value) {
               dplyr::distinct()
          
          }
+
+        if (nrow(ret_tmp[["excluded_data"]]) == 0) {
+            ret[["excluded_data"]] <- database[["traits"]][0,] %>% 
+              dplyr::mutate(error = character()) %>%
+              dplyr::select(error, everything())
+        } else {
+            ret[["excluded_data"]] <- ret_tmp[["excluded_data"]] 
+        }
         
       }
     
@@ -223,14 +251,15 @@ extract_data <- function(database, table = NA, col, col_value) {
                 ret[["temporal_context_id"]],
                 ret[["treatment_context_id"]]) %>%
       dplyr::select(-dplyr::any_of(c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id"))) %>%
-      dplyr::group_by(dataset_id, category, link_id, value, description) %>%
+      dplyr::group_by(dataset_id, category, context_property, link_id, value, description) %>%
+        dplyr::distinct(link_vals, .keep_all = TRUE) %>%
         dplyr::mutate(link_vals = paste0(link_vals, collapse = ", ")) %>%
       dplyr::ungroup() %>%
       dplyr::distinct()
     
     ret <- ret[!names(ret) %in% c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")]
     
-      # Trim sources - Are these just dataset_ids...
+    # Trim sources - Are these just dataset_ids...
     from_methods_to_sources_cc <- dplyr::union(ret$methods$source_primary_key,  # Is this part really needed, aren't these just dataset_ids? 
                                                ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
       unique() %>% stats::na.omit() %>% as.character()
@@ -245,7 +274,11 @@ extract_data <- function(database, table = NA, col, col_value) {
     
     # Reorder list to match database
     ret <- ret[c("traits", "locations", "contexts", "methods", "excluded_data", "taxonomic_updates", 
-                 "taxa","contributors","sources","definitions","schema", "metadata","build_info")]
+                 "taxa", "contributors", "identifiers", "sources", "definitions", "schema", "metadata", "build_info")]
+
+    if (is.null(database$identifiers)) {
+      ret$identifiers <- NULL
+    }
 
   }
   
