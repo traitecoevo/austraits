@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   austraits: austraits.html
-last_built: 2025-06-13T01:50Z
+last_built: 2025-06-13T01:54Z
 urls:
   reference: https://traitecoevo.github.io/austraits/reference
   article: https://traitecoevo.github.io/austraits/articles
