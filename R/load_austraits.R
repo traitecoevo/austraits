@@ -14,7 +14,7 @@
 #' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
 #' }
 
-load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = FALSE){
+load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = TRUE){
   # Is either doi or version supplied? 
   if(is.null(doi) & is.null(version)){
     stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
@@ -36,7 +36,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   }
   
   # Load the json
-  res <- load_json(path = path, update = update) 
+  res <- load_json(path = path, update = update)
   
   # Name the response list
   names(res$hits$hits$files) <- res$hits$hits$metadata$version
@@ -69,7 +69,15 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   # Setting up the pars
   url <- target$links$self[grep(".rds", target$links$self, fixed = TRUE)]
   
+  if(length(url) > 1) {
+    url <- url[!str_detect(url, "flattened")]
+  }
+  
   file_nm <- file.path(path, target$key[grep(".rds", target$key, fixed = TRUE)])
+  
+  if(length(file_nm) > 1) {
+    file_nm <- file_nm[!str_detect(file_nm, "flattened")]
+  }
 
   #Check if version/doi is download, if not download
   if(! file.exists(file_nm)){

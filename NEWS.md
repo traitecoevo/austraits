@@ -1,3 +1,6 @@
+# austraits 3.1.1
+- Fix bug in function `load_austraits` that was preventing it from loading austraits.build v.7.0.0, as both relational and flattened database versions are now on Zenodo. For now, ignoring flattened data table.
+
 # austraits 3.1.0
 - Change functions to work with traits.build databases that include an identifiers table (or ones that don't)
 
