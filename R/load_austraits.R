@@ -70,13 +70,13 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   url <- target$links$self[grep(".rds", target$links$self, fixed = TRUE)]
   
   if(length(url) > 1) {
-    url <- url[!str_detect(url, "flattened")]
+    url <- url[!stringr::str_detect(url, "flattened")]
   }
   
   file_nm <- file.path(path, target$key[grep(".rds", target$key, fixed = TRUE)])
   
   if(length(file_nm) > 1) {
-    file_nm <- file_nm[!str_detect(file_nm, "flattened")]
+    file_nm <- file_nm[!stringr::str_detect(file_nm, "flattened")]
   }
 
   #Check if version/doi is download, if not download
