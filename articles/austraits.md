@@ -1,0 +1,849 @@
+# austraits
+
+`austraits` allow users to **access, explore and wrangle data** from
+[traits.build](https://github.com/traitecoevo/traits.build) relational
+databases. It is also an R interface to
+[AusTraits](https://austraits.org/), the Australian plant trait
+database. This package contains functions for joining data from various
+tables, filtering to specific records, combining multiple databases and
+visualising the distribution of the data. Below, we’ve include a
+tutorial using the AusTraits database to illustrate how some these
+functions work together to generate useful outputs.
+
+## Install and load `austraits`
+
+`austraits` is still under development. To install the current version
+from GitHub:
+
+``` r
+
+#install.packages("remotes")
+remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = "ask")
+
+# Load the austraits package
+library(austraits)
+```
+
+### Retrieve AusTraits database
+
+We will use the latest AusTraits database as an example database.
+
+We can download the AusTraits database by calling
+[`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md).
+This function will download AusTraits to a specified path. By default it
+is `data/austraits`. The function will reload the database from this
+location in the future. You can set `update = TRUE` so the database is
+downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note
+that
+[`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md)
+will happily accept a DOI of a particular version.
+
+``` r
+
+austraits <- load_austraits(version = "6.0.0", path = "data/austraits")
+```
+
+You can check out different versions of AusTraits and their associated
+DOI by using:
+
+``` r
+
+get_versions(path = "data/austraits")
+```
+
+    #> # A tibble: 6 × 4
+    #>   publication_date doi                     version id      
+    #>   <date>           <chr>                   <chr>   <chr>   
+    #> 1 2024-05-14       10.5281/zenodo.11188867 6.0.0   11188867
+    #> 2 2023-11-19       10.5281/zenodo.10156222 5.0.0   10156222
+    #> 3 2023-09-18       10.5281/zenodo.8353840  4.2.0   8353840 
+    #> 4 2023-01-30       10.5281/zenodo.7583087  4.1.0   7583087 
+    #> 5 2022-11-27       10.5281/zenodo.7368074  4.0.0   7368074 
+    #> 6 2021-07-14       10.5281/zenodo.5112001  3.0.2   5112001
+
+AusTraits, like all traits.build databases, is a relational database. In
+R, it is a very *large* list with multiple tables. If you are not
+familiar with working with lists in R, we recommend having a quick look
+at this [tutorial](https://www.tutorialspoint.com/r/r_lists.htm). To
+learn more about the structure of `austraits`, check out the [structure
+of the
+database](https://traitecoevo.github.io/austraits/articles/structure.html).
+
+``` r
+
+austraits
+```
+
+    #> ── This is 6.0.0 of AusTraits: a curated plant trait database for the Australian flora! ──────────────────────────────
+
+    #> ℹ This database is built using traits.build version 1.1.0.9000
+    #> ℹ This database contains a total of 1726024 records, for 33494 taxa and 497 traits.
+
+    #> ── This object is a 'list' with the following components: ──
+    #> 
+    #> • traits: A table containing measurements of traits.
+    #> • locations: A table containing observations of location/site characteristics associated with information in
+    #> `traits`. Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`,
+    #> `location_name`.
+    #> • contexts: A table containing observations of contextual characteristics associated with information in `traits`.
+    #> Cross referencing between the two dataframes is possible using combinations of the variables `dataset_id`, `link_id`,
+    #> and `link_vals`.
+    #> • methods: A table containing details on methods with which data were collected, including time frame and source.
+    #> Cross referencing with the `traits` table is possible using combinations of the variables `dataset_id`, `trait_name`.
+    #> • excluded_data: A table of data that did not pass quality test and so were excluded from the master dataset.
+    #> • taxonomic_updates: A table of all taxonomic changes implemented in the construction of AusTraits. Changes are
+    #> determined by comparing against the APC (Australian Plant Census) and APNI (Australian Plant Names Index).
+    #> • taxa: A table containing details on taxa associated with information in `traits`. This information has been sourced
+    #> from the APC (Australian Plant Census) and APNI (Australian Plant Names Index) and is released under a CC-BY3
+    #> license.
+    #> • contributors: A table of people contributing to each study.
+    #> • sources: Bibtex entries for all primary and secondary sources in the compilation.
+    #> • definitions: A copy of the definitions for all tables and terms. Information included here was used to process data
+    #> and generate any documentation for the study.
+    #> • schema: A copy of the schema for all tables and terms. Information included here was used to process data and
+    #> generate any documentation for the study.
+    #> • metadata: Metadata associated with the dataset, including title, creators, license, subject, funding sources.
+    #> • build_info: A description of the computing environment used to create this version of the dataset, including
+    #> version number, git commit and R session_info.
+
+    #> ℹ To access a component, try using the $ e.g. austraits$traits
+
+## Descriptive summaries of traits and taxa
+
+AusTraits contains 497 plant traits. Check out [definitions of the
+traits](https://w3id.org/APD) to learn more about how each trait is
+defined.
+
+Have a look at data coverage by trait or taxa with:
+
+``` r
+
+summarise_database(austraits, "trait_name") 
+```
+
+    #> # A tibble: 497 × 5
+    #>    trait_name                    n_records n_dataset n_taxa percent_total
+    #>    <chr>                             <int>     <int>  <int>         <dbl>
+    #>  1 accessory_cost_fraction              47         1     47     0.0000272
+    #>  2 accessory_cost_mass                  47         1     47     0.0000272
+    #>  3 atmospheric_CO2_concentration       840         4    121     0.000487 
+    #>  4 bark_Al_per_dry_mass                 70         1     10     0.0000406
+    #>  5 bark_B_per_dry_mass                  70         1     10     0.0000406
+    #>  6 bark_C_per_dry_mass                 229         2     27     0.000133 
+    #>  7 bark_Ca_per_dry_mass                104         3     21     0.0000603
+    #>  8 bark_Cu_per_dry_mass                 70         1     10     0.0000406
+    #>  9 bark_Fe_per_dry_mass                 70         1     10     0.0000406
+    #> 10 bark_K_per_dry_mass                 104         3     21     0.0000603
+    #> # ℹ 487 more rows
+
+``` r
+
+summarise_database(austraits, "family") 
+```
+
+    #> # A tibble: 310 × 5
+    #>    family           n_records n_dataset n_taxa percent_total
+    #>    <chr>                <int>     <int>  <int>         <dbl>
+    #>  1 Acanthaceae           3719        57    149     0.00216  
+    #>  2 Achariaceae            162        14      3     0.0000939
+    #>  3 Actinidiaceae          186        16      3     0.000108 
+    #>  4 Agapanthaceae          107        13      3     0.000062 
+    #>  5 Aizoaceae             5004        63    102     0.0029   
+    #>  6 Akaniaceae             123        16      1     0.0000713
+    #>  7 Alismataceae           892        30     20     0.000517 
+    #>  8 Alliaceae              561        19     18     0.000325 
+    #>  9 Alseuosmiaceae         318        13      3     0.000184 
+    #> 10 Alstroemeriaceae       175        15      2     0.000101 
+    #> # ℹ 300 more rows
+
+``` r
+
+summarise_database(austraits, "genus") 
+```
+
+    #> # A tibble: 3,177 × 5
+    #>    genus        n_records n_dataset n_taxa percent_total
+    #>    <chr>            <int>     <int>  <int>         <dbl>
+    #>  1 (Dockrillia          3         2      1    0.00000174
+    #>  2 Abelia              16         4      1    0.00000928
+    #>  3 Abelmoschus        271        19      8    0.000157  
+    #>  4 Abildgaardia        74         7      2    0.0000429 
+    #>  5 Abrodictyum        123        14      3    0.0000713 
+    #>  6 Abroma              39         7      2    0.0000226 
+    #>  7 Abrophyllum        181        19      3    0.000105  
+    #>  8 Abrotanella        183        18      4    0.000106  
+    #>  9 Abrus              202        26      3    0.000117  
+    #> 10 Abutilon          1975        52     54    0.00115   
+    #> # ℹ 3,167 more rows
+
+## Quickly look up data
+
+Interested in a specific trait or context property, but unsure what
+terms we use? Try our `lookup_` functions.
+
+``` r
+
+lookup_trait(austraits, "leaf") %>% head()
+```
+
+    #> [1] "leaf_compoundness" "leaf_phenology"    "leaf_length"       "leaf_width"        "leaf_margin"      
+    #> [6] "leaf_shape"
+
+``` r
+
+lookup_context_property(austraits, "fire") %>% head() 
+```
+
+    #> [1] "fire intensity"     "fire history"       "fire response type" "fire severity"      "fire season"
+
+``` r
+
+lookup_location_property(austraits, "temperature") %>% head()
+```
+
+    #> [1] "temperature, max (C)"             "temperature, MAT (C)"             "temperature, mean summer max (C)"
+    #> [4] "temperature, mean winter max (C)" "temperature, max MAT (C)"         "temperature, min MAT (C)"
+
+## Extracting data
+
+In most cases, users would like to extract a subset of a database for
+their research purposes.
+
+- [`extract_dataset()`](https://traitecoevo.github.io/austraits/reference/extract_dataset.md)
+  filters for a particular study
+- [`extract_trait()`](https://traitecoevo.github.io/austraits/reference/extract_trait.md)
+  filters for a certain trait
+- [`extract_taxa()`](https://traitecoevo.github.io/austraits/reference/extract_taxa.md)
+  filters for a specific taxon
+
+Note you can supply a vector to each of these functions to filter for
+more than one study/trait/taxa. All our `extract_` function supports
+partial matching e.g. `extract_trait("leaf")` would return all traits
+containing `leaf`.
+
+If you would like to extract from other tables or columns, use
+[`extract_data`](#extract-data)
+
+All `extract_` functions simultaneously filter across all tables in the
+database.
+
+### Extracting by dataset
+
+Filtering **one particular dataset** and assigning it to an object
+
+``` r
+
+one_study <- extract_dataset(austraits, "Falster_2005_2")
+
+one_study$traits 
+```
+
+    #> # A tibble: 165 × 26
+    #>    dataset_id     taxon_name    observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>          <chr>         <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   
+    #>  2 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   
+    #>  3 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   
+    #>  4 Falster_2005_2 Acacia longi… 01             huber_val… 0.00… mm2{… population  mean       measurement    unknown   
+    #>  5 Falster_2005_2 Acacia longi… 01             leaf_N_pe… 23.2  mg/g  population  mean       measurement    4         
+    #>  6 Falster_2005_2 Acacia longi… 01             leaf_area  1761  mm2   population  mean       measurement    4         
+    #>  7 Falster_2005_2 Acacia longi… 01             leaf_mass… 128   g/m2  population  mean       measurement    4         
+    #>  8 Falster_2005_2 Acacia longi… 01             plant_hei… 4     m     population  maximum    measurement    unknown   
+    #>  9 Falster_2005_2 Acacia longi… 01             resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Falster_2005_2 Acacia longi… 01             seed_dry_… 14    mg    population  mean       measurement    unknown   
+    #> # ℹ 155 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
+
+Filtering **multiple datasets** and assigning it to an object
+
+``` r
+
+multi_studies <- extract_dataset(austraits, 
+                                        dataset_id = c("Thompson_2001","Ilic_2000"))
+ 
+multi_studies$traits 
+```
+
+    #> # A tibble: 2,209 × 26
+    #>    dataset_id taxon_name       observation_id trait_name  value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>      <chr>            <chr>          <chr>       <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Ilic_2000  Acacia acradenia 0001           wood_densi… 0.904 mg/m… individual  raw        measurement    unknown   
+    #>  2 Ilic_2000  Acacia acuminata 0002           wood_densi… 0.895 mg/m… individual  raw        measurement    unknown   
+    #>  3 Ilic_2000  Acacia acuminata 0003           wood_densi… 1.008 mg/m… individual  raw        measurement    unknown   
+    #>  4 Ilic_2000  Acacia adsurgens 0004           wood_densi… 0.887 mg/m… individual  raw        measurement    unknown   
+    #>  5 Ilic_2000  Acacia alleniana 0005           wood_densi… 0.56  mg/m… individual  raw        measurement    unknown   
+    #>  6 Ilic_2000  Acacia ampliceps 0006           wood_densi… 0.568 mg/m… individual  raw        measurement    unknown   
+    #>  7 Ilic_2000  Acacia aneura    0007           wood_densi… 1.035 mg/m… individual  raw        measurement    unknown   
+    #>  8 Ilic_2000  Acacia aneura    0008           wood_densi… 1.019 mg/m… individual  raw        measurement    unknown   
+    #>  9 Ilic_2000  Acacia aneura    0009           wood_densi… 0.861 mg/m… individual  raw        measurement    unknown   
+    #> 10 Ilic_2000  Acacia aneura    0010           wood_densi… 0.996 mg/m… individual  raw        measurement    unknown   
+    #> # ℹ 2,199 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
+
+Filtering **multiple datasets by same lead author** (e.g. Falster) and
+assigning it to an object.
+
+``` r
+
+falster_studies <- extract_dataset(austraits, "Falster")
+
+falster_studies$traits 
+```
+
+    #> # A tibble: 685 × 26
+    #>    dataset_id   taxon_name      observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>        <chr>           <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Falster_2003 Acacia floribu… 01             leaf_area  142   mm2   population  mean       measurement    3         
+    #>  2 Falster_2003 Acacia floribu… 01             leaf_incl… 57    deg   population  mean       measurement    3         
+    #>  3 Falster_2003 Acacia floribu… 02             leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  4 Falster_2003 Acacia myrtifo… 03             leaf_area  319   mm2   population  mean       measurement    3         
+    #>  5 Falster_2003 Acacia myrtifo… 03             leaf_incl… 66.1  deg   population  mean       measurement    3         
+    #>  6 Falster_2003 Acacia myrtifo… 04             leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  7 Falster_2003 Acacia suaveol… 05             leaf_area  562   mm2   population  mean       measurement    3         
+    #>  8 Falster_2003 Acacia suaveol… 05             leaf_incl… 71.7  deg   population  mean       measurement    3         
+    #>  9 Falster_2003 Acacia suaveol… 06             leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #> 10 Falster_2003 Angophora hisp… 07             leaf_area  1590  mm2   population  mean       measurement    3         
+    #> # ℹ 675 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
+
+### Extracting by taxonomy
+
+``` r
+
+# By family 
+proteaceae <- extract_taxa(austraits, family = "Proteaceae")
+# Checking that only taxa in Proteaceae have been extracted
+proteaceae$taxa$family %>% unique()
+```
+
+    #> [1] "Proteaceae"
+
+``` r
+
+# By genus 
+acacia <- extract_taxa(austraits, genus = "Acacia")
+# Checking that only taxa in Acacia have been extracted
+acacia$traits$taxon_name %>% unique() %>% head()
+```
+
+    #> [1] "Acacia abbatiana"                        "Acacia abbreviata"                      
+    #> [3] "Acacia abrupta"                          "Acacia acanthaster"                     
+    #> [5] "Acacia acanthoclada subsp. acanthoclada" "Acacia acanthoclada subsp. glaucescens"
+
+``` r
+
+acacia$taxa$genus %>% unique()
+```
+
+    #> [1] "Acacia"
+
+### Extracting by trait
+
+``` r
+
+data_fruit <- extract_trait(austraits, "fruit")
+
+data_fruit$traits 
+```
+
+    #> # A tibble: 216,465 × 26
+    #>    dataset_id taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>      <chr>             <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 ABRS_1981  Ceratophyllum de… 0566           fruit_len… 4     mm    species     minimum    measurement    <NA>      
+    #>  2 ABRS_1981  Ceratophyllum de… 0566           fruit_len… 6     mm    species     maximum    measurement    <NA>      
+    #>  3 ABRS_1981  Ceratophyllum de… 0566           fruit_wid… 3     mm    species     minimum    measurement    <NA>      
+    #>  4 ABRS_1981  Ceratophyllum de… 0566           fruit_wid… 3.5   mm    species     maximum    measurement    <NA>      
+    #>  5 ABRS_1981  Conospermum peti… 0680           fruit_len… 2.5   mm    species     minimum    measurement    <NA>      
+    #>  6 ABRS_1981  Conospermum peti… 0680           fruit_wid… 3     mm    species     minimum    measurement    <NA>      
+    #>  7 ABRS_1981  Proiphys amboine… 3182           fruit_len… 15    mm    species     minimum    measurement    <NA>      
+    #>  8 ABRS_1981  Proiphys amboine… 3182           fruit_len… 30    mm    species     maximum    measurement    <NA>      
+    #>  9 ABRS_1981  Proiphys amboine… 3182           fruit_wid… 15    mm    species     minimum    measurement    <NA>      
+    #> 10 ABRS_1981  Proiphys amboine… 3182           fruit_wid… 30    mm    species     maximum    measurement    <NA>      
+    #> # ℹ 216,455 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
+
+Combining `lookup_trait` with `extract_trait` to obtain **all traits
+with ‘leaf’ in the trait name** and assigning it to an object. Note we
+use the `.` notation to pass on the `lookup_trait` results to
+`extract_trait`
+
+``` r
+
+leaf <- lookup_trait(austraits, "leaf") %>% extract_trait(austraits, .) 
+
+leaf$traits
+```
+
+    #> # A tibble: 511,952 × 26
+    #>    dataset_id taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>      <chr>             <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 ABRS_1981  Acanthocarpus ca… 0001           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  2 ABRS_1981  Acanthocarpus hu… 0002           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  3 ABRS_1981  Acanthocarpus pa… 0003           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  4 ABRS_1981  Acanthocarpus pr… 0004           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  5 ABRS_1981  Acanthocarpus ro… 0005           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  6 ABRS_1981  Acanthocarpus ru… 0006           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  7 ABRS_1981  Acanthocarpus ve… 0007           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #>  8 ABRS_1981  Acer pseudoplata… 0008           leaf_phen… deci… <NA>  species     mode       expert_score   <NA>      
+    #>  9 ABRS_1981  Acidonia microca… 0009           leaf_comp… comp… <NA>  species     mode       expert_score   <NA>      
+    #> 10 ABRS_1981  Callitris acumin… 0010           leaf_comp… simp… <NA>  species     mode       expert_score   <NA>      
+    #> # ℹ 511,942 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
+
+### Extracting from other tables
+
+You may want to extract data from tables that have specific column
+values. For example calling the code below will return data where “fire”
+is mentioned in the `context_property` column
+
+``` r
+
+data_fire <- extract_data(austraits, 
+                          table =  "contexts",
+                          col =  "context_property", 
+                          col_value = "fire")
+
+data_fire
+```
+
+### Extracting from a single table
+
+If you have already manipulated the original database and are working
+with just the traits table, the extract functions will also work on a
+single table.
+
+``` r
+
+seedling_data <- extract_data(austraits$traits,
+                          col =  "life_stage", 
+                          col_value = "seedling")
+
+Falster_data <- extract_data(austraits$traits,
+                          col =  "dataset_id", 
+                          col_value = "Falster")
+
+leaf_data <- extract_trait(austraits$traits, 
+                          c("leaf_area", "leaf_N_per_dry_mass"))
+```
+
+## Join data from other tables
+
+Once users have extracted the data they want, they may want to merge
+other study details into the main `traits` dataframe for their analyses.
+For example, users may require taxonomic information for a phylogenetic
+analysis. This is where the `join_` functions come in.
+
+There are five `join_` functions in total, each designed to append
+specific information from other tables and elements in the `austraits`
+object. Their suffixes refer to the type of information that is joined,
+e.g. `join_taxa` appends taxonomic information to the `traits`
+dataframe.
+
+- [`join_taxa()`](https://traitecoevo.github.io/austraits/reference/join_taxa.md)
+- [`join_methods()`](https://traitecoevo.github.io/austraits/reference/join_methods.md)
+- [`join_location_coordinates()`](https://traitecoevo.github.io/austraits/reference/join_location_coordinates.md)
+- [`join_location_properties()`](https://traitecoevo.github.io/austraits/reference/join_location_properties.md)
+- [`join_context_properties()`](https://traitecoevo.github.io/austraits/reference/join_context_properties.md)
+
+We recommend pulling up the help file for each one for more details e.g
+`?join_location_coordinates()`
+
+Each of the functions has specific default parameters and formatting,
+but offers versatile joining options.
+
+``` r
+
+# Join taxonomic information 
+(data_fire %>% join_taxa)$traits 
+```
+
+    #> # A tibble: 1,822 × 30
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 20 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>, family <chr>,
+    #> #   genus <chr>, taxon_rank <chr>, establishment_means <chr>
+
+``` r
+
+# Join methodological information 
+(data_fire %>% join_methods)$traits
+```
+
+    #> # A tibble: 1,822 × 27
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 17 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>, methods <chr>
+
+``` r
+
+# Join location coordinates 
+(data_fire %>% join_location_coordinates)$traits 
+```
+
+    #> # A tibble: 1,822 × 29
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 19 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>, location_name <chr>,
+    #> #   `latitude (deg)` <chr>, `longitude (deg)` <chr>
+
+``` r
+
+# Join information pertaining to location properties 
+(data_fire %>% join_location_properties)$traits 
+```
+
+    #> # A tibble: 1,822 × 28
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 18 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>, location_name <chr>,
+    #> #   location_properties <chr>
+
+``` r
+
+# Join information pertaining to location properties 
+(data_fire %>% join_location_properties(format = "many_columns", vars = "temperature, min MAT (C)"))$traits 
+```
+
+    #> # A tibble: 1,822 × 28
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 18 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>, location_name <chr>,
+    #> #   `location_property: temperature, min MAT (C)` <chr>
+
+``` r
+
+# Join context information 
+(data_fire %>% join_context_properties)$traits
+```
+
+    #> # A tibble: 1,822 × 31
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 21 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>,
+    #> #   treatment_context_properties <chr>, plot_context_properties <chr>, entity_context_properties <chr>,
+    #> #   temporal_context_properties <chr>, method_context_properties <chr>
+
+``` r
+
+# Join information from multiple tables 
+(data_fire %>% join_context_properties %>% join_location_coordinates)$traits 
+```
+
+    #> # A tibble: 1,822 × 34
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 24 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>,
+    #> #   treatment_context_properties <chr>, plot_context_properties <chr>, entity_context_properties <chr>,
+    #> #   temporal_context_properties <chr>, method_context_properties <chr>, location_name <chr>, …
+
+Alternatively,users can join **all** information using
+[`flatten_database()`](https://traitecoevo.github.io/austraits/reference/flatten_database.md):
+
+``` r
+
+data_fire %>% flatten_database() 
+```
+
+    #> # A tibble: 1,822 × 66
+    #>    dataset_id    taxon_name     observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>         <chr>          <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Campbell_2006 Acacia falcif… 001            bud_bank_… basa… <NA>  population  mode       expert_score   <NA>      
+    #>  2 Campbell_2006 Acacia falcif… 001            resprouti… resp… <NA>  population  mode       expert_score   <NA>      
+    #>  3 Campbell_2006 Acacia falcif… 001            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #>  4 Campbell_2006 Acacia falcif… 002            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #>  5 Campbell_2006 Acacia falcif… 003            dispersers ants  <NA>  species     mode       expert_score   <NA>      
+    #>  6 Campbell_2006 Acacia falcif… 003            plant_gro… tree  <NA>  species     mode       expert_score   <NA>      
+    #>  7 Campbell_2006 Acacia irrora… 004            bud_bank_… none  <NA>  population  mode       expert_score   <NA>      
+    #>  8 Campbell_2006 Acacia irrora… 004            resprouti… fire… <NA>  population  mode       expert_score   <NA>      
+    #>  9 Campbell_2006 Acacia irrora… 004            seedbank_… soil… <NA>  population  mode       expert_score   <NA>      
+    #> 10 Campbell_2006 Acacia irrora… 005            post_fire… post… <NA>  population  mode       expert_score   <NA>      
+    #> # ℹ 1,812 more rows
+    #> # ℹ 56 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>, location_name <chr>,
+    #> #   `latitude (deg)` <chr>, `longitude (deg)` <chr>, location_properties <chr>, treatment_context_properties <chr>,
+    #> #   plot_context_properties <chr>, entity_context_properties <chr>, temporal_context_properties <chr>, …
+
+## Visualising data by site
+
+[`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md)
+graphically summarises where trait data was collected from and how much
+data is available. The legend refers to the number of neighbouring
+points: the warmer the colour, the more data that is available. This
+function only works for studies that are geo-referenced. Users must
+first use
+[`join_location_coordinates()`](https://traitecoevo.github.io/austraits/reference/join_location_coordinates.md)
+to append latitude and longitude information from the locations
+dataframe into the traits dataframe before plotting.
+
+[`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md)
+defaults to dividing the data by trait_name (feature = “trait_name”),
+but you can select any of the columns within the traits table -
+including columns you add with `join_` functions. However, selecting
+`taxon_name` will likely crash R if you are working with a dataframe
+that still contains a large number of species.
+
+``` r
+
+data_fire <- data_fire %>% join_location_coordinates()
+plot_locations(data_fire$traits)
+```
+
+![plot of chunk site_plot](reference/figures/site_plot-1.png)
+
+plot of chunk site_plot
+
+## Visualising data distribution and variance
+
+`plot_trait_distribution()` creates histograms and [beeswarm
+plots](https://github.com/eclarke/ggbeeswarm) for specific traits to
+help users visualise the variance of the data. Users can specify whether
+to create separate beeswarm plots at the level of taxonomic family,
+genus or by a column in the traits table, such as `dataset_id`
+
+``` r
+
+austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "family")
+```
+
+![plot of chunk beeswarm](reference/figures/beeswarm-1.png)
+
+plot of chunk beeswarm
+
+``` r
+
+austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "dataset_id")
+```
+
+![plot of chunk beeswarm](reference/figures/beeswarm-2.png)
+
+plot of chunk beeswarm
+
+## Reshaping the traits table
+
+The traits table in AusTraits is in **long** format, where data for all
+trait information are denoted by two columns called `trait_name` and
+`value`. You can convert this to wide format, where each trait is in a
+separate column, using the function
+[`trait_pivot_wider()`](https://traitecoevo.github.io/austraits/reference/trait_pivot_wider.md).
+
+Note that the following columns are lost when pivoting: unit,
+replicates, measurement_remarks, and basis_of_value to provide a useful
+output.
+
+### Pivot wider
+
+**Note** that the latest version of
+[`trait_pivot_wider()`](https://traitecoevo.github.io/austraits/reference/trait_pivot_wider.md)
+is no longer supporting AusTraits database versions \<=4.0.2. Please
+refer to our [README](https://github.com/traitecoevo/austraits) to
+install an older version of the `austraits` R package to work old
+versions of the AusTraits database.
+
+``` r
+
+data_fire %>% trait_pivot_wider()
+```
+
+    #> # A tibble: 1,366 × 49
+    #>    dataset_id  taxon_name observation_id entity_type value_type basis_of_record life_stage population_id individual_id
+    #>    <chr>       <chr>      <chr>          <chr>       <chr>      <chr>           <chr>      <chr>         <chr>        
+    #>  1 Campbell_2… Acacia fa… 001            population  mode       field           adult      01            <NA>         
+    #>  2 Campbell_2… Acacia fa… 002            population  mode       field           seedling   01            <NA>         
+    #>  3 Campbell_2… Acacia fa… 003            species     mode       field           adult      <NA>          <NA>         
+    #>  4 Campbell_2… Acacia ir… 004            population  mode       field           adult      01            <NA>         
+    #>  5 Campbell_2… Acacia ir… 005            population  mode       field           seedling   01            <NA>         
+    #>  6 Campbell_2… Acacia ir… 006            species     mode       field           adult      <NA>          <NA>         
+    #>  7 Campbell_2… Acacia ma… 007            population  mode       field           adult      02            <NA>         
+    #>  8 Campbell_2… Acacia ma… 008            population  mode       field           seedling   02            <NA>         
+    #>  9 Campbell_2… Acacia ma… 009            species     mode       field           adult      <NA>          <NA>         
+    #> 10 Campbell_2… Acacia me… 010            population  mode       field           adult      02            <NA>         
+    #> # ℹ 1,356 more rows
+    #> # ℹ 40 more variables: repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   method_id <chr>, method_context_id <chr>, original_name <chr>, location_name <chr>, `latitude (deg)` <chr>,
+    #> #   `longitude (deg)` <chr>, bud_bank_location <chr>, resprouting_capacity <chr>, seedbank_location <chr>,
+    #> #   post_fire_recruitment <chr>, dispersers <chr>, plant_growth_form <chr>, stem_dark_respiration_per_area <chr>,
+    #> #   bark_thickness <chr>, huber_value <chr>, leaf_dry_matter_content <chr>, leaf_dark_respiration_per_area <chr>, …
+
+### Binding trait values
+
+Some datasets will have *multiple observations* for some traits, for
+instance datasets from floras often report a minimum and maximum fruit
+length for a species. You can use `bind_trait_values` to merge these
+into a single cell.
+
+``` r
+
+data_fruit <- austraits %>% 
+  extract_trait("fruit_length") %>% 
+  extract_taxa(family = "Rutaceae") %>% 
+  extract_data(table = "traits", col = "value_type", col_value = c("minimum", "maximum"))
+
+data_trait_bound <- data_fruit$traits %>%
+  bind_trait_values() # Joining multiple obs with `--`
+  
+data_trait_bound  %>%   
+  dplyr::filter(stringr::str_detect(value, "--"))
+```
+
+    #> # A tibble: 288 × 26
+    #>    dataset_id taxon_name        observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>      <chr>             <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 ABRS_2023  Acronychia aberr… 01324          fruit_len… 13--… mm    species     minimum--… measurement--… NA--NA    
+    #>  2 ABRS_2023  Acronychia acidu… 01325          fruit_len… 13--… mm    species     minimum--… measurement--… NA--NA    
+    #>  3 ABRS_2023  Acronychia acron… 01326          fruit_len… 8--13 mm    species     minimum--… measurement--… NA--NA    
+    #>  4 ABRS_2023  Acronychia acumi… 01327          fruit_len… 12--… mm    species     minimum--… measurement--… NA--NA    
+    #>  5 ABRS_2023  Acronychia baeue… 01328          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    
+    #>  6 ABRS_2023  Acronychia choor… 01329          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    
+    #>  7 ABRS_2023  Acronychia crass… 01330          fruit_len… 10--… mm    species     minimum--… measurement--… NA--NA    
+    #>  8 ABRS_2023  Acronychia imper… 01332          fruit_len… 9--16 mm    species     minimum--… measurement--… NA--NA    
+    #>  9 ABRS_2023  Acronychia laevis 01333          fruit_len… 7--10 mm    species     minimum--… measurement--… NA--NA    
+    #> 10 ABRS_2023  Acronychia litto… 01334          fruit_len… 8--14 mm    species     minimum--… measurement--… NA--NA    
+    #> # ℹ 278 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
+
+If you would like to revert the bounded trait values, call
+[`separate_trait_values()`](https://traitecoevo.github.io/austraits/reference/separate_trait_values.md):
+
+``` r
+
+data_trait_bound %>% 
+  separate_trait_values(., austraits$definitions)
+```
+
+    #> # A tibble: 119 × 26
+    #>    dataset_id  taxon_name       observation_id trait_name value unit  entity_type value_type basis_of_value replicates
+    #>    <chr>       <chr>            <chr>          <chr>      <chr> <chr> <chr>       <chr>      <chr>          <chr>     
+    #>  1 Cooper_2013 Acronychia baeu… 0071           fruit_len… 15    mm    species     maximum    measurement    <NA>      
+    #>  2 ABRS_2023   Acronychia aber… 01324          fruit_len… 16    mm    species     maximum    measurement    <NA>      
+    #>  3 ABRS_2023   Acronychia aber… 01324          fruit_len… 13    mm    species     minimum    measurement    <NA>      
+    #>  4 ABRS_2023   Acronychia eung… 01331          fruit_len… 12    mm    species     maximum    measurement    <NA>      
+    #>  5 ABRS_2023   Asterolasia ele… 02248          fruit_len… 10    mm    species     maximum    measurement    <NA>      
+    #>  6 ABRS_2023   Boronia angusti… 02910          fruit_len… 6     mm    species     maximum    measurement    <NA>      
+    #>  7 ABRS_2023   Boronia quadril… 03056          fruit_len… 6     mm    species     maximum    measurement    <NA>      
+    #>  8 ABRS_2023   Bosistoa floydii 03120          fruit_len… 10    mm    species     maximum    measurement    <NA>      
+    #>  9 ABRS_2023   Citrus australa… 04176          fruit_len… 50    mm    species     maximum    measurement    <NA>      
+    #> 10 ABRS_2023   Citrus garrawayi 04178          fruit_len… 100   mm    species     maximum    measurement    <NA>      
+    #> # ℹ 109 more rows
+    #> # ℹ 16 more variables: basis_of_record <chr>, life_stage <chr>, population_id <chr>, individual_id <chr>,
+    #> #   repeat_measurements_id <chr>, temporal_context_id <chr>, source_id <chr>, location_id <chr>,
+    #> #   entity_context_id <chr>, plot_context_id <chr>, treatment_context_id <chr>, collection_date <chr>,
+    #> #   measurement_remarks <chr>, method_id <chr>, method_context_id <chr>, original_name <chr>
