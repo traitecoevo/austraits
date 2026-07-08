@@ -1,0 +1,71 @@
+# ------------------------------------------------
+# CITATION.cff file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# ------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "austraits" in publications use:'
+type: software
+license: MIT
+title: 'austraits: Helpful functions to access the AusTraits database and wrangle
+  data from other traits.build databases'
+version: 3.1.1
+doi: 10.1038/s41597-021-01006-6
+abstract: '`austraits` allow users to **access, explore and wrangle data** from traits.build
+  relational databases. It is also an R interface to AusTraits, the Australian plant
+  trait database. This package contains functions for joining data from various tables,
+  filtering to specific records, combining multiple databases and visualising the
+  distribution of the data. We expect this package will assist users in working with
+  `traits.build` databases.'
+authors:
+- family-names: Falster
+  given-names: Daniel
+  email: daniel.falster@unsw.edu.au
+  orcid: https://orcid.org/0000-0002-9814-092X
+- family-names: Kar
+  given-names: Fonti
+  email: f.kar@unsw.edu.au
+  orcid: https://orcid.org/0000-0002-2760-3974
+- family-names: Indiarto
+  given-names: Dony
+  orcid: https://orcid.org/0000-0001-9546-8201
+preferred-citation:
+  type: article
+  title: AusTraits, a curated plant trait database for the Australian flora
+  authors:
+  - family-names: Falster
+    given-names: Daniel
+    email: daniel.falster@unsw.edu.au
+    orcid: https://orcid.org/0000-0002-9814-092X
+  - family-names: Gallagher
+    given-names: Rachael
+  - family-names: Wenk
+    given-names: Elizabeth H.
+  - family-names: Wright
+    given-names: Ian J.
+  - family-names: Indiarto
+    given-names: Dony
+    orcid: https://orcid.org/0000-0001-9546-8201
+  - family-names: Andrew
+    given-names: Samuel C.
+  - name: others
+  journal: Scientific Data
+  year: '2021'
+  volume: '8'
+  issue: '1'
+  doi: 10.1038/s41597-021-01006-6
+  url: https://doi.org/10.1038/s41597-021-01006-6
+  start: '254'
+repository-code: https://github.com/traitecoevo/austraits
+url: https://traitecoevo.github.io/austraits/
+contact:
+- family-names: Kar
+  given-names: Fonti
+  email: f.kar@unsw.edu.au
+  orcid: https://orcid.org/0000-0002-2760-3974
+keywords:
+- australia
+- database
+- plants
+- traits
+
