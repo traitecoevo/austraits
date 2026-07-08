@@ -162,3 +162,20 @@ Contributing? Issues across the family are tracked on one board,
 read the [issue & labelling guide](https://github.com/traitecoevo/austraits-meta/blob/main/governance/issue-guide.md)
 in [`austraits-meta`](https://github.com/traitecoevo/austraits-meta) — the family's cross-package
 knowledge and governance hub — before filing.
+
+## Acknowledgements
+
+AusTraits is made possible by contributions from our partner organisations — the
+[University of New South Wales](https://www.unsw.edu.au/),
+[Western Sydney University](https://www.westernsydney.edu.au/),
+[Botanic Gardens of Sydney](https://www.botanicgardens.org.au/),
+[the University of Melbourne](https://www.unimelb.edu.au/),
+the [Atlas of Living Australia](https://www.ala.org.au/), and the Australian Government
+[Department of Climate Change, Energy, the Environment and Water](https://www.dcceew.gov.au) — and
+from our [advisory board, data contributors, and past partners](https://austraits.org/team/team-partners.html).
+
+AusTraits is a co-investment partnership with the
+[Australian Research Data Commons](https://ardc.edu.au/) (ARDC) through the Planet Research Data
+Commons ([DOI: 10.3565/nyk4-4r91](https://doi.org/10.3565/nyk4-4r91)). The ARDC is enabled by the
+Australian Government's [National Collaborative Research Infrastructure Strategy](https://www.education.gov.au/ncris)
+(NCRIS).
