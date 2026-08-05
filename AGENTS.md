@@ -75,5 +75,12 @@ guide](https://github.com/traitecoevo/austraits-meta/blob/main/governance/issue-
 pick one work-type label (`bug` / `task` / `epic`); Status and Priority
 are set on the board, not as labels.
 
+**Commit messages:** every family repo squash-merges, so the **PR title
+and body become the permanent commit message**. Keep the subject ≤50
+characters as typed and the body ≤10 lines; put the working detail —
+what you tried, benchmarks, test counts, rejected alternatives — in the
+**first PR comment** instead. Full convention:
+[`commit-messages.md`](https://github.com/traitecoevo/austraits-meta/blob/master/governance/commit-messages.md).
+
 > austraits-meta is hand-maintained prose — a map, not ground truth.
 > Verify specifics against the actual repos.
