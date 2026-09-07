@@ -108,7 +108,7 @@ vignette("austraits")
 
 AusTraits is a relational database, you can learn more about it’s
 structure from the [traits.build
-book](https://traitecoevo.github.io/traits.build-book/AusTraits_tutorial.html).
+book](https://traitecoevo.github.io/traits.build-book/content/AusTraits_tutorial.html).
 
 You can also learn about the definitions of each plant trait with the
 [AusTraits Plant Dictionary!](https://w3id.org/APD)
