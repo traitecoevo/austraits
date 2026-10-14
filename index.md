@@ -155,7 +155,7 @@ and the people behind it.
 Contributing? Issues across the family are tracked on one board,
 [AusTraits \#9](https://github.com/orgs/traitecoevo/projects/9), and new
 issues are auto-added. Please read the [issue & labelling
-guide](https://github.com/traitecoevo/austraits-meta/blob/main/governance/issue-guide.md)
+guide](https://github.com/traitecoevo/austraits-meta/blob/master/governance/issue-guide.md)
 in [`austraits-meta`](https://github.com/traitecoevo/austraits-meta) —
 the family’s cross-package knowledge and governance hub — before filing.
 
