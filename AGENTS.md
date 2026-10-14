@@ -39,17 +39,17 @@ package) for traits.build-format databases, including AusTraits; loads the relea
 **[austraits-meta](https://github.com/traitecoevo/austraits-meta)** — don't restate them here, read
 them there:
 
-- **Start with [`AGENTS.md`](https://github.com/traitecoevo/austraits-meta/blob/main/AGENTS.md)** —
+- **Start with [`AGENTS.md`](https://github.com/traitecoevo/austraits-meta/blob/master/AGENTS.md)** —
   pipeline order, who owns what, dependency direction, source-of-truth rules, cross-boundary
   artifacts, gotchas.
-- **[`dependencies.yml`](https://github.com/traitecoevo/austraits-meta/blob/main/dependencies.yml)** —
+- **[`dependencies.yml`](https://github.com/traitecoevo/austraits-meta/blob/master/dependencies.yml)** —
   machine-readable package graph + cross-boundary artifacts.
-- **[`governance/`](https://github.com/traitecoevo/austraits-meta/tree/main/governance)** —
+- **[`governance/`](https://github.com/traitecoevo/austraits-meta/tree/master/governance)** —
   label taxonomy, board #9 conventions, release playbooks, triage.
 
 **Filing issues:** the whole family is tracked on one board,
 [AusTraits #9](https://github.com/orgs/traitecoevo/projects/9) (new issues auto-add to it). Follow
-the [issue & labelling guide](https://github.com/traitecoevo/austraits-meta/blob/main/governance/issue-guide.md):
+the [issue & labelling guide](https://github.com/traitecoevo/austraits-meta/blob/master/governance/issue-guide.md):
 pick one work-type label (`bug` / `task` / `epic`); Status and Priority are set on the board, not as
 labels.
 
