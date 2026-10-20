@@ -27,7 +27,6 @@ Encoding: UTF-8
 Language: en
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Depends: 
     R (>= 4.0.0),
     RefManageR
@@ -64,3 +63,4 @@ VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://traitecoevo.github.io/austraits/
 BugReports: https://github.com/traitecoevo/austraits/issues
+Config/roxygen2/version: 8.0.0

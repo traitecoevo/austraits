@@ -5,7 +5,11 @@
 #' @param path file path to where AusTraits will be downloaded
 #' @param update if TRUE, AusTraits versions .json will be re-downloaded
 #'
-#' @return a large list containing AusTraits data tables
+#' @return a large list containing AusTraits data tables. Its `sources` are
+#'   given the class [`traits_build_sources`][traits_build_sources], also for
+#'   releases built before that class existed, so a reference can be looked
+#'   up by key with `$` as well as `[[` and `[`, e.g.
+#'   `austraits$sources$Falster_2005`.
 #' @export
 #' @seealso get_versions get_version_latest
 #'
@@ -91,6 +95,9 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   
   # Assign class
   attr(data, "class") <- "traits.build"
+  
+  # Lets `$` look up sources by key in releases built before the class existed
+  data <- classify_sources(data)
   
   data
 }

@@ -3,10 +3,17 @@
 #' `bind_databases` binds all the listed studies into a single traits.build
 #' database object as a large list.
 #'
+#' The combined `sources` hold the references of every database, with
+#' duplicate keys removed. They are a [RefManageR::BibEntry()] object with the
+#' class [`traits_build_sources`][traits_build_sources], so a reference can be
+#' looked up by key with `$` as well as `[[` and `[`, e.g.
+#' `database$sources$Falster_2005`.
+#'
 #' @param ... Arguments passed to other functions
 #' @param databases List of traits.build databases to be bond together
 #'
 #' @return Compiled database as a single large list
+#' @seealso [traits_build_sources] for looking up `sources` by key
 #' @importFrom rlang .data
 #' @export
 bind_databases <- function(..., databases = list(...)) {
@@ -32,6 +39,11 @@ bind_databases <- function(..., databases = list(...)) {
   keys <- sources %>% lapply(names) %>% unlist() %>% unique() %>% sort()
   sources <- sources %>% purrr::reduce(c)
   sources <- sources[keys]
+  
+  # Lets `$` look up by key; see ?traits_build_sources. Applied here, after
+  # the c(), because RefManageR's c() returns a plain BibEntry when the first
+  # database's sources lack the class
+  sources <- as_traits_build_sources(sources)
   
   definitions <- databases %>% lapply("[[", "definitions") %>% purrr::reduce(c)
   definitions <- definitions[!duplicated(names(definitions))]

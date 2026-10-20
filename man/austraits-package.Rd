@@ -21,6 +21,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Fonti Kar \email{f.kar@unsw.edu.au} (\href{https://orcid.org/0000-0002-2760-3974}{ORCID})
   \item Daniel Falster \email{daniel.falster@unsw.edu.au} (\href{https://orcid.org/0000-0002-9814-092X}{ORCID})
   \item Dony Indiarto (\href{https://orcid.org/0000-0001-9546-8201}{ORCID})
 }

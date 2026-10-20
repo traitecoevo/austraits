@@ -290,6 +290,9 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     # Assign class
     attr(ret, "class") <- "traits.build"
+    
+    # `[` keeps the sources class; this adds it for a database without it
+    ret <- classify_sources(ret)
   }
     
     ret

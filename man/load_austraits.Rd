@@ -8,7 +8,7 @@ load_austraits(
   doi = NULL,
   version = NULL,
   path = "data/austraits",
-  update = FALSE
+  update = TRUE
 )
 }
 \arguments{
@@ -21,7 +21,11 @@ load_austraits(
 \item{update}{if TRUE, AusTraits versions .json will be re-downloaded}
 }
 \value{
-a large list containing AusTraits data tables
+a large list containing AusTraits data tables. Its \code{sources} are
+given the class \code{\link{traits_build_sources}}, also for
+releases built before that class existed, so a reference can be looked
+up by key with \code{$} as well as \code{[[} and \code{[}, e.g.
+\code{austraits$sources$Falster_2005}.
 }
 \description{
 Load AusTraits database into R console
