@@ -60,20 +60,37 @@ test_that("`[` and `[[` return the same entries and keep the class", {
   }
   expect_identical(unname(names(sources[some_keys])), some_keys)
 
-  # RefManageR's search syntax calls `[` recursively to find indices
+  # RefManageR's search syntax calls `[` recursively to find indices. Pin the
+  # search options it reads (these are its defaults) and restore them after.
+  # No year searches: RefManageR matches years with lubridate::year() on a
+  # `dateobj` stored without a time zone, and this fixture's dates are local
+  # midnight in Sydney, so `year = "2005"` finds nothing in UTC (as on CI)
+  old_options <- RefManageR::BibOptions(
+    match.author = "family.name", use.regex = TRUE, ignore.case = TRUE
+  )
+  on.exit(RefManageR::BibOptions(old_options), add = TRUE)
+
+  falster <- c("Falster_2003", "Falster_2005_1", "Falster_2005_2")
   searches <- list(
-    sources[author = "Falster"],
-    sources[author = "Falster", year = "2005"],
-    sources[list(author = "Westoby"), list(year = "2003")]
+    or = sources[list(author = "Falster"), list(journal = "Phytologist")],
+    author = sources[author = "Falster"],
+    and = sources[author = "Falster", journal = "Ecology"]
   )
   expected <- list(
-    plain[author = "Falster"],
-    plain[author = "Falster", year = "2005"],
-    plain[list(author = "Westoby"), list(year = "2003")]
+    or = plain[list(author = "Falster"), list(journal = "Phytologist")],
+    author = plain[author = "Falster"],
+    and = plain[author = "Falster", journal = "Ecology"]
   )
-  for (j in seq_along(searches)) {
+  # Check what each search matched first, so a search that matches nothing
+  # fails here rather than as a missing class
+  expect_identical(unname(names(searches$author)), falster)
+  expect_identical(unname(names(searches$and)), "Falster_2005_1")
+  expect_contains(unname(names(searches$or)), falster)
+  expect_gt(length(searches$or), length(falster))
+  for (j in names(searches)) {
+    expect_gt(length(searches[[j]]), 0)
     expect_s3_class(searches[[j]], "traits_build_sources")
-    expect_identical(unclass(searches[[j]]), unclass(expected[[j]]))
+    expect_identical(unclass(searches[[j]]), unclass(expected[[j]]), info = j)
   }
 
   expect_message(none <- sources["Not_a_key"], "No results")
