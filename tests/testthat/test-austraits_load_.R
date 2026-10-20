@@ -25,6 +25,10 @@ test_load_austraits <- function(version, path){
     expect_named(austraits)
     expect_type(austraits, "list")
     expect_error(load_austrait())
+    # Releases are built without the class; load_austraits() adds it
+    expect_s3_class(austraits$sources, "traits_build_sources")
+    key <- names(austraits$sources)[1]
+    expect_identical(eval(call("$", austraits$sources, key)), austraits$sources[[key]])
   })
 }
 

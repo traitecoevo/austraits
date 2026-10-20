@@ -18,3 +18,13 @@ Compiled database as a single large list
 \code{bind_databases} binds all the listed studies into a single traits.build
 database object as a large list.
 }
+\details{
+The combined \code{sources} hold the references of every database, with
+duplicate keys removed. They are a \code{\link[RefManageR:BibEntry]{RefManageR::BibEntry()}} object with the
+class \code{\link{traits_build_sources}}, so a reference can be
+looked up by key with \code{$} as well as \code{[[} and \code{[}, e.g.
+\code{database$sources$Falster_2005}.
+}
+\seealso{
+\link{traits_build_sources} for looking up \code{sources} by key
+}
