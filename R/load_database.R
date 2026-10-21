@@ -3,8 +3,9 @@
 #' @description Works like [load_austraits()], but accepts the doi of any
 #' traits.build formatted database. The doi is resolved to its repository, the
 #' relational database `.rds` file is downloaded to `path` (if not already
-#' there) and then loaded. Zenodo and Figshare records are supported, as are
-#' dois that resolve directly to an `.rds` file.
+#' there, or if the copy there does not match the record's md5 checksum) and
+#' then loaded. Zenodo and Figshare records are supported, as are dois that
+#' resolve directly to an `.rds` file.
 #'
 #' @param doi character string - doi of the database, e.g. "10.5281/zenodo.11188867".
 #' A Zenodo concept doi will load the latest version of that record.
@@ -66,11 +67,23 @@ load_database <- function(doi = NULL, path = "data/traits.build", update = TRUE)
 
   url <- files$url
   file_nm <- file.path(path, basename(files$key))
+  md5 <- if(is.null(files$md5)) NA_character_ else files$md5
+
+  # Filenames are not unique across releases (every MYtraits release is
+  # MYtraits.rds), so only reuse a cached file that matches the record's md5
+  if(file.exists(file_nm) && ! file_matches_md5(file_nm, md5)){
+    message("'", file_nm, "' does not match doi '", doi, "', downloading again")
+    file.remove(file_nm)
+  }
 
   #Check if doi is downloaded, if not download
   if(! file.exists(file_nm)){
     # Downloading file
     download_austraits(url, file_nm, path = path)
+
+    if(! file_matches_md5(file_nm, md5)){
+      rlang::abort(paste0("Downloaded '", file_nm, "' does not match the md5 checksum for doi '", doi, "'"))
+    }
   }
 
   # Loading the .rds
@@ -140,7 +153,8 @@ resolve_doi_files <- function(doi){
     res <- jsonlite::read_json(paste0("https://zenodo.org/api/records/", id),
                                simplifyVector = TRUE)
 
-    files <- data.frame(key = res$files$key, url = res$files$links$self)
+    files <- data.frame(key = res$files$key, url = res$files$links$self,
+                        md5 = stringr::str_match(res$files$checksum, "^md5:([0-9a-f]{32})$")[, 2])
 
     return(list(doi = doi, source = "zenodo", version = res$metadata$version, files = files))
   }
@@ -160,20 +174,37 @@ resolve_doi_files <- function(doi){
 
     res <- jsonlite::read_json(api_url, simplifyVector = TRUE)
 
-    files <- data.frame(key = res$files$name, url = res$files$download_url)
+    files <- data.frame(key = res$files$name, url = res$files$download_url,
+                        md5 = dplyr::na_if(res$files$computed_md5, ""))
 
     return(list(doi = doi, source = "figshare", version = as.character(res$version), files = files))
   }
 
   # doi resolves directly to an .rds file
   if(grepl("\\.rds(\\?.*)?$", landing_url, ignore.case = TRUE)){
-    files <- data.frame(key = basename(stringr::str_remove(landing_url, "\\?.*$")), url = landing_url)
+    # No checksum to check a cached file against, so the doi goes in the
+    # filename to keep files from different dois apart
+    key <- paste0(stringr::str_replace_all(doi, "[^A-Za-z0-9.]+", "_"), "-",
+                  basename(stringr::str_remove(landing_url, "\\?.*$")))
+    files <- data.frame(key = key, url = landing_url, md5 = NA_character_)
 
     return(list(doi = doi, source = "url", version = NA_character_, files = files))
   }
 
   rlang::abort(paste0("doi '", doi, "' resolves to '", landing_url,
                       "', which is not a supported repository (Zenodo, Figshare or a direct .rds link)"))
+}
+
+#' Check a file against its md5 checksum
+#'
+#' @param file path to the file
+#' @param md5 expected md5 checksum, or NA if the repository gives none
+#' @return TRUE if the file matches, or if there is no checksum to check against
+#' @noRd
+#' @keywords internal
+
+file_matches_md5 <- function(file, md5){
+  is.na(md5) || unname(tools::md5sum(file)) == md5
 }
 
 #' Resolve a doi to its landing page url using the doi.org handle API

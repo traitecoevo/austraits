@@ -21,8 +21,9 @@ a large list containing traits.build data tables
 Works like \code{\link[=load_austraits]{load_austraits()}}, but accepts the doi of any
 traits.build formatted database. The doi is resolved to its repository, the
 relational database \code{.rds} file is downloaded to \code{path} (if not already
-there) and then loaded. Zenodo and Figshare records are supported, as are
-dois that resolve directly to an \code{.rds} file.
+there, or if the copy there does not match the record's md5 checksum) and
+then loaded. Zenodo and Figshare records are supported, as are dois that
+resolve directly to an \code{.rds} file.
 }
 \examples{
 \dontrun{
