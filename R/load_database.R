@@ -79,7 +79,7 @@ load_database <- function(doi = NULL, path = "data/traits.build", update = TRUE)
   #Check if doi is downloaded, if not download
   if(! file.exists(file_nm)){
     # Downloading file
-    download_austraits(url, file_nm, path = path)
+    download_austraits(url, file_nm, path = path, name = "your traits.build database")
 
     if(! file_matches_md5(file_nm, md5)){
       rlang::abort(paste0("Downloaded '", file_nm, "' does not match the md5 checksum for doi '", doi, "'"))

@@ -146,10 +146,11 @@ create_metadata <- function(res){
 #' @param url url of download via Zenodo API
 #' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
 #' @param path file path to where AusTraits will be downloaded
+#' @param name name of the database, used in messages
 #' @noRd
 #' @keywords internal
 
-download_austraits <- function(url, filename, path) {
+download_austraits <- function(url, filename, path, name = "AusTraits") {
   # Get user timeout option
   o <- getOption('timeout')
   
@@ -160,7 +161,7 @@ download_austraits <- function(url, filename, path) {
   #Download latest build
   fn <- paste(tempfile(), '.download', sep='') #Temporary folder
   
-  message("Downloading AusTraits to '", path,"'")
+  message("Downloading ", name, " to '", path,"'")
   
   res <- utils::download.file(url=url, destfile=fn, method="auto", quiet = FALSE, mode = "wb", cacheOK = TRUE)
   
@@ -177,7 +178,7 @@ download_austraits <- function(url, filename, path) {
       file.remove(fn)
     }
   } else {
-    stop('Could not download AusTraits!' )
+    stop("Could not download ", name, "!")
   }
 }
 
