@@ -10,6 +10,8 @@ trait database — `load_austraits()` fetches a released `.rds` build.
   `vignettes/`. `data/`, `data-raw/`, and `inst/` hold packaged/raw assets (incl. the cheatsheet).
 - **Access entry point:** `load_austraits()` (`R/load_austraits.R`) downloads/loads a released
   AusTraits build (`.rds`); `get_versions()` / `get_version_latest()` resolve versions.
+  `load_database()` (`R/load_database.R`) loads any traits.build database from its doi
+  (Zenodo, Figshare, or a doi resolving directly to an `.rds`).
 - **Wrangle/extract:** `extract_*()` (data/dataset/taxa/trait), `join_*()` (taxa, methods,
   contributors, locations, context/location properties), `lookup_*()`, `trait_pivot_longer/wider()`,
   `summarise_database()`, `bind_databases()`, `flatten_database()`, `as_wide_table()`.

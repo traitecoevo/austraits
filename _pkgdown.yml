@@ -15,6 +15,7 @@ reference:
 - title: Accessing and exploring the database
 - contents:
   - load_austraits
+  - load_database
   - starts_with("get_")
   - summarise_database
   - starts_with("lookup_")
