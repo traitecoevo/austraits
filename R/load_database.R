@@ -44,6 +44,11 @@ load_database <- function(doi = NULL, path = "data/traits.build", update = TRUE)
   # Load the record metadata
   record <- load_record_json(doi = doi, path = path, update = update)
 
+  # Say which release the doi resolved to (a concept doi resolves to the latest)
+  if(length(record$version) == 1 && !is.na(record$version) && nzchar(record$version)) {
+    message("doi '", doi, "' is version ", record$version)
+  }
+
   # Setting up the pars
   files <- record$files
   is_rds <- grepl("\\.rds$", files$key, ignore.case = TRUE)
@@ -58,6 +63,11 @@ load_database <- function(doi = NULL, path = "data/traits.build", update = TRUE)
   # Ignore flattened database files
   if(nrow(files) > 1) {
     files <- files[!stringr::str_detect(files$key, "flattened"), ]
+  }
+
+  if(nrow(files) == 0) {
+    rlang::abort(paste0("Only flattened .rds files found for doi '", doi,
+                        "'; load_database() needs the relational database .rds"))
   }
 
   if(nrow(files) > 1) {
@@ -152,6 +162,14 @@ resolve_doi_files <- function(doi){
     # Concept record ids redirect to the latest version
     res <- jsonlite::read_json(paste0("https://zenodo.org/api/records/", id),
                                simplifyVector = TRUE)
+
+    # Restricted, embargoed and closed records list no files
+    access <- res$metadata$access_right
+    if(length(res$files) == 0 && !is.null(access) && access != "open") {
+      rlang::abort(paste0("The files for doi '", doi, "' are ", access,
+                          " on Zenodo, so cannot be downloaded. You may be able to request access at https://zenodo.org/records/",
+                          res$id))
+    }
 
     files <- data.frame(key = res$files$key, url = res$files$links$self,
                         md5 = stringr::str_match(res$files$checksum, "^md5:([0-9a-f]{32})$")[, 2])

@@ -144,42 +144,38 @@ create_metadata <- function(res){
 #' Function for loading .rds AusTraits files
 #'
 #' @param url url of download via Zenodo API
-#' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
+#' @param filename path the file is saved to, e.g. data/austraits/austraits-3.0.2.rds
 #' @param path file path to where AusTraits will be downloaded
 #' @param name name of the database, used in messages
 #' @noRd
 #' @keywords internal
 
 download_austraits <- function(url, filename, path, name = "AusTraits") {
-  # Get user timeout option
-  o <- getOption('timeout')
-  
-  # Set max timeout
-  options(timeout = max(300, getOption("timeout"))) 
-  on.exit(options(timeout = o)) #Set options back to original
-  
-  #Download latest build
-  fn <- paste(tempfile(), '.download', sep='') #Temporary folder
-  
+  # Allow at least 300s for large downloads, restoring the user's timeout after
+  o <- options(timeout = max(300, getOption("timeout")))
+  on.exit(options(o), add = TRUE)
+
+  # Download to a temporary file, so a failed download leaves nothing at `filename`
+  fn <- paste0(tempfile(), ".download")
+  on.exit(unlink(fn), add = TRUE)
+
   message("Downloading ", name, " to '", path,"'")
-  
+
   res <- utils::download.file(url=url, destfile=fn, method="auto", quiet = FALSE, mode = "wb", cacheOK = TRUE)
-  
-  if (res == 0) { #Warning and timeout hygiene
-    w <- getOption('warn') #save option
-    on.exit(options(warn = w)) #set options back to original
-    options('warn'=-1)  #Deal with warnings
-    
-    file.rename(fn, paste0(path,"/",filename)) #Copy tmp file to new folder
-    
-    if (! file.rename(fn, filename) ) { 
-      # rename failed, perhaps because fn and filename refer to different devices
-      file.copy(fn, path)
-      file.remove(fn)
-    }
-  } else {
+
+  if (res != 0) {
     stop("Could not download ", name, "!")
   }
+
+  # file.rename() fails when the temporary folder is on a different device to
+  # `filename` (e.g. another drive on Windows), so fall back to copying
+  if (! suppressWarnings(file.rename(fn, filename))) {
+    if (! file.copy(fn, filename, overwrite = TRUE)) {
+      stop("Could not save ", name, " to '", filename, "'")
+    }
+  }
+
+  invisible(filename)
 }
 
 #' Print out AusTraits versions

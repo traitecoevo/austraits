@@ -1,5 +1,6 @@
 # austraits (development version)
 - Added new function `load_database` which loads any traits.build database from its doi (Zenodo, Figshare or a doi resolving directly to an .rds file)
+- Fix bug in `load_austraits` and `load_database` downloads: when the temporary folder was on a different drive to `path`, the file was saved under its temporary name and could not be loaded. The user's `timeout` option is now also restored after a download.
 
 # austraits 3.1.1
 - Fix bug in function `load_austraits` that was preventing it from loading austraits.build v.7.0.0, as both relational and flattened database versions are now on Zenodo. For now, ignoring flattened data table.
