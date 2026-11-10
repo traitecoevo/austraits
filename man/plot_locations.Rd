@@ -15,8 +15,9 @@ plot_locations(database, feature = "trait_name", ..., basemap = "australia")
 
 \item{basemap}{\code{"australia"} (the default) draws the locations over a map
 of Australia, and leaves out any location beyond the map, with a message
-saying how many records that affects. \code{NULL} draws every location without
-a map, for databases from outside Australia.}
+saying how many records that affects; if no location lies on the map, it
+stops with an error. \code{NULL} draws every location without a map, for
+databases from outside Australia.}
 }
 \value{
 ggplot of sites

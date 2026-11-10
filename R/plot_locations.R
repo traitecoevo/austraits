@@ -5,8 +5,9 @@
 #' @param ... arguments passed to ggpointdensity::geom_pointdensity()
 #' @param basemap `"australia"` (the default) draws the locations over a map
 #' of Australia, and leaves out any location beyond the map, with a message
-#' saying how many records that affects. `NULL` draws every location without
-#' a map, for databases from outside Australia.
+#' saying how many records that affects; if no location lies on the map, it
+#' stops with an error. `NULL` draws every location without a map, for
+#' databases from outside Australia.
 #' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
 #' @examples
@@ -65,6 +66,10 @@ plot_locations2 <- function(database, feature, basemap = "australia", ...){
     dplyr::mutate(dplyr::across(c("longitude (deg)","latitude (deg)"), ~ suppressWarnings(as.numeric(.x)))) %>%
     dplyr::filter(!is.na(`latitude (deg)`), !is.na(`longitude (deg)`))
 
+  if(nrow(sites) == 0){
+    cli::cli_abort("No records have a numeric `latitude (deg)` and `longitude (deg)` to plot")
+  }
+
   site_map <- ggplot2::ggplot()
 
   if(!is.null(basemap)){
@@ -77,6 +82,13 @@ plot_locations2 <- function(database, feature, basemap = "australia", ...){
     inside <-
       dplyr::between(sites$`longitude (deg)`, min(au_map$x) - margin, max(au_map$x) + margin) &
       dplyr::between(sites$`latitude (deg)`, min(au_map$y) - margin, max(au_map$y) + margin)
+
+    if(!any(inside)){
+      cli::cli_abort(paste0(
+        "None of the ", nrow(sites), " record(s) lie on the map of Australia. ",
+        "Use `basemap = NULL` to show every location."
+      ))
+    }
 
     if(any(!inside)){
       outside <- sites[!inside, ]

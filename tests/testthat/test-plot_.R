@@ -62,6 +62,13 @@ test_that("plot_locations keeps every location on the map of Australia", {
   expect_equal(shown(p), sort(sites$location_name))
 
   expect_error(plot_locations(sites, basemap = "malaysia"), "`basemap` must be")
+
+  # A database from outside Australia says to use basemap = NULL, rather than
+  # failing inside facet_wrap() on an empty layer
+  expect_error(plot_locations(sites[sites$location_name == "Kuala Lumpur", ]), "Use `basemap = NULL`")
+  sites_none <- sites
+  sites_none$`latitude (deg)` <- "unknown"
+  expect_error(plot_locations(sites_none, basemap = NULL), "No records have a numeric")
 })
 
 test_that("Function throws error", {
