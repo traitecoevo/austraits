@@ -3,8 +3,9 @@
 #' Create a single database output that merges together the information
 #' in all relational tables within a traits.build database.
 #' Trait measurements are still output in long format (1 row per trait value),
-#' but all measurement-related metadata (methods, location properties, context properties, contributors)
-#' are now included as additional columns in a single table.
+#' but all measurement-related metadata (methods, location properties, context properties, contributors, references)
+#' are now included as additional columns in a single table. References are joined by [join_sources()], so
+#' `vars$sources` selects among its columns, and the reference columns of the methods table are not repeated.
 #'
 #' @param database traits.build database (list object)
 #' @param format A parameter for the locations, contexts and data contributors tables specifying how data are packed. 
@@ -29,11 +30,13 @@ flatten_database <- function(database,
       identifiers = "all",
       taxonomy = "all",
       taxonomic_updates = "all",
-      methods = setdiff(names(database$methods), c("data_collectors"))
+      methods = setdiff(names(database$methods), c("data_collectors", methods_source_columns)),
+      sources = "all"
     ),
     include_description = TRUE
   ) {
   # Since `data_collectors` is also merged into the combined_table via the contributors tibble, we don't want the information twice.
+  # Likewise the references come from `join_sources()`, not from the methods table.
 
   if (format == "many_columns") {
     format_contributors = "single_column_pretty"
@@ -46,6 +49,7 @@ flatten_database <- function(database,
     join_location_properties(format = format, vars =  vars$location) %>%
     join_context_properties(format = format, vars =  vars$context, include_description = TRUE) %>%
     join_methods(vars = vars$methods) %>%
+    join_sources(vars = if (is.null(vars$sources)) "all" else vars$sources) %>%
     join_contributors(format = format_contributors, vars = vars$contributors) %>%
     join_taxa(vars = vars$taxonomy) %>%
     join_taxonomic_updates(vars = vars$taxonomic_updates)

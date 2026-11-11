@@ -39,10 +39,14 @@ as_wide_table <- function(database){
     join_contexts_old(collapse_context = TRUE) -> database
 
   # Getting rid of the columns that will soon be deleted in the next austraits release and renaming the description column
-  database$methods <- 
-    database$methods %>% 
-    dplyr::rename(dataset_description = "description")  %>% 
+  database$methods <-
+    database$methods %>%
+    methods_with_current_source_names() %>%
+    dplyr::rename(dataset_description = "description")  %>%
     dplyr::distinct()
+
+  # The citation of the reference each record was taken from
+  database <- database %>% join_sources(vars = "source_id_citation")
   
   # collapse into one column
   database$locations <- 
@@ -84,7 +88,7 @@ as_wide_table <- function(database){
     "context", "methods", "method_id", "method_context_id", "original_name",
     
     #the citations
-    "dataset_description", "source_primary_citation", "source_secondary_citation",
+    "dataset_description", "dataset_id_citation", "source_id_citation", "secondary_citation",
     
     #the taxa details
     "taxonomic_status", "taxon_distribution", 

@@ -302,6 +302,76 @@ join_methods <- function(database, vars =  c("methods")) {
 }
 
 
+#' @title Joining references to traits table
+#'
+#' @description Function to merge the references each record cites into the core traits table of a traits.build database: the dataset's own citation, the citation of the source the record was taken from, and the dataset's secondary references.
+#'
+#' @param database traits.build database (list object)
+#' @param vars Columns to be joined to the traits table, defaulting to all of them (vars = "all"):
+#'   - `dataset_id_type`: BibTeX type of the dataset's own reference (Article, Book, Thesis, ...)
+#'   - `dataset_id_citation`: citation for the dataset's own reference
+#'   - `source_id_citation`: citation for the reference the record was taken from, `sources[[source_id]]`
+#'   - `secondary_id`: keys, separated by `; `, of the dataset's secondary references (later publications that re-used the data)
+#'   - `secondary_citation`: citations, separated by `; `, for those references
+#'
+#' @return traits.build list object, but with additional fields (columns) for the specified references appended to the traits table.
+#' @details
+#' Each record's `source_id` holds the key of the reference in `sources` that it was taken from: the dataset's own reference (keyed by the `dataset_id`), or, for a dataset compiled from several studies, the study the record came from. `source_id_citation` formats that reference; the other columns come from the methods table and are the same for every record of a dataset. A `source_id` with no entry in `sources` gets `NA`. In databases built with traits.build before 2.3, a record collected in the dataset's own study has no `source_id`, and its `dataset_id` is used in its place.
+#'
+#' the `join_` functions have been developed to join relational tables for databases built using the traits.build workflow.
+#' Learn more at:
+#'   [https://github.com/traitecoevo/traits.build](https://github.com/traitecoevo/traits.build) &
+#'   [https://github.com/traitecoevo/traits.build-book](https://github.com/traitecoevo/traits.build-book)
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' (database %>% join_sources(vars = c("dataset_id_citation", "source_id_citation")))$traits
+#' }
+join_sources <- function(database, vars = "all") {
+
+  # Check compatibility
+  if(!check_compatibility(database)){
+    function_not_supported(database)
+  }
+
+  all_vars <- c("dataset_id_type", "dataset_id_citation", "source_id_citation", "secondary_id", "secondary_citation")
+  if (identical(vars, "all")) {
+    vars <- all_vars
+  }
+
+  # Dataset-level references, from the methods table
+  dataset_vars <- intersect(vars, c("dataset_id_type", "dataset_id_citation", "secondary_id", "secondary_citation"))
+  if (length(dataset_vars) > 0) {
+    database$traits <-
+      database$traits %>%
+      dplyr::left_join(
+        by = "dataset_id",
+        database$methods %>%
+          methods_with_current_source_names() %>%
+          dplyr::select("dataset_id", tidyselect::any_of(dataset_vars)) %>%
+          dplyr::distinct(.data$dataset_id, .keep_all = TRUE)
+      )
+  }
+
+  # Record-level reference: each distinct `source_id` is formatted once
+  if ("source_id_citation" %in% vars) {
+    source_ids <- dplyr::coalesce(database$traits$source_id, database$traits$dataset_id)
+    keys <- unique(source_ids)
+    keys <- keys[keys %in% names(database$sources)]
+    citations <- vapply(
+      match(keys, names(database$sources)),
+      function(i) format_citation(database$sources[[i]]),
+      character(1)
+    )
+    database$traits$source_id_citation <- unname(citations[match(source_ids, keys)])
+  }
+
+  database
+}
+
+
 #' @title Joining data contributor metadata to traits table
 #' 
 #' @description Function to merge metadata from the data contributors table of a traits.build database into the core traits table.

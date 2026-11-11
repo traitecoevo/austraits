@@ -56,3 +56,42 @@ test_that("fails appropriately", {
   expect_error(join_contributors(austraits_5.0.0_lite, format = "bad"))
   
   })
+test_that("`join_sources` adds each record's references without adding rows", {
+  joined <- join_sources(austraits_5.0.0_lite)
+  expect_equal(nrow(joined$traits), nrow(austraits_5.0.0_lite$traits))
+  # (this release predates `source_primary_type`, so has no `dataset_id_type` to join)
+  expect_true(all(c("dataset_id_citation", "source_id_citation", "secondary_id", "secondary_citation") %in% names(joined$traits)))
+
+  # Read from the old methods columns of a database built before traits.build 2.3
+  expected <- austraits_5.0.0_lite$methods %>%
+    dplyr::distinct(dataset_id, source_primary_citation)
+  got <- joined$traits %>% dplyr::distinct(dataset_id, dataset_id_citation)
+  expect_equal(
+    got$dataset_id_citation[match(expected$dataset_id, got$dataset_id)],
+    expected$source_primary_citation
+  )
+
+  # A record without a `source_id` cites the dataset's own reference
+  i <- is.na(joined$traits$source_id) & joined$traits$dataset_id == "Apgaua_2017"
+  expect_true(any(i))
+  expect_equal(
+    unique(joined$traits$source_id_citation[i]),
+    format_citation(austraits_5.0.0_lite$sources[[which(names(austraits_5.0.0_lite$sources) == "Apgaua_2017")]])
+  )
+
+  # A key with no entry in `sources` gets NA
+  db <- austraits_5.0.0_lite
+  db$traits$source_id[1] <- "Nobody_1900"
+  expect_true(is.na(join_sources(db, vars = "source_id_citation")$traits$source_id_citation[1]))
+
+  # `vars` selects the columns
+  joined <- join_sources(austraits_5.0.0_lite, vars = "secondary_id")
+  expect_equal(setdiff(names(joined$traits), names(austraits_5.0.0_lite$traits)), "secondary_id")
+})
+
+test_that("`flatten_database` takes references from `join_sources`, once", {
+  flat <- flatten_database(austraits_5.0.0_lite)
+  expect_true(all(c("dataset_id_citation", "source_id_citation") %in% names(flat)))
+  expect_false(any(c("source_primary_citation", "source_secondary_key") %in% names(flat)))
+  expect_false(any(grepl("\\.(x|y)$", names(flat))))
+})

@@ -40,3 +40,27 @@ test_that("Number of columns has not changed", {
   expect_equal(sort(names(more_Banksia$definitions)), sort(names(austraits_5.0.0_lite$definitions)))
 }
 )
+
+test_that("Binding warns when one key names different references", {
+  a <- austraits_5.0.0_lite %>% extract_dataset("Apgaua_2017")
+  b <- austraits_5.0.0_lite %>% extract_dataset("Choat_2006")
+  # The same reference twice is fine
+  expect_no_error(bind_databases(a, a))
+  # A different reference under the same key is not
+  b$sources <- RefManageR::as.BibEntry(list(
+    key = "Apgaua_2017", bibtype = "Article", author = "Someone Else",
+    title = "A different paper", journal = "A Journal", year = "2017"))
+  expect_warning(bind_databases(a, b), "`Apgaua_2017` \\(Apgaua_2017; Choat_2006\\)")
+  # The same reference formatted differently is not
+  b$sources <- RefManageR::as.BibEntry(list(
+    key = "Apgaua_2017", bibtype = "Article", author = "D. Apgaua",
+    title = "Plant Functional Groups Within a Tropical Forest Exhibit Different Wood Functional Anatomy.",
+    journal = "Funct. Ecol.", year = "2017"))
+  expect_no_warning(bind_databases(a, b))
+})
+
+test_that("`extract_data` keeps the references the extracted records cite", {
+  a <- austraits_5.0.0_lite %>% extract_dataset("Apgaua_2017")
+  expect_true("Apgaua_2017" %in% names(a$sources))
+  expect_false("Choat_2006" %in% names(a$sources))
+})

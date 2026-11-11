@@ -19,7 +19,8 @@ test_that("join_ functions work with identifiers table", {
   expect_no_error(austraits_identifiers %>% join_location_coordinates())
   expect_no_error(austraits_identifiers %>% join_identifiers())
   expect_no_error(austraits_identifiers %>% flatten_database())
-  expect_equal(austraits_identifiers %>% flatten_database() %>% ncol(), 68)
+  # The seven `source_*` columns of the methods table give way to the five from `join_sources()`
+  expect_equal(austraits_identifiers %>% flatten_database() %>% ncol(), 66)
 }
 )
 

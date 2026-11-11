@@ -26,6 +26,7 @@ A table combining information in 8 traits.build relational tables: traits, locat
 Create a single database output that merges together the information
 in all relational tables within a traits.build database.
 Trait measurements are still output in long format (1 row per trait value),
-but all measurement-related metadata (methods, location properties, context properties, contributors)
-are now included as additional columns in a single table.
+but all measurement-related metadata (methods, location properties, context properties, contributors, references)
+are now included as additional columns in a single table. References are joined by \code{\link[=join_sources]{join_sources()}}, so
+\code{vars$sources} selects among its columns, and the reference columns of the methods table are not repeated.
 }

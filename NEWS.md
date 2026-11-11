@@ -1,3 +1,11 @@
+# austraits (development version)
+- Support databases built with traits.build 2.3, where every record names the reference it was taken from in `source_id` (the `dataset_id` unless it came from another study) and the methods table's reference columns are `dataset_id_type`, `dataset_id_citation`, `secondary_id` and `secondary_citation` (traitecoevo/traits.build#296). Older databases still work.
+- New function `join_sources()` adds each record's references to the traits table: `dataset_id_citation`, `source_id_citation` (formatted from `sources[[source_id]]`), `secondary_id` and `secondary_citation`.
+- `flatten_database()` takes its references from `join_sources()`, so the flattened table has those columns in place of the methods table's `source_*` columns.
+- `as_wide_table()` has `dataset_id_citation`, `source_id_citation` and `secondary_citation` in place of `source_primary_citation` and `source_secondary_citation`.
+- `extract_data()` keeps every reference the extracted records cite, including the studies records were taken from, which it used to drop; it no longer fails on a database without `source_secondary_key`.
+- `bind_databases()` warns when one citation key names different references in different datasets (titles or years differ), since `sources` keeps only one entry per key and the other is lost.
+
 # austraits 3.1.1
 - Fix bug in function `load_austraits` that was preventing it from loading austraits.build v.7.0.0, as both relational and flattened database versions are now on Zenodo. For now, ignoring flattened data table.
 

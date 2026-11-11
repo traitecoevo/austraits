@@ -259,12 +259,22 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     ret <- ret[!names(ret) %in% c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")]
     
-    # Trim sources - Are these just dataset_ids...
-    from_methods_to_sources_cc <- dplyr::union(ret$methods$source_primary_key,  # Is this part really needed, aren't these just dataset_ids? 
-                                               ret$methods$source_secondary_key %>% strsplit("; ") %>% unlist()) %>% 
-      unique() %>% stats::na.omit() %>% as.character()
-    
-    ret[["sources"]] <- database[["sources"]][from_methods_to_sources_cc]
+    # Trim sources to the references the extracted records cite: each dataset's
+    # own (keyed by its `dataset_id`), the source each record was taken from
+    # (`source_id`), and each dataset's secondary references. The methods
+    # columns of databases built before traits.build 2.3 are read too
+    split_keys <- function(x) if (is.null(x)) character() else unlist(strsplit(x, "; "))
+    keys <- c(
+      ret$traits$dataset_id, ret$traits$source_id,
+      ret$excluded_data$dataset_id, ret$excluded_data$source_id,
+      split_keys(ret$methods[["secondary_id"]]),
+      ret$methods[["source_primary_key"]],
+      split_keys(ret$methods[["source_secondary_key"]]),
+      split_keys(ret$methods[["source_original_dataset_key"]])
+    )
+    # By position: given a character vector, `[` on a BibEntry searches rather
+    # than indexes
+    ret[["sources"]] <- database[["sources"]][which(names(database[["sources"]]) %in% keys)]
     
     # Join in other metadata tables
     ret[["definitions"]] <- database[["definitions"]]

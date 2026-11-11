@@ -138,6 +138,69 @@ print_version <- function(database){
   database$build_info$version %>% as.character()
 }
 
+#' Give the reference columns of a methods table their current names
+#'
+#' Databases built with traits.build before 2.3 name the methods table's
+#' reference columns `source_primary_*`, `source_secondary_*` and
+#' `source_original_dataset_*`. Renames the dataset-level ones to their current
+#' names, `dataset_id_*`, `secondary_id` and `secondary_citation`, so the
+#' functions here read either; `source_primary_key` and
+#' `source_original_dataset_*` have no current equivalent (a record names its
+#' reference in `traits$source_id`) and are left as they are.
+#'
+#' @param methods The methods table of a traits.build database
+#' @return The methods table, with its reference columns renamed
+#' @noRd
+#' @keywords internal
+methods_with_current_source_names <- function(methods) {
+  renames <- c(
+    dataset_id_type = "source_primary_type",
+    dataset_id_citation = "source_primary_citation",
+    secondary_id = "source_secondary_key",
+    secondary_citation = "source_secondary_citation"
+  )
+  renames <- renames[renames %in% names(methods) & !names(renames) %in% names(methods)]
+  dplyr::rename(methods, dplyr::all_of(renames))
+}
+
+#' Reference columns of a methods table, current and old
+#' @noRd
+#' @keywords internal
+methods_source_columns <- c(
+  "dataset_id_type", "dataset_id_citation", "secondary_id", "secondary_citation",
+  "source_primary_key", "source_primary_type", "source_primary_citation",
+  "source_secondary_key", "source_secondary_citation",
+  "source_original_dataset_key", "source_original_dataset_citation"
+)
+
+#' Format a reference as a citation
+#'
+#' Formats a reference the way traits.build writes the citations in the
+#' methods table, so citations formatted here read the same as those.
+#'
+#' @param bib A single reference, as a BibEntry object
+#' @return Character string of the formatted reference
+#' @noRd
+#' @keywords internal
+format_citation <- function(bib) {
+  format_bib <- utils::getFromNamespace("format.BibEntry", "RefManageR")
+  oldopts <- RefManageR::BibOptions(first.inits = TRUE, max.names = 1000, style = "markdown")
+  on.exit(RefManageR::BibOptions(oldopts))
+  # Titles are quoted with `dQuote()`; keep them ASCII whatever the session's option
+  oldquotes <- options(useFancyQuotes = FALSE)
+  on.exit(options(oldquotes), add = TRUE)
+
+  out <- format_bib(bib, .sort = FALSE)
+  out <- gsub("[] ", "", out, fixed = TRUE)
+  out <- gsub("\\n", " ", out)
+  out <- gsub("  ", " ", out)
+  out <- gsub("DOI:", " doi: ", out, fixed = TRUE)
+  out <- gsub("URL:", " url: ", out, fixed = TRUE)
+  out <- gsub("(pp?\\. \\d+)[\u2013\u2014](\\d+)", "\\1-\\2", out)
+  if (tolower(bib$bibtype) == "article") out <- gsub("In:", " ", out)
+  out
+}
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.

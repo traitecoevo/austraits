@@ -29,6 +29,7 @@ bind_databases <- function(..., databases = list(...)) {
   
   # Bind sources and remove duplicates
   sources <- databases %>% lapply("[[", "sources")
+  check_conflicting_sources(sources, databases)
   keys <- sources %>% lapply(names) %>% unlist() %>% unique() %>% sort()
   sources <- sources %>% purrr::reduce(c)
   sources <- sources[keys]
@@ -78,6 +79,65 @@ bind_databases <- function(..., databases = list(...)) {
   )
   
   class(ret) <- c("traits.build")
-  
+
   ret
+}
+
+#' Warn if one citation key names different references in different databases
+#'
+#' `sources` is bound by key, keeping one entry per key, so two different
+#' references sharing a key lose one of them unseen -- and with it the citation
+#' of every record whose `source_id` names it. Entries are the same reference
+#' when their titles and years agree, ignoring case, spacing and punctuation, so
+#' one paper formatted differently by two datasets is not reported.
+#'
+#' A warning rather than an error: such keys exist in published databases, and
+#' binding has always kept the first entry, so stopping would break every build
+#' until the data are fixed.
+#'
+#' @param sources List of the `sources` of each database
+#' @param databases List of traits.build databases, to name the datasets
+#' @return Nothing; warns, listing the keys and datasets, on a conflict
+#' @noRd
+#' @keywords internal
+check_conflicting_sources <- function(sources, databases) {
+
+  keep <- !vapply(sources, is.null, logical(1))
+  sources <- sources[keep]
+  databases <- databases[keep]
+  keys <- lapply(sources, names)
+
+  counts <- table(unlist(lapply(keys, unique)))
+  shared <- names(counts)[counts > 1]
+  if (length(shared) == 0) return(invisible())
+
+  identity <- function(entry) {
+    field <- function(x) if (is.null(x)) "" else paste(unlist(x), collapse = " ")
+    tolower(gsub("[^[:alnum:]]", "", paste(field(entry$title), field(entry$year))))
+  }
+
+  conflicts <- purrr::map_chr(shared, function(key) {
+    holders <- which(vapply(keys, function(k) key %in% k, logical(1)))
+    entries <- vapply(holders, function(i) {
+      identity(sources[[i]][[match(key, keys[[i]])]])
+    }, character(1))
+    if (length(unique(entries)) == 1) return(NA_character_)
+    datasets <- vapply(holders, function(i) {
+      paste(unique(databases[[i]]$methods$dataset_id), collapse = ", ")
+    }, character(1))
+    sprintf("`%s` (%s)", key, paste(datasets, collapse = "; "))
+  })
+  conflicts <- conflicts[!is.na(conflicts)]
+
+  if (length(conflicts) > 0) {
+    warning(
+      "These citation keys name different references in different datasets, ",
+      "so `sources` keeps only one of each: ",
+      paste(conflicts, collapse = ", "),
+      ". Give each reference its own key.",
+      call. = FALSE
+    )
+  }
+
+  invisible()
 }

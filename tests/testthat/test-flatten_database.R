@@ -15,7 +15,8 @@ expected_output <- readr::read_csv("Falster_2003_combined_format.csv", show_col_
 test_that("`flatten_database` is working with format = single_column_pretty", {
     expect_equal(combined_table$location_properties, expected_output$location_properties)
     expect_equal(combined_table$data_contributors, expected_output$data_contributors)
-    expect_length(combined_table, 66)
+    # The six `source_*` columns of the methods table give way to the four from `join_sources()`
+    expect_length(combined_table, 64)
     expect_true(stringr::str_detect(combined_table$location_properties[1], "=="))
     expect_true(stringr::str_detect(combined_table$data_contributors[1], "<"))
 })
