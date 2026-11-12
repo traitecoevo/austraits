@@ -59,7 +59,7 @@ test_that("Binding warns when one key names different references", {
   expect_no_warning(bind_databases(a, b))
 })
 
-test_that("`extract_data` keeps the references the extracted records cite", {
+test_that("`extract_data` keeps the references the extracted observations cite", {
   a <- austraits_5.0.0_lite %>% extract_dataset("Apgaua_2017")
   expect_true("Apgaua_2017" %in% names(a$sources))
   expect_false("Choat_2006" %in% names(a$sources))

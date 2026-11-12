@@ -45,7 +45,7 @@ as_wide_table <- function(database){
     dplyr::rename(dataset_description = "description")  %>%
     dplyr::distinct()
 
-  # The citation of the reference each record was taken from
+  # The citation of the reference each observation was taken from
   database <- database %>% join_sources(vars = "source_id_citation")
   
   # collapse into one column

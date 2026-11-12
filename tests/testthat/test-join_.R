@@ -56,7 +56,7 @@ test_that("fails appropriately", {
   expect_error(join_contributors(austraits_5.0.0_lite, format = "bad"))
   
   })
-test_that("`join_sources` adds each record's references without adding rows", {
+test_that("`join_sources` adds each observation's references without adding rows", {
   joined <- join_sources(austraits_5.0.0_lite)
   expect_equal(nrow(joined$traits), nrow(austraits_5.0.0_lite$traits))
   # (this release predates `source_primary_type`, so has no `dataset_id_type` to join)
@@ -71,7 +71,7 @@ test_that("`join_sources` adds each record's references without adding rows", {
     expected$source_primary_citation
   )
 
-  # A record without a `source_id` cites the dataset's own reference
+  # An observation without a `source_id` cites the dataset's own reference
   i <- is.na(joined$traits$source_id) & joined$traits$dataset_id == "Apgaua_2017"
   expect_true(any(i))
   expect_equal(

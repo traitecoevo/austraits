@@ -11,8 +11,9 @@ join_sources(database, vars = "all")
 
 \item{vars}{Columns to be joined to the traits table, defaulting to all of them (vars = "all"):
 \itemize{
+\item \code{dataset_id_type}: BibTeX type of the dataset's own reference (Article, Book, Thesis, ...)
 \item \code{dataset_id_citation}: citation for the dataset's own reference
-\item \code{source_id_citation}: citation for the reference the record was taken from, \code{sources[[source_id]]}
+\item \code{source_id_citation}: citation for the reference the observation was taken from, \code{sources[[source_id]]}
 \item \code{secondary_id}: keys, separated by \verb{; }, of the dataset's secondary references (later publications that re-used the data)
 \item \code{secondary_citation}: citations, separated by \verb{; }, for those references
 }}
@@ -21,10 +22,10 @@ join_sources(database, vars = "all")
 traits.build list object, but with additional fields (columns) for the specified references appended to the traits table.
 }
 \description{
-Function to merge the references each record cites into the core traits table of a traits.build database: the dataset's own citation, the citation of the source the record was taken from, and the dataset's secondary references.
+Function to merge the references each observation cites into the core traits table of a traits.build database: the dataset's own citation, the citation of the source the observation was taken from, and the dataset's secondary references.
 }
 \details{
-Each record's \code{source_id} holds the key of the reference in \code{sources} that it was taken from: the dataset's own reference (keyed by the \code{dataset_id}), or, for a dataset compiled from several studies, the study the record came from. \code{source_id_citation} formats that reference; the other columns come from the methods table and are the same for every record of a dataset. A \code{source_id} with no entry in \code{sources} gets \code{NA}. In databases built with traits.build before 2.3, a record collected in the dataset's own study has no \code{source_id}, and its \code{dataset_id} is used in its place.
+Each observation's \code{source_id} holds the key of the reference in \code{sources} that it was taken from: the dataset's own reference (keyed by the \code{dataset_id}), or, for a dataset compiled from several studies, the study the observation came from. \code{source_id_citation} formats that reference; the other columns come from the methods table and are the same for every observation of a dataset. A \code{source_id} with no entry in \code{sources} gets \code{NA}. In databases built with traits.build before 2.3, an observation collected in the dataset's own study has no \code{source_id}, and its \code{dataset_id} is used in its place.
 
 the \code{join_} functions have been developed to join relational tables for databases built using the traits.build workflow.
 Learn more at:

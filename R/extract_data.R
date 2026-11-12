@@ -259,8 +259,8 @@ extract_data <- function(database, table = NA, col, col_value, partial_matches_a
     
     ret <- ret[!names(ret) %in% c("entity_context_id", "method_context_id", "plot_context_id", "temporal_context_id", "treatment_context_id")]
     
-    # Trim sources to the references the extracted records cite: each dataset's
-    # own (keyed by its `dataset_id`), the source each record was taken from
+    # Trim sources to the references the extracted observations cite: each dataset's
+    # own (keyed by its `dataset_id`), the source each observation was taken from
     # (`source_id`), and each dataset's secondary references. The methods
     # columns of databases built before traits.build 2.3 are read too
     split_keys <- function(x) if (is.null(x)) character() else unlist(strsplit(x, "; "))

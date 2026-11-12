@@ -145,7 +145,7 @@ print_version <- function(database){
 #' `source_original_dataset_*`. Renames the dataset-level ones to their current
 #' names, `dataset_id_*`, `secondary_id` and `secondary_citation`, so the
 #' functions here read either; `source_primary_key` and
-#' `source_original_dataset_*` have no current equivalent (a record names its
+#' `source_original_dataset_*` have no current equivalent (an observation names its
 #' reference in `traits$source_id`) and are left as they are.
 #'
 #' @param methods The methods table of a traits.build database

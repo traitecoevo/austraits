@@ -87,7 +87,7 @@ bind_databases <- function(..., databases = list(...)) {
 #'
 #' `sources` is bound by key, keeping one entry per key, so two different
 #' references sharing a key lose one of them unseen -- and with it the citation
-#' of every record whose `source_id` names it. Entries are the same reference
+#' of every observation whose `source_id` names it. Entries are the same reference
 #' when their titles and years agree, ignoring case, spacing and punctuation, so
 #' one paper formatted differently by two datasets is not reported.
 #'
