@@ -1,5 +1,15 @@
 # Changelog
 
+## austraits (development version)
+
+- Fix bug in `plot_locations` that silently left out locations east of
+  153°E (Brisbane, the Gold Coast, Byron Bay) and north of 9.5°S (Torres
+  Strait), about 2% of AusTraits 5.0.0 records with coordinates.
+  Locations beyond the map of Australia are now reported in a message.
+  The new argument `basemap = NULL` draws every location without the
+  map, for databases from outside Australia. `...` is now passed on to
+  `geom_pointdensity()`, and `feature = NA` works.
+
 ## austraits 3.1.1
 
 - Fix bug in function `load_austraits` that was preventing it from

@@ -41,7 +41,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_locations</span><span class="op">(</span><span class="va">database</span>, feature <span class="op">=</span> <span class="st">"trait_name"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_locations</span><span class="op">(</span><span class="va">database</span>, feature <span class="op">=</span> <span class="st">"trait_name"</span>, <span class="va">...</span>, basemap <span class="op">=</span> <span class="st">"australia"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -57,7 +57,15 @@
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>arguments passed to ggplot()</p></dd>
+<dd><p>arguments passed to ggpointdensity::geom_pointdensity()</p></dd>
+
+
+<dt id="arg-basemap">basemap<a class="anchor" aria-label="anchor" href="#arg-basemap"></a></dt>
+<dd><p><code>"australia"</code> (the default) draws the locations over a map
+of Australia, and leaves out any location beyond the map, with a message
+saying how many records that affects; if no location lies on the map, it
+stops with an error. <code>NULL</code> draws every location without a map, for
+databases from outside Australia.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -73,12 +81,15 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co">#All traits from a given study</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_dataset.html">extract_dataset</a></span><span class="op">(</span>dataset_id <span class="op">=</span> <span class="st">"Falster_2003"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_location_coordinates.html">join_location_coordinates</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_dataset.html">extract_dataset</a></span><span class="op">(</span>dataset_id <span class="op">=</span> <span class="st">"Falster_2003"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_location_coordinates.html">join_location_coordinates</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_locations</span><span class="op">(</span><span class="st">"trait_name"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#Single trait</span></span></span>
-<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_trait.html">extract_trait</a></span><span class="op">(</span>trait_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_location_coordinates.html">join_location_coordinates</a></span><span class="op">(</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="extract_trait.html">extract_trait</a></span><span class="op">(</span>trait_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="join_location_coordinates.html">join_location_coordinates</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_locations</span><span class="op">(</span><span class="st">"trait_name"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#Every location, without the map of Australia</span></span></span>
+<span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">traits</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">plot_locations</span><span class="op">(</span><span class="st">"trait_name"</span>, basemap <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

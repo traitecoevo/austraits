@@ -5,7 +5,7 @@ Plot location where trait data was collected from
 ## Usage
 
 ``` r
-plot_locations(database, feature = "trait_name", ...)
+plot_locations(database, feature = "trait_name", ..., basemap = "australia")
 ```
 
 ## Arguments
@@ -23,7 +23,15 @@ plot_locations(database, feature = "trait_name", ...)
 
 - ...:
 
-  arguments passed to ggplot()
+  arguments passed to ggpointdensity::geom_pointdensity()
+
+- basemap:
+
+  `"australia"` (the default) draws the locations over a map of
+  Australia, and leaves out any location beyond the map, with a message
+  saying how many records that affects; if no location lies on the map,
+  it stops with an error. `NULL` draws every location without a map, for
+  databases from outside Australia.
 
 ## Value
 
@@ -38,11 +46,14 @@ Dony Indiarto - d.indiarto@student.unsw.edu.au
 ``` r
 if (FALSE) { # \dontrun{
 #All traits from a given study
-data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_location_coordinates() 
+data <- austraits %>% extract_dataset(dataset_id = "Falster_2003") %>% join_location_coordinates()
 data %>% plot_locations("trait_name")
 
 #Single trait
-data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_location_coordinates() 
+data <- austraits %>% extract_trait(trait_names = c("plant_height")) %>% join_location_coordinates()
 data$traits %>% plot_locations("trait_name")
+
+#Every location, without the map of Australia
+data$traits %>% plot_locations("trait_name", basemap = NULL)
 } # }
 ```

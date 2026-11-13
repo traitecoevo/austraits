@@ -35,6 +35,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="austraits-development-version">austraits (development version)<a class="anchor" aria-label="anchor" href="#austraits-development-version"></a></h2>
+<ul><li>Fix bug in <code>plot_locations</code> that silently left out locations east of 153°E (Brisbane, the Gold Coast, Byron Bay) and north of 9.5°S (Torres Strait), about 2% of AusTraits 5.0.0 records with coordinates. Locations beyond the map of Australia are now reported in a message. The new argument <code>basemap = NULL</code> draws every location without the map, for databases from outside Australia. <code>...</code> is now passed on to <code>geom_pointdensity()</code>, and <code>feature = NA</code> works.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="3.1.1" id="austraits-311">austraits 3.1.1<a class="anchor" aria-label="anchor" href="#austraits-311"></a></h2>
 <ul><li>Fix bug in function <code>load_austraits</code> that was preventing it from loading austraits.build v.7.0.0, as both relational and flattened database versions are now on Zenodo. For now, ignoring flattened data table.</li>
 </ul></div>
