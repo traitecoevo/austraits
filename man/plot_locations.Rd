@@ -4,14 +4,20 @@
 \alias{plot_locations}
 \title{Produce location maps of trait values}
 \usage{
-plot_locations(database, feature = "trait_name", ...)
+plot_locations(database, feature = "trait_name", ..., basemap = "australia")
 }
 \arguments{
 \item{database}{traits.build database OR traits table from a traits.build database. Note location details must be joined. See join_location_coordinates and examples}
 
 \item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2}
 
-\item{...}{arguments passed to ggplot()}
+\item{...}{arguments passed to ggpointdensity::geom_pointdensity()}
+
+\item{basemap}{\code{"australia"} (the default) draws the locations over a map
+of Australia, and leaves out any location beyond the map, with a message
+saying how many records that affects; if no location lies on the map, it
+stops with an error. \code{NULL} draws every location without a map, for
+databases from outside Australia.}
 }
 \value{
 ggplot of sites
@@ -22,12 +28,15 @@ Plot location where trait data was collected from
 \examples{
 \dontrun{
 #All traits from a given study
-data <- austraits \%>\% extract_dataset(dataset_id = "Falster_2003") \%>\% join_location_coordinates() 
+data <- austraits \%>\% extract_dataset(dataset_id = "Falster_2003") \%>\% join_location_coordinates()
 data \%>\% plot_locations("trait_name")
 
 #Single trait
-data <- austraits \%>\% extract_trait(trait_names = c("plant_height")) \%>\% join_location_coordinates() 
+data <- austraits \%>\% extract_trait(trait_names = c("plant_height")) \%>\% join_location_coordinates()
 data$traits \%>\% plot_locations("trait_name")
+
+#Every location, without the map of Australia
+data$traits \%>\% plot_locations("trait_name", basemap = NULL)
 }
 }
 \author{
