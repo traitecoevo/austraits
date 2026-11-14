@@ -46,7 +46,8 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     markdown,
-    curl
+    curl,
+    withr
 Remotes:
     traitecoevo/traits.use
 VignetteBuilder: knitr
