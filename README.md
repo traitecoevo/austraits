@@ -94,7 +94,7 @@ run:
 austraits$build_info$version
 ```
 
-### Getting started
+### Getting started 👀
 
 We highly recommend taking a look at our [Getting Started
 tutorial](https://traitecoevo.github.io/austraits/articles/austraits.html)
@@ -124,7 +124,7 @@ book](https://traitecoevo.github.io/traits.build-book/content/AusTraits_tutorial
 You can also learn about the definitions of each plant trait with the
 [AusTraits Plant Dictionary!](https://w3id.org/APD)
 
-### Show us some support
+### Show us some support 💚
 
 Please consider citing `austraits`, we would super appreciate it!
 
@@ -151,14 +151,14 @@ citation("austraits")
 #>   }
 ```
 
-### Behind the scenes
+### Behind the scenes 🛠
 
 Check out
 [austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file),
 if you are interested in how AusTraits the database is managed and
 created
 
-### Find a bug?
+### Find a bug? 🐛
 
 Thank you for finding it! Head over to the GitHub Issues tab and let us
 know about it! We will try to get to it as soon as we can!
