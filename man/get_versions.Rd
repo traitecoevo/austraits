@@ -19,6 +19,6 @@ Print out AusTraits versions
 }
 \examples{
 \dontrun{
-austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+get_versions(path = "data/austraits")
 }
 }

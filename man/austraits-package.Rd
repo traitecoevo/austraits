@@ -4,14 +4,15 @@
 \name{austraits-package}
 \alias{austraits}
 \alias{austraits-package}
-\title{austraits: Helpful functions to access the AusTraits database and wrangle data from other traits.build databases}
+\title{austraits: Access the AusTraits Plant Trait Database}
 \description{
-`austraits` allow users to **access, explore and wrangle data** from traits.build relational databases. It is also an R interface to AusTraits, the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. We expect this package will assist users in working with `traits.build` databases.
+An R interface to AusTraits, the Australian plant trait database. `austraits` loads releases of AusTraits by version number and maps trait data over Australia. The functions to access, explore and wrangle data come from `traits.use`, which works on any traits.build relational database; `austraits` re-exports them, so code written for earlier versions keeps working.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://traitecoevo.github.io/austraits/}
+  \item \url{https://github.com/traitecoevo/austraits}
   \item Report bugs at \url{https://github.com/traitecoevo/austraits/issues}
 }
 
@@ -21,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Fonti Kar \email{f.kar@unsw.edu.au} (\href{https://orcid.org/0000-0002-2760-3974}{ORCID})
   \item Daniel Falster \email{daniel.falster@unsw.edu.au} (\href{https://orcid.org/0000-0002-9814-092X}{ORCID})
   \item Dony Indiarto (\href{https://orcid.org/0000-0001-9546-8201}{ORCID})
 }

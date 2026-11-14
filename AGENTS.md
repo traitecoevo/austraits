@@ -1,28 +1,26 @@
 # austraits — agent & contributor guide
 
-`austraits` is an R package of **helpful functions to access, explore and wrangle data** from
-`traits.build` relational databases. It is also the R interface to AusTraits, the Australian plant
-trait database — `load_austraits()` fetches a released `.rds` build.
+`austraits` is the R interface to AusTraits, the Australian plant trait database: a thin
+AusTraits-specific layer over [`traits.use`](https://github.com/traitecoevo/traits.use), which holds
+the generic code for any `traits.build` database (split out in 2026, austraits#188).
 
 ## Repo-local guidance
 
-- **Code:** `R/` (functions), `tests/` (testthat), `man/` (generated docs), `NAMESPACE`,
-  `vignettes/`. `data/`, `data-raw/`, and `inst/` hold packaged/raw assets (incl. the cheatsheet).
-- **Access entry point:** `load_austraits()` (`R/load_austraits.R`) downloads/loads a released
-  AusTraits build (`.rds`); `get_versions()` / `get_version_latest()` resolve versions.
-- **Wrangle/extract:** `extract_*()` (data/dataset/taxa/trait), `join_*()` (taxa, methods,
-  contributors, locations, context/location properties), `lookup_*()`, `trait_pivot_longer/wider()`,
-  `summarise_database()`, `bind_databases()`, `flatten_database()`, `as_wide_table()`.
+- **Code:** `R/load_austraits.R` (`load_austraits()`, `get_versions()`, `get_version_latest()`:
+  version lookup on Zenodo, then `traits.use::load_database()`), `R/plot_locations.R` (wraps
+  `traits.use::plot_locations()` with the map of Australia, `australia_map_raster` in
+  `R/sysdata.rda`), `R/reexports.R` (re-exports every other traits.use export).
+- **Generic code belongs in traits.use, not here.** Fix bugs in `extract_*()`, `join_*()` etc. there.
+  `tests/testthat/test-reexports.R` checks austraits re-exports every traits.use export; add new
+  traits.use exports to `R/reexports.R`.
 - **Build/test (standard R-package workflow):** `devtools::load_all()`, `devtools::test()`,
-  `devtools::check()`. The package targets `R >= 4.0.0`; tidyverse-style Imports (dplyr, tidyr,
-  purrr, etc.). Lifecycle badge is **stable**.
+  `devtools::check()`. The package targets `R >= 4.1.0`. Lifecycle badge is **stable**.
 - **Default branch:** `master`. Docs/pkgdown site at <https://traitecoevo.github.io/austraits/>.
 
-> Heads-up: `austraits` is the *downstream* access/wrangle layer in the data pipeline, but the
-> R-package install graph runs the other way — `traits.build` **Imports `austraits`** and
-> re-exports a few conversion helpers from it (`convert_df_to_list`, `convert_list_to_df1`,
-> `convert_list_to_df2`, `bind_databases`, `flatten_database` — all in `NAMESPACE`). Changing those
-> helpers can break `traits.build`; run its tests after touching them.
+> Heads-up: `traits.build` `develop` installs `austraits` from branch `source-references-296`
+> (`Remotes:`), not `master`, until it moves to `traits.use` (separate traits.build PR). **Do not
+> delete that branch** before then: deleting it broke traits.build and austraits.build CI on
+> 2026-11-14. After the move, `traits.build` no longer needs `austraits` at all.
 
 > Heads-up: from Sept 2024 `austraits` works against any `traits.build` database (not just
 > `austraits.build`). `austraits.build` versions **< 5.0 are unsupported** by the current package —
@@ -33,9 +31,9 @@ trait database — `load_austraits()` fetches a released `.rds` build.
 ## AusTraits family — cross-package context
 
 `austraits` is part of the **AusTraits family** (a subset of the
-[`traitecoevo`](https://github.com/traitecoevo) org) — here, the user-facing access/wrangle API (R
-package) for traits.build-format databases, including AusTraits; loads the released `.rds` via
-`load_austraits()`. Family-wide concerns are documented centrally in
+[`traitecoevo`](https://github.com/traitecoevo) org) — here, the AusTraits-specific R package over
+`traits.use` (the access/wrangle API for traits.build-format databases); loads the released `.rds`
+via `load_austraits()`. Family-wide concerns are documented centrally in
 **[austraits-meta](https://github.com/traitecoevo/austraits-meta)** — don't restate them here, read
 them there:
 
