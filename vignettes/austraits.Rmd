@@ -691,7 +691,7 @@ plot_locations(data_fire$traits)
 
 ## Visualising data distribution and variance
 
-`plot_trait_distribution_jitter()` plots every value of a numeric trait, to help users visualise the variance of the data. Users can group the values by taxonomic family, genus or a column in the traits table, such as `dataset_id`, and highlight groups with `highlight`. `plot_trait_distribution()` picks this plot for a numeric trait and `plot_categorical_trait_distribution()` for a categorical one.
+`plot_trait_distribution_jitter()` plots the values of a numeric trait, one point per record (leaving out values recorded as a bin or range), to help users visualise the variance of the data. Users can group the values by taxonomic family, genus or a column in the traits table, such as `dataset_id`, and highlight groups with `highlight`. `plot_trait_distribution()` picks this plot for a numeric trait and `plot_categorical_trait_distribution()` for a categorical one.
 
 
 ``` r
