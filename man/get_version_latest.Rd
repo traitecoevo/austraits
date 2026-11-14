@@ -9,7 +9,8 @@ get_version_latest(path = "data/austraits", update = TRUE)
 \arguments{
 \item{path}{file path to where AusTraits will be downloaded}
 
-\item{update}{if TRUE, AusTraits versions .json will be re-downloaded}
+\item{update}{if TRUE, the list of AusTraits versions (\code{austraits.json})
+and the release's metadata are downloaded afresh}
 }
 \value{
 character string of latest version

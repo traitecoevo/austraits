@@ -13,3 +13,10 @@
 ^austraits$
 ^codecov\.yml$
 ^inst/cheatsheet/.*\.ppt$
+^tests/testthat/ignore$
+^AGENTS\.md$
+^CITATION\.cff$
+^\.claude$
+^\.git$
+^LICENSE\.md$
+^inst/cheatsheet$

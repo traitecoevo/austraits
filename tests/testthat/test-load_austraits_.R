@@ -1,3 +1,7 @@
+# Reads releases cached by test-austraits_load_.R
+skip_on_cran()
+skip_if_offline()
+
 path = "ignore/data/austraits"
 
 test_that("load_austraits is working", {

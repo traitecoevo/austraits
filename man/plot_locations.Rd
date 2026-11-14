@@ -17,13 +17,17 @@ plot_locations(database, feature = "trait_name", ..., basemap = "australia")
 of Australia, and leaves out any location beyond the map, with a message
 saying how many records that affects; if no location lies on the map, it
 stops with an error. \code{NULL} draws every location without a map, for
-databases from outside Australia.}
+databases from outside Australia. A data frame of map cells (numeric
+columns \code{x} and \code{y}) draws the locations over that map instead; see
+\code{\link[traits.use:plot_locations]{traits.use::plot_locations()}}.}
 }
 \value{
 ggplot of sites
 }
 \description{
-Plot location where trait data was collected from
+Plot location where trait data was collected from, by default
+over a map of Australia. This calls \code{\link[traits.use:plot_locations]{traits.use::plot_locations()}} with
+the map of Australia as its \code{basemap}.
 }
 \examples{
 \dontrun{

@@ -16,9 +16,7 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 
-library(austraits) 
-library(stringr)
-library(dplyr)
+library(austraits)
 ```
 
 
@@ -32,7 +30,9 @@ library(dplyr)
 [![Codecov test coverage](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg)](https://app.codecov.io/gh/traitecoevo/austraits?branch=master)
 <!-- badges: end -->
 
-`austraits` allow users to **access, explore and wrangle data** from [traits.build](https://github.com/traitecoevo/traits.build) relational databases. It is also an R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. We expect this package will assist users in working with `traits.build` databases.
+`austraits` is the R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. It loads releases of AusTraits by version number (`load_austraits()`, `get_versions()`, `get_version_latest()`) and maps trait data over Australia (`plot_locations()`).
+
+The functions to **access, explore and wrangle data** (joining tables, filtering records, combining databases and visualising data) come from [`traits.use`](https://github.com/traitecoevo/traits.use), which works on any [traits.build](https://github.com/traitecoevo/traits.build) relational database. `austraits` re-exports all of them, so `library(austraits)` is all you need, and code written for earlier versions of `austraits` keeps working. See the [traits.use documentation](https://traitecoevo.github.io/traits.use/) for the generic functions.
 
 ### Installation
 
@@ -45,7 +45,7 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits) 
 ```
 
-For a lightweight installation where dependencies for plotting and producing the vignettes will not be installed, use:
+This also installs `traits.use`. For a lightweight installation where dependencies for plotting and producing the vignettes will not be installed, use:
 
 ```{r light, results = 'hide', eval = FALSE}
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
@@ -61,7 +61,7 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 
 #### Backwards compatibility with past AusTraits versions
 
-From September 2024, `austraits` functions were revamped to support all [traits.build](https://github.com/traitecoevo/traits.build) compiled databases, rather than being linked to [austraits.build](https://github.com/traitecoevo/austraits.build).
+From September 2024, `austraits` functions were revamped to support all [traits.build](https://github.com/traitecoevo/traits.build) compiled databases, rather than being linked to [austraits.build](https://github.com/traitecoevo/austraits.build). In 2026 those generic functions moved to [`traits.use`](https://github.com/traitecoevo/traits.use) (version 4.0.0 of `austraits`).
 
 Versions of `austraits.build` (the AusTraits plant trait database) **< 5.0 are no longer supported** by the latest version of the package. If you are working with an older version of AusTraits, please install an older version of austraits:
 
@@ -80,7 +80,7 @@ Note, if you are unsure what version of AusTraits you are working with, run:
 austraits$build_info$version
 ```
 
-### Getting started  `r emo::ji("eyes")`
+### Getting started
 
 We highly recommend taking a look at our [Getting Started tutorial](https://traitecoevo.github.io/austraits/articles/austraits.html) on our website before jumping into the `austraits` R package!
 
@@ -104,7 +104,7 @@ AusTraits is a relational database, you can learn more about it's structure from
 
 You can also learn about the definitions of each plant trait with the [AusTraits Plant Dictionary!](https://w3id.org/APD)
 
-### Show us some support `r emo::ji("green heart")`
+### Show us some support
 
 Please consider citing `austraits`, we would super appreciate it! 
 
@@ -112,11 +112,11 @@ Please consider citing `austraits`, we would super appreciate it!
 citation("austraits")
 ```
 
-### Behind the scenes `r emo::ji("spanner")`
+### Behind the scenes
 
 Check out [austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file), if you are interested in how AusTraits the database is managed and created
 
-### Find a bug? `r emo::ji("bug")`
+### Find a bug?
 
 Thank you for finding it! Head over to the GitHub Issues tab and let us know about it! We will try to get to it as soon as we can!
 
