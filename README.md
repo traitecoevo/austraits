@@ -13,14 +13,21 @@
 coverage](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg)](https://app.codecov.io/gh/traitecoevo/austraits?branch=master)
 <!-- badges: end -->
 
-`austraits` allow users to **access, explore and wrangle data** from
-[traits.build](https://github.com/traitecoevo/traits.build) relational
-databases. It is also an R interface to
-[AusTraits](https://austraits.org/), the Australian plant trait
-database. This package contains functions for joining data from various
-tables, filtering to specific records, combining multiple databases and
-visualising the distribution of the data. We expect this package will
-assist users in working with `traits.build` databases.
+`austraits` is the R interface to [AusTraits](https://austraits.org/),
+the Australian plant trait database. It loads releases of AusTraits by
+version number (`load_austraits()`, `get_versions()`,
+`get_version_latest()`) and maps trait data over Australia
+(`plot_locations()`).
+
+The functions to **access, explore and wrangle data** (joining tables,
+filtering records, combining databases and visualising data) come from
+[`traits.use`](https://github.com/traitecoevo/traits.use), which works
+on any [traits.build](https://github.com/traitecoevo/traits.build)
+relational database. `austraits` re-exports all of them, so
+`library(austraits)` is all you need, and code written for earlier
+versions of `austraits` keeps working. See the [traits.use
+documentation](https://traitecoevo.github.io/traits.use/) for the
+generic functions.
 
 ### Installation
 
@@ -36,8 +43,9 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits) 
 ```
 
-For a lightweight installation where dependencies for plotting and
-producing the vignettes will not be installed, use:
+This also installs `traits.use`. For a lightweight installation where
+dependencies for plotting and producing the vignettes will not be
+installed, use:
 
 ``` r
 remotes::install_github("traitecoevo/austraits", upgrade = "ask")
@@ -60,7 +68,10 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 From September 2024, `austraits` functions were revamped to support all
 [traits.build](https://github.com/traitecoevo/traits.build) compiled
 databases, rather than being linked to
-[austraits.build](https://github.com/traitecoevo/austraits.build).
+[austraits.build](https://github.com/traitecoevo/austraits.build). In
+2026 those generic functions moved to
+[`traits.use`](https://github.com/traitecoevo/traits.use) (version 4.0.0
+of `austraits`).
 
 Versions of `austraits.build` (the AusTraits plant trait database) **\<
 5.0 are no longer supported** by the latest version of the package. If
@@ -83,7 +94,7 @@ run:
 austraits$build_info$version
 ```
 
-### Getting started 👀
+### Getting started
 
 We highly recommend taking a look at our [Getting Started
 tutorial](https://traitecoevo.github.io/austraits/articles/austraits.html)
@@ -113,7 +124,7 @@ book](https://traitecoevo.github.io/traits.build-book/content/AusTraits_tutorial
 You can also learn about the definitions of each plant trait with the
 [AusTraits Plant Dictionary!](https://w3id.org/APD)
 
-### Show us some support 💚
+### Show us some support
 
 Please consider citing `austraits`, we would super appreciate it!
 
@@ -121,61 +132,68 @@ Please consider citing `austraits`, we would super appreciate it!
 citation("austraits")
 #> To cite austraits in publications use:
 #> 
-#>   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated
-#>   plant trait database for the Australian flora. Sci Data 8, 254
-#>   (2021). https://doi.org/10.1038/s41597-021-01006-6
+#>   Falster, D., Gallagher, R., Wenk, E.H. et al. (2021) AusTraits, a
+#>   curated plant trait database for the Australian flora. Scientific
+#>   Data 8, 254. https://doi.org/10.1038/s41597-021-01006-6
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Article{,
 #>     title = {AusTraits, a curated plant trait database for the Australian flora},
-#>     author = {Daniel Falster and Rachael Gallagher and Elizabeth Wenk et al.},
+#>     author = {Daniel Falster and Rachael Gallagher and Elizabeth H. Wenk and Ian J. Wright and Dony Indiarto and Samuel C. Andrew and others},
 #>     journal = {Scientific Data},
 #>     year = {2021},
 #>     volume = {8},
 #>     number = {1},
-#>     pages = {254 - 274},
+#>     pages = {254},
+#>     doi = {10.1038/s41597-021-01006-6},
 #>     url = {https://doi.org/10.1038/s41597-021-01006-6},
 #>   }
 ```
 
-### Behind the scenes 🛠
+### Behind the scenes
 
 Check out
 [austraits.build](https://github.com/traitecoevo/austraits.build?tab=readme-ov-file),
 if you are interested in how AusTraits the database is managed and
 created
 
-### Find a bug? 🐛
+### Find a bug?
 
 Thank you for finding it! Head over to the GitHub Issues tab and let us
 know about it! We will try to get to it as soon as we can!
 
 ## AusTraits family
 
-`austraits` is part of the **AusTraits family** of packages maintained by the
-[AusTraits](https://austraits.org) team. See **[austraits.org](https://austraits.org)** for the
-project, the data, and the people behind it.
+`austraits` is part of the **AusTraits family** of packages maintained
+by the [AusTraits](https://austraits.org) team. See
+**[austraits.org](https://austraits.org)** for the project, the data,
+and the people behind it.
 
 Contributing? Issues across the family are tracked on one board,
-[AusTraits #9](https://github.com/orgs/traitecoevo/projects/9), and new issues are auto-added. Please
-read the [issue & labelling guide](https://github.com/traitecoevo/austraits-meta/blob/master/governance/issue-guide.md)
-in [`austraits-meta`](https://github.com/traitecoevo/austraits-meta) — the family's cross-package
-knowledge and governance hub — before filing.
+[AusTraits \#9](https://github.com/orgs/traitecoevo/projects/9), and new
+issues are auto-added. Please read the [issue & labelling
+guide](https://github.com/traitecoevo/austraits-meta/blob/master/governance/issue-guide.md)
+in [`austraits-meta`](https://github.com/traitecoevo/austraits-meta) —
+the family’s cross-package knowledge and governance hub — before filing.
 
 ## Acknowledgements
 
-AusTraits is made possible by contributions from our partner organisations — the
-[University of New South Wales](https://www.unsw.edu.au/),
-[Western Sydney University](https://www.westernsydney.edu.au/),
-[Botanic Gardens of Sydney](https://www.botanicgardens.org.au/),
-[the University of Melbourne](https://www.unimelb.edu.au/),
-the [Atlas of Living Australia](https://www.ala.org.au/), and the Australian Government
-[Department of Climate Change, Energy, the Environment and Water](https://www.dcceew.gov.au) — and
-from our [advisory board, data contributors, and past partners](https://austraits.org/team/team-partners.html).
+AusTraits is made possible by contributions from our partner
+organisations — the [University of New South
+Wales](https://www.unsw.edu.au/), [Western Sydney
+University](https://www.westernsydney.edu.au/), [Botanic Gardens of
+Sydney](https://www.botanicgardens.org.au/), [the University of
+Melbourne](https://www.unimelb.edu.au/), the [Atlas of Living
+Australia](https://www.ala.org.au/), and the Australian Government
+[Department of Climate Change, Energy, the Environment and
+Water](https://www.dcceew.gov.au) — and from our [advisory board, data
+contributors, and past
+partners](https://austraits.org/team/team-partners.html).
 
-AusTraits is a co-investment partnership with the
-[Australian Research Data Commons](https://ardc.edu.au/) (ARDC) through the Planet Research Data
-Commons ([DOI: 10.3565/nyk4-4r91](https://doi.org/10.3565/nyk4-4r91)). The ARDC is enabled by the
-Australian Government's [National Collaborative Research Infrastructure Strategy](https://www.education.gov.au/ncris)
-(NCRIS).
+AusTraits is a co-investment partnership with the [Australian Research
+Data Commons](https://ardc.edu.au/) (ARDC) through the Planet Research
+Data Commons ([DOI:
+10.3565/nyk4-4r91](https://doi.org/10.3565/nyk4-4r91)). The ARDC is
+enabled by the Australian Government’s [National Collaborative Research
+Infrastructure Strategy](https://www.education.gov.au/ncris) (NCRIS).

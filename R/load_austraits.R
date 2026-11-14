@@ -1,27 +1,39 @@
 #' Load AusTraits database into R console
 #'
-#' @param version character string - version number of database
-#' @param doi character string - doi of particular version 
-#' @param path file path to where AusTraits will be downloaded
-#' @param update if TRUE, AusTraits versions .json will be re-downloaded
+#' Finds the requested release of AusTraits on Zenodo and loads it with
+#' [traits.use::load_database()], which downloads the relational database
+#' `.rds` to `path` (if it is not already there, or if the copy there does
+#' not match the release's md5 checksum) and loads it.
 #'
-#' @return a large list containing AusTraits data tables
+#' @param version character string - version number of database, e.g. "7.0.0"
+#' @param doi character string - doi of particular version
+#' @param path file path to where AusTraits will be downloaded
+#' @param update if TRUE, the list of AusTraits versions (`austraits.json`)
+#'   and the release's metadata are downloaded afresh
+#'
+#' @return a large list containing AusTraits data tables, of class
+#'   `traits.build`. Its `sources` have the class `traits_build_sources` (see
+#'   `?traits.use::traits_build_sources`), also for releases built before that
+#'   class existed, so a reference can be looked up by key with `$` as well as
+#'   `[[` and `[`, e.g. `austraits$sources$Falster_2005`.
 #' @export
-#' @seealso get_versions get_version_latest
+#' @seealso [get_versions()], [get_version_latest()],
+#'   [traits.use::load_database()], which loads any traits.build database from
+#'   its doi
 #'
 #' @examples
 #' \dontrun{
-#' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+#' austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
 #' }
 
 load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = TRUE){
-  # Is either doi or version supplied? 
+  # Is either doi or version supplied?
   if(is.null(doi) & is.null(version)){
     stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
   }
-  
+
   # Is path supplied?
-  if(rlang::is_missing(path)){
+  if(is.null(path)){
     stop("File path must be supplied!")
   }
 
@@ -30,69 +42,62 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
     version <- stringr::str_remove_all(version, "v")
   }
 
-  # Does the path exist? 
+  # Does the path exist?
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
-  
-  # Load the json
+
+  # Load the list of releases
   res <- load_json(path = path, update = update)
-  
-  # Name the response list
-  names(res$hits$hits$files) <- res$hits$hits$metadata$version
-  
-  # Create metadata table
   ret <- create_metadata(res)
-  
-  # If only doi is provided, match it with its version number  
+
+  # If only doi is provided, match it with its version number
   if(! is.null(doi)){
-    # Check doi is in list of doi 
     if(! doi %in% ret$doi){
       rlang::abort("Requested version/doi is incorrect!")
     }
-    version <- ret[which(ret$doi == doi),"version"] %>% as.character()
+    version <- ret$version[ret$doi == doi]
   }
 
   # Check if version/doi is available
   if(! version %in% ret$version){
     rlang::abort("Requested version/doi is incorrect!")
   }
-  
-  # Add in prefix of v
-  version_name <- paste0("v", version)
-  
-  # Getting specific version
-  id <- ret[which(ret$version == version), "id"] %>% as.character()
-  
-  target <- res$hits$hits$files[[version_name]]
-  
-  # Setting up the pars
-  url <- target$links$self[grep(".rds", target$links$self, fixed = TRUE)]
-  
-  if(length(url) > 1) {
-    url <- url[!stringr::str_detect(url, "flattened")]
-  }
-  
-  file_nm <- file.path(path, target$key[grep(".rds", target$key, fixed = TRUE)])
-  
-  if(length(file_nm) > 1) {
-    file_nm <- file_nm[!stringr::str_detect(file_nm, "flattened")]
-  }
 
-  #Check if version/doi is download, if not download
-  if(! file.exists(file_nm)){
-    # Downloading file
-    download_austraits(url, file_nm, path = path)
+  doi <- ret$doi[ret$version == version]
+
+  # austraits.json lists each release's files, so save the record
+  # load_database() would otherwise fetch from Zenodo: that loads a cached
+  # release offline with update = FALSE (caches made by austraits 3.x have
+  # no record file), and saves a second request with update = TRUE
+  record_saved <- save_record_json(res, doi, path)
+
+  # Download (if needed) and load the release
+  traits.use::load_database(doi = doi, path = path, update = update && !record_saved)
+}
+
+#' Save a release's record, as traits.use::load_database() caches it, from austraits.json
+#'
+#' The file name and fields follow traits.use's `load_record_json()`; the
+#' offline test in test-load_austraits.R fails if they drift apart.
+#' @return TRUE if saved, FALSE if austraits.json lists no files for `doi`
+#' @noRd
+#' @keywords internal
+save_record_json <- function(res, doi, path) {
+  hits <- res$hits$hits
+  i <- which(hits$doi == doi)
+  if(length(i) != 1 || is.null(hits$files) || !is.data.frame(hits$files[[i]]) || nrow(hits$files[[i]]) == 0) {
+    return(FALSE)
   }
-  
-  # Loading the .rds
-  message("Loading data from '", file_nm,"'")
-  data <- readRDS(file_nm) 
-  
-  # Assign class
-  attr(data, "class") <- "traits.build"
-  
-  data
+  f <- hits$files[[i]]
+  record <- list(
+    doi = doi, source = "zenodo", version = hits$metadata$version[i],
+    files = data.frame(key = f$key, url = f$links$self,
+                       md5 = stringr::str_match(f$checksum, "^md5:([0-9a-f]{32})$")[, 2])
+  )
+  file_json <- file.path(path, paste0(stringr::str_replace_all(doi, "[^A-Za-z0-9.]+", "_"), ".json"))
+  jsonlite::write_json(record, file_json)
+  TRUE
 }
 
 
@@ -104,7 +109,7 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
 load_json <- function(path, update){
   # Set the directory path to json
   file_json <- file.path(path, "austraits.json")
-  
+
   # Does the .json exist?
   if(! file.exists(file_json) | update == TRUE){
     # Retrieve the .json
@@ -113,9 +118,9 @@ load_json <- function(path, update){
     # Save it
     jsonlite::write_json(res, file_json)
   }
-  
+
   # Load the json
-  jsonlite::fromJSON(file_json) 
+  jsonlite::fromJSON(file_json)
 }
 
 #' Helper function to create nice metadata table
@@ -127,58 +132,18 @@ load_json <- function(path, update){
 
 create_metadata <- function(res){
   # Version table
-  ret <- res$hits$hits$metadata %>% 
-    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) %>%  
+  ret <- res$hits$hits$metadata %>%
+    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) %>%
     dplyr::mutate(version = gsub("v", "", version) %>% numeric_version(),
                   id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
                   )%>%  # set as numeric version for easier filtering
     dplyr::filter(version >= "3.0.2") %>% # exclude everything pre 3.0.2
     dplyr::mutate(version = as.character(version),
-                  publication_date = lubridate::ymd(publication_date)) %>%  # change back as character
-    dplyr::tibble() %>% 
+                  publication_date = as.Date(publication_date)) %>%  # change back as character
+    dplyr::tibble() %>%
     dplyr::arrange(dplyr::desc(publication_date))
 
   ret
-}
-
-#' Function for loading .rds AusTraits files
-#'
-#' @param url url of download via Zenodo API
-#' @param filename Name of file that will be downloaded e.g. austraits-3.0.2.rds
-#' @param path file path to where AusTraits will be downloaded
-#' @noRd
-#' @keywords internal
-
-download_austraits <- function(url, filename, path) {
-  # Get user timeout option
-  o <- getOption('timeout')
-  
-  # Set max timeout
-  options(timeout = max(300, getOption("timeout"))) 
-  on.exit(options(timeout = o)) #Set options back to original
-  
-  #Download latest build
-  fn <- paste(tempfile(), '.download', sep='') #Temporary folder
-  
-  message("Downloading AusTraits to '", path,"'")
-  
-  res <- utils::download.file(url=url, destfile=fn, method="auto", quiet = FALSE, mode = "wb", cacheOK = TRUE)
-  
-  if (res == 0) { #Warning and timeout hygiene
-    w <- getOption('warn') #save option
-    on.exit(options(warn = w)) #set options back to original
-    options('warn'=-1)  #Deal with warnings
-    
-    file.rename(fn, paste0(path,"/",filename)) #Copy tmp file to new folder
-    
-    if (! file.rename(fn, filename) ) { 
-      # rename failed, perhaps because fn and filename refer to different devices
-      file.copy(fn, path)
-      file.remove(fn)
-    }
-  } else {
-    stop('Could not download AusTraits!' )
-  }
 }
 
 #' Print out AusTraits versions
@@ -189,25 +154,25 @@ download_austraits <- function(url, filename, path) {
 #' @return A tibble containing version numbers and doi which can be used in load_austraits()
 #' @examples
 #' \dontrun{
-#' austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+#' get_versions(path = "data/austraits")
 #' }
 #' @export
 
 get_versions <- function(path = "data/austraits", update = TRUE){
-  
+
   # Is path supplied?
-  if(rlang::is_missing(path)){
+  if(is.null(path)){
     stop("File path must be supplied!")
   }
-  
-  # Does the path exist? 
+
+  # Does the path exist?
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
-  
+
   # Load the json
-  res <- load_json(path = path, update = update)  
-  
+  res <- load_json(path = path, update = update)
+
   # Create metadata table
   create_metadata(res) %>% dplyr::as_tibble()
 }
@@ -220,26 +185,21 @@ get_versions <- function(path = "data/austraits", update = TRUE){
 
 get_version_latest <- function(path = "data/austraits", update = TRUE){
   # Is path supplied?
-  if(rlang::is_missing(path)){
+  if(is.null(path)){
     stop("File path must be supplied!")
   }
-  
-  # Does the path exist? 
+
+  # Does the path exist?
   if(! file.exists(path)) {
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
 
   # Load the json
   res <- load_json(path = path, update = update)
-  
-  # Create version table
-  metadata <- create_metadata(res) 
-  
-  # Sort old to new
-  metadata <- metadata %>% 
-  dplyr::arrange(dplyr::desc(publication_date))
-  
+
+  # Create version table, newest first
+  metadata <- create_metadata(res)
+
   # Grab the first version
   dplyr::first(metadata$version) %>% as.character()
 }
-

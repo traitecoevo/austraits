@@ -30,7 +30,7 @@ austraits <- load_austraits(version = "6.0.0", path = here(path))
 # knitr::knit("vignettes/austraits.Rmd.orig", "vignettes/austraits.Rmd")
 ```
 
-`austraits` allow users to **access, explore and wrangle data** from [traits.build](https://github.com/traitecoevo/traits.build) relational databases. It is also an R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. Below, we've include a tutorial using the AusTraits database to illustrate how some these functions work together to generate useful outputs.
+`austraits` is the R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. It loads releases of AusTraits by version number and maps locations over Australia. The functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data come from [`traits.use`](https://github.com/traitecoevo/traits.use), which works on any [traits.build](https://github.com/traitecoevo/traits.build) relational database; `austraits` re-exports them, so `library(austraits)` is all you need. Below, we've include a tutorial using the AusTraits database to illustrate how some these functions work together to generate useful outputs.
 
 ## Install and load `austraits`
 `austraits` is still under development. To install the current version from GitHub: 
@@ -47,7 +47,7 @@ library(austraits)
 
 We will use the latest AusTraits database as an example database. 
 
-We can download the AusTraits database by calling `load_austraits()`. This function will download AusTraits to a specified path. By default it is `data/austraits`. The function will reload the database from this location in the future. You can set `update = TRUE` so the database is downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note that `load_austraits()` will happily accept a DOI of a particular version.
+We can download the AusTraits database by calling `load_austraits()`. This function will download AusTraits to a specified path. By default it is `data/austraits`. The function will reload the database from this location in the future, downloading it again only if the copy there does not match the release's checksum. `update = TRUE` (the default) refreshes the list of releases from [Zenodo](https://zenodo.org/record/3568429); `update = FALSE` works offline. Note that `load_austraits()` will happily accept a DOI of a particular version.
 
 ```{r, load_data, eval = FALSE}
 austraits <- load_austraits(version = "6.0.0", path = "data/austraits")
@@ -252,7 +252,7 @@ plot_locations(data_fire$traits)
 
 ## Visualising data distribution and variance
 
-`plot_trait_distribution()` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family, genus or by a column in the traits table, such as `dataset_id`
+`plot_trait_distribution_beeswarm()` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family, genus or by a column in the traits table, such as `dataset_id`
 
 ```{r, beeswarm, fig.align = "center", fig.width=6, fig.height=7}
 austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "family")

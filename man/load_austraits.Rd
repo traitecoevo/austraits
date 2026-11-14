@@ -8,29 +8,39 @@ load_austraits(
   doi = NULL,
   version = NULL,
   path = "data/austraits",
-  update = FALSE
+  update = TRUE
 )
 }
 \arguments{
 \item{doi}{character string - doi of particular version}
 
-\item{version}{character string - version number of database}
+\item{version}{character string - version number of database, e.g. "7.0.0"}
 
 \item{path}{file path to where AusTraits will be downloaded}
 
-\item{update}{if TRUE, AusTraits versions .json will be re-downloaded}
+\item{update}{if TRUE, the list of AusTraits versions (\code{austraits.json})
+and the release's metadata are downloaded afresh}
 }
 \value{
-a large list containing AusTraits data tables
+a large list containing AusTraits data tables, of class
+\code{traits.build}. Its \code{sources} have the class \code{traits_build_sources} (see
+\code{?traits.use::traits_build_sources}), also for releases built before that
+class existed, so a reference can be looked up by key with \code{$} as well as
+\code{[[} and \code{[}, e.g. \code{austraits$sources$Falster_2005}.
 }
 \description{
-Load AusTraits database into R console
+Finds the requested release of AusTraits on Zenodo and loads it with
+\code{\link[traits.use:load_database]{traits.use::load_database()}}, which downloads the relational database
+\code{.rds} to \code{path} (if it is not already there, or if the copy there does
+not match the release's md5 checksum) and loads it.
 }
 \examples{
 \dontrun{
-austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
 }
 }
 \seealso{
-get_versions get_version_latest
+\code{\link[=get_versions]{get_versions()}}, \code{\link[=get_version_latest]{get_version_latest()}},
+\code{\link[traits.use:load_database]{traits.use::load_database()}}, which loads any traits.build database from
+its doi
 }
