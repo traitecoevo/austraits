@@ -59,6 +59,10 @@ traits.use::extract_trait
 #' @export
 traits.use::flatten_database
 
+#' @importFrom traits.use get_references
+#' @export
+traits.use::get_references
+
 #' @importFrom traits.use join_context_properties
 #' @export
 traits.use::join_context_properties
