@@ -9,8 +9,6 @@
 [![codecov](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg?token=JT1M0AMZ44)](https://codecov.io/gh/traitecoevo/austraits)
 [![](https://img.shields.io/badge/doi-10.1038/s41597--021--01006--6-blue.svg)](https://doi.org/10.1038/s41597-021-01006-6)
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Codecov test
-coverage](https://codecov.io/gh/traitecoevo/austraits/branch/master/graph/badge.svg)](https://app.codecov.io/gh/traitecoevo/austraits?branch=master)
 <!-- badges: end -->
 
 `austraits` is the R interface to [AusTraits](https://austraits.org/),
@@ -58,10 +56,10 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 - **For R users**, the AusTraits database can be accessed through the
   `austraits` package using `load_austraits()`
 
-- **For Python or other users**, the [Zenodo
-  download](https://zenodo.org/record/5112001#collapseTwo) includes a
-  `.zip` file containing all the data in plain text (`.csv` files) and
-  associated meta-data
+- **For Python or other users**, each [AusTraits release on
+  Zenodo](https://doi.org/10.5281/zenodo.3568417) includes a `.zip` file
+  containing all the data in plain text (`.csv` files) and associated
+  meta-data
 
 #### Backwards compatibility with past AusTraits versions
 
@@ -115,6 +113,12 @@ vignette("austraits")
 
 <a href="https://github.com/traitecoevo/austraits/tree/master/inst/cheatsheet/austraits-cheatsheet.pdf"><img src="man/figures/austraits-cheatsheet.png" width="60%"/></a>
 
+The cheat sheet was drawn for `austraits` 3.0.0. Since then
+`plot_trait_distribution_beeswarm()` has been removed (use
+`plot_trait_distribution()`), and two names on it were always misspelt:
+the functions are `join_context_properties()` and
+`lookup_location_property()`.
+
 ### Learn more about AusTraits
 
 AusTraits is a relational database, you can learn more about it’s
@@ -160,8 +164,11 @@ created
 
 ### Find a bug? 🐛
 
-Thank you for finding it! Head over to the GitHub Issues tab and let us
-know about it! We will try to get to it as soon as we can!
+Thank you for finding it! Let us know on the [issue
+tracker](https://github.com/traitecoevo/austraits/issues). If the bug is
+in one of the data-wrangling functions, it may belong in [traits.use’s
+tracker](https://github.com/traitecoevo/traits.use/issues) instead;
+either place is fine.
 
 ## AusTraits family
 
