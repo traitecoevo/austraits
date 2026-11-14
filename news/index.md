@@ -35,8 +35,10 @@
   and
   [`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html),
   faster plots from austraits.portal.
-  [`plot_trait_distribution_beeswarm()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html)
-  is deprecated and draws the jitter plot.
+  `plot_trait_distribution_beeswarm()` is removed: use
+  [`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html)
+  or
+  [`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html).
 - [`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md)
   calls
   [`traits.use::plot_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_locations.html)

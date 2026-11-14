@@ -37,7 +37,6 @@ to see their documentation.
   [`plot_categorical_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_categorical_trait_distribution.html),
   [`plot_site_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_site_locations.html),
   [`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html),
-  [`plot_trait_distribution_beeswarm()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html),
   [`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html),
   [`separate_trait_values()`](https://traitecoevo.github.io/traits.use/reference/separate_trait_values.html),
   [`summarise_database()`](https://traitecoevo.github.io/traits.use/reference/summarise_database.html),

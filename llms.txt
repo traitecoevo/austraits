@@ -248,7 +248,6 @@ Re-exported from traits.use, where they are documented
   [`lookup_trait`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`plot_categorical_trait_distribution`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`plot_site_locations`](https://traitecoevo.github.io/austraits/reference/reexports.md)
-  [`plot_trait_distribution_beeswarm`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`plot_trait_distribution`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`plot_trait_distribution_jitter`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`separate_trait_values`](https://traitecoevo.github.io/austraits/reference/reexports.md)

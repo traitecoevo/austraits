@@ -48,7 +48,7 @@
 <li>
 <strong>Default branch:</strong> <code>master</code>. Docs/pkgdown site at <a href="https://traitecoevo.github.io/austraits/" class="uri">https://traitecoevo.github.io/austraits/</a>.</li>
 </ul><blockquote>
-<p>Heads-up: <code>traits.build</code> <code>develop</code> installs <code>austraits</code> from branch <code>source-references-296</code> (<code>Remotes:</code>), not <code>master</code>, until it moves to <code>traits.use</code> (separate traits.build PR). <strong>Do not delete that branch</strong> before then: deleting it broke traits.build and austraits.build CI on 2026-11-14. After the move, <code>traits.build</code> no longer needs <code>austraits</code> at all.</p>
+<p><code>traits.build</code> no longer installs <code>austraits</code>: it depends on <code>traits.use</code> since traits.build#321 (2026-11-15). Before deleting any branch here, search the family for <code>Remotes:</code> pins to it: a pin to <code>source-references-296</code> broke traits.build and austraits.build CI on 2026-11-14.</p>
 </blockquote>
 <blockquote>
 <p>Heads-up: from Sept 2024 <code>austraits</code> works against any <code>traits.build</code> database (not just <code>austraits.build</code>). <code>austraits.build</code> versions <strong>&lt; 5.0 are unsupported</strong> by the current package — older builds need an older tagged <code>austraits</code> (e.g. <code>@v2.2.2</code>).</p>

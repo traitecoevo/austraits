@@ -715,30 +715,34 @@ plot of chunk site_plot
 
 ## Visualising data distribution and variance
 
-[`plot_trait_distribution_beeswarm()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html)
-creates histograms and [beeswarm
-plots](https://github.com/eclarke/ggbeeswarm) for specific traits to
-help users visualise the variance of the data. Users can specify whether
-to create separate beeswarm plots at the level of taxonomic family,
-genus or by a column in the traits table, such as `dataset_id`
+[`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html)
+plots the values of a numeric trait, one point per record (leaving out
+values recorded as a bin or range), to help users visualise the variance
+of the data. Users can group the values by taxonomic family, genus or a
+column in the traits table, such as `dataset_id`, and highlight groups
+with `highlight`.
+[`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html)
+picks this plot for a numeric trait and
+[`plot_categorical_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_categorical_trait_distribution.html)
+for a categorical one.
 
 ``` r
 
-austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "family")
+austraits %>% plot_trait_distribution_jitter(trait_name = "wood_density", y_axis_category = "family")
 ```
 
-![plot of chunk beeswarm](reference/figures/beeswarm-1.png)
+![plot of chunk jitter](reference/figures/jitter-1.png)
 
-plot of chunk beeswarm
+plot of chunk jitter
 
 ``` r
 
-austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "dataset_id")
+austraits %>% plot_trait_distribution_jitter(trait_name = "wood_density", y_axis_category = "dataset_id")
 ```
 
-![plot of chunk beeswarm](reference/figures/beeswarm-2.png)
+![plot of chunk jitter](reference/figures/jitter-2.png)
 
-plot of chunk beeswarm
+plot of chunk jitter
 
 ## Reshaping the traits table
 

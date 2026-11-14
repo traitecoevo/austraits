@@ -667,24 +667,27 @@ plot of chunk site_plot
 <div class="section level2">
 <h2 id="visualising-data-distribution-and-variance">Visualising data distribution and variance<a class="anchor" aria-label="anchor" href="#visualising-data-distribution-and-variance"></a>
 </h2>
-<p><code><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html" class="external-link">plot_trait_distribution_beeswarm()</a></code> creates histograms
-and <a href="https://github.com/eclarke/ggbeeswarm" class="external-link">beeswarm plots</a>
-for specific traits to help users visualise the variance of the data.
-Users can specify whether to create separate beeswarm plots at the level
-of taxonomic family, genus or by a column in the traits table, such as
-<code>dataset_id</code></p>
+<p><code><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html" class="external-link">plot_trait_distribution_jitter()</a></code> plots the values of a
+numeric trait, one point per record (leaving out values recorded as a
+bin or range), to help users visualise the variance of the data. Users
+can group the values by taxonomic family, genus or a column in the
+traits table, such as <code>dataset_id</code>, and highlight groups with
+<code>highlight</code>. <code><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html" class="external-link">plot_trait_distribution()</a></code> picks
+this plot for a numeric trait and
+<code><a href="https://traitecoevo.github.io/traits.use/reference/plot_categorical_trait_distribution.html" class="external-link">plot_categorical_trait_distribution()</a></code> for a categorical
+one.</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html" class="external-link">plot_trait_distribution_beeswarm</a></span><span class="op">(</span>trait_name <span class="op">=</span> <span class="st">"wood_density"</span>, y_axis_category <span class="op">=</span> <span class="st">"family"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html" class="external-link">plot_trait_distribution_jitter</a></span><span class="op">(</span>trait_name <span class="op">=</span> <span class="st">"wood_density"</span>, y_axis_category <span class="op">=</span> <span class="st">"family"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/beeswarm-1.png" alt="plot of chunk beeswarm"><p class="caption">
-plot of chunk beeswarm
+<img src="reference/figures/jitter-1.png" alt="plot of chunk jitter"><p class="caption">
+plot of chunk jitter
 </p>
 </div>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html" class="external-link">plot_trait_distribution_beeswarm</a></span><span class="op">(</span>trait_name <span class="op">=</span> <span class="st">"wood_density"</span>, y_axis_category <span class="op">=</span> <span class="st">"dataset_id"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">austraits</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html" class="external-link">plot_trait_distribution_jitter</a></span><span class="op">(</span>trait_name <span class="op">=</span> <span class="st">"wood_density"</span>, y_axis_category <span class="op">=</span> <span class="st">"dataset_id"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="reference/figures/beeswarm-2.png" alt="plot of chunk beeswarm"><p class="caption">
-plot of chunk beeswarm
+<img src="reference/figures/jitter-2.png" alt="plot of chunk jitter"><p class="caption">
+plot of chunk jitter
 </p>
 </div>
 </div>
