@@ -19,6 +19,10 @@ traits.use::bind_databases
 #' @export
 traits.use::bind_trait_values
 
+#' @importFrom traits.use clear_database_cache
+#' @export
+traits.use::clear_database_cache
+
 #' @importFrom traits.use convert_df_to_list
 #' @export
 traits.use::convert_df_to_list
@@ -30,6 +34,10 @@ traits.use::convert_list_to_df1
 #' @importFrom traits.use convert_list_to_df2
 #' @export
 traits.use::convert_list_to_df2
+
+#' @importFrom traits.use database_cache_dir
+#' @export
+traits.use::database_cache_dir
 
 #' @importFrom traits.use extract_data
 #' @export
@@ -86,6 +94,10 @@ traits.use::join_taxa
 #' @importFrom traits.use join_taxonomic_updates
 #' @export
 traits.use::join_taxonomic_updates
+
+#' @importFrom traits.use list_cached_databases
+#' @export
+traits.use::list_cached_databases
 
 #' @importFrom traits.use load_database
 #' @export
