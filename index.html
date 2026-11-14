@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">austraits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,8 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><code>austraits</code> allow users to <strong>access, explore and wrangle data</strong> from <a href="https://github.com/traitecoevo/traits.build" class="external-link">traits.build</a> relational databases. It is also an R interface to <a href="https://austraits.org/" class="external-link">AusTraits</a>, the Australian plant trait database. This package contains functions for joining data from various tables, filtering to specific records, combining multiple databases and visualising the distribution of the data. We expect this package will assist users in working with <code>traits.build</code> databases.</p>
+<p><code>austraits</code> is the R interface to <a href="https://austraits.org/" class="external-link">AusTraits</a>, the Australian plant trait database. It loads releases of AusTraits by version number (<code><a href="reference/load_austraits.html">load_austraits()</a></code>, <code><a href="reference/get_versions.html">get_versions()</a></code>, <code><a href="reference/get_version_latest.html">get_version_latest()</a></code>) and maps trait data over Australia (<code><a href="reference/plot_locations.html">plot_locations()</a></code>).</p>
+<p>The functions to <strong>access, explore and wrangle data</strong> (joining tables, filtering records, combining databases and visualising data) come from <a href="https://github.com/traitecoevo/traits.use" class="external-link"><code>traits.use</code></a>, which works on any <a href="https://github.com/traitecoevo/traits.build" class="external-link">traits.build</a> relational database. <code>austraits</code> re-exports all of them, so <code><a href="https://traitecoevo.github.io/austraits/">library(austraits)</a></code> is all you need, and code written for earlier versions of <code>austraits</code> keeps working. See the <a href="https://traitecoevo.github.io/traits.use/" class="external-link">traits.use documentation</a> for the generic functions.</p>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
@@ -63,7 +64,7 @@
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://traitecoevo.github.io/austraits/">austraits</a></span><span class="op">)</span> </span></code></pre></div>
-<p>For a lightweight installation where dependencies for plotting and producing the vignettes will not be installed, use:</p>
+<p>This also installs <code>traits.use</code>. For a lightweight installation where dependencies for plotting and producing the vignettes will not be installed, use:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"traitecoevo/austraits"</span>, upgrade <span class="op">=</span> <span class="st">"ask"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -81,7 +82,7 @@
 <div class="section level4">
 <h4 id="backwards-compatibility-with-past-austraits-versions">Backwards compatibility with past AusTraits versions<a class="anchor" aria-label="anchor" href="#backwards-compatibility-with-past-austraits-versions"></a>
 </h4>
-<p>From September 2024, <code>austraits</code> functions were revamped to support all <a href="https://github.com/traitecoevo/traits.build" class="external-link">traits.build</a> compiled databases, rather than being linked to <a href="https://github.com/traitecoevo/austraits.build" class="external-link">austraits.build</a>.</p>
+<p>From September 2024, <code>austraits</code> functions were revamped to support all <a href="https://github.com/traitecoevo/traits.build" class="external-link">traits.build</a> compiled databases, rather than being linked to <a href="https://github.com/traitecoevo/austraits.build" class="external-link">austraits.build</a>. In 2026 those generic functions moved to <a href="https://github.com/traitecoevo/traits.use" class="external-link"><code>traits.use</code></a> (version 4.0.0 of <code>austraits</code>).</p>
 <p>Versions of <code>austraits.build</code> (the AusTraits plant trait database) <strong>&lt; 5.0 are no longer supported</strong> by the latest version of the package. If you are working with an older version of AusTraits, please install an older version of austraits:</p>
 <p>For <code>austraits.build</code> versions 4.2 and older:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -125,20 +126,21 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"austraits"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite austraits in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated</span></span>
-<span><span class="co">#&gt;   plant trait database for the Australian flora. Sci Data 8, 254</span></span>
-<span><span class="co">#&gt;   (2021). https://doi.org/10.1038/s41597-021-01006-6</span></span>
+<span><span class="co">#&gt;   Falster, D., Gallagher, R., Wenk, E.H. et al. (2021) AusTraits, a</span></span>
+<span><span class="co">#&gt;   curated plant trait database for the Australian flora. Scientific</span></span>
+<span><span class="co">#&gt;   Data 8, 254. https://doi.org/10.1038/s41597-021-01006-6</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   @Article{,</span></span>
 <span><span class="co">#&gt;     title = {AusTraits, a curated plant trait database for the Australian flora},</span></span>
-<span><span class="co">#&gt;     author = {Daniel Falster and Rachael Gallagher and Elizabeth Wenk et al.},</span></span>
+<span><span class="co">#&gt;     author = {Daniel Falster and Rachael Gallagher and Elizabeth H. Wenk and Ian J. Wright and Dony Indiarto and Samuel C. Andrew and others},</span></span>
 <span><span class="co">#&gt;     journal = {Scientific Data},</span></span>
 <span><span class="co">#&gt;     year = {2021},</span></span>
 <span><span class="co">#&gt;     volume = {8},</span></span>
 <span><span class="co">#&gt;     number = {1},</span></span>
-<span><span class="co">#&gt;     pages = {254 - 274},</span></span>
+<span><span class="co">#&gt;     pages = {254},</span></span>
+<span><span class="co">#&gt;     doi = {10.1038/s41597-021-01006-6},</span></span>
 <span><span class="co">#&gt;     url = {https://doi.org/10.1038/s41597-021-01006-6},</span></span>
 <span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
@@ -176,9 +178,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 

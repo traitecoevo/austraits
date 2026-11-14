@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">austraits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">3.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,21 +36,19 @@
 
 <div id="austraits--agent--contributor-guide" class="section level1">
 
-<p><code>austraits</code> is an R package of <strong>helpful functions to access, explore and wrangle data</strong> from <code>traits.build</code> relational databases. It is also the R interface to AusTraits, the Australian plant trait database — <code><a href="reference/load_austraits.html">load_austraits()</a></code> fetches a released <code>.rds</code> build.</p>
+<p><code>austraits</code> is the R interface to AusTraits, the Australian plant trait database: a thin AusTraits-specific layer over <a href="https://github.com/traitecoevo/traits.use" class="external-link"><code>traits.use</code></a>, which holds the generic code for any <code>traits.build</code> database (split out in 2026, austraits#188).</p>
 <div class="section level2">
 <h2 id="repo-local-guidance">Repo-local guidance<a class="anchor" aria-label="anchor" href="#repo-local-guidance"></a></h2>
 <ul><li>
-<strong>Code:</strong> <code>R/</code> (functions), <code>tests/</code> (testthat), <code>man/</code> (generated docs), <code>NAMESPACE</code>, <code>vignettes/</code>. <code>data/</code>, <code>data-raw/</code>, and <code>inst/</code> hold packaged/raw assets (incl. the cheatsheet).</li>
+<strong>Code:</strong> <code>R/load_austraits.R</code> (<code><a href="reference/load_austraits.html">load_austraits()</a></code>, <code><a href="reference/get_versions.html">get_versions()</a></code>, <code><a href="reference/get_version_latest.html">get_version_latest()</a></code>: version lookup on Zenodo, then <code><a href="https://traitecoevo.github.io/traits.use/reference/load_database.html" class="external-link">traits.use::load_database()</a></code>), <code>R/plot_locations.R</code> (wraps <code><a href="https://traitecoevo.github.io/traits.use/reference/plot_locations.html" class="external-link">traits.use::plot_locations()</a></code> with the map of Australia, <code>australia_map_raster</code> in <code>R/sysdata.rda</code>), <code>R/reexports.R</code> (re-exports every other traits.use export).</li>
 <li>
-<strong>Access entry point:</strong> <code><a href="reference/load_austraits.html">load_austraits()</a></code> (<code>R/load_austraits.R</code>) downloads/loads a released AusTraits build (<code>.rds</code>); <code><a href="reference/get_versions.html">get_versions()</a></code> / <code><a href="reference/get_version_latest.html">get_version_latest()</a></code> resolve versions.</li>
+<strong>Generic code belongs in traits.use, not here.</strong> Fix bugs in <code>extract_*()</code>, <code>join_*()</code> etc. there. <code>tests/testthat/test-reexports.R</code> checks austraits re-exports every traits.use export; add new traits.use exports to <code>R/reexports.R</code>.</li>
 <li>
-<strong>Wrangle/extract:</strong> <code>extract_*()</code> (data/dataset/taxa/trait), <code>join_*()</code> (taxa, methods, contributors, locations, context/location properties), <code>lookup_*()</code>, <code>trait_pivot_longer/wider()</code>, <code><a href="reference/summarise_database.html">summarise_database()</a></code>, <code><a href="reference/bind_databases.html">bind_databases()</a></code>, <code><a href="reference/flatten_database.html">flatten_database()</a></code>, <code><a href="reference/as_wide_table.html">as_wide_table()</a></code>.</li>
-<li>
-<strong>Build/test (standard R-package workflow):</strong> <code>devtools::load_all()</code>, <code>devtools::test()</code>, <code>devtools::check()</code>. The package targets <code>R &gt;= 4.0.0</code>; tidyverse-style Imports (dplyr, tidyr, purrr, etc.). Lifecycle badge is <strong>stable</strong>.</li>
+<strong>Build/test (standard R-package workflow):</strong> <code>devtools::load_all()</code>, <code>devtools::test()</code>, <code>devtools::check()</code>. The package targets <code>R &gt;= 4.1.0</code>. Lifecycle badge is <strong>stable</strong>.</li>
 <li>
 <strong>Default branch:</strong> <code>master</code>. Docs/pkgdown site at <a href="https://traitecoevo.github.io/austraits/" class="uri">https://traitecoevo.github.io/austraits/</a>.</li>
 </ul><blockquote>
-<p>Heads-up: <code>austraits</code> is the <em>downstream</em> access/wrangle layer in the data pipeline, but the R-package install graph runs the other way — <code>traits.build</code> <strong>Imports <code>austraits</code></strong> and re-exports a few conversion helpers from it (<code>convert_df_to_list</code>, <code>convert_list_to_df1</code>, <code>convert_list_to_df2</code>, <code>bind_databases</code>, <code>flatten_database</code> — all in <code>NAMESPACE</code>). Changing those helpers can break <code>traits.build</code>; run its tests after touching them.</p>
+<p>Heads-up: <code>traits.build</code> <code>develop</code> installs <code>austraits</code> from branch <code>source-references-296</code> (<code>Remotes:</code>), not <code>master</code>, until it moves to <code>traits.use</code> (separate traits.build PR). <strong>Do not delete that branch</strong> before then: deleting it broke traits.build and austraits.build CI on 2026-11-14. After the move, <code>traits.build</code> no longer needs <code>austraits</code> at all.</p>
 </blockquote>
 <blockquote>
 <p>Heads-up: from Sept 2024 <code>austraits</code> works against any <code>traits.build</code> database (not just <code>austraits.build</code>). <code>austraits.build</code> versions <strong>&lt; 5.0 are unsupported</strong> by the current package — older builds need an older tagged <code>austraits</code> (e.g. <code>@v2.2.2</code>).</p>
@@ -58,7 +56,7 @@
 <hr></div>
 <div class="section level2">
 <h2 id="austraits-family--cross-package-context">AusTraits family — cross-package context<a class="anchor" aria-label="anchor" href="#austraits-family--cross-package-context"></a></h2>
-<p><code>austraits</code> is part of the <strong>AusTraits family</strong> (a subset of the <a href="https://github.com/traitecoevo" class="external-link"><code>traitecoevo</code></a> org) — here, the user-facing access/wrangle API (R package) for traits.build-format databases, including AusTraits; loads the released <code>.rds</code> via <code><a href="reference/load_austraits.html">load_austraits()</a></code>. Family-wide concerns are documented centrally in <strong><a href="https://github.com/traitecoevo/austraits-meta" class="external-link">austraits-meta</a></strong> — don’t restate them here, read them there:</p>
+<p><code>austraits</code> is part of the <strong>AusTraits family</strong> (a subset of the <a href="https://github.com/traitecoevo" class="external-link"><code>traitecoevo</code></a> org) — here, the AusTraits-specific R package over <code>traits.use</code> (the access/wrangle API for traits.build-format databases); loads the released <code>.rds</code> via <code><a href="reference/load_austraits.html">load_austraits()</a></code>. Family-wide concerns are documented centrally in <strong><a href="https://github.com/traitecoevo/austraits-meta" class="external-link">austraits-meta</a></strong> — don’t restate them here, read them there:</p>
 <ul><li>
 <strong>Start with <a href="https://github.com/traitecoevo/austraits-meta/blob/master/AGENTS.md" class="external-link"><code>AGENTS.md</code></a></strong> — pipeline order, who owns what, dependency direction, source-of-truth rules, cross-boundary artifacts, gotchas.</li>
 <li>

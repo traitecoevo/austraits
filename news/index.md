@@ -1,7 +1,48 @@
 # Changelog
 
-## austraits (development version)
+## austraits 4.0.0
 
+- `austraits` is now the AusTraits-specific layer over
+  [`traits.use`](https://github.com/traitecoevo/traits.use), which holds
+  the generic code for any traits.build database (austraits#188). The
+  code and its history moved there; `austraits` keeps
+  [`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md),
+  [`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md),
+  [`get_version_latest()`](https://traitecoevo.github.io/austraits/reference/get_version_latest.md),
+  the Getting Started vignette and the map of Australia used by
+  [`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md).
+- Every function exported by `traits.use` is re-exported, so
+  [`austraits::extract_trait()`](https://traitecoevo.github.io/traits.use/reference/extract_trait.html)
+  and the other functions keep working. This includes the new
+  [`load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html),
+  [`join_sources()`](https://traitecoevo.github.io/traits.use/reference/join_sources.html)
+  and
+  [`get_references()`](https://traitecoevo.github.io/traits.use/reference/get_references.html)
+  (the references the data cite, as text or BibTeX); see the traits.use
+  NEWS for the changes since 3.1.1 (e.g. `sources` can be looked up by
+  key with `$`, and support for databases built with traits.build 2.3).
+- [`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md)
+  finds the release and loads it with
+  [`traits.use::load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html),
+  taking the release’s file list from `austraits.json`, so
+  `update = FALSE` loads a cached release offline, including a cache
+  made by austraits 3.x: a cached file is reused only when it matches
+  the release’s md5 checksum, a failed download no longer leaves a
+  partial file, and `sources` get the `traits_build_sources` class.
+- New from `traits.use`:
+  [`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html),
+  [`plot_categorical_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_categorical_trait_distribution.html)
+  and
+  [`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html),
+  faster plots from austraits.portal.
+  [`plot_trait_distribution_beeswarm()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html)
+  is deprecated and draws the jitter plot.
+- [`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md)
+  calls
+  [`traits.use::plot_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_locations.html)
+  with the map of Australia by default; `basemap` also takes `NULL` (no
+  map) or another map as a data frame of cells (`x`, `y`).
+- Requires R 4.1.0 or later. `lubridate` is no longer needed.
 - Fix bug in `plot_locations` that silently left out locations east of
   153°E (Brisbane, the Gold Coast, Byron Bay) and north of 9.5°S (Torres
   Strait), about 2% of AusTraits 5.0.0 records with coordinates.

@@ -1,13 +1,24 @@
 # austraits ![](reference/figures/austraits_hex.png)
 
-`austraits` allow users to **access, explore and wrangle data** from
-[traits.build](https://github.com/traitecoevo/traits.build) relational
-databases. It is also an R interface to
-[AusTraits](https://austraits.org/), the Australian plant trait
-database. This package contains functions for joining data from various
-tables, filtering to specific records, combining multiple databases and
-visualising the distribution of the data. We expect this package will
-assist users in working with `traits.build` databases.
+`austraits` is the R interface to [AusTraits](https://austraits.org/),
+the Australian plant trait database. It loads releases of AusTraits by
+version number
+([`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md),
+[`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md),
+[`get_version_latest()`](https://traitecoevo.github.io/austraits/reference/get_version_latest.md))
+and maps trait data over Australia
+([`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md)).
+
+The functions to **access, explore and wrangle data** (joining tables,
+filtering records, combining databases and visualising data) come from
+[`traits.use`](https://github.com/traitecoevo/traits.use), which works
+on any [traits.build](https://github.com/traitecoevo/traits.build)
+relational database. `austraits` re-exports all of them, so
+[`library(austraits)`](https://traitecoevo.github.io/austraits/) is all
+you need, and code written for earlier versions of `austraits` keeps
+working. See the [traits.use
+documentation](https://traitecoevo.github.io/traits.use/) for the
+generic functions.
 
 ### Installation
 
@@ -24,8 +35,9 @@ remotes::install_github("traitecoevo/austraits", dependencies = TRUE, upgrade = 
 library(austraits) 
 ```
 
-For a lightweight installation where dependencies for plotting and
-producing the vignettes will not be installed, use:
+This also installs `traits.use`. For a lightweight installation where
+dependencies for plotting and producing the vignettes will not be
+installed, use:
 
 ``` r
 
@@ -50,7 +62,10 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 From September 2024, `austraits` functions were revamped to support all
 [traits.build](https://github.com/traitecoevo/traits.build) compiled
 databases, rather than being linked to
-[austraits.build](https://github.com/traitecoevo/austraits.build).
+[austraits.build](https://github.com/traitecoevo/austraits.build). In
+2026 those generic functions moved to
+[`traits.use`](https://github.com/traitecoevo/traits.use) (version 4.0.0
+of `austraits`).
 
 Versions of `austraits.build` (the AusTraits plant trait database) **\<
 5.0 are no longer supported** by the latest version of the package. If
@@ -115,20 +130,21 @@ Please consider citing `austraits`, we would super appreciate it!
 citation("austraits")
 #> To cite austraits in publications use:
 #> 
-#>   Falster, D., Gallagher, R., Wenk, E.H. et al. AusTraits, a curated
-#>   plant trait database for the Australian flora. Sci Data 8, 254
-#>   (2021). https://doi.org/10.1038/s41597-021-01006-6
+#>   Falster, D., Gallagher, R., Wenk, E.H. et al. (2021) AusTraits, a
+#>   curated plant trait database for the Australian flora. Scientific
+#>   Data 8, 254. https://doi.org/10.1038/s41597-021-01006-6
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Article{,
 #>     title = {AusTraits, a curated plant trait database for the Australian flora},
-#>     author = {Daniel Falster and Rachael Gallagher and Elizabeth Wenk et al.},
+#>     author = {Daniel Falster and Rachael Gallagher and Elizabeth H. Wenk and Ian J. Wright and Dony Indiarto and Samuel C. Andrew and others},
 #>     journal = {Scientific Data},
 #>     year = {2021},
 #>     volume = {8},
 #>     number = {1},
-#>     pages = {254 - 274},
+#>     pages = {254},
+#>     doi = {10.1038/s41597-021-01006-6},
 #>     url = {https://doi.org/10.1038/s41597-021-01006-6},
 #>   }
 ```

@@ -27,6 +27,6 @@ load_austraits()
 
 ``` r
 if (FALSE) { # \dontrun{
-austraits <- load_austraits(version = "3.0.2", path = "data/austraits")
+get_versions(path = "data/austraits")
 } # }
 ```

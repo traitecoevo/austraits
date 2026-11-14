@@ -1,6 +1,9 @@
 # Produce location maps of trait values
 
-Plot location where trait data was collected from
+Plot location where trait data was collected from, by default over a map
+of Australia. This calls
+[`traits.use::plot_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_locations.html)
+with the map of Australia as its `basemap`.
 
 ## Usage
 
@@ -31,7 +34,9 @@ plot_locations(database, feature = "trait_name", ..., basemap = "australia")
   Australia, and leaves out any location beyond the map, with a message
   saying how many records that affects; if no location lies on the map,
   it stops with an error. `NULL` draws every location without a map, for
-  databases from outside Australia.
+  databases from outside Australia. A data frame of map cells (numeric
+  columns `x` and `y`) draws the locations over that map instead; see
+  [`traits.use::plot_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_locations.html).
 
 ## Value
 

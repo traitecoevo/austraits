@@ -1,0 +1,45 @@
+# Objects exported from other packages
+
+These objects are imported from other packages. Follow the links below
+to see their documentation.
+
+- traits.use:
+
+  [`%>%`](https://magrittr.tidyverse.org/reference/pipe.html),
+  [`as_wide_table()`](https://traitecoevo.github.io/traits.use/reference/as_wide_table.html),
+  [`bind_databases()`](https://traitecoevo.github.io/traits.use/reference/bind_databases.html),
+  [`bind_trait_values()`](https://traitecoevo.github.io/traits.use/reference/bind_trait_values.html),
+  [`clear_database_cache()`](https://traitecoevo.github.io/traits.use/reference/database_cache_dir.html),
+  [`convert_df_to_list()`](https://traitecoevo.github.io/traits.use/reference/convert_df_to_list.html),
+  [`convert_list_to_df1()`](https://traitecoevo.github.io/traits.use/reference/convert_list_to_df1.html),
+  [`convert_list_to_df2()`](https://traitecoevo.github.io/traits.use/reference/convert_list_to_df2.html),
+  [`database_cache_dir()`](https://traitecoevo.github.io/traits.use/reference/database_cache_dir.html),
+  [`extract_data()`](https://traitecoevo.github.io/traits.use/reference/extract_data.html),
+  [`extract_dataset()`](https://traitecoevo.github.io/traits.use/reference/extract_dataset.html),
+  [`extract_taxa()`](https://traitecoevo.github.io/traits.use/reference/extract_taxa.html),
+  [`extract_trait()`](https://traitecoevo.github.io/traits.use/reference/extract_trait.html),
+  [`flatten_database()`](https://traitecoevo.github.io/traits.use/reference/flatten_database.html),
+  [`get_references()`](https://traitecoevo.github.io/traits.use/reference/get_references.html),
+  [`join_context_properties()`](https://traitecoevo.github.io/traits.use/reference/join_context_properties.html),
+  [`join_contributors()`](https://traitecoevo.github.io/traits.use/reference/join_contributors.html),
+  [`join_identifiers()`](https://traitecoevo.github.io/traits.use/reference/join_identifiers.html),
+  [`join_location_coordinates()`](https://traitecoevo.github.io/traits.use/reference/join_location_coordinates.html),
+  [`join_location_properties()`](https://traitecoevo.github.io/traits.use/reference/join_location_properties.html),
+  [`join_methods()`](https://traitecoevo.github.io/traits.use/reference/join_methods.html),
+  [`join_sources()`](https://traitecoevo.github.io/traits.use/reference/join_sources.html),
+  [`join_taxa()`](https://traitecoevo.github.io/traits.use/reference/join_taxa.html),
+  [`join_taxonomic_updates()`](https://traitecoevo.github.io/traits.use/reference/join_taxonomic_updates.html),
+  [`list_cached_databases()`](https://traitecoevo.github.io/traits.use/reference/database_cache_dir.html),
+  [`load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html),
+  [`lookup_context_property()`](https://traitecoevo.github.io/traits.use/reference/lookup_context_property.html),
+  [`lookup_location_property()`](https://traitecoevo.github.io/traits.use/reference/lookup_location_property.html),
+  [`lookup_trait()`](https://traitecoevo.github.io/traits.use/reference/lookup_trait.html),
+  [`plot_categorical_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_categorical_trait_distribution.html),
+  [`plot_site_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_site_locations.html),
+  [`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html),
+  [`plot_trait_distribution_beeswarm()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_beeswarm.html),
+  [`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html),
+  [`separate_trait_values()`](https://traitecoevo.github.io/traits.use/reference/separate_trait_values.html),
+  [`summarise_database()`](https://traitecoevo.github.io/traits.use/reference/summarise_database.html),
+  [`trait_pivot_longer()`](https://traitecoevo.github.io/traits.use/reference/trait_pivot_longer.html),
+  [`trait_pivot_wider()`](https://traitecoevo.github.io/traits.use/reference/trait_pivot_wider.html)

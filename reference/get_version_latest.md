@@ -16,7 +16,8 @@ get_version_latest(path = "data/austraits", update = TRUE)
 
 - update:
 
-  if TRUE, AusTraits versions .json will be re-downloaded
+  if TRUE, the list of AusTraits versions (`austraits.json`) and the
+  release's metadata are downloaded afresh
 
 ## Value
 

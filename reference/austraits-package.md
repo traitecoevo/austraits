@@ -1,18 +1,19 @@
-# austraits: Helpful functions to access the AusTraits database and wrangle data from other traits.build databases
+# austraits: Access the AusTraits Plant Trait Database
 
-\`austraits\` allow users to \*\*access, explore and wrangle data\*\*
-from traits.build relational databases. It is also an R interface to
-AusTraits, the Australian plant trait database. This package contains
-functions for joining data from various tables, filtering to specific
-records, combining multiple databases and visualising the distribution
-of the data. We expect this package will assist users in working with
-\`traits.build\` databases.
+An R interface to AusTraits, the Australian plant trait database.
+\`austraits\` loads releases of AusTraits by version number and maps
+trait data over Australia. The functions to access, explore and wrangle
+data come from \`traits.use\`, which works on any traits.build
+relational database; \`austraits\` re-exports them, so code written for
+earlier versions keeps working.
 
 ## See also
 
 Useful links:
 
 - <https://traitecoevo.github.io/austraits/>
+
+- <https://github.com/traitecoevo/austraits>
 
 - Report bugs at <https://github.com/traitecoevo/austraits/issues>
 
@@ -22,6 +23,9 @@ Useful links:
 ([ORCID](https://orcid.org/0000-0002-2760-3974))
 
 Authors:
+
+- Fonti Kar <f.kar@unsw.edu.au>
+  ([ORCID](https://orcid.org/0000-0002-2760-3974))
 
 - Daniel Falster <daniel.falster@unsw.edu.au>
   ([ORCID](https://orcid.org/0000-0002-9814-092X))
