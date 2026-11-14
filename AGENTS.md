@@ -17,10 +17,9 @@ the generic code for any `traits.build` database (split out in 2026, austraits#1
   `devtools::check()`. The package targets `R >= 4.1.0`. Lifecycle badge is **stable**.
 - **Default branch:** `master`. Docs/pkgdown site at <https://traitecoevo.github.io/austraits/>.
 
-> Heads-up: `traits.build` `develop` installs `austraits` from branch `source-references-296`
-> (`Remotes:`), not `master`, until it moves to `traits.use` (separate traits.build PR). **Do not
-> delete that branch** before then: deleting it broke traits.build and austraits.build CI on
-> 2026-11-14. After the move, `traits.build` no longer needs `austraits` at all.
+> `traits.build` no longer installs `austraits`: it depends on `traits.use` since traits.build#321
+> (2026-11-15). Before deleting any branch here, search the family for `Remotes:` pins to it: a pin
+> to `source-references-296` broke traits.build and austraits.build CI on 2026-11-14.
 
 > Heads-up: from Sept 2024 `austraits` works against any `traits.build` database (not just
 > `austraits.build`). `austraits.build` versions **< 5.0 are unsupported** by the current package —

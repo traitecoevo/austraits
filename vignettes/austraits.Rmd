@@ -691,25 +691,25 @@ plot_locations(data_fire$traits)
 
 ## Visualising data distribution and variance
 
-`plot_trait_distribution_beeswarm()` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family, genus or by a column in the traits table, such as `dataset_id`
+`plot_trait_distribution_jitter()` plots every value of a numeric trait, to help users visualise the variance of the data. Users can group the values by taxonomic family, genus or a column in the traits table, such as `dataset_id`, and highlight groups with `highlight`. `plot_trait_distribution()` picks this plot for a numeric trait and `plot_categorical_trait_distribution()` for a categorical one.
 
 
 ``` r
-austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "family")
+austraits %>% plot_trait_distribution_jitter(trait_name = "wood_density", y_axis_category = "family")
 ```
 
 <div class="figure" style="text-align: center">
-<img src="man/figures/beeswarm-1.png" alt="plot of chunk beeswarm"  />
-<p class="caption">plot of chunk beeswarm</p>
+<img src="man/figures/jitter-1.png" alt="plot of chunk jitter"  />
+<p class="caption">plot of chunk jitter</p>
 </div>
 
 ``` r
-austraits %>% plot_trait_distribution_beeswarm(trait_name = "wood_density", y_axis_category = "dataset_id")
+austraits %>% plot_trait_distribution_jitter(trait_name = "wood_density", y_axis_category = "dataset_id")
 ```
 
 <div class="figure" style="text-align: center">
-<img src="man/figures/beeswarm-2.png" alt="plot of chunk beeswarm"  />
-<p class="caption">plot of chunk beeswarm</p>
+<img src="man/figures/jitter-2.png" alt="plot of chunk jitter"  />
+<p class="caption">plot of chunk jitter</p>
 </div>
 
 ## Reshaping the traits table
