@@ -103,6 +103,10 @@ traits.use::lookup_location_property
 #' @export
 traits.use::lookup_trait
 
+#' @importFrom traits.use plot_categorical_trait_distribution
+#' @export
+traits.use::plot_categorical_trait_distribution
+
 #' @importFrom traits.use plot_site_locations
 #' @export
 traits.use::plot_site_locations
@@ -110,6 +114,14 @@ traits.use::plot_site_locations
 #' @importFrom traits.use plot_trait_distribution_beeswarm
 #' @export
 traits.use::plot_trait_distribution_beeswarm
+
+#' @importFrom traits.use plot_trait_distribution
+#' @export
+traits.use::plot_trait_distribution
+
+#' @importFrom traits.use plot_trait_distribution_jitter
+#' @export
+traits.use::plot_trait_distribution_jitter
 
 #' @importFrom traits.use separate_trait_values
 #' @export
