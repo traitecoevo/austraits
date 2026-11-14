@@ -127,10 +127,6 @@ traits.use::plot_categorical_trait_distribution
 #' @export
 traits.use::plot_site_locations
 
-#' @importFrom traits.use plot_trait_distribution_beeswarm
-#' @export
-traits.use::plot_trait_distribution_beeswarm
-
 #' @importFrom traits.use plot_trait_distribution
 #' @export
 traits.use::plot_trait_distribution
