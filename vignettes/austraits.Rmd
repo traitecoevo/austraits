@@ -31,7 +31,7 @@ library(austraits)
 
 We will use the latest AusTraits database as an example database. 
 
-We can download the AusTraits database by calling `load_austraits()`. This function will download AusTraits to a specified path. By default it is `data/austraits`. The function will reload the database from this location in the future. You can set `update = TRUE` so the database is downloaded fresh from [Zenodo](https://zenodo.org/record/3568429). Note that `load_austraits()` will happily accept a DOI of a particular version.
+We can download the AusTraits database by calling `load_austraits()`. This function will download AusTraits to a specified path. By default it is `data/austraits`. The function will reload the database from this location in the future, downloading it again only if the copy there does not match the release's checksum. `update = TRUE` (the default) refreshes the list of releases from [Zenodo](https://zenodo.org/record/3568429); `update = FALSE` works offline. Note that `load_austraits()` will happily accept a DOI of a particular version.
 
 
 ``` r
@@ -691,7 +691,7 @@ plot_locations(data_fire$traits)
 
 ## Visualising data distribution and variance
 
-`plot_trait_distribution()` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family, genus or by a column in the traits table, such as `dataset_id`
+`plot_trait_distribution_beeswarm()` creates histograms and [beeswarm plots](https://github.com/eclarke/ggbeeswarm) for specific traits to help users visualise the variance of the data. Users can specify whether to create separate beeswarm plots at the level of taxonomic family, genus or by a column in the traits table, such as `dataset_id`
 
 
 ``` r

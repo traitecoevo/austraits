@@ -48,7 +48,8 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   }
 
   # Load the list of releases
-  ret <- create_metadata(load_json(path = path, update = update))
+  res <- load_json(path = path, update = update)
+  ret <- create_metadata(res)
 
   # If only doi is provided, match it with its version number
   if(! is.null(doi)){
@@ -63,8 +64,40 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
     rlang::abort("Requested version/doi is incorrect!")
   }
 
+  doi <- ret$doi[ret$version == version]
+
+  # austraits.json lists each release's files, so save the record
+  # load_database() would otherwise fetch from Zenodo: that loads a cached
+  # release offline with update = FALSE (caches made by austraits 3.x have
+  # no record file), and saves a second request with update = TRUE
+  record_saved <- save_record_json(res, doi, path)
+
   # Download (if needed) and load the release
-  traits.use::load_database(doi = ret$doi[ret$version == version], path = path, update = update)
+  traits.use::load_database(doi = doi, path = path, update = update && !record_saved)
+}
+
+#' Save a release's record, as traits.use::load_database() caches it, from austraits.json
+#'
+#' The file name and fields follow traits.use's `load_record_json()`; the
+#' offline test in test-load_austraits.R fails if they drift apart.
+#' @return TRUE if saved, FALSE if austraits.json lists no files for `doi`
+#' @noRd
+#' @keywords internal
+save_record_json <- function(res, doi, path) {
+  hits <- res$hits$hits
+  i <- which(hits$doi == doi)
+  if(length(i) != 1 || is.null(hits$files) || !is.data.frame(hits$files[[i]]) || nrow(hits$files[[i]]) == 0) {
+    return(FALSE)
+  }
+  f <- hits$files[[i]]
+  record <- list(
+    doi = doi, source = "zenodo", version = hits$metadata$version[i],
+    files = data.frame(key = f$key, url = f$links$self,
+                       md5 = stringr::str_match(f$checksum, "^md5:([0-9a-f]{32})$")[, 2])
+  )
+  file_json <- file.path(path, paste0(stringr::str_replace_all(doi, "[^A-Za-z0-9.]+", "_"), ".json"))
+  jsonlite::write_json(record, file_json)
+  TRUE
 }
 
 

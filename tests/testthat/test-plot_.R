@@ -1,3 +1,7 @@
+skip_if_not_installed("ggplot2")
+skip_if_not_installed("ggpointdensity")
+skip_if_not_installed("viridis")
+
 sites <- tibble::tibble(
   trait_name = "leaf_area",
   location_name = c("Perth", "Brisbane", "Byron Bay", "Torres Strait", "Lord Howe Island", "Kuala Lumpur"),

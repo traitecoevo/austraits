@@ -1,11 +1,9 @@
 # austraits 4.0.0
 - `austraits` is now the AusTraits-specific layer over [`traits.use`](https://github.com/traitecoevo/traits.use), which holds the generic code for any traits.build database (austraits#188). The code and its history moved there; `austraits` keeps `load_austraits()`, `get_versions()`, `get_version_latest()`, the Getting Started vignette and the map of Australia used by `plot_locations()`.
 - Every function exported by `traits.use` is re-exported, so `austraits::extract_trait()` and the other functions keep working. This includes the new `load_database()` and `join_sources()`; see the traits.use NEWS for the changes since 3.1.1 (e.g. `sources` can be looked up by key with `$`, and support for databases built with traits.build 2.3).
-- `load_austraits()` finds the release and loads it with `traits.use::load_database()`: a cached file is reused only when it matches the release's md5 checksum, a failed download no longer leaves a partial file, and `sources` get the `traits_build_sources` class.
+- `load_austraits()` finds the release and loads it with `traits.use::load_database()`, taking the release's file list from `austraits.json`, so `update = FALSE` loads a cached release offline, including a cache made by austraits 3.x: a cached file is reused only when it matches the release's md5 checksum, a failed download no longer leaves a partial file, and `sources` get the `traits_build_sources` class.
 - `plot_locations()` calls `traits.use::plot_locations()` with the map of Australia by default; `basemap` also takes `NULL` (no map) or another map as a data frame of cells (`x`, `y`).
 - Requires R 4.1.0 or later. `lubridate` is no longer needed.
-
-# austraits (development version, before 4.0.0)
 - Fix bug in `plot_locations` that silently left out locations east of 153°E (Brisbane, the Gold Coast, Byron Bay) and north of 9.5°S (Torres Strait), about 2% of AusTraits 5.0.0 records with coordinates. Locations beyond the map of Australia are now reported in a message. The new argument `basemap = NULL` draws every location without the map, for databases from outside Australia. `...` is now passed on to `geom_pointdensity()`, and `feature = NA` works.
 
 # austraits 3.1.1
