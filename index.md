@@ -52,10 +52,10 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
   `austraits` package using
   [`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md)
 
-- **For Python or other users**, the [Zenodo
-  download](https://zenodo.org/record/5112001#collapseTwo) includes a
-  `.zip` file containing all the data in plain text (`.csv` files) and
-  associated meta-data
+- **For Python or other users**, each [AusTraits release on
+  Zenodo](https://doi.org/10.5281/zenodo.3568417) includes a `.zip` file
+  containing all the data in plain text (`.csv` files) and associated
+  meta-data
 
 #### Backwards compatibility with past AusTraits versions
 
@@ -112,6 +112,14 @@ vignette("austraits")
 
 [![](reference/figures/austraits-cheatsheet.png)](https://github.com/traitecoevo/austraits/tree/master/inst/cheatsheet/austraits-cheatsheet.pdf)
 
+The cheat sheet was drawn for `austraits` 3.0.0. Since then
+`plot_trait_distribution_beeswarm()` has been removed (use
+[`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html)),
+and two names on it were always misspelt: the functions are
+[`join_context_properties()`](https://traitecoevo.github.io/traits.use/reference/join_context_properties.html)
+and
+[`lookup_location_property()`](https://traitecoevo.github.io/traits.use/reference/lookup_location_property.html).
+
 ### Learn more about AusTraits
 
 AusTraits is a relational database, you can learn more about it’s
@@ -158,8 +166,11 @@ created
 
 ### Find a bug? 🐛
 
-Thank you for finding it! Head over to the GitHub Issues tab and let us
-know about it! We will try to get to it as soon as we can!
+Thank you for finding it! Let us know on the [issue
+tracker](https://github.com/traitecoevo/austraits/issues). If the bug is
+in one of the data-wrangling functions, it may belong in [traits.use’s
+tracker](https://github.com/traitecoevo/traits.use/issues) instead;
+either place is fine.
 
 ## AusTraits family
 
