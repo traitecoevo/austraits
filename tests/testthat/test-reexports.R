@@ -1,7 +1,5 @@
 test_that("austraits re-exports every traits.use function except plot_locations()", {
-  # plot_trait_distribution_beeswarm() is being removed from traits.use; austraits
-  # stops re-exporting it first, so that it installs before and after the removal
-  from_traits_use <- setdiff(getNamespaceExports("traits.use"), c("plot_locations", "plot_trait_distribution_beeswarm"))
+  from_traits_use <- setdiff(getNamespaceExports("traits.use"), "plot_locations")
   expect_true(all(from_traits_use %in% getNamespaceExports("austraits")))
 
   for (f in from_traits_use) {
