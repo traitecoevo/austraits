@@ -30,7 +30,7 @@ Depends:
     R (>= 4.1.0),
     RefManageR
 Imports:
-    traits.use (>= 0.1.0),
+    traits.use (>= 0.1.1),
     dplyr,
     rlang,
     stringr,
