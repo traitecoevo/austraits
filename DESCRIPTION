@@ -49,7 +49,7 @@ Suggests:
     curl,
     withr
 Remotes:
-    traitecoevo/traits.use@v0.1.1
+    traitecoevo/traits.use
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://traitecoevo.github.io/austraits/, https://github.com/traitecoevo/austraits
