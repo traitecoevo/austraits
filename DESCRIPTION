@@ -30,7 +30,7 @@ Depends:
     R (>= 4.1.0),
     RefManageR
 Imports:
-    traits.use (>= 0.1.0),
+    traits.use (>= 0.1.1),
     dplyr,
     rlang,
     stringr,
@@ -49,7 +49,7 @@ Suggests:
     curl,
     withr
 Remotes:
-    traitecoevo/traits.use
+    traitecoevo/traits.use@v0.1.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://traitecoevo.github.io/austraits/, https://github.com/traitecoevo/austraits
