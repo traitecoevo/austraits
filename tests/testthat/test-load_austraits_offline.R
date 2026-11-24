@@ -23,6 +23,7 @@ test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x of
   # Any request to Zenodo for the record fails the test
   local_mocked_bindings(
     resolve_doi_files = function(...) stop("tried to reach Zenodo"),
+    list_versions = function(...) stop("tried to reach Zenodo"),
     .package = "traits.use"
   )
 
@@ -34,6 +35,27 @@ test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x of
   # The same again, now that the record file exists
   db <- suppressMessages(load_austraits(doi = doi, path = path, update = FALSE))
   expect_equal(db$traits$value, 1:3)
+
+  # A folder as austraits 4.0.0 leaves it: the saved list of releases and the
+  # record file, no austraits.json
+  local({
+    local_mocked_bindings(
+      list_versions = function(...) dplyr::tibble(version = "v9.9.9", doi = doi, publication_date = as.Date("2030-01-01")),
+      .package = "traits.use"
+    )
+    get_versions(path = path)
+  })
+  unlink(file.path(path, "austraits.json"))
+  expect_true(file.exists(file.path(path, "austraits_versions.json")))
+  db <- suppressMessages(load_austraits(version = "9.9.9", path = path, update = FALSE))
+  expect_equal(db$traits$value, 1:3)
+
+  # update = TRUE offline falls back to the saved copies, saying so
+  expect_message(db <- load_austraits(version = "9.9.9", path = path), "using the list saved")
+  expect_equal(db$traits$value, 1:3)
+
+  # A release missing from the saved list suggests updating it
+  expect_error(load_austraits(version = "9.9.10", path = path, update = FALSE), "try `update = TRUE`")
 })
 
 test_that("load_austraits(means = TRUE) loads the observed means published with a release", {
@@ -67,6 +89,7 @@ test_that("load_austraits(means = TRUE) loads the observed means published with 
   jsonlite::write_json(res, file.path(path, "austraits.json"), auto_unbox = TRUE)
   local_mocked_bindings(
     resolve_doi_files = function(...) stop("tried to reach Zenodo"),
+    list_versions = function(...) stop("tried to reach Zenodo"),
     .package = "traits.use"
   )
 
