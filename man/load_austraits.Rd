@@ -8,7 +8,8 @@ load_austraits(
   doi = NULL,
   version = NULL,
   path = "data/austraits",
-  update = TRUE
+  update = TRUE,
+  means = FALSE
 )
 }
 \arguments{
@@ -18,15 +19,22 @@ load_austraits(
 
 \item{path}{file path to where AusTraits will be downloaded}
 
-\item{update}{if TRUE, the list of AusTraits versions (\code{austraits.json})
-and the release's metadata are downloaded afresh}
+\item{update}{if TRUE, the list of AusTraits releases (see
+\code{\link[=get_versions]{get_versions()}}) and the release's metadata are downloaded afresh. With
+\code{FALSE}, the copies saved in \code{path} are used, so a release loaded before
+loads offline.}
+
+\item{means}{if \code{TRUE}, load the release's observed means rather than the
+database; \code{\link[traits.use:trait_means_dictionary]{traits.use::trait_means_dictionary()}} defines their columns.
+A release from before the means were published gives an error saying so.}
 }
 \value{
 a large list containing AusTraits data tables, of class
 \code{traits.build}. Its \code{sources} have the class \code{traits_build_sources} (see
 \code{?traits.use::traits_build_sources}), also for releases built before that
 class existed, so a reference can be looked up by key with \code{$} as well as
-\code{[[} and \code{[}, e.g. \code{austraits$sources$Falster_2005}.
+\code{[[} and \code{[}, e.g. \code{austraits$sources$Falster_2005}. With \code{means = TRUE},
+a tibble of the observed means.
 }
 \description{
 Finds the requested release of AusTraits on Zenodo and loads it with
@@ -34,9 +42,19 @@ Finds the requested release of AusTraits on Zenodo and loads it with
 \code{.rds} to \code{path} (if it is not already there, or if the copy there does
 not match the release's md5 checksum) and loads it.
 }
+\details{
+With \code{means = TRUE} it loads the release's observed means instead: one row
+per taxon and trait, computed from the release's records with
+\code{\link[traits.use:summarise_trait_means]{traits.use::summarise_trait_means()}} and published with it as
+\verb{austraits-<version>-observed-means.csv.gz} (releases after 7.0.0). They
+are a smaller download than the database. To have both, load each.
+}
 \examples{
 \dontrun{
 austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
+
+# The observed means of each taxon and trait, published with releases after 7.0.0
+means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
 }
 }
 \seealso{

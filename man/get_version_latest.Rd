@@ -7,10 +7,11 @@
 get_version_latest(path = "data/austraits", update = TRUE)
 }
 \arguments{
-\item{path}{file path to where AusTraits will be downloaded}
+\item{path}{A file path where AusTraits was previously downloaded}
 
-\item{update}{if TRUE, the list of AusTraits versions (\code{austraits.json})
-and the release's metadata are downloaded afresh}
+\item{update}{if \code{TRUE}, the list is fetched from Zenodo; if that fails
+(e.g. offline), the copy saved in \code{path} is used. With \code{FALSE}, the saved
+copy is used, if there is one.}
 }
 \value{
 character string of latest version

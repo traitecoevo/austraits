@@ -5,17 +5,29 @@
 #' `.rds` to `path` (if it is not already there, or if the copy there does
 #' not match the release's md5 checksum) and loads it.
 #'
+#' With `means = TRUE` it loads the release's observed means instead: one row
+#' per taxon and trait, computed from the release's records with
+#' [traits.use::summarise_trait_means()] and published with it as
+#' `austraits-<version>-observed-means.csv.gz` (releases after 7.0.0). They
+#' are a smaller download than the database. To have both, load each.
+#'
 #' @param version character string - version number of database, e.g. "7.0.0"
 #' @param doi character string - doi of particular version
 #' @param path file path to where AusTraits will be downloaded
-#' @param update if TRUE, the list of AusTraits versions (`austraits.json`)
-#'   and the release's metadata are downloaded afresh
+#' @param update if TRUE, the list of AusTraits releases (see
+#'   [get_versions()]) and the release's metadata are downloaded afresh. With
+#'   `FALSE`, the copies saved in `path` are used, so a release loaded before
+#'   loads offline.
+#' @param means if `TRUE`, load the release's observed means rather than the
+#'   database; [traits.use::trait_means_dictionary()] defines their columns.
+#'   A release from before the means were published gives an error saying so.
 #'
 #' @return a large list containing AusTraits data tables, of class
 #'   `traits.build`. Its `sources` have the class `traits_build_sources` (see
 #'   `?traits.use::traits_build_sources`), also for releases built before that
 #'   class existed, so a reference can be looked up by key with `$` as well as
-#'   `[[` and `[`, e.g. `austraits$sources$Falster_2005`.
+#'   `[[` and `[`, e.g. `austraits$sources$Falster_2005`. With `means = TRUE`,
+#'   a tibble of the observed means.
 #' @export
 #' @seealso [get_versions()], [get_version_latest()],
 #'   [traits.use::load_database()], which loads any traits.build database from
@@ -24,9 +36,12 @@
 #' @examples
 #' \dontrun{
 #' austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
+#'
+#' # The observed means of each taxon and trait, published with releases after 7.0.0
+#' means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
 #' }
 
-load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = TRUE){
+load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = TRUE, means = FALSE){
   # Is either doi or version supplied?
   if(is.null(doi) & is.null(version)){
     stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
@@ -47,9 +62,8 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
 
-  # Load the list of releases
-  res <- load_json(path = path, update = update)
-  ret <- create_metadata(res)
+  # The list of releases
+  ret <- get_versions(path = path, update = update)
 
   # If only doi is provided, match it with its version number
   if(! is.null(doi)){
@@ -66,25 +80,36 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
 
   doi <- ret$doi[ret$version == version]
 
-  # austraits.json lists each release's files, so save the record
-  # load_database() would otherwise fetch from Zenodo: that loads a cached
-  # release offline with update = FALSE (caches made by austraits 3.x have
-  # no record file), and saves a second request with update = TRUE
-  record_saved <- save_record_json(res, doi, path)
+  # A release cached by austraits 3.x has no record file for load_database(),
+  # but the austraits.json it saved lists the release's files, so offline it
+  # still loads
+  save_legacy_record_json(doi, path)
 
   # Download (if needed) and load the release
-  traits.use::load_database(doi = doi, path = path, update = update && !record_saved)
+  traits.use::load_database(doi = doi, path = path, update = update, means = means)
 }
 
-#' Save a release's record, as traits.use::load_database() caches it, from austraits.json
+# The concept doi of AusTraits on Zenodo: it stands for every release
+austraits_concept_doi <- "10.5281/zenodo.3568417"
+
+#' Save a release's record, as traits.use::load_database() caches it, from
+#' the austraits.json saved by austraits 3.x
 #'
-#' The file name and fields follow traits.use's `load_record_json()`; the
-#' offline test in test-load_austraits.R fails if they drift apart.
-#' @return TRUE if saved, FALSE if austraits.json lists no files for `doi`
+#' Does nothing if the record file is there already, or if there is no
+#' austraits.json or it lists no files for `doi`. The file name and fields
+#' follow traits.use's `load_record_json()`; the offline test in
+#' test-load_austraits_offline.R fails if they drift apart.
+#' @return TRUE if saved, otherwise FALSE
 #' @noRd
 #' @keywords internal
-save_record_json <- function(res, doi, path) {
-  hits <- res$hits$hits
+save_legacy_record_json <- function(doi, path) {
+  file_record <- file.path(path, paste0(stringr::str_replace_all(doi, "[^A-Za-z0-9.]+", "_"), ".json"))
+  file_legacy <- file.path(path, "austraits.json")
+  if(file.exists(file_record) || ! file.exists(file_legacy)) {
+    return(FALSE)
+  }
+
+  hits <- jsonlite::fromJSON(file_legacy)$hits$hits
   i <- which(hits$doi == doi)
   if(length(i) != 1 || is.null(hits$files) || !is.data.frame(hits$files[[i]]) || nrow(hits$files[[i]]) == 0) {
     return(FALSE)
@@ -95,63 +120,73 @@ save_record_json <- function(res, doi, path) {
     files = data.frame(key = f$key, url = f$links$self,
                        md5 = stringr::str_match(f$checksum, "^md5:([0-9a-f]{32})$")[, 2])
   )
-  file_json <- file.path(path, paste0(stringr::str_replace_all(doi, "[^A-Za-z0-9.]+", "_"), ".json"))
-  jsonlite::write_json(record, file_json)
+  jsonlite::write_json(record, file_record)
   TRUE
 }
 
-
-#' Load the austraits.json
+#' The releases of AusTraits saved in `path`
 #'
+#' Saved by get_versions() in austraits_versions.json, or, for a folder last
+#' used by austraits 3.x, its austraits.json (Zenodo's own listing)
+#' @return the table get_versions() returns, or NULL if neither file is there
 #' @noRd
 #' @keywords internal
+read_saved_versions <- function(path) {
+  file_versions <- file.path(path, "austraits_versions.json")
+  file_legacy <- file.path(path, "austraits.json")
 
-load_json <- function(path, update){
-  # Set the directory path to json
-  file_json <- file.path(path, "austraits.json")
-
-  # Does the .json exist?
-  if(! file.exists(file_json) | update == TRUE){
-    # Retrieve the .json
-    res <- jsonlite::read_json("https://zenodo.org/api/records/3568418/versions",
-                               simplifyVector = T)
-    # Save it
-    jsonlite::write_json(res, file_json)
+  if(file.exists(file_versions)) {
+    versions <- jsonlite::fromJSON(file_versions)
+    return(dplyr::tibble(
+      publication_date = as.Date(versions$publication_date),
+      doi = versions$doi,
+      version = versions$version,
+      id = versions$id
+    ))
   }
 
-  # Load the json
-  jsonlite::fromJSON(file_json)
+  if(file.exists(file_legacy)) {
+    hits <- jsonlite::fromJSON(file_legacy)$hits$hits
+    return(format_versions(dplyr::tibble(
+      version = hits$metadata$version,
+      doi = hits$doi,
+      publication_date = as.Date(hits$metadata$publication_date)
+    )))
+  }
+
+  NULL
 }
 
-#' Helper function to create nice metadata table
+#' Shape traits.use::list_versions() output as get_versions() always has
 #'
-#' @param res output of austraits.json
-#' @return dataframe of metadata (date of release, doi and version)
+#' Versions without their "v", an `id` column, newest first, and only the
+#' releases from 3.0.2, the first that austraits can load.
 #' @noRd
 #' @keywords internal
-
-create_metadata <- function(res){
-  # Version table
-  ret <- res$hits$hits$metadata %>%
-    dplyr::select(tidyselect::all_of(c("publication_date", "doi", "version"))) %>%
-    dplyr::mutate(version = gsub("v", "", version) %>% numeric_version(),
-                  id = stringr::str_remove_all(doi, stringr::fixed("10.5281/zenodo."))
-                  )%>%  # set as numeric version for easier filtering
-    dplyr::filter(version >= "3.0.2") %>% # exclude everything pre 3.0.2
-    dplyr::mutate(version = as.character(version),
-                  publication_date = as.Date(publication_date)) %>%  # change back as character
-    dplyr::tibble() %>%
-    dplyr::arrange(dplyr::desc(publication_date))
-
-  ret
+format_versions <- function(versions) {
+  versions |>
+    dplyr::mutate(version = stringr::str_remove(.data$version, "^v")) |>
+    dplyr::filter(numeric_version(.data$version, strict = FALSE) >= "3.0.2") |>
+    dplyr::mutate(id = stringr::str_remove_all(.data$doi, stringr::fixed("10.5281/zenodo."))) |>
+    dplyr::select("publication_date", "doi", "version", "id") |>
+    dplyr::arrange(dplyr::desc(.data$publication_date))
 }
 
 #' Print out AusTraits versions
 #'
-#' @param path A file path where AusTraits was previously downloaded
-#' @param update Would you like the versions json be updated in case of new releases?
+#' Lists the releases of AusTraits with [traits.use::list_versions()], which
+#' lists the releases of any traits.build database from its doi, and saves the
+#' list in `path` so it can be used offline.
 #'
-#' @return A tibble containing version numbers and doi which can be used in load_austraits()
+#' @param path A file path where AusTraits was previously downloaded
+#' @param update if `TRUE`, the list is fetched from Zenodo; if that fails
+#'   (e.g. offline), the copy saved in `path` is used. With `FALSE`, the saved
+#'   copy is used, if there is one.
+#'
+#' @return A tibble of the releases, newest first: `publication_date`, `doi`,
+#'   `version` (e.g. "7.0.0") and `id` (the Zenodo record id). Pass a version to
+#'   [load_austraits()].
+#' @seealso [traits.use::list_versions()]
 #' @examples
 #' \dontrun{
 #' get_versions(path = "data/austraits")
@@ -170,36 +205,33 @@ get_versions <- function(path = "data/austraits", update = TRUE){
     dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
   }
 
-  # Load the json
-  res <- load_json(path = path, update = update)
+  saved <- if(update) NULL else read_saved_versions(path)
+  if(! is.null(saved)) {
+    return(saved)
+  }
 
-  # Create metadata table
-  create_metadata(res) %>% dplyr::as_tibble()
+  versions <- tryCatch(
+    format_versions(traits.use::list_versions(austraits_concept_doi)),
+    error = function(e) {
+      saved <- read_saved_versions(path)
+      if(is.null(saved)) stop(e)
+      message("Could not list the releases of AusTraits (", conditionMessage(e),
+              "); using the list saved in '", path, "'")
+      saved
+    }
+  )
+
+  jsonlite::write_json(dplyr::mutate(versions, publication_date = as.character(.data$publication_date)),
+                       file.path(path, "austraits_versions.json"))
+  versions
 }
 
 #' Retrieve the latest version of AusTraits
 #'
-#' @inheritParams load_austraits
+#' @inheritParams get_versions
 #' @export
 #' @return character string of latest version
 
 get_version_latest <- function(path = "data/austraits", update = TRUE){
-  # Is path supplied?
-  if(is.null(path)){
-    stop("File path must be supplied!")
-  }
-
-  # Does the path exist?
-  if(! file.exists(path)) {
-    dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
-  }
-
-  # Load the json
-  res <- load_json(path = path, update = update)
-
-  # Create version table, newest first
-  metadata <- create_metadata(res)
-
-  # Grab the first version
-  dplyr::first(metadata$version) %>% as.character()
+  get_versions(path = path, update = update)$version[1]
 }

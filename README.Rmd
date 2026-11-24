@@ -29,7 +29,7 @@ library(austraits)
 [![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
-`austraits` is the R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. It loads releases of AusTraits by version number (`load_austraits()`, `get_versions()`, `get_version_latest()`) and maps trait data over Australia (`plot_locations()`).
+`austraits` is the R interface to [AusTraits](https://austraits.org/), the Australian plant trait database. It loads releases of AusTraits by version number (`load_austraits()`, `get_versions()`, `get_version_latest()`), including the observed means of each taxon and trait published with releases after 7.0.0 (`load_austraits(means = TRUE)`), and maps trait data over Australia (`plot_locations()`).
 
 The functions to **access, explore and wrangle data** (joining tables, filtering records, combining databases and visualising data) come from [`traits.use`](https://github.com/traitecoevo/traits.use), which works on any [traits.build](https://github.com/traitecoevo/traits.build) relational database. `austraits` re-exports all of them, so `library(austraits)` is all you need, and code written for earlier versions of `austraits` keeps working. See the [traits.use documentation](https://traitecoevo.github.io/traits.use/) for the generic functions.
 
@@ -55,6 +55,8 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 #### Retrieve AusTraits data
 
 - **For R users**, the AusTraits database can be accessed through the `austraits` package using `load_austraits()`
+
+- **For the means of each taxon and trait**, releases after 7.0.0 include `austraits-<version>-observed-means.csv.gz` (with a column dictionary), loaded in R by `load_austraits(means = TRUE)`; `summarise_trait_means()` computes the same for any subset of the database
 
 - **For Python or other users**, each [AusTraits release on Zenodo](https://doi.org/10.5281/zenodo.3568417) includes a `.zip` file containing all the data in plain text (`.csv` files) and associated meta-data 
 

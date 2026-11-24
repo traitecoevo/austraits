@@ -107,6 +107,10 @@ traits.use::list_cached_databases
 #' @export
 traits.use::load_database
 
+#' @importFrom traits.use list_versions
+#' @export
+traits.use::list_versions
+
 #' @importFrom traits.use lookup_context_property
 #' @export
 traits.use::lookup_context_property
@@ -142,6 +146,14 @@ traits.use::separate_trait_values
 #' @importFrom traits.use summarise_database
 #' @export
 traits.use::summarise_database
+
+#' @importFrom traits.use summarise_trait_means
+#' @export
+traits.use::summarise_trait_means
+
+#' @importFrom traits.use trait_means_dictionary
+#' @export
+traits.use::trait_means_dictionary
 
 #' @importFrom traits.use trait_pivot_longer
 #' @export

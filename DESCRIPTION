@@ -30,11 +30,10 @@ Depends:
     R (>= 4.1.0),
     RefManageR
 Imports:
-    traits.use (>= 0.1.1),
+    traits.use (>= 0.1.1.9000),
     dplyr,
     rlang,
     stringr,
-    tidyselect,
     jsonlite,
     cli
 Suggests: 
@@ -47,6 +46,7 @@ Suggests:
     testthat (>= 3.0.0),
     markdown,
     curl,
+    readr,
     withr
 Remotes:
     traitecoevo/traits.use
