@@ -2,6 +2,8 @@
 
 ## austraits 4.0.0
 
+- Needs `traits.use` 0.1.1 or later; 0.1.1, its first release, reads
+  AusTraits 8.0.0.
 - `austraits` is now the AusTraits-specific layer over
   [`traits.use`](https://github.com/traitecoevo/traits.use), which holds
   the generic code for any traits.build database (austraits#188). The
