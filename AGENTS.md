@@ -12,9 +12,12 @@ austraits#188).
   ([`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md),
   [`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md),
   [`get_version_latest()`](https://traitecoevo.github.io/austraits/reference/get_version_latest.md):
-  version lookup on Zenodo, then
-  [`traits.use::load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html)),
-  `R/plot_locations.R` (wraps
+  the releases from
+  [`traits.use::list_versions()`](https://traitecoevo.github.io/traits.use/reference/list_versions.html),
+  saved in `austraits_versions.json` for offline use, then
+  [`traits.use::load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html);
+  the `austraits.json` saved by austraits 3.x is still read, so its
+  caches load offline), `R/plot_locations.R` (wraps
   [`traits.use::plot_locations()`](https://traitecoevo.github.io/traits.use/reference/plot_locations.html)
   with the map of Australia, `australia_map_raster` in `R/sysdata.rda`),
   `R/reexports.R` (re-exports every other traits.use export).

@@ -744,6 +744,43 @@ austraits %>% plot_trait_distribution_jitter(trait_name = "wood_density", y_axis
 
 plot of chunk jitter
 
+## Means of each taxon and trait
+
+[`summarise_trait_means()`](https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html)
+gives one value per taxon and trait, computed from the records. For a
+numeric trait that is the observed mean, a geometric mean of the dataset
+× location means and flora ranges (an arithmetic mean for traits whose
+values can be negative, such as water potentials); for a categorical
+trait, the most frequent value and the count of each value. Each row
+also says how much data is behind the value (`n_records`, `n_datasets`,
+`reliability`) and which datasets and references it draws on. It works
+on the whole database or on anything extracted from it, and `by` splits
+the records further.
+
+``` r
+
+means <- summarise_trait_means(austraits, traits = c("leaf_mass_per_area", "plant_growth_form"))
+
+# One genus, split by life stage
+austraits %>%
+  extract_taxa(genus = "Acacia") %>%
+  summarise_trait_means(traits = "leaf_length", by = "life_stage")
+
+# What each column means
+trait_means_dictionary()
+```
+
+Releases of AusTraits after 7.0.0 also publish these means for every
+trait, computed from all their records, as
+`austraits-<version>-observed-means.csv.gz`.
+`load_austraits(means = TRUE)` downloads just that file, which is much
+smaller than the database:
+
+``` r
+
+means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
+```
+
 ## Reshaping the traits table
 
 The traits table in AusTraits is in **long** format, where data for all

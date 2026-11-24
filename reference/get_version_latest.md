@@ -12,12 +12,13 @@ get_version_latest(path = "data/austraits", update = TRUE)
 
 - path:
 
-  file path to where AusTraits will be downloaded
+  A file path where AusTraits was previously downloaded
 
 - update:
 
-  if TRUE, the list of AusTraits versions (`austraits.json`) and the
-  release's metadata are downloaded afresh
+  if `TRUE`, the list is fetched from Zenodo; if that fails (e.g.
+  offline), the copy saved in `path` is used. With `FALSE`, the saved
+  copy is used, if there is one.
 
 ## Value
 

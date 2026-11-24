@@ -54,7 +54,8 @@ not match the release's md5 checksum) and loads it.</p>
 <span>  doi <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  version <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  path <span class="op">=</span> <span class="st">"data/austraits"</span>,</span>
-<span>  update <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  update <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  means <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -75,8 +76,16 @@ not match the release's md5 checksum) and loads it.</p>
 
 
 <dt id="arg-update">update<a class="anchor" aria-label="anchor" href="#arg-update"></a></dt>
-<dd><p>if TRUE, the list of AusTraits versions (<code>austraits.json</code>)
-and the release's metadata are downloaded afresh</p></dd>
+<dd><p>if TRUE, the list of AusTraits releases (see
+<code><a href="get_versions.html">get_versions()</a></code>) and the release's metadata are downloaded afresh. With
+<code>FALSE</code>, the copies saved in <code>path</code> are used, so a release loaded before
+loads offline.</p></dd>
+
+
+<dt id="arg-means">means<a class="anchor" aria-label="anchor" href="#arg-means"></a></dt>
+<dd><p>if <code>TRUE</code>, load the release's observed means rather than the
+database; <code><a href="https://traitecoevo.github.io/traits.use/reference/trait_means_dictionary.html" class="external-link">traits.use::trait_means_dictionary()</a></code> defines their columns.
+A release from before the means were published gives an error saying so.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -85,7 +94,16 @@ and the release's metadata are downloaded afresh</p></dd>
 <code>traits.build</code>. Its <code>sources</code> have the class <code>traits_build_sources</code> (see
 <code><a href="https://traitecoevo.github.io/traits.use/reference/traits_build_sources.html" class="external-link">?traits.use::traits_build_sources</a></code>), also for releases built before that
 class existed, so a reference can be looked up by key with <code>$</code> as well as
-<code>[[</code> and <code>[</code>, e.g. <code>austraits$sources$Falster_2005</code>.</p>
+<code>[[</code> and <code>[</code>, e.g. <code>austraits$sources$Falster_2005</code>. With <code>means = TRUE</code>,
+a tibble of the observed means.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>With <code>means = TRUE</code> it loads the release's observed means instead: one row
+per taxon and trait, computed from the release's records with
+<code><a href="https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html" class="external-link">traits.use::summarise_trait_means()</a></code> and published with it as
+<code>austraits-&lt;version&gt;-observed-means.csv.gz</code> (releases after 7.0.0). They
+are a smaller download than the database. To have both, load each.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -98,6 +116,9 @@ its doi</p></div>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">austraits</span> <span class="op">&lt;-</span> <span class="fu">load_austraits</span><span class="op">(</span>version <span class="op">=</span> <span class="st">"7.0.0"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The observed means of each taxon and trait, published with releases after 7.0.0</span></span></span>
+<span class="r-in"><span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu">load_austraits</span><span class="op">(</span>version <span class="op">=</span> <span class="st">"8.0.0"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span>, means <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

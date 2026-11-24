@@ -5,8 +5,10 @@ the Australian plant trait database. It loads releases of AusTraits by
 version number
 ([`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md),
 [`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md),
-[`get_version_latest()`](https://traitecoevo.github.io/austraits/reference/get_version_latest.md))
-and maps trait data over Australia
+[`get_version_latest()`](https://traitecoevo.github.io/austraits/reference/get_version_latest.md)),
+including the observed means of each taxon and trait published with
+releases after 7.0.0 (`load_austraits(means = TRUE)`), and maps trait
+data over Australia
 ([`plot_locations()`](https://traitecoevo.github.io/austraits/reference/plot_locations.md)).
 
 The functions to **access, explore and wrangle data** (joining tables,
@@ -51,6 +53,12 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 - **For R users**, the AusTraits database can be accessed through the
   `austraits` package using
   [`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md)
+
+- **For the means of each taxon and trait**, releases after 7.0.0
+  include `austraits-<version>-observed-means.csv.gz` (with a column
+  dictionary), loaded in R by `load_austraits(means = TRUE)`;
+  [`summarise_trait_means()`](https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html)
+  computes the same for any subset of the database
 
 - **For Python or other users**, each [AusTraits release on
   Zenodo](https://doi.org/10.5281/zenodo.3568417) includes a `.zip` file

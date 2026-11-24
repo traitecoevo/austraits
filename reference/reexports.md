@@ -30,6 +30,7 @@ to see their documentation.
   [`join_taxa()`](https://traitecoevo.github.io/traits.use/reference/join_taxa.html),
   [`join_taxonomic_updates()`](https://traitecoevo.github.io/traits.use/reference/join_taxonomic_updates.html),
   [`list_cached_databases()`](https://traitecoevo.github.io/traits.use/reference/database_cache_dir.html),
+  [`list_versions()`](https://traitecoevo.github.io/traits.use/reference/list_versions.html),
   [`load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html),
   [`lookup_context_property()`](https://traitecoevo.github.io/traits.use/reference/lookup_context_property.html),
   [`lookup_location_property()`](https://traitecoevo.github.io/traits.use/reference/lookup_location_property.html),
@@ -40,5 +41,7 @@ to see their documentation.
   [`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html),
   [`separate_trait_values()`](https://traitecoevo.github.io/traits.use/reference/separate_trait_values.html),
   [`summarise_database()`](https://traitecoevo.github.io/traits.use/reference/summarise_database.html),
+  [`summarise_trait_means()`](https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html),
+  [`trait_means_dictionary()`](https://traitecoevo.github.io/traits.use/reference/trait_means_dictionary.html),
   [`trait_pivot_longer()`](https://traitecoevo.github.io/traits.use/reference/trait_pivot_longer.html),
   [`trait_pivot_wider()`](https://traitecoevo.github.io/traits.use/reference/trait_pivot_wider.html)

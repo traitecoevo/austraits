@@ -2,8 +2,12 @@
 
 ## austraits 4.0.0
 
-- Needs `traits.use` 0.1.1 or later; 0.1.1, its first release, reads
-  AusTraits 8.0.0.
+- [`library(austraits)`](https://traitecoevo.github.io/austraits/) no
+  longer prints a message asking to cite the package;
+  `citation("austraits")` still gives the citation.
+- Needs `traits.use` 0.1.1.9000 or later (for
+  [`list_versions()`](https://traitecoevo.github.io/traits.use/reference/list_versions.html));
+  0.1.1, its first release, reads AusTraits 8.0.0.
 - `austraits` is now the AusTraits-specific layer over
   [`traits.use`](https://github.com/traitecoevo/traits.use), which holds
   the generic code for any traits.build database (austraits#188). The
@@ -23,14 +27,37 @@
   (the references the data cite, as text or BibTeX); see the traits.use
   NEWS for the changes since 3.1.1 (e.g. `sources` can be looked up by
   key with `$`, and support for databases built with traits.build 2.3).
+- `load_austraits(means = TRUE)` loads a release’s observed means
+  instead of the database: one row per taxon and trait, computed from
+  the release’s records with
+  [`summarise_trait_means()`](https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html)
+  and published with releases after 7.0.0 (austraits#184).
+  [`summarise_trait_means()`](https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html)
+  and
+  [`trait_means_dictionary()`](https://traitecoevo.github.io/traits.use/reference/trait_means_dictionary.html)
+  are re-exported from `traits.use`, so the same means can be computed
+  for any subset of AusTraits.
+- [`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md)
+  and
+  [`get_version_latest()`](https://traitecoevo.github.io/austraits/reference/get_version_latest.md)
+  list the releases with
+  [`traits.use::list_versions()`](https://traitecoevo.github.io/traits.use/reference/list_versions.html),
+  which lists the releases of any traits.build database from its doi and
+  is re-exported here (traits.use#52). They return the same table as
+  before, and save it in `path` (`austraits_versions.json`), so
+  `update = FALSE` works offline. Before, they read only the first page
+  of Zenodo’s listing, so would have left out releases once AusTraits
+  had more than fit on it.
 - [`load_austraits()`](https://traitecoevo.github.io/austraits/reference/load_austraits.md)
-  finds the release and loads it with
+  finds the release with
+  [`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md)
+  and loads it with
   [`traits.use::load_database()`](https://traitecoevo.github.io/traits.use/reference/load_database.html),
-  taking the release’s file list from `austraits.json`, so
-  `update = FALSE` loads a cached release offline, including a cache
-  made by austraits 3.x: a cached file is reused only when it matches
-  the release’s md5 checksum, a failed download no longer leaves a
-  partial file, and `sources` get the `traits_build_sources` class.
+  so `update = FALSE` loads a cached release offline, including a cache
+  made by austraits 3.x (from the file list in its `austraits.json`): a
+  cached file is reused only when it matches the release’s md5 checksum,
+  a failed download no longer leaves a partial file, and `sources` get
+  the `traits_build_sources` class.
 - New from `traits.use`:
   [`plot_trait_distribution_jitter()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution_jitter.html),
   [`plot_categorical_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_categorical_trait_distribution.html)

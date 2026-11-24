@@ -692,6 +692,38 @@ plot of chunk jitter
 </div>
 </div>
 <div class="section level2">
+<h2 id="means-of-each-taxon-and-trait">Means of each taxon and trait<a class="anchor" aria-label="anchor" href="#means-of-each-taxon-and-trait"></a>
+</h2>
+<p><code><a href="https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html" class="external-link">summarise_trait_means()</a></code> gives one value per taxon and
+trait, computed from the records. For a numeric trait that is the
+observed mean, a geometric mean of the dataset × location means and
+flora ranges (an arithmetic mean for traits whose values can be
+negative, such as water potentials); for a categorical trait, the most
+frequent value and the count of each value. Each row also says how much
+data is behind the value (<code>n_records</code>,
+<code>n_datasets</code>, <code>reliability</code>) and which datasets
+and references it draws on. It works on the whole database or on
+anything extracted from it, and <code>by</code> splits the records
+further.</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html" class="external-link">summarise_trait_means</a></span><span class="op">(</span><span class="va">austraits</span>, traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"leaf_mass_per_area"</span>, <span class="st">"plant_growth_form"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># One genus, split by life stage</span></span>
+<span><span class="va">austraits</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/extract_taxa.html" class="external-link">extract_taxa</a></span><span class="op">(</span>genus <span class="op">=</span> <span class="st">"Acacia"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html" class="external-link">summarise_trait_means</a></span><span class="op">(</span>traits <span class="op">=</span> <span class="st">"leaf_length"</span>, by <span class="op">=</span> <span class="st">"life_stage"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># What each column means</span></span>
+<span><span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/trait_means_dictionary.html" class="external-link">trait_means_dictionary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Releases of AusTraits after 7.0.0 also publish these means for every
+trait, computed from all their records, as
+<code>austraits-&lt;version&gt;-observed-means.csv.gz</code>.
+<code>load_austraits(means = TRUE)</code> downloads just that file,
+which is much smaller than the database:</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"8.0.0"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span>, means <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="reshaping-the-traits-table">Reshaping the traits table<a class="anchor" aria-label="anchor" href="#reshaping-the-traits-table"></a>
 </h2>
 <p>The traits table in AusTraits is in <strong>long</strong> format,
@@ -710,7 +742,7 @@ output.</p>
 database versions &lt;=4.0.2. Please refer to our <a href="https://github.com/traitecoevo/austraits" class="external-link">README</a> to install an
 older version of the <code>austraits</code> R package to work old
 versions of the AusTraits database.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_fire</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/trait_pivot_wider.html" class="external-link">trait_pivot_wider</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 1,366 × 49</span></span>
 <span><span class="co">#&gt;    dataset_id  taxon_name observation_id entity_type value_type basis_of_record life_stage population_id individual_id</span></span>
@@ -740,7 +772,7 @@ versions of the AusTraits database.</p>
 traits, for instance datasets from floras often report a minimum and
 maximum fruit length for a species. You can use
 <code>bind_trait_values</code> to merge these into a single cell.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_fruit</span> <span class="op">&lt;-</span> <span class="va">austraits</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/extract_trait.html" class="external-link">extract_trait</a></span><span class="op">(</span><span class="st">"fruit_length"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/extract_taxa.html" class="external-link">extract_taxa</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"Rutaceae"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -771,7 +803,7 @@ maximum fruit length for a species. You can use
 <span><span class="co">#&gt; #   measurement_remarks &lt;chr&gt;, method_id &lt;chr&gt;, method_context_id &lt;chr&gt;, original_name &lt;chr&gt;</span></span></code></pre>
 <p>If you would like to revert the bounded trait values, call
 <code><a href="https://traitecoevo.github.io/traits.use/reference/separate_trait_values.html" class="external-link">separate_trait_values()</a></code>:</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_trait_bound</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/separate_trait_values.html" class="external-link">separate_trait_values</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">austraits</span><span class="op">$</span><span class="va">definitions</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; # A tibble: 119 × 26</span></span>

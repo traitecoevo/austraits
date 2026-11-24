@@ -53,7 +53,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><code>austraits</code> is the R interface to <a href="https://austraits.org/" class="external-link">AusTraits</a>, the Australian plant trait database. It loads releases of AusTraits by version number (<code><a href="reference/load_austraits.html">load_austraits()</a></code>, <code><a href="reference/get_versions.html">get_versions()</a></code>, <code><a href="reference/get_version_latest.html">get_version_latest()</a></code>) and maps trait data over Australia (<code><a href="reference/plot_locations.html">plot_locations()</a></code>).</p>
+<p><code>austraits</code> is the R interface to <a href="https://austraits.org/" class="external-link">AusTraits</a>, the Australian plant trait database. It loads releases of AusTraits by version number (<code><a href="reference/load_austraits.html">load_austraits()</a></code>, <code><a href="reference/get_versions.html">get_versions()</a></code>, <code><a href="reference/get_version_latest.html">get_version_latest()</a></code>), including the observed means of each taxon and trait published with releases after 7.0.0 (<code>load_austraits(means = TRUE)</code>), and maps trait data over Australia (<code><a href="reference/plot_locations.html">plot_locations()</a></code>).</p>
 <p>The functions to <strong>access, explore and wrangle data</strong> (joining tables, filtering records, combining databases and visualising data) come from <a href="https://github.com/traitecoevo/traits.use" class="external-link"><code>traits.use</code></a>, which works on any <a href="https://github.com/traitecoevo/traits.build" class="external-link">traits.build</a> relational database. <code>austraits</code> re-exports all of them, so <code><a href="https://traitecoevo.github.io/austraits/">library(austraits)</a></code> is all you need, and code written for earlier versions of <code>austraits</code> keeps working. See the <a href="https://traitecoevo.github.io/traits.use/" class="external-link">traits.use documentation</a> for the generic functions.</p>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -76,6 +76,7 @@
 </h4>
 <ul>
 <li><p><strong>For R users</strong>, the AusTraits database can be accessed through the <code>austraits</code> package using <code><a href="reference/load_austraits.html">load_austraits()</a></code></p></li>
+<li><p><strong>For the means of each taxon and trait</strong>, releases after 7.0.0 include <code>austraits-&lt;version&gt;-observed-means.csv.gz</code> (with a column dictionary), loaded in R by <code>load_austraits(means = TRUE)</code>; <code><a href="https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html" class="external-link">summarise_trait_means()</a></code> computes the same for any subset of the database</p></li>
 <li><p><strong>For Python or other users</strong>, each <a href="https://doi.org/10.5281/zenodo.3568417" class="external-link">AusTraits release on Zenodo</a> includes a <code>.zip</code> file containing all the data in plain text (<code>.csv</code> files) and associated meta-data</p></li>
 </ul>
 </div>

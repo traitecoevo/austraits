@@ -45,6 +45,7 @@ Re-exported from traits.use, where they are documented
   [`join_taxonomic_updates`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`list_cached_databases`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`load_database`](https://traitecoevo.github.io/austraits/reference/reexports.md)
+  [`list_versions`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`lookup_context_property`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`lookup_location_property`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`lookup_trait`](https://traitecoevo.github.io/austraits/reference/reexports.md)
@@ -54,6 +55,8 @@ Re-exported from traits.use, where they are documented
   [`plot_trait_distribution_jitter`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`separate_trait_values`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`summarise_database`](https://traitecoevo.github.io/austraits/reference/reexports.md)
+  [`summarise_trait_means`](https://traitecoevo.github.io/austraits/reference/reexports.md)
+  [`trait_means_dictionary`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`trait_pivot_longer`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   [`trait_pivot_wider`](https://traitecoevo.github.io/austraits/reference/reexports.md)
   : Objects exported from other packages
