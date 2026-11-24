@@ -107,6 +107,10 @@ traits.use::list_cached_databases
 #' @export
 traits.use::load_database
 
+#' @importFrom traits.use list_versions
+#' @export
+traits.use::list_versions
+
 #' @importFrom traits.use lookup_context_property
 #' @export
 traits.use::lookup_context_property
