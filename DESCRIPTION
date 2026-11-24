@@ -47,6 +47,7 @@ Suggests:
     testthat (>= 3.0.0),
     markdown,
     curl,
+    readr,
     withr
 Remotes:
     traitecoevo/traits.use
