@@ -76,10 +76,11 @@ not match the release's md5 checksum) and loads it.</p>
 
 
 <dt id="arg-update">update<a class="anchor" aria-label="anchor" href="#arg-update"></a></dt>
-<dd><p>if TRUE, the list of AusTraits releases (see
-<code><a href="get_versions.html">get_versions()</a></code>) and the release's metadata are downloaded afresh. With
-<code>FALSE</code>, the copies saved in <code>path</code> are used, so a release loaded before
-loads offline.</p></dd>
+<dd><p>if <code>TRUE</code>, the list of AusTraits releases (see
+<code><a href="get_versions.html">get_versions()</a></code>) and the release's metadata are downloaded afresh; if
+that fails (e.g. offline), the copies saved in <code>path</code> are used. With
+<code>FALSE</code>, the saved copies are used without contacting Zenodo, so a release
+loaded before loads offline.</p></dd>
 
 
 <dt id="arg-means">means<a class="anchor" aria-label="anchor" href="#arg-means"></a></dt>

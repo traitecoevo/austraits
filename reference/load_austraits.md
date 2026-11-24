@@ -34,11 +34,12 @@ load_austraits(
 
 - update:
 
-  if TRUE, the list of AusTraits releases (see
+  if `TRUE`, the list of AusTraits releases (see
   [`get_versions()`](https://traitecoevo.github.io/austraits/reference/get_versions.md))
-  and the release's metadata are downloaded afresh. With `FALSE`, the
-  copies saved in `path` are used, so a release loaded before loads
-  offline.
+  and the release's metadata are downloaded afresh; if that fails (e.g.
+  offline), the copies saved in `path` are used. With `FALSE`, the saved
+  copies are used without contacting Zenodo, so a release loaded before
+  loads offline.
 
 - means:
 

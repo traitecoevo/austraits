@@ -5,9 +5,9 @@
 - [`library(austraits)`](https://traitecoevo.github.io/austraits/) no
   longer prints a message asking to cite the package;
   `citation("austraits")` still gives the citation.
-- Needs `traits.use` 0.1.1.9000 or later (for
-  [`list_versions()`](https://traitecoevo.github.io/traits.use/reference/list_versions.html));
-  0.1.1, its first release, reads AusTraits 8.0.0.
+- Needs `traits.use` 1.0.0 or later, which reads AusTraits 8.0.0 and has
+  [`list_versions()`](https://traitecoevo.github.io/traits.use/reference/list_versions.html)
+  and the observed means functions.
 - `austraits` is now the AusTraits-specific layer over
   [`traits.use`](https://github.com/traitecoevo/traits.use), which holds
   the generic code for any traits.build database (austraits#188). The
