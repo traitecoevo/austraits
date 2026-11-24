@@ -19,8 +19,10 @@ load_austraits(
 
 \item{path}{file path to where AusTraits will be downloaded}
 
-\item{update}{if TRUE, the list of AusTraits versions (\code{austraits.json})
-and the release's metadata are downloaded afresh}
+\item{update}{if TRUE, the list of AusTraits releases (see
+\code{\link[=get_versions]{get_versions()}}) and the release's metadata are downloaded afresh. With
+\code{FALSE}, the copies saved in \code{path} are used, so a release loaded before
+loads offline.}
 
 \item{means}{if \code{TRUE}, load the release's observed means rather than the
 database; \code{\link[traits.use:trait_means_dictionary]{traits.use::trait_means_dictionary()}} defines their columns.

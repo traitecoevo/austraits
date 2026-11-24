@@ -9,16 +9,25 @@ get_versions(path = "data/austraits", update = TRUE)
 \arguments{
 \item{path}{A file path where AusTraits was previously downloaded}
 
-\item{update}{Would you like the versions json be updated in case of new releases?}
+\item{update}{if \code{TRUE}, the list is fetched from Zenodo; if that fails
+(e.g. offline), the copy saved in \code{path} is used. With \code{FALSE}, the saved
+copy is used, if there is one.}
 }
 \value{
-A tibble containing version numbers and doi which can be used in load_austraits()
+A tibble of the releases, newest first: \code{publication_date}, \code{doi},
+\code{version} (e.g. "7.0.0") and \code{id} (the Zenodo record id). Pass a version to
+\code{\link[=load_austraits]{load_austraits()}}.
 }
 \description{
-Print out AusTraits versions
+Lists the releases of AusTraits with \code{\link[traits.use:list_versions]{traits.use::list_versions()}}, which
+lists the releases of any traits.build database from its doi, and saves the
+list in \code{path} so it can be used offline.
 }
 \examples{
 \dontrun{
 get_versions(path = "data/austraits")
 }
+}
+\seealso{
+\code{\link[traits.use:list_versions]{traits.use::list_versions()}}
 }
