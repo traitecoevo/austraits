@@ -14,10 +14,11 @@
 #' @param version character string - version number of database, e.g. "7.0.0"
 #' @param doi character string - doi of particular version
 #' @param path file path to where AusTraits will be downloaded
-#' @param update if TRUE, the list of AusTraits releases (see
-#'   [get_versions()]) and the release's metadata are downloaded afresh. With
-#'   `FALSE`, the copies saved in `path` are used, so a release loaded before
-#'   loads offline.
+#' @param update if `TRUE`, the list of AusTraits releases (see
+#'   [get_versions()]) and the release's metadata are downloaded afresh; if
+#'   that fails (e.g. offline), the copies saved in `path` are used. With
+#'   `FALSE`, the saved copies are used without contacting Zenodo, so a release
+#'   loaded before loads offline.
 #' @param means if `TRUE`, load the release's observed means rather than the
 #'   database; [traits.use::trait_means_dictionary()] defines their columns.
 #'   A release from before the means were published gives an error saying so.
@@ -68,14 +69,16 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   # If only doi is provided, match it with its version number
   if(! is.null(doi)){
     if(! doi %in% ret$doi){
-      rlang::abort("Requested version/doi is incorrect!")
+      rlang::abort(c("Requested version/doi is incorrect!",
+                     i = if(! update) "The list of releases saved in `path` may be out of date: try `update = TRUE`."))
     }
     version <- ret$version[ret$doi == doi]
   }
 
   # Check if version/doi is available
   if(! version %in% ret$version){
-    rlang::abort("Requested version/doi is incorrect!")
+    rlang::abort(c("Requested version/doi is incorrect!",
+                   i = if(! update) "The list of releases saved in `path` may be out of date: try `update = TRUE`."))
   }
 
   doi <- ret$doi[ret$version == version]
@@ -217,9 +220,15 @@ get_versions <- function(path = "data/austraits", update = TRUE){
       if(is.null(saved)) stop(e)
       message("Could not list the releases of AusTraits (", conditionMessage(e),
               "); using the list saved in '", path, "'")
-      saved
+      NULL
     }
   )
+
+  # Save only a list fetched from Zenodo, so a fallback never writes (and a
+  # read-only folder still works offline)
+  if(is.null(versions)) {
+    return(read_saved_versions(path))
+  }
 
   jsonlite::write_json(dplyr::mutate(versions, publication_date = as.character(.data$publication_date)),
                        file.path(path, "austraits_versions.json"))
