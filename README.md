@@ -14,7 +14,9 @@
 `austraits` is the R interface to [AusTraits](https://austraits.org/),
 the Australian plant trait database. It loads releases of AusTraits by
 version number (`load_austraits()`, `get_versions()`,
-`get_version_latest()`) and maps trait data over Australia
+`get_version_latest()`), including the observed means of each taxon and
+trait published with releases after 7.0.0
+(`load_austraits(means = TRUE)`), and maps trait data over Australia
 (`plot_locations()`).
 
 The functions to **access, explore and wrangle data** (joining tables,
@@ -55,6 +57,12 @@ remotes::install_github("traitecoevo/austraits", upgrade = "ask")
 
 - **For R users**, the AusTraits database can be accessed through the
   `austraits` package using `load_austraits()`
+
+- **For the means of each taxon and trait**, releases after 7.0.0
+  include `austraits-<version>-observed-means.csv.gz` (with a column
+  dictionary), loaded in R by `load_austraits(means = TRUE)`;
+  `summarise_trait_means()` computes the same for any subset of the
+  database
 
 - **For Python or other users**, each [AusTraits release on
   Zenodo](https://doi.org/10.5281/zenodo.3568417) includes a `.zip` file
