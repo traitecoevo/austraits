@@ -120,14 +120,6 @@ vignette("austraits")
 
 [![](reference/figures/austraits-cheatsheet.png)](https://github.com/traitecoevo/austraits/tree/master/inst/cheatsheet/austraits-cheatsheet.pdf)
 
-The cheat sheet was drawn for `austraits` 3.0.0. Since then
-`plot_trait_distribution_beeswarm()` has been removed (use
-[`plot_trait_distribution()`](https://traitecoevo.github.io/traits.use/reference/plot_trait_distribution.html)),
-and two names on it were always misspelt: the functions are
-[`join_context_properties()`](https://traitecoevo.github.io/traits.use/reference/join_context_properties.html)
-and
-[`lookup_location_property()`](https://traitecoevo.github.io/traits.use/reference/lookup_location_property.html).
-
 ### Learn more about AusTraits
 
 AusTraits is a relational database, you can learn more about it’s
