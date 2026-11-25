@@ -10,8 +10,6 @@
 - **Fonti Kar**. Author, maintainer.
   [](https://orcid.org/0000-0002-2760-3974)
 
-- **Dony Indiarto**. Author. [](https://orcid.org/0000-0001-9546-8201)
-
 ## Citation
 
 Source:
