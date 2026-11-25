@@ -12,7 +12,6 @@
 #' databases from outside Australia. A data frame of map cells (numeric
 #' columns `x` and `y`) draws the locations over that map instead; see
 #' [traits.use::plot_locations()].
-#' @author Dony Indiarto - d.indiarto@student.unsw.edu.au
 #' @return ggplot of sites
 #' @examples
 #' \dontrun{

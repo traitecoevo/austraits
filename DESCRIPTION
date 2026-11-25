@@ -16,11 +16,7 @@ Authors@R:
              family = "Kar",
              role = c("aut", "cre"),
              email = "f.kar@unsw.edu.au",
-             comment = c(ORCID = "0000-0002-2760-3974")),
-      person(given = "Dony",
-             family = "Indiarto",
-             role = c("aut"),
-             comment = c(ORCID = "0000-0001-9546-8201")))
+             comment = c(ORCID = "0000-0002-2760-3974")))
 Description: An R interface to AusTraits, the Australian plant trait database. `austraits` loads releases of AusTraits by version number and maps trait data over Australia. The functions to access, explore and wrangle data come from `traits.use`, which works on any traits.build relational database; `austraits` re-exports them, so code written for earlier versions keeps working.
 License: MIT + file LICENSE
 Encoding: UTF-8
