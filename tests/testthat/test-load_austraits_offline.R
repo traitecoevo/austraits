@@ -103,12 +103,14 @@ test_that("load_austraits(means = TRUE) loads the observed means published with 
   )
 
   means <- suppressMessages(load_austraits(version = "9.9.9", path = path, update = FALSE, means = TRUE))
-  expect_equal(as.data.frame(means), as.data.frame(published))
+  # read from the .rds (traits.use 1.0.1), so exactly as computed
+  expect_identical(means, tibble::as_tibble(published))
   # only the means were downloaded
   expect_false(file.exists(file.path(path, "austraits-9.9.9.rds")))
+  expect_false(file.exists(file.path(path, "austraits-9.9.9-observed-means.csv.gz")))
 
   # the database, not the means .rds beside it (traits.use 1.0.1)
   db <- suppressMessages(load_austraits(version = "9.9.9", path = path, update = FALSE))
   expect_s3_class(db, "traits.build")
-  expect_false(file.exists(file.path(path, "austraits-9.9.9-observed-means.rds")))
+  expect_equal(nrow(db$traits), nrow(database$traits))
 })
