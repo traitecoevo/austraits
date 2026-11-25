@@ -9,7 +9,7 @@ plot_locations(database, feature = "trait_name", ..., basemap = "australia")
 \arguments{
 \item{database}{traits.build database OR traits table from a traits.build database. Note location details must be joined. See join_location_coordinates and examples}
 
-\item{feature}{grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2}
+\item{feature}{the column to colour the locations by, e.g. \code{trait_name} or \code{basis_of_record}}
 
 \item{...}{arguments passed to ggpointdensity::geom_pointdensity()}
 

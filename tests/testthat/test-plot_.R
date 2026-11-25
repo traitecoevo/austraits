@@ -22,6 +22,25 @@ test_that("plot_locations draws over the map of Australia by default", {
   expect_error(plot_locations(sites[sites$location_name == "Kuala Lumpur", ]), "Use `basemap = NULL`")
 })
 
+test_that("plot_locations maps a traits.build database, or its traits table", {
+  leaf_area <- traits.use::austraits_lite |>
+    extract_trait("leaf_area") |>
+    join_location_coordinates()
+  located <- leaf_area$traits |>
+    dplyr::filter(!is.na(.data[["latitude (deg)"]]), !is.na(.data[["longitude (deg)"]]))
+  expect_gt(nrow(located), 1000)
+
+  # Every leaf area location in austraits_lite lies on the map of Australia
+  expect_no_message(p <- plot_locations(leaf_area, "basis_of_record"))
+  expect_s3_class(p, "ggplot")
+  points <- p$layers[[length(p$layers)]]$data
+  expect_equal(nrow(points), nrow(located))
+  expect_setequal(points$basis_of_record, unique(located$basis_of_record))
+
+  expect_no_message(q <- plot_locations(leaf_area$traits, "basis_of_record"))
+  expect_equal(q$layers[[length(q$layers)]]$data, points)
+})
+
 test_that("plot_locations draws without a map, or over another map", {
   p <- plot_locations(sites, basemap = NULL)
   expect_equal(shown(p), sort(sites$location_name))
