@@ -1,3 +1,8 @@
+# austraits 4.0.1
+
+- `load_austraits()` loads AusTraits 8.0.0. With traits.use 1.0.0 it stopped with "More than one .rds file found", because 8.0.0 publishes its observed means as `.rds` beside the database; traits.use 1.0.1, now required, never takes that file for the database.
+- `load_austraits(means = TRUE)` reads the observed means from that `.rds` (exactly as computed, and a smaller download) instead of the `.csv.gz`, through traits.use 1.0.1.
+
 # austraits 4.0.0
 - `library(austraits)` no longer prints a message asking to cite the package; `citation("austraits")` still gives the citation.
 - Needs `traits.use` 1.0.0 or later, which reads AusTraits 8.0.0 and has `list_versions()` and the observed means functions.

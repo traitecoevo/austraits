@@ -1,6 +1,6 @@
 Package: austraits
 Title: Access the AusTraits Plant Trait Database
-Version: 4.0.0
+Version: 4.0.1
 Authors@R:
     c(person(given = "Daniel",
              family = "Falster",
@@ -26,7 +26,7 @@ Depends:
     R (>= 4.1.0),
     RefManageR
 Imports:
-    traits.use (>= 1.0.0),
+    traits.use (>= 1.0.1),
     dplyr,
     rlang,
     stringr,

@@ -47,7 +47,8 @@ not match the release's md5 checksum) and loads it.
 With \code{means = TRUE} it loads the release's observed means instead: one row
 per taxon and trait, computed from the release's records with
 \code{\link[traits.use:summarise_trait_means]{traits.use::summarise_trait_means()}} and published with it as
-\verb{austraits-<version>-observed-means.csv.gz} (releases after 7.0.0). They
+\verb{austraits-<version>-observed-means.rds} and \code{.csv.gz} (releases after
+7.0.0; the \code{.rds}, exact, is read when present). They
 are a smaller download than the database. To have both, load each.
 }
 \examples{
