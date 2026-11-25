@@ -28,6 +28,14 @@ austraits#188).
 - **Build/test (standard R-package workflow):** `devtools::load_all()`,
   `devtools::test()`, `devtools::check()`. The package targets
   `R >= 4.1.0`. Lifecycle badge is **stable**.
+- **Test data:** the package ships no AusTraits data of its own
+  (`R/sysdata.rda` holds only the map). Tests of general behaviour use
+  [`traits.use::austraits_lite`](https://traitecoevo.github.io/traits.use/reference/austraits_lite.html);
+  the loading tests fake a release in a temporary folder, with Zenodo
+  mocked. Only `test-load_austraits_online.R` reaches Zenodo (behind
+  `skip_on_cran()`/`skip_if_offline()`): it lists the releases and
+  downloads AusTraits 5.0.0, the oldest supported release, into the
+  gitignored `tests/testthat/ignore/data/austraits`.
 - **Default branch:** `master`. Docs/pkgdown site at
   <https://traitecoevo.github.io/austraits/>.
 

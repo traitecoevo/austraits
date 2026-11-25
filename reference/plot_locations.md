@@ -21,8 +21,8 @@ plot_locations(database, feature = "trait_name", ..., basemap = "australia")
 
 - feature:
 
-  grouping/classification categories e.g trait_name, collection_type for
-  \<= v3.0.2, basis of record for \>3.0.2
+  the column to colour the locations by, e.g. `trait_name` or
+  `basis_of_record`
 
 - ...:
 
