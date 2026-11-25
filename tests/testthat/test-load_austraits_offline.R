@@ -76,8 +76,11 @@ test_that("load_austraits(means = TRUE) loads the observed means published with 
 
   database <- traits.use::extract_dataset(traits.use::austraits_lite, "Falster_2003")
   published <- summarise_trait_means(database)
-  files <- c(rds = file.path(src, "austraits-9.9.9.rds"),
+  # As AusTraits 8.0.0 publishes them: the means as .rds too, listed first
+  files <- c(means_rds = file.path(src, "austraits-9.9.9-observed-means.rds"),
+             rds = file.path(src, "austraits-9.9.9.rds"),
              means = file.path(src, "austraits-9.9.9-observed-means.csv.gz"))
+  saveRDS(published, files[["means_rds"]])
   saveRDS(database, files[["rds"]])
   readr::write_csv(published, files[["means"]], na = "")
 
@@ -104,6 +107,8 @@ test_that("load_austraits(means = TRUE) loads the observed means published with 
   # only the means were downloaded
   expect_false(file.exists(file.path(path, "austraits-9.9.9.rds")))
 
+  # the database, not the means .rds beside it (traits.use 1.0.1)
   db <- suppressMessages(load_austraits(version = "9.9.9", path = path, update = FALSE))
   expect_s3_class(db, "traits.build")
+  expect_false(file.exists(file.path(path, "austraits-9.9.9-observed-means.rds")))
 })
