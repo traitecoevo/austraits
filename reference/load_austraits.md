@@ -63,9 +63,10 @@ observed means.
 With `means = TRUE` it loads the release's observed means instead: one
 row per taxon and trait, computed from the release's records with
 [`traits.use::summarise_trait_means()`](https://traitecoevo.github.io/traits.use/reference/summarise_trait_means.html)
-and published with it as `austraits-<version>-observed-means.csv.gz`
-(releases after 7.0.0). They are a smaller download than the database.
-To have both, load each.
+and published with it as `austraits-<version>-observed-means.rds` and
+`.csv.gz` (releases after 7.0.0; the `.rds`, exact, is read when
+present). They are a smaller download than the database. To have both,
+load each.
 
 ## See also
 

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">austraits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,13 @@
       <small>Source: <a href="https://github.com/traitecoevo/austraits/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="4.0.1" id="austraits-401">austraits 4.0.1<a class="anchor" aria-label="anchor" href="#austraits-401"></a></h2>
+<ul><li>
+<code><a href="../reference/load_austraits.html">load_austraits()</a></code> loads AusTraits 8.0.0. With traits.use 1.0.0 it stopped with “More than one .rds file found”, because 8.0.0 publishes its observed means as <code>.rds</code> beside the database; traits.use 1.0.1, now required, never takes that file for the database.</li>
+<li>
+<code>load_austraits(means = TRUE)</code> reads the observed means from that <code>.rds</code> (exactly as computed, and a smaller download) instead of the <code>.csv.gz</code>, through traits.use 1.0.1.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.0.0" id="austraits-400">austraits 4.0.0<a class="anchor" aria-label="anchor" href="#austraits-400"></a></h2>
 <ul><li>

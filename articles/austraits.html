@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">austraits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,15 +105,17 @@ version.</p>
 associated DOI by using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_versions.html">get_versions</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/austraits"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<pre><code><span><span class="co">#&gt; # A tibble: 8 × 4</span></span>
 <span><span class="co">#&gt;   publication_date doi                     version id      </span></span>
 <span><span class="co">#&gt;   &lt;date&gt;           &lt;chr&gt;                   &lt;chr&gt;   &lt;chr&gt;   </span></span>
-<span><span class="co">#&gt; 1 2024-05-14       10.5281/zenodo.11188867 6.0.0   11188867</span></span>
-<span><span class="co">#&gt; 2 2023-11-19       10.5281/zenodo.10156222 5.0.0   10156222</span></span>
-<span><span class="co">#&gt; 3 2023-09-18       10.5281/zenodo.8353840  4.2.0   8353840 </span></span>
-<span><span class="co">#&gt; 4 2023-01-30       10.5281/zenodo.7583087  4.1.0   7583087 </span></span>
-<span><span class="co">#&gt; 5 2022-11-27       10.5281/zenodo.7368074  4.0.0   7368074 </span></span>
-<span><span class="co">#&gt; 6 2021-07-14       10.5281/zenodo.5112001  3.0.2   5112001</span></span></code></pre>
+<span><span class="co">#&gt; 1 2026-11-26       10.5281/zenodo.24543275 8.0.0   24543275</span></span>
+<span><span class="co">#&gt; 2 2025-06-20       10.5281/zenodo.15718081 7.0.0   15718081</span></span>
+<span><span class="co">#&gt; 3 2024-05-14       10.5281/zenodo.11188867 6.0.0   11188867</span></span>
+<span><span class="co">#&gt; 4 2023-11-19       10.5281/zenodo.10156222 5.0.0   10156222</span></span>
+<span><span class="co">#&gt; 5 2023-09-18       10.5281/zenodo.8353840  4.2.0   8353840 </span></span>
+<span><span class="co">#&gt; 6 2023-01-30       10.5281/zenodo.7583087  4.1.0   7583087 </span></span>
+<span><span class="co">#&gt; 7 2022-11-27       10.5281/zenodo.7368074  4.0.0   7368074 </span></span>
+<span><span class="co">#&gt; 8 2021-07-14       10.5281/zenodo.5112001  3.0.2   5112001</span></span></code></pre>
 <p>AusTraits, like all traits.build databases, is a relational database.
 In R, it is a very <em>large</em> list with multiple tables. If you are
 not familiar with working with lists in R, we recommend having a quick
@@ -717,9 +719,9 @@ further.</p>
 <span><span class="fu"><a href="https://traitecoevo.github.io/traits.use/reference/trait_means_dictionary.html" class="external-link">trait_means_dictionary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Releases of AusTraits after 7.0.0 also publish these means for every
 trait, computed from all their records, as
-<code>austraits-&lt;version&gt;-observed-means.csv.gz</code>.
-<code>load_austraits(means = TRUE)</code> downloads just that file,
-which is much smaller than the database:</p>
+<code>austraits-&lt;version&gt;-observed-means.rds</code> (and
+<code>.csv.gz</code>). <code>load_austraits(means = TRUE)</code>
+downloads just that file, which is much smaller than the database:</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_austraits.html">load_austraits</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"8.0.0"</span>, path <span class="op">=</span> <span class="st">"data/austraits"</span>, means <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>

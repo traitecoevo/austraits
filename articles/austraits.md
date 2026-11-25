@@ -57,15 +57,17 @@ DOI by using:
 get_versions(path = "data/austraits")
 ```
 
-    #> # A tibble: 6 × 4
+    #> # A tibble: 8 × 4
     #>   publication_date doi                     version id      
     #>   <date>           <chr>                   <chr>   <chr>   
-    #> 1 2024-05-14       10.5281/zenodo.11188867 6.0.0   11188867
-    #> 2 2023-11-19       10.5281/zenodo.10156222 5.0.0   10156222
-    #> 3 2023-09-18       10.5281/zenodo.8353840  4.2.0   8353840 
-    #> 4 2023-01-30       10.5281/zenodo.7583087  4.1.0   7583087 
-    #> 5 2022-11-27       10.5281/zenodo.7368074  4.0.0   7368074 
-    #> 6 2021-07-14       10.5281/zenodo.5112001  3.0.2   5112001
+    #> 1 2026-11-26       10.5281/zenodo.24543275 8.0.0   24543275
+    #> 2 2025-06-20       10.5281/zenodo.15718081 7.0.0   15718081
+    #> 3 2024-05-14       10.5281/zenodo.11188867 6.0.0   11188867
+    #> 4 2023-11-19       10.5281/zenodo.10156222 5.0.0   10156222
+    #> 5 2023-09-18       10.5281/zenodo.8353840  4.2.0   8353840 
+    #> 6 2023-01-30       10.5281/zenodo.7583087  4.1.0   7583087 
+    #> 7 2022-11-27       10.5281/zenodo.7368074  4.0.0   7368074 
+    #> 8 2021-07-14       10.5281/zenodo.5112001  3.0.2   5112001
 
 AusTraits, like all traits.build databases, is a relational database. In
 R, it is a very *large* list with multiple tables. If you are not
@@ -772,7 +774,7 @@ trait_means_dictionary()
 
 Releases of AusTraits after 7.0.0 also publish these means for every
 trait, computed from all their records, as
-`austraits-<version>-observed-means.csv.gz`.
+`austraits-<version>-observed-means.rds` (and `.csv.gz`).
 `load_austraits(means = TRUE)` downloads just that file, which is much
 smaller than the database:
 
