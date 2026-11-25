@@ -3,7 +3,7 @@
 #'   over a map of Australia. This calls [traits.use::plot_locations()] with
 #'   the map of Australia as its `basemap`.
 #' @param database traits.build database OR traits table from a traits.build database. Note location details must be joined. See join_location_coordinates and examples
-#' @param feature grouping/classification categories e.g trait_name, collection_type for <= v3.0.2, basis of record for >3.0.2
+#' @param feature the column to colour the locations by, e.g. `trait_name` or `basis_of_record`
 #' @param ... arguments passed to ggpointdensity::geom_pointdensity()
 #' @param basemap `"australia"` (the default) draws the locations over a map
 #' of Australia, and leaves out any location beyond the map, with a message

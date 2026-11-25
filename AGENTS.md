@@ -16,6 +16,11 @@ the generic code for any `traits.build` database (split out in 2026, austraits#1
   traits.use exports to `R/reexports.R`.
 - **Build/test (standard R-package workflow):** `devtools::load_all()`, `devtools::test()`,
   `devtools::check()`. The package targets `R >= 4.1.0`. Lifecycle badge is **stable**.
+- **Test data:** the package ships no AusTraits data of its own (`R/sysdata.rda` holds only the map).
+  Tests of general behaviour use `traits.use::austraits_lite`; the loading tests fake a release in a
+  temporary folder, with Zenodo mocked. Only `test-load_austraits_online.R` reaches Zenodo (behind
+  `skip_on_cran()`/`skip_if_offline()`): it lists the releases and downloads AusTraits 5.0.0, the oldest
+  supported release, into the gitignored `tests/testthat/ignore/data/austraits`.
 - **Default branch:** `master`. Docs/pkgdown site at <https://traitecoevo.github.io/austraits/>.
 
 > `traits.build` no longer installs `austraits`: it depends on `traits.use` since traits.build#321
