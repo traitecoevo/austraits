@@ -1,3 +1,9 @@
+test_that("load_austraits() and get_versions() need a release and a path", {
+  expect_error(load_austraits(path = tempfile()), "Please supply a doi or version")
+  expect_error(load_austraits(version = "7.0.0", path = NULL), "File path must be supplied")
+  expect_error(get_versions(path = NULL), "File path must be supplied")
+})
+
 test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x offline", {
   # austraits 3.x cached only austraits.json and the .rds, not the record
   # file traits.use::load_database() keeps; a fake release keeps this offline
