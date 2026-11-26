@@ -5,6 +5,14 @@
 #' `.rds` to `path` (if it is not already there, or if the copy there does
 #' not match the release's md5 checksum) and loads it.
 #'
+#' By default the download is kept in the folder that traits.use shares
+#' between all your projects (see [traits.use::database_cache_dir()]), so each
+#' release is downloaded once per computer. Use
+#' [traits.use::list_cached_databases()] and
+#' [traits.use::clear_database_cache()] to see and delete what is there. Give a `path`,
+#' such as `"data/austraits"` (the default before austraits 4.1.0), to keep a
+#' copy with a project instead.
+#'
 #' With `means = TRUE` it loads the release's observed means instead: one row
 #' per taxon and trait, computed from the release's records with
 #' [traits.use::summarise_trait_means()] and published with it as
@@ -14,7 +22,9 @@
 #'
 #' @param version character string - version number of database, e.g. "7.0.0"
 #' @param doi character string - doi of particular version
-#' @param path file path to where AusTraits will be downloaded
+#' @param path folder AusTraits is downloaded to and cached in. If `NULL` (the
+#'   default), the folder shared by all your projects, given by
+#'   [traits.use::database_cache_dir()].
 #' @param update if `TRUE`, the list of AusTraits releases (see
 #'   [get_versions()]) and the release's metadata are downloaded afresh; if
 #'   that fails (e.g. offline), the copies saved in `path` are used. With
@@ -37,21 +47,27 @@
 #'
 #' @examples
 #' \dontrun{
+#' # Downloaded once to the cache folder shared by all your projects
+#' austraits <- load_austraits(version = "7.0.0")
+#'
+#' # Or kept with a project
 #' austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
 #'
 #' # The observed means of each taxon and trait, published with releases after 7.0.0
-#' means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
+#' means <- load_austraits(version = "8.0.0", means = TRUE)
 #' }
 
-load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", update = TRUE, means = FALSE){
+load_austraits <- function(doi = NULL, version = NULL, path = NULL, update = TRUE, means = FALSE){
   # Is either doi or version supplied?
   if(is.null(doi) & is.null(version)){
     stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
   }
 
-  # Is path supplied?
-  if(is.null(path)){
-    stop("File path must be supplied!")
+  # The folder the list of releases is saved in; `path` itself goes to
+  # load_database(), for which NULL means the cache folder
+  folder <- resolve_path(path)
+  if(is.null(path)) {
+    inform_old_default_folder()
   }
 
   #remove v from version
@@ -59,13 +75,8 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
     version <- stringr::str_remove_all(version, "v")
   }
 
-  # Does the path exist?
-  if(! file.exists(path)) {
-    dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
-  }
-
   # The list of releases
-  ret <- get_versions(path = path, update = update)
+  ret <- get_versions(path = folder, update = update)
 
   # If only doi is provided, match it with its version number
   if(! is.null(doi)){
@@ -87,10 +98,39 @@ load_austraits <- function(doi = NULL, version = NULL, path = "data/austraits", 
   # A release cached by austraits 3.x has no record file for load_database(),
   # but the austraits.json it saved lists the release's files, so offline it
   # still loads
-  save_legacy_record_json(doi, path)
+  save_legacy_record_json(doi, folder)
 
   # Download (if needed) and load the release
   traits.use::load_database(doi = doi, path = path, update = update, means = means)
+}
+
+#' The folder for `path`: the traits.use cache folder if NULL
+#' @noRd
+#' @keywords internal
+resolve_path <- function(path) {
+  if(is.null(path)) {
+    return(traits.use::database_cache_dir())
+  }
+  if(!is.character(path) || length(path) != 1 || is.na(path) || !nzchar(path)) {
+    rlang::abort("`path` must be a single folder path, or NULL for the cache folder.")
+  }
+  path
+}
+
+#' Tell a user with AusTraits in the old default folder, once a session, that
+#' it is no longer used by default
+#' @noRd
+#' @keywords internal
+inform_old_default_folder <- function() {
+  if(!dir.exists(file.path("data", "austraits"))) {
+    return(invisible(FALSE))
+  }
+  rlang::inform(
+    c("AusTraits is now kept in the folder shared by all your projects (see `database_cache_dir()`), not in 'data/austraits'.",
+      i = "To keep using the copy in 'data/austraits', give `path = \"data/austraits\"`; otherwise that folder can be deleted."),
+    .frequency = "once", .frequency_id = "austraits_old_default_folder"
+  )
+  invisible(TRUE)
 }
 
 # The concept doi of AusTraits on Zenodo: it stands for every release
@@ -182,7 +222,9 @@ format_versions <- function(versions) {
 #' lists the releases of any traits.build database from its doi, and saves the
 #' list in `path` so it can be used offline.
 #'
-#' @param path A file path where AusTraits was previously downloaded
+#' @param path folder the list is saved in, as for [load_austraits()]: if
+#'   `NULL` (the default), the folder shared by all your projects, given by
+#'   [traits.use::database_cache_dir()].
 #' @param update if `TRUE`, the list is fetched from Zenodo; if that fails
 #'   (e.g. offline), the copy saved in `path` is used. With `FALSE`, the saved
 #'   copy is used, if there is one.
@@ -193,16 +235,13 @@ format_versions <- function(versions) {
 #' @seealso [traits.use::list_versions()]
 #' @examples
 #' \dontrun{
-#' get_versions(path = "data/austraits")
+#' get_versions()
 #' }
 #' @export
 
-get_versions <- function(path = "data/austraits", update = TRUE){
+get_versions <- function(path = NULL, update = TRUE){
 
-  # Is path supplied?
-  if(is.null(path)){
-    stop("File path must be supplied!")
-  }
+  path <- resolve_path(path)
 
   # Does the path exist?
   if(! file.exists(path)) {
@@ -242,6 +281,6 @@ get_versions <- function(path = "data/austraits", update = TRUE){
 #' @export
 #' @return character string of latest version
 
-get_version_latest <- function(path = "data/austraits", update = TRUE){
+get_version_latest <- function(path = NULL, update = TRUE){
   get_versions(path = path, update = update)$version[1]
 }

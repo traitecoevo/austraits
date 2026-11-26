@@ -1,7 +1,58 @@
-test_that("load_austraits() and get_versions() need a release and a path", {
+test_that("load_austraits() and get_versions() need a release and a folder path", {
   expect_error(load_austraits(path = tempfile()), "Please supply a doi or version")
-  expect_error(load_austraits(version = "7.0.0", path = NULL), "File path must be supplied")
-  expect_error(get_versions(path = NULL), "File path must be supplied")
+  expect_error(load_austraits(version = "7.0.0", path = 1), "single folder path")
+  expect_error(get_versions(path = c("a", "b")), "single folder path")
+  expect_error(get_versions(path = ""), "single folder path")
+})
+
+test_that("load_austraits() and get_versions() use the traits.use cache folder by default", {
+  # The cache folder moved to a temporary one, and a fake release, served
+  # from a local file, to keep this offline
+  cache <- tempfile("cache")
+  src <- tempfile("release")
+  dir.create(src)
+  on.exit(unlink(c(cache, src), recursive = TRUE), add = TRUE)
+  withr::local_options(traits.use.cache_dir = cache)
+  expect_identical(normalizePath(traits.use::database_cache_dir(), mustWork = FALSE),
+                   normalizePath(cache, mustWork = FALSE))
+
+  doi <- "10.5281/zenodo.99999997"
+  rds <- file.path(src, "austraits-9.9.9.rds")
+  saveRDS(list(traits = data.frame(value = 1:3), taxa = data.frame(), methods = data.frame(),
+               sources = RefManageR::BibEntry(bibtype = "Misc", key = "Test_2030", title = "A", author = "B", year = 2030)),
+          rds)
+  local_mocked_bindings(
+    list_versions = function(...) dplyr::tibble(version = "v9.9.9", doi = doi, publication_date = as.Date("2030-01-01")),
+    resolve_doi_files = function(...) list(
+      doi = doi, source = "zenodo", version = "9.9.9",
+      files = data.frame(key = basename(rds), url = paste0("file://", normalizePath(rds, winslash = "/")),
+                         md5 = unname(tools::md5sum(rds)))
+    ),
+    .package = "traits.use"
+  )
+
+  expect_equal(get_version_latest(), "9.9.9")
+  expect_true(file.exists(file.path(cache, "austraits_versions.json")))
+
+  db <- suppressMessages(load_austraits(version = "9.9.9"))
+  expect_equal(db$traits$value, 1:3)
+  expect_true(file.exists(file.path(cache, basename(rds))))
+  # listed as a cached database, so clear_database_cache() can delete it
+  expect_identical(list_cached_databases()$file, basename(rds))
+})
+
+test_that("load_austraits() says once that 'data/austraits' is no longer the default", {
+  wd <- tempfile("project")
+  dir.create(file.path(wd, "data", "austraits"), recursive = TRUE)
+  on.exit(unlink(wd, recursive = TRUE), add = TRUE)
+  withr::local_dir(wd)
+  rlang::reset_message_verbosity("austraits_old_default_folder")
+
+  expect_message(expect_true(inform_old_default_folder()), "path = \"data/austraits\"")
+  expect_no_message(inform_old_default_folder())
+
+  unlink(file.path(wd, "data"), recursive = TRUE)
+  expect_false(inform_old_default_folder())
 })
 
 test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x offline", {

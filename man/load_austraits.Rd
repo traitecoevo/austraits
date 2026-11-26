@@ -7,7 +7,7 @@
 load_austraits(
   doi = NULL,
   version = NULL,
-  path = "data/austraits",
+  path = NULL,
   update = TRUE,
   means = FALSE
 )
@@ -17,7 +17,9 @@ load_austraits(
 
 \item{version}{character string - version number of database, e.g. "7.0.0"}
 
-\item{path}{file path to where AusTraits will be downloaded}
+\item{path}{folder AusTraits is downloaded to and cached in. If \code{NULL} (the
+default), the folder shared by all your projects, given by
+\code{\link[traits.use:database_cache_dir]{traits.use::database_cache_dir()}}.}
 
 \item{update}{if \code{TRUE}, the list of AusTraits releases (see
 \code{\link[=get_versions]{get_versions()}}) and the release's metadata are downloaded afresh; if
@@ -44,6 +46,14 @@ Finds the requested release of AusTraits on Zenodo and loads it with
 not match the release's md5 checksum) and loads it.
 }
 \details{
+By default the download is kept in the folder that traits.use shares
+between all your projects (see \code{\link[traits.use:database_cache_dir]{traits.use::database_cache_dir()}}), so each
+release is downloaded once per computer. Use
+\code{\link[traits.use:list_cached_databases]{traits.use::list_cached_databases()}} and
+\code{\link[traits.use:clear_database_cache]{traits.use::clear_database_cache()}} to see and delete what is there. Give a \code{path},
+such as \code{"data/austraits"} (the default before austraits 4.1.0), to keep a
+copy with a project instead.
+
 With \code{means = TRUE} it loads the release's observed means instead: one row
 per taxon and trait, computed from the release's records with
 \code{\link[traits.use:summarise_trait_means]{traits.use::summarise_trait_means()}} and published with it as
@@ -53,10 +63,14 @@ are a smaller download than the database. To have both, load each.
 }
 \examples{
 \dontrun{
+# Downloaded once to the cache folder shared by all your projects
+austraits <- load_austraits(version = "7.0.0")
+
+# Or kept with a project
 austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
 
 # The observed means of each taxon and trait, published with releases after 7.0.0
-means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
+means <- load_austraits(version = "8.0.0", means = TRUE)
 }
 }
 \seealso{

@@ -8,7 +8,7 @@ the generic code for any `traits.build` database (split out in 2026, austraits#1
 
 - **Code:** `R/load_austraits.R` (`load_austraits()`, `get_versions()`, `get_version_latest()`:
   the releases from `traits.use::list_versions()`, saved in `austraits_versions.json` for offline use, then
-  `traits.use::load_database()`; the `austraits.json` saved by austraits 3.x is still read, so its caches load offline), `R/plot_locations.R` (wraps
+  `traits.use::load_database()`; `path = NULL` (the default since 4.1.0) means traits.use's `database_cache_dir()`, and is passed to `load_database()` as `NULL` so the cache's last-used tracking works; the `austraits.json` saved by austraits 3.x is still read, so its caches load offline), `R/plot_locations.R` (wraps
   `traits.use::plot_locations()` with the map of Australia, `australia_map_raster` in
   `R/sysdata.rda`), `R/reexports.R` (re-exports every other traits.use export).
 - **Generic code belongs in traits.use, not here.** Fix bugs in `extract_*()`, `join_*()` etc. there.

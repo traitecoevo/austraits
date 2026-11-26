@@ -1,3 +1,7 @@
+# austraits 4.1.0
+
+- `load_austraits()`, `get_versions()` and `get_version_latest()` keep AusTraits in the folder that traits.use shares between all your projects, `database_cache_dir()`, as `traits.use::load_database()` does, instead of `data/austraits` in the working directory: each release is downloaded once per computer, and `list_cached_databases()` and `clear_database_cache()` see it. `path = NULL` is now the default; give `path = "data/austraits"` to keep using a copy there. If a `data/austraits` folder exists, `load_austraits()` says so once per session.
+
 # austraits 4.0.1
 
 - `load_austraits()` loads AusTraits 8.0.0. With traits.use 1.0.0 it stopped with "More than one .rds file found", because 8.0.0 publishes its observed means as `.rds` beside the database; traits.use 1.0.1, now required, never takes that file for the database.
