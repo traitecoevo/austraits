@@ -5,16 +5,14 @@ test_that("load_austraits() and get_versions() need a release and a folder path"
   expect_error(get_versions(path = ""), "single folder path")
 })
 
-test_that("load_austraits() and get_versions() use the traits.use cache folder by default", {
-  # The cache folder moved to a temporary one, and a fake release, served
-  # from a local file, to keep this offline
+# Move the traits.use cache folder to a temporary one, and fake a release of
+# AusTraits served from a local file, with Zenodo mocked, to keep this offline
+local_cache_and_release <- function(env = parent.frame()) {
   cache <- tempfile("cache")
   src <- tempfile("release")
   dir.create(src)
-  on.exit(unlink(c(cache, src), recursive = TRUE), add = TRUE)
-  withr::local_options(traits.use.cache_dir = cache)
-  expect_identical(normalizePath(traits.use::database_cache_dir(), mustWork = FALSE),
-                   normalizePath(cache, mustWork = FALSE))
+  withr::defer(unlink(c(cache, src), recursive = TRUE), envir = env)
+  withr::local_options(traits.use.cache_dir = cache, .local_envir = env)
 
   doi <- "10.5281/zenodo.99999997"
   rds <- file.path(src, "austraits-9.9.9.rds")
@@ -28,29 +26,60 @@ test_that("load_austraits() and get_versions() use the traits.use cache folder b
       files = data.frame(key = basename(rds), url = paste0("file://", normalizePath(rds, winslash = "/")),
                          md5 = unname(tools::md5sum(rds)))
     ),
-    .package = "traits.use"
+    .package = "traits.use", .env = env
   )
+  list(cache = cache, file = basename(rds))
+}
+
+test_that("load_austraits() and get_versions() use the traits.use cache folder by default", {
+  x <- local_cache_and_release()
+  expect_identical(normalizePath(traits.use::database_cache_dir(), mustWork = FALSE),
+                   normalizePath(x$cache, mustWork = FALSE))
 
   expect_equal(get_version_latest(), "9.9.9")
-  expect_true(file.exists(file.path(cache, "austraits_versions.json")))
+  expect_true(file.exists(file.path(x$cache, "austraits_versions.json")))
 
-  db <- suppressMessages(load_austraits(version = "9.9.9"))
+  # path = NULL reaches traits.use::load_database(), which then reports what
+  # the cache holds after a download...
+  expect_message(db <- load_austraits(version = "9.9.9"), "now holds 1 database")
   expect_equal(db$traits$value, 1:3)
-  expect_true(file.exists(file.path(cache, basename(rds))))
-  # listed as a cached database, so clear_database_cache() can delete it
-  expect_identical(list_cached_databases()$file, basename(rds))
+  expect_true(file.exists(file.path(x$cache, x$file)))
+  # ...and lists it as a cached database, so clear_database_cache() can delete it
+  expect_identical(list_cached_databases()$file, x$file)
+
+  # ...and marks it used when loaded again, for clear_database_cache(older_than)
+  Sys.setFileTime(file.path(x$cache, x$file), Sys.time() - 30 * 86400)
+  db <- suppressMessages(load_austraits(version = "9.9.9", update = FALSE))
+  expect_lt(difftime(Sys.time(), list_cached_databases()$last_used, units = "days"), 1)
 })
 
-test_that("load_austraits() says once that 'data/austraits' is no longer the default", {
+test_that("load_austraits() and get_versions() say once that 'data/austraits' is no longer the default", {
+  x <- local_cache_and_release()
   wd <- tempfile("project")
   dir.create(file.path(wd, "data", "austraits"), recursive = TRUE)
-  on.exit(unlink(wd, recursive = TRUE), add = TRUE)
+  withr::defer(unlink(wd, recursive = TRUE))
   withr::local_dir(wd)
   rlang::reset_message_verbosity("austraits_old_default_folder")
+  withr::defer(rlang::reset_message_verbosity("austraits_old_default_folder"))
 
-  expect_message(expect_true(inform_old_default_folder()), "path = \"data/austraits\"")
-  expect_no_message(inform_old_default_folder())
+  # Not when the folder is given
+  expect_no_message(get_versions(path = file.path("data", "austraits")))
+  expect_false(any(grepl("no longer|not in 'data/austraits'",
+                         testthat::capture_messages(load_austraits(version = "9.9.9", path = "data/austraits")))))
 
+  # By default, once a session
+  expect_message(load_austraits(version = "9.9.9"), "path = \"data/austraits\"")
+  expect_false(any(grepl("not in 'data/austraits'", testthat::capture_messages(load_austraits(version = "9.9.9")))))
+  rlang::reset_message_verbosity("austraits_old_default_folder")
+  expect_message(get_versions(), "path = \"data/austraits\"")
+
+  # Not when data/austraits is the cache folder
+  rlang::reset_message_verbosity("austraits_old_default_folder")
+  withr::local_options(traits.use.cache_dir = file.path(wd, "data", "austraits"))
+  expect_false(inform_old_default_folder())
+
+  # Nor when there is no data/austraits
+  withr::local_options(traits.use.cache_dir = x$cache)
   unlink(file.path(wd, "data"), recursive = TRUE)
   expect_false(inform_old_default_folder())
 })

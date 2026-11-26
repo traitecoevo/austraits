@@ -118,11 +118,15 @@ resolve_path <- function(path) {
 }
 
 #' Tell a user with AusTraits in the old default folder, once a session, that
-#' it is no longer used by default
+#' it is no longer used by default (unless it is the cache folder, set with
+#' the `traits.use.cache_dir` option)
 #' @noRd
 #' @keywords internal
 inform_old_default_folder <- function() {
-  if(!dir.exists(file.path("data", "austraits"))) {
+  old <- file.path("data", "austraits")
+  if(!dir.exists(old) ||
+     identical(normalizePath(old, winslash = "/", mustWork = FALSE),
+               normalizePath(traits.use::database_cache_dir(), winslash = "/", mustWork = FALSE))) {
     return(invisible(FALSE))
   }
   rlang::inform(
@@ -241,6 +245,9 @@ format_versions <- function(versions) {
 
 get_versions <- function(path = NULL, update = TRUE){
 
+  if(is.null(path)) {
+    inform_old_default_folder()
+  }
   path <- resolve_path(path)
 
   # Does the path exist?
