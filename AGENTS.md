@@ -8,7 +8,7 @@ the generic code for any `traits.build` database (split out in 2026, austraits#1
 
 - **Code:** `R/load_austraits.R` (`load_austraits()`, `get_versions()`, `get_version_latest()`:
   the releases from `traits.use::list_versions()`, saved in `austraits_versions.json` for offline use, then
-  `traits.use::load_database()`; the `austraits.json` saved by austraits 3.x is still read, so its caches load offline), `R/plot_locations.R` (wraps
+  `traits.use::load_database()`; since 4.1.0 (decided 2026-11-27, Daniel) the cache folder, traits.use's `database_cache_dir()`, is always used: `path` only adds a copy (and can seed the cache), as in `load_database()`; the list of releases is saved in the cache (and in `path`; a list in `path` is read only when Zenodo is unreachable or `update = FALSE` and never copied into the cache, traits.use's invariant), and `load_austraits()` (`update = NULL`) fetches it afresh when older than traits.use's `traits.use.update_after_days` option (60 days), read here too so both age alike, or when it lacks the release asked for; `get_versions()` and `get_version_latest()` called directly default to `update = TRUE` (decided 2026-11-27, Daniel: "latest" must be current, at ~5 s a call); the `austraits.json` saved by austraits 3.x is still read, so its caches load offline), `R/plot_locations.R` (wraps
   `traits.use::plot_locations()` with the map of Australia, `australia_map_raster` in
   `R/sysdata.rda`), `R/reexports.R` (re-exports every other traits.use export).
 - **Generic code belongs in traits.use, not here.** Fix bugs in `extract_*()`, `join_*()` etc. there.

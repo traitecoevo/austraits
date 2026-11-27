@@ -4,14 +4,20 @@
 \alias{get_version_latest}
 \title{Retrieve the latest version of AusTraits}
 \usage{
-get_version_latest(path = "data/austraits", update = TRUE)
+get_version_latest(path = NULL, update = TRUE)
 }
 \arguments{
-\item{path}{A file path where AusTraits was previously downloaded}
+\item{path}{a folder to also save the list in, as for \code{\link[=load_austraits]{load_austraits()}}.
+A list saved there before (e.g. by an earlier version of austraits) is
+used when the cache folder has none and Zenodo cannot be reached, or with
+\code{update = FALSE}.}
 
-\item{update}{if \code{TRUE}, the list is fetched from Zenodo; if that fails
-(e.g. offline), the copy saved in \code{path} is used. With \code{FALSE}, the saved
-copy is used, if there is one.}
+\item{update}{whether to fetch the list from Zenodo afresh: \code{TRUE} (the
+default) always, \code{FALSE} never if there is a saved copy, and \code{NULL} only
+when the saved copy is more than 60 days old
+(\code{options(traits.use.update_after_days = )} changes this), as
+\code{\link[=load_austraits]{load_austraits()}} does. If fetching fails (e.g. offline), the saved copy
+is used, with a message.}
 }
 \value{
 character string of latest version

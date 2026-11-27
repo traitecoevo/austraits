@@ -31,18 +31,18 @@ library(austraits)
 
 We will use the latest AusTraits database as an example database. 
 
-We can download the AusTraits database by calling `load_austraits()`. This function will download AusTraits to a specified path. By default it is `data/austraits`. The function will reload the database from this location in the future, downloading it again only if the copy there does not match the release's checksum. `update = TRUE` (the default) refreshes the list of releases from [Zenodo](https://zenodo.org/record/3568429); `update = FALSE` works offline. Note that `load_austraits()` will happily accept a DOI of a particular version.
+We can download the AusTraits database by calling `load_austraits()`. It downloads AusTraits to a folder shared by all your projects, given by `database_cache_dir()`, so each release is downloaded once per computer; give a `path`, such as `path = "data/austraits"`, to also keep a copy with a project. The function will reload the database from this folder in the future, downloading it again only if the copy there does not match the release's checksum. `list_cached_databases()` lists the releases in the folder, and `clear_database_cache()` deletes the ones you no longer use. The list of releases from [Zenodo](https://zenodo.org/record/3568429) is saved too, and fetched afresh once it is more than 60 days old or lacks the release you ask for; `update = TRUE` fetches it now, and `update = FALSE` works offline. Note that `load_austraits()` will happily accept a DOI of a particular version.
 
 
 ``` r
-austraits <- load_austraits(version = "6.0.0", path = "data/austraits")
+austraits <- load_austraits(version = "6.0.0")
 ```
 
 You can check out different versions of AusTraits and their associated DOI by using: 
 
 
 ``` r
-get_versions(path = "data/austraits")
+get_versions()
 ```
 
 
@@ -733,7 +733,7 @@ trait_means_dictionary()
 Releases of AusTraits after 7.0.0 also publish these means for every trait, computed from all their records, as `austraits-<version>-observed-means.rds` (and `.csv.gz`). `load_austraits(means = TRUE)` downloads just that file, which is much smaller than the database:
 
 ``` r
-means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
+means <- load_austraits(version = "8.0.0", means = TRUE)
 ```
 
 ## Reshaping the traits table

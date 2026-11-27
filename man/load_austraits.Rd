@@ -7,8 +7,8 @@
 load_austraits(
   doi = NULL,
   version = NULL,
-  path = "data/austraits",
-  update = TRUE,
+  path = NULL,
+  update = NULL,
   means = FALSE
 )
 }
@@ -17,13 +17,20 @@ load_austraits(
 
 \item{version}{character string - version number of database, e.g. "7.0.0"}
 
-\item{path}{file path to where AusTraits will be downloaded}
+\item{path}{a folder, such as \code{"data/austraits"}, to keep a copy of the
+release in (with the list of releases, so the folder loads offline on its
+own), besides the cache folder. If the folder already holds the release
+(e.g. saved there by an earlier version of austraits) and it matches
+Zenodo's checksum, it is copied into the cache rather than downloaded
+again; if Zenodo cannot be reached, the folder is used on its own. \code{NULL}
+(the default) keeps only the cache copy.}
 
-\item{update}{if \code{TRUE}, the list of AusTraits releases (see
-\code{\link[=get_versions]{get_versions()}}) and the release's metadata are downloaded afresh; if
-that fails (e.g. offline), the copies saved in \code{path} are used. With
-\code{FALSE}, the saved copies are used without contacting Zenodo, so a release
-loaded before loads offline.}
+\item{update}{whether to fetch the list of releases and the release's
+metadata from Zenodo afresh: \code{NULL} (the default) when the saved copies
+are more than 60 days old (\code{options(traits.use.update_after_days = )}
+changes this), \code{TRUE} always, \code{FALSE} never if there are saved copies, so
+a release loaded before loads offline. If fetching fails (e.g. offline),
+the saved copies are used.}
 
 \item{means}{if \code{TRUE}, load the release's observed means rather than the
 database; \code{\link[traits.use:trait_means_dictionary]{traits.use::trait_means_dictionary()}} defines their columns.
@@ -40,10 +47,24 @@ a tibble of the observed means.
 \description{
 Finds the requested release of AusTraits on Zenodo and loads it with
 \code{\link[traits.use:load_database]{traits.use::load_database()}}, which downloads the relational database
-\code{.rds} to \code{path} (if it is not already there, or if the copy there does
-not match the release's md5 checksum) and loads it.
+\code{.rds} (if it has not been downloaded before, or the copy does not match
+the release's md5 checksum) and loads it.
 }
 \details{
+The download is kept in the folder that traits.use shares between all your
+projects (see \code{\link[traits.use:database_cache_dir]{traits.use::database_cache_dir()}}), so each release is
+downloaded once per computer. Use \code{\link[traits.use:list_cached_databases]{traits.use::list_cached_databases()}} and
+\code{\link[traits.use:clear_database_cache]{traits.use::clear_database_cache()}} to see and delete what is there. Give
+a \code{path}, such as \code{"data/austraits"} (the default before austraits 4.1.0),
+to also keep a copy with a project.
+
+The list of releases (see \code{\link[=get_versions]{get_versions()}}) is saved with the database and
+fetched afresh once it is more than 60 days old, or when it does not have
+the release asked for, so a new release is found without contacting
+Zenodo on every load. Loading a release other than the latest says so,
+once a session. A release downloaded before loads offline however old the
+saved list is, with a message that Zenodo could not be reached.
+
 With \code{means = TRUE} it loads the release's observed means instead: one row
 per taxon and trait, computed from the release's records with
 \code{\link[traits.use:summarise_trait_means]{traits.use::summarise_trait_means()}} and published with it as
@@ -53,10 +74,14 @@ are a smaller download than the database. To have both, load each.
 }
 \examples{
 \dontrun{
+# Downloaded once to the cache folder shared by all your projects
+austraits <- load_austraits(version = "7.0.0")
+
+# Also keeping a copy with a project
 austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
 
 # The observed means of each taxon and trait, published with releases after 7.0.0
-means <- load_austraits(version = "8.0.0", path = "data/austraits", means = TRUE)
+means <- load_austraits(version = "8.0.0", means = TRUE)
 }
 }
 \seealso{
