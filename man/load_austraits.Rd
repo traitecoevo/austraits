@@ -20,9 +20,10 @@ load_austraits(
 \item{path}{a folder, such as \code{"data/austraits"}, to keep a copy of the
 release in (with the list of releases, so the folder loads offline on its
 own), besides the cache folder. If the folder already holds the release
-(e.g. saved there by an earlier version of austraits), it is copied into
-the cache rather than downloaded again. \code{NULL} (the default) keeps only
-the cache copy.}
+(e.g. saved there by an earlier version of austraits) and it matches
+Zenodo's checksum, it is copied into the cache rather than downloaded
+again; if Zenodo cannot be reached, the folder is used on its own. \code{NULL}
+(the default) keeps only the cache copy.}
 
 \item{update}{whether to fetch the list of releases and the release's
 metadata from Zenodo afresh: \code{NULL} (the default) when the saved copies

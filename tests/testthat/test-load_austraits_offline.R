@@ -47,6 +47,9 @@ test_that("load_austraits() and get_versions() use the traits.use cache folder b
   # ...and lists it as a cached database, so clear_database_cache() can delete it
   expect_identical(list_cached_databases()$file, x$file)
 
+  # A doi can be given as a url, as load_database() takes it
+  expect_equal(suppressMessages(load_austraits(doi = "https://doi.org/10.5281/zenodo.99999997"))$traits$value, 1:3)
+
   # ...and marks it used when loaded again, for clear_database_cache(older_than)
   Sys.setFileTime(file.path(x$cache, x$file), Sys.time() - 30 * 86400)
   db <- suppressMessages(load_austraits(version = "9.9.9", update = FALSE))
@@ -206,14 +209,25 @@ test_that("A path keeps a copy of the release and the list, which loads offline 
   expect_setequal(list.files(project), c(x$file, "10.5281_zenodo.99999997.json", "austraits_versions.json"))
   expect_true(file.exists(file.path(x$cache, x$file)))
 
-  # On another computer, or after clearing the cache, and offline
+  # On another computer, or after clearing the cache, and offline: the
+  # folder loads on its own, and the cache takes nothing Zenodo has not confirmed
   unlink(x$cache, recursive = TRUE)
+  online <- list(list_versions = traits.use:::list_versions, resolve_doi_files = traits.use:::resolve_doi_files)
   local_mocked_bindings(
     list_versions = function(...) stop("tried to reach Zenodo"),
     resolve_doi_files = function(...) stop("tried to reach Zenodo"),
     download_database = function(...) stop("tried to download"),
     .package = "traits.use"
   )
+  msgs <- testthat::capture_messages(offline <- load_austraits(version = "9.9.9", path = project))
+  expect_equal(offline, db)
+  expect_true(any(grepl("using the list saved in .*project", msgs)))
+  expect_length(list.files(x$cache), 0)
+
+  # Online again, Zenodo confirms the folder's copy, which fills the cache
+  # without a download
+  local_mocked_bindings(list_versions = online$list_versions, resolve_doi_files = online$resolve_doi_files,
+                        .package = "traits.use")
   expect_equal(suppressMessages(load_austraits(version = "9.9.9", path = project)), db)
   expect_true(file.exists(file.path(x$cache, x$file)))
 })

@@ -30,9 +30,10 @@
 #' @param path a folder, such as `"data/austraits"`, to keep a copy of the
 #'   release in (with the list of releases, so the folder loads offline on its
 #'   own), besides the cache folder. If the folder already holds the release
-#'   (e.g. saved there by an earlier version of austraits), it is copied into
-#'   the cache rather than downloaded again. `NULL` (the default) keeps only
-#'   the cache copy.
+#'   (e.g. saved there by an earlier version of austraits) and it matches
+#'   Zenodo's checksum, it is copied into the cache rather than downloaded
+#'   again; if Zenodo cannot be reached, the folder is used on its own. `NULL`
+#'   (the default) keeps only the cache copy.
 #' @param update whether to fetch the list of releases and the release's
 #'   metadata from Zenodo afresh: `NULL` (the default) when the saved copies
 #'   are more than 60 days old (`options(traits.use.update_after_days = )`
@@ -82,14 +83,21 @@ load_austraits <- function(doi = NULL, version = NULL, path = NULL, update = NUL
     version <- stringr::str_remove_all(version, "v")
   }
 
+  # A doi given as a url or with "doi:", as traits.use::load_database() takes it
+  if(!is.null(doi)) {
+    doi <- stringr::str_remove(doi, stringr::regex("^(https?://)?(dx\\.)?doi\\.org/", ignore_case = TRUE)) |>
+      stringr::str_remove(stringr::regex("^doi:", ignore_case = TRUE)) |>
+      stringr::str_remove("/+$")
+  }
+
   # The list of releases, fetched afresh if it lacks the release asked for
   # (a release newer than the saved list)
   ret <- get_versions(path = path, update = update)
-  missing <- function(ret) if(!is.null(doi)) !doi %in% ret$doi else !version %in% ret$version
-  if(missing(ret) && is.null(update)) {
+  not_listed <- function(ret) if(!is.null(doi)) !doi %in% ret$doi else !version %in% ret$version
+  if(not_listed(ret) && is.null(update)) {
     ret <- get_versions(path = path, update = TRUE)
   }
-  if(missing(ret)) {
+  if(not_listed(ret)) {
     rlang::abort(c("Requested version/doi is incorrect!",
                    i = if(isFALSE(update)) "The saved list of releases may be out of date: try `update = TRUE`."))
   }
@@ -270,7 +278,8 @@ format_versions <- function(versions) {
 #'
 #' @param path a folder to also save the list in, as for [load_austraits()].
 #'   A list saved there before (e.g. by an earlier version of austraits) is
-#'   used when the cache folder has none.
+#'   used when the cache folder has none and Zenodo cannot be reached, or with
+#'   `update = FALSE`.
 #' @param update whether to fetch the list from Zenodo afresh: `NULL` (the
 #'   default) when the saved copy is more than 60 days old
 #'   (`options(traits.use.update_after_days = )` changes this), `TRUE` always,
@@ -296,12 +305,17 @@ get_versions <- function(path = NULL, update = NULL){
 
   cache <- traits.use::database_cache_dir()
 
-  # The saved list: the cache's, else one saved in `path`
-  saved <- saved_versions_file(cache)
+  # The saved list: the cache's, which came from Zenodo, else one saved in
+  # `path`. As for a release's record in traits.use::load_database(), a list
+  # from a project folder is used only when Zenodo cannot be reached or is
+  # not to be asked (`update = FALSE`), and never copied into the cache.
+  in_cache <- saved_versions_file(cache)
+  saved <- in_cache
   if(is.null(saved) && !is.null(path)) {
     saved <- saved_versions_file(path)
   }
-  if(!is.null(saved) && !needs_update(saved, update)) {
+  fetch <- if(isFALSE(update)) is.null(saved) else is.null(in_cache) || needs_update(in_cache, update)
+  if(!fetch) {
     return(read_saved_versions(saved))
   }
 

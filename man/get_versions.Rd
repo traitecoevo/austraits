@@ -9,7 +9,8 @@ get_versions(path = NULL, update = NULL)
 \arguments{
 \item{path}{a folder to also save the list in, as for \code{\link[=load_austraits]{load_austraits()}}.
 A list saved there before (e.g. by an earlier version of austraits) is
-used when the cache folder has none.}
+used when the cache folder has none and Zenodo cannot be reached, or with
+\code{update = FALSE}.}
 
 \item{update}{whether to fetch the list from Zenodo afresh: \code{NULL} (the
 default) when the saved copy is more than 60 days old

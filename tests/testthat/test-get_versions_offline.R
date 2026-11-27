@@ -109,9 +109,21 @@ test_that("A path gets a copy of the list, and a list saved there stands in for 
   expect_true(file.exists(file.path(path, "austraits_versions.json")))
   expect_true(file.exists(file.path(cache, "austraits_versions.json")))
 
-  # e.g. a project folder from austraits 4.0, on a computer with an empty cache
+  # e.g. a project folder from austraits 4.0, on a computer with an empty
+  # cache: its list is used when Zenodo cannot be reached, or is not asked
   unlink(file.path(cache, "austraits_versions.json"))
   local_mocked_bindings(list_versions = function(doi) stop("tried to reach Zenodo"), .package = "traits.use")
-  expect_identical(get_versions(path = path), x)
+  expect_message(y <- get_versions(path = path), "using the list saved in .*project")
+  expect_identical(y, x)
+  expect_no_message(expect_identical(get_versions(path = path, update = FALSE), x))
+  expect_false(file.exists(file.path(cache, "austraits_versions.json")))
   expect_error(get_versions(), "tried to reach Zenodo")
+
+  # Online, Zenodo's list is used, whatever the folder's says and however new
+  # its file is
+  jsonlite::write_json(data.frame(publication_date = "2031-01-01", doi = "10.5281/zenodo.1", version = "99.0.0", id = "1"),
+                       file.path(path, "austraits_versions.json"))
+  local_mocked_bindings(list_versions = function(doi) zenodo_listing(), .package = "traits.use")
+  expect_identical(get_versions(path = path), x)
+  expect_equal(get_version_latest(path = path), "7.0.0")
 })
