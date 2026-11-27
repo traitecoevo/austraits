@@ -4,16 +4,18 @@
 \alias{get_version_latest}
 \title{Retrieve the latest version of AusTraits}
 \usage{
-get_version_latest(path = NULL, update = TRUE)
+get_version_latest(path = NULL, update = NULL)
 }
 \arguments{
-\item{path}{folder the list is saved in, as for \code{\link[=load_austraits]{load_austraits()}}: if
-\code{NULL} (the default), the folder shared by all your projects, given by
-\code{\link[traits.use:database_cache_dir]{traits.use::database_cache_dir()}}.}
+\item{path}{a folder to also save the list in, as for \code{\link[=load_austraits]{load_austraits()}}.
+A list saved there before (e.g. by an earlier version of austraits) is
+used when the cache folder has none.}
 
-\item{update}{if \code{TRUE}, the list is fetched from Zenodo; if that fails
-(e.g. offline), the copy saved in \code{path} is used. With \code{FALSE}, the saved
-copy is used, if there is one.}
+\item{update}{whether to fetch the list from Zenodo afresh: \code{NULL} (the
+default) when the saved copy is more than 60 days old
+(\code{options(traits.use.update_after_days = )} changes this), \code{TRUE} always,
+\code{FALSE} never if there is a saved copy. If fetching fails (e.g. offline),
+the saved copy is used.}
 }
 \value{
 character string of latest version

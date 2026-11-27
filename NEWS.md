@@ -1,6 +1,9 @@
 # austraits 4.1.0
 
-- `load_austraits()`, `get_versions()` and `get_version_latest()` keep AusTraits in the folder that traits.use shares between all your projects, `database_cache_dir()`, as `traits.use::load_database()` does, instead of `data/austraits` in the working directory: each release is downloaded once per computer, and `list_cached_databases()` and `clear_database_cache()` see it. `path = NULL` is now the default; give `path = "data/austraits"` to keep using a copy there. If a `data/austraits` folder exists, `load_austraits()` says so once per session.
+- `load_austraits()`, `get_versions()` and `get_version_latest()` always keep AusTraits in the folder that traits.use shares between all your projects, `database_cache_dir()`, as `traits.use::load_database()` does from traits.use 1.1.0, instead of in `data/austraits` in the working directory. Each release is downloaded once per computer, and `list_cached_databases()` and `clear_database_cache()` see it. `path` is now `NULL` by default; give `path = "data/austraits"` to also keep a copy there (the release, its record and the list of releases, so the folder loads offline on its own). A release already in `path` is copied into the cache rather than downloaded again. If a `data/austraits` folder exists and no `path` is given, they say so once a session.
+- The list of releases is no longer fetched from Zenodo on every call: the saved list is used until it is more than 60 days old (`options(traits.use.update_after_days = )`), or until you ask `load_austraits()` for a release it does not have. `update = NULL` is the new default; `update = TRUE` fetches it now, and `update = FALSE` works offline, as before.
+- `load_austraits()` says, once a session, when the release it loads is not the latest.
+- Needs traits.use 1.1.0.
 
 # austraits 4.0.1
 

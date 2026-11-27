@@ -2,16 +2,21 @@
 #'
 #' Finds the requested release of AusTraits on Zenodo and loads it with
 #' [traits.use::load_database()], which downloads the relational database
-#' `.rds` to `path` (if it is not already there, or if the copy there does
-#' not match the release's md5 checksum) and loads it.
+#' `.rds` (if it has not been downloaded before, or the copy does not match
+#' the release's md5 checksum) and loads it.
 #'
-#' By default the download is kept in the folder that traits.use shares
-#' between all your projects (see [traits.use::database_cache_dir()]), so each
-#' release is downloaded once per computer. Use
-#' [traits.use::list_cached_databases()] and
-#' [traits.use::clear_database_cache()] to see and delete what is there. Give a `path`,
-#' such as `"data/austraits"` (the default before austraits 4.1.0), to keep a
-#' copy with a project instead.
+#' The download is kept in the folder that traits.use shares between all your
+#' projects (see [traits.use::database_cache_dir()]), so each release is
+#' downloaded once per computer. Use [traits.use::list_cached_databases()] and
+#' [traits.use::clear_database_cache()] to see and delete what is there. Give
+#' a `path`, such as `"data/austraits"` (the default before austraits 4.1.0),
+#' to also keep a copy with a project.
+#'
+#' The list of releases (see [get_versions()]) is saved with the database and
+#' fetched afresh once it is more than 60 days old, or when it does not have
+#' the release asked for, so a new release is found without contacting
+#' Zenodo on every load. Loading a release other than the latest says so,
+#' once a session.
 #'
 #' With `means = TRUE` it loads the release's observed means instead: one row
 #' per taxon and trait, computed from the release's records with
@@ -22,14 +27,18 @@
 #'
 #' @param version character string - version number of database, e.g. "7.0.0"
 #' @param doi character string - doi of particular version
-#' @param path folder AusTraits is downloaded to and cached in. If `NULL` (the
-#'   default), the folder shared by all your projects, given by
-#'   [traits.use::database_cache_dir()].
-#' @param update if `TRUE`, the list of AusTraits releases (see
-#'   [get_versions()]) and the release's metadata are downloaded afresh; if
-#'   that fails (e.g. offline), the copies saved in `path` are used. With
-#'   `FALSE`, the saved copies are used without contacting Zenodo, so a release
-#'   loaded before loads offline.
+#' @param path a folder, such as `"data/austraits"`, to keep a copy of the
+#'   release in (with the list of releases, so the folder loads offline on its
+#'   own), besides the cache folder. If the folder already holds the release
+#'   (e.g. saved there by an earlier version of austraits), it is copied into
+#'   the cache rather than downloaded again. `NULL` (the default) keeps only
+#'   the cache copy.
+#' @param update whether to fetch the list of releases and the release's
+#'   metadata from Zenodo afresh: `NULL` (the default) when the saved copies
+#'   are more than 60 days old (`options(traits.use.update_after_days = )`
+#'   changes this), `TRUE` always, `FALSE` never if there are saved copies, so
+#'   a release loaded before loads offline. If fetching fails (e.g. offline),
+#'   the saved copies are used.
 #' @param means if `TRUE`, load the release's observed means rather than the
 #'   database; [traits.use::trait_means_dictionary()] defines their columns.
 #'   A release from before the means were published gives an error saying so.
@@ -50,22 +59,20 @@
 #' # Downloaded once to the cache folder shared by all your projects
 #' austraits <- load_austraits(version = "7.0.0")
 #'
-#' # Or kept with a project
+#' # Also keeping a copy with a project
 #' austraits <- load_austraits(version = "7.0.0", path = "data/austraits")
 #'
 #' # The observed means of each taxon and trait, published with releases after 7.0.0
 #' means <- load_austraits(version = "8.0.0", means = TRUE)
 #' }
 
-load_austraits <- function(doi = NULL, version = NULL, path = NULL, update = TRUE, means = FALSE){
+load_austraits <- function(doi = NULL, version = NULL, path = NULL, update = NULL, means = FALSE){
   # Is either doi or version supplied?
   if(is.null(doi) & is.null(version)){
     stop("Please supply a doi or version! Don't know which one you are after? Try get_versions()!")
   }
-
-  # The folder the list of releases is saved in; `path` itself goes to
-  # load_database(), for which NULL means the cache folder
-  folder <- resolve_path(path)
+  check_path(path)
+  check_update(update)
   if(is.null(path)) {
     inform_old_default_folder()
   }
@@ -75,46 +82,74 @@ load_austraits <- function(doi = NULL, version = NULL, path = NULL, update = TRU
     version <- stringr::str_remove_all(version, "v")
   }
 
-  # The list of releases
-  ret <- get_versions(path = folder, update = update)
+  # The list of releases, fetched afresh if it lacks the release asked for
+  # (a release newer than the saved list)
+  ret <- get_versions(path = path, update = update)
+  missing <- function(ret) if(!is.null(doi)) !doi %in% ret$doi else !version %in% ret$version
+  if(missing(ret) && is.null(update)) {
+    ret <- get_versions(path = path, update = TRUE)
+  }
+  if(missing(ret)) {
+    rlang::abort(c("Requested version/doi is incorrect!",
+                   i = if(isFALSE(update)) "The saved list of releases may be out of date: try `update = TRUE`."))
+  }
 
   # If only doi is provided, match it with its version number
   if(! is.null(doi)){
-    if(! doi %in% ret$doi){
-      rlang::abort(c("Requested version/doi is incorrect!",
-                     i = if(! update) "The list of releases saved in `path` may be out of date: try `update = TRUE`."))
-    }
     version <- ret$version[ret$doi == doi]
   }
-
-  # Check if version/doi is available
-  if(! version %in% ret$version){
-    rlang::abort(c("Requested version/doi is incorrect!",
-                   i = if(! update) "The list of releases saved in `path` may be out of date: try `update = TRUE`."))
-  }
-
   doi <- ret$doi[ret$version == version]
+
+  if(version != ret$version[1]) {
+    rlang::inform(paste0("AusTraits ", ret$version[1], " is the latest release; loading ", version, "."),
+                  .frequency = "once", .frequency_id = paste0("austraits_not_latest_", version))
+  }
 
   # A release cached by austraits 3.x has no record file for load_database(),
   # but the austraits.json it saved lists the release's files, so offline it
   # still loads
-  save_legacy_record_json(doi, folder)
+  if(!is.null(path)) {
+    save_legacy_record_json(doi, path)
+  }
 
   # Download (if needed) and load the release
   traits.use::load_database(doi = doi, path = path, update = update, means = means)
 }
 
-#' The folder for `path`: the traits.use cache folder if NULL
+#' Check `path`: NULL or a single folder path
 #' @noRd
 #' @keywords internal
-resolve_path <- function(path) {
-  if(is.null(path)) {
-    return(traits.use::database_cache_dir())
+check_path <- function(path) {
+  if(!is.null(path) && (!is.character(path) || length(path) != 1 || is.na(path) || !nzchar(path))) {
+    rlang::abort("`path` must be a single folder path, or NULL for the cache folder only.")
   }
-  if(!is.character(path) || length(path) != 1 || is.na(path) || !nzchar(path)) {
-    rlang::abort("`path` must be a single folder path, or NULL for the cache folder.")
+  invisible(path)
+}
+
+#' Check `update`: TRUE, FALSE or NULL
+#' @noRd
+#' @keywords internal
+check_update <- function(update) {
+  if(!is.null(update) && (!is.logical(update) || length(update) != 1 || is.na(update))) {
+    rlang::abort("`update` must be TRUE, FALSE or NULL (fetch the list of releases when the saved copy is old).")
   }
-  path
+  invisible(update)
+}
+
+#' Should a saved file be fetched afresh, given `update`?
+#'
+#' As traits.use's needs_update(), with the same option, so the list of
+#' releases and the records of the releases age alike.
+#' @noRd
+#' @keywords internal
+needs_update <- function(file, update) {
+  if(!is.null(update)) return(isTRUE(update))
+  days <- getOption("traits.use.update_after_days", 60)
+  if(!is.numeric(days) || length(days) != 1 || is.na(days) || days < 0) {
+    rlang::abort("The `traits.use.update_after_days` option must be a number of days.")
+  }
+  age <- difftime(Sys.time(), file.mtime(file), units = "days")
+  is.na(age) || as.numeric(age) > days
 }
 
 #' Tell a user with AusTraits in the old default folder, once a session, that
@@ -131,7 +166,7 @@ inform_old_default_folder <- function() {
   }
   rlang::inform(
     c("AusTraits is now kept in the folder shared by all your projects (see `database_cache_dir()`), not in 'data/austraits'.",
-      i = "To keep using the copy in 'data/austraits', give `path = \"data/austraits\"`; otherwise that folder can be deleted."),
+      i = "To also keep a copy in 'data/austraits' (and use the releases already there), give `path = \"data/austraits\"`; otherwise that folder can be deleted."),
     .frequency = "once", .frequency_id = "austraits_old_default_folder"
   )
   invisible(TRUE)
@@ -172,19 +207,29 @@ save_legacy_record_json <- function(doi, path) {
   TRUE
 }
 
-#' The releases of AusTraits saved in `path`
+#' The file in which a folder holds a saved list of releases
 #'
-#' Saved by get_versions() in austraits_versions.json, or, for a folder last
+#' austraits_versions.json, saved by get_versions(), or, for a folder last
 #' used by austraits 3.x, its austraits.json (Zenodo's own listing)
-#' @return the table get_versions() returns, or NULL if neither file is there
+#' @return the file's path, or NULL if neither is there
 #' @noRd
 #' @keywords internal
-read_saved_versions <- function(path) {
-  file_versions <- file.path(path, "austraits_versions.json")
-  file_legacy <- file.path(path, "austraits.json")
+saved_versions_file <- function(path) {
+  for(file in file.path(path, c("austraits_versions.json", "austraits.json"))) {
+    if(file.exists(file)) return(file)
+  }
+  NULL
+}
 
-  if(file.exists(file_versions)) {
-    versions <- jsonlite::fromJSON(file_versions)
+#' Read a saved list of releases
+#'
+#' @param file a file found by saved_versions_file()
+#' @return the table get_versions() returns
+#' @noRd
+#' @keywords internal
+read_saved_versions <- function(file) {
+  if(basename(file) == "austraits_versions.json") {
+    versions <- jsonlite::fromJSON(file)
     return(dplyr::tibble(
       publication_date = as.Date(versions$publication_date),
       doi = versions$doi,
@@ -193,16 +238,12 @@ read_saved_versions <- function(path) {
     ))
   }
 
-  if(file.exists(file_legacy)) {
-    hits <- jsonlite::fromJSON(file_legacy)$hits$hits
-    return(format_versions(dplyr::tibble(
-      version = hits$metadata$version,
-      doi = hits$doi,
-      publication_date = as.Date(hits$metadata$publication_date)
-    )))
-  }
-
-  NULL
+  hits <- jsonlite::fromJSON(file)$hits$hits
+  format_versions(dplyr::tibble(
+    version = hits$metadata$version,
+    doi = hits$doi,
+    publication_date = as.Date(hits$metadata$publication_date)
+  ))
 }
 
 #' Shape traits.use::list_versions() output as get_versions() always has
@@ -224,14 +265,17 @@ format_versions <- function(versions) {
 #'
 #' Lists the releases of AusTraits with [traits.use::list_versions()], which
 #' lists the releases of any traits.build database from its doi, and saves the
-#' list in `path` so it can be used offline.
+#' list in the cache folder (see [traits.use::database_cache_dir()]) so it can
+#' be used offline. The saved list is used until it is more than 60 days old.
 #'
-#' @param path folder the list is saved in, as for [load_austraits()]: if
-#'   `NULL` (the default), the folder shared by all your projects, given by
-#'   [traits.use::database_cache_dir()].
-#' @param update if `TRUE`, the list is fetched from Zenodo; if that fails
-#'   (e.g. offline), the copy saved in `path` is used. With `FALSE`, the saved
-#'   copy is used, if there is one.
+#' @param path a folder to also save the list in, as for [load_austraits()].
+#'   A list saved there before (e.g. by an earlier version of austraits) is
+#'   used when the cache folder has none.
+#' @param update whether to fetch the list from Zenodo afresh: `NULL` (the
+#'   default) when the saved copy is more than 60 days old
+#'   (`options(traits.use.update_after_days = )` changes this), `TRUE` always,
+#'   `FALSE` never if there is a saved copy. If fetching fails (e.g. offline),
+#'   the saved copy is used.
 #'
 #' @return A tibble of the releases, newest first: `publication_date`, `doi`,
 #'   `version` (e.g. "7.0.0") and `id` (the Zenodo record id). Pass a version to
@@ -243,30 +287,30 @@ format_versions <- function(versions) {
 #' }
 #' @export
 
-get_versions <- function(path = NULL, update = TRUE){
-
+get_versions <- function(path = NULL, update = NULL){
+  check_path(path)
+  check_update(update)
   if(is.null(path)) {
     inform_old_default_folder()
   }
-  path <- resolve_path(path)
 
-  # Does the path exist?
-  if(! file.exists(path)) {
-    dir.create(path, recursive=TRUE, showWarnings=FALSE) #Create folder
+  cache <- traits.use::database_cache_dir()
+
+  # The saved list: the cache's, else one saved in `path`
+  saved <- saved_versions_file(cache)
+  if(is.null(saved) && !is.null(path)) {
+    saved <- saved_versions_file(path)
   }
-
-  saved <- if(update) NULL else read_saved_versions(path)
-  if(! is.null(saved)) {
-    return(saved)
+  if(!is.null(saved) && !needs_update(saved, update)) {
+    return(read_saved_versions(saved))
   }
 
   versions <- tryCatch(
     format_versions(traits.use::list_versions(austraits_concept_doi)),
     error = function(e) {
-      saved <- read_saved_versions(path)
       if(is.null(saved)) stop(e)
       message("Could not list the releases of AusTraits (", conditionMessage(e),
-              "); using the list saved in '", path, "'")
+              "); using the list saved in '", dirname(saved), "'")
       NULL
     }
   )
@@ -274,12 +318,25 @@ get_versions <- function(path = NULL, update = TRUE){
   # Save only a list fetched from Zenodo, so a fallback never writes (and a
   # read-only folder still works offline)
   if(is.null(versions)) {
-    return(read_saved_versions(path))
+    return(read_saved_versions(saved))
   }
 
-  jsonlite::write_json(dplyr::mutate(versions, publication_date = as.character(.data$publication_date)),
-                       file.path(path, "austraits_versions.json"))
+  for(folder in c(cache, path)) {
+    save_versions(versions, folder)
+  }
   versions
+}
+
+#' Save the list of releases in a folder, if it can be written to
+#' @noRd
+#' @keywords internal
+save_versions <- function(versions, path) {
+  if(!dir.exists(path)) dir.create(path, recursive = TRUE, showWarnings = FALSE)
+  tryCatch({
+    jsonlite::write_json(dplyr::mutate(versions, publication_date = as.character(.data$publication_date)),
+                         file.path(path, "austraits_versions.json"))
+    TRUE
+  }, error = function(e) FALSE, warning = function(w) FALSE)
 }
 
 #' Retrieve the latest version of AusTraits
@@ -288,6 +345,6 @@ get_versions <- function(path = NULL, update = TRUE){
 #' @export
 #' @return character string of latest version
 
-get_version_latest <- function(path = NULL, update = TRUE){
+get_version_latest <- function(path = NULL, update = NULL){
   get_versions(path = path, update = update)$version[1]
 }

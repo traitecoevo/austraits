@@ -85,6 +85,7 @@ test_that("load_austraits() and get_versions() say once that 'data/austraits' is
 })
 
 test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x offline", {
+  local_test_cache()
   # austraits 3.x cached only austraits.json and the .rds, not the record
   # file traits.use::load_database() keeps; a fake release keeps this offline
   path <- tempfile("austraits")
@@ -129,7 +130,7 @@ test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x of
       list_versions = function(...) dplyr::tibble(version = "v9.9.9", doi = doi, publication_date = as.Date("2030-01-01")),
       .package = "traits.use"
     )
-    get_versions(path = path)
+    get_versions(path = path, update = TRUE)
   })
   unlink(file.path(path, "austraits.json"))
   expect_true(file.exists(file.path(path, "austraits_versions.json")))
@@ -137,7 +138,7 @@ test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x of
   expect_equal(db$traits$value, 1:3)
 
   # update = TRUE offline falls back to the saved copies, saying so
-  expect_message(db <- load_austraits(version = "9.9.9", path = path), "using the list saved")
+  expect_message(db <- load_austraits(version = "9.9.9", path = path, update = TRUE), "using the list saved")
   expect_equal(db$traits$value, 1:3)
 
   # A release missing from the saved list suggests updating it
@@ -145,6 +146,7 @@ test_that("load_austraits(update = FALSE) loads a cache made by austraits 3.x of
 })
 
 test_that("load_austraits(means = TRUE) loads the observed means published with a release", {
+  local_test_cache()
   skip_if_not_installed("readr")
   # A fake release, as AusTraits publishes them after 7.0.0: the database and
   # its observed means, served from local files to keep this offline
@@ -193,4 +195,57 @@ test_that("load_austraits(means = TRUE) loads the observed means published with 
   db <- suppressMessages(load_austraits(version = "9.9.9", path = path, update = FALSE))
   expect_s3_class(db, "traits.build")
   expect_equal(nrow(db$traits), nrow(database$traits))
+})
+
+test_that("A path keeps a copy of the release and the list, which loads offline on its own", {
+  x <- local_cache_and_release()
+  project <- tempfile("project")
+  withr::defer(unlink(project, recursive = TRUE))
+
+  db <- suppressMessages(load_austraits(version = "9.9.9", path = project))
+  expect_setequal(list.files(project), c(x$file, "10.5281_zenodo.99999997.json", "austraits_versions.json"))
+  expect_true(file.exists(file.path(x$cache, x$file)))
+
+  # On another computer, or after clearing the cache, and offline
+  unlink(x$cache, recursive = TRUE)
+  local_mocked_bindings(
+    list_versions = function(...) stop("tried to reach Zenodo"),
+    resolve_doi_files = function(...) stop("tried to reach Zenodo"),
+    download_database = function(...) stop("tried to download"),
+    .package = "traits.use"
+  )
+  expect_equal(suppressMessages(load_austraits(version = "9.9.9", path = project)), db)
+  expect_true(file.exists(file.path(x$cache, x$file)))
+})
+
+test_that("A release newer than the saved list is found, and loading an older one says so once", {
+  x <- local_cache_and_release()
+  rlang::reset_message_verbosity("austraits_not_latest_9.9.9")
+  withr::defer(rlang::reset_message_verbosity("austraits_not_latest_9.9.9"))
+  doi <- function(id) paste0("10.5281/zenodo.", id)
+  listing <- dplyr::tibble(version = "v9.9.8", doi = doi(99999998), publication_date = as.Date("2029-01-01"))
+  n <- 0
+  local_mocked_bindings(list_versions = function(...) { n <<- n + 1; listing }, .package = "traits.use")
+
+  # The saved list predates 9.9.9
+  get_versions()
+  expect_identical(n, 1)
+  listing <- dplyr::tibble(version = c("v9.9.10", "v9.9.9", "v9.9.8"),
+                           doi = doi(c(99999996, 99999997, 99999998)),
+                           publication_date = as.Date(c("2031-01-01", "2030-01-01", "2029-01-01")))
+
+  # so it is fetched afresh, and 9.9.10 is the latest
+  msgs <- testthat::capture_messages(db <- load_austraits(version = "9.9.9"))
+  expect_identical(n, 2)
+  expect_equal(db$traits$value, 1:3)
+  expect_true(any(grepl("AusTraits 9.9.10 is the latest release; loading 9.9.9", msgs)))
+  msgs <- testthat::capture_messages(load_austraits(version = "9.9.9"))
+  expect_false(any(grepl("is the latest release", msgs)))
+  expect_identical(n, 2)
+
+  # A release that is not in the fresh list either
+  expect_error(suppressMessages(load_austraits(version = "9.9.11")), "Requested version/doi is incorrect")
+  expect_identical(n, 3)
+  expect_error(load_austraits(version = "9.9.11", update = FALSE), "try `update = TRUE`")
+  expect_identical(n, 3)
 })
