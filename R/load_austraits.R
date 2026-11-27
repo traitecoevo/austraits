@@ -16,7 +16,8 @@
 #' fetched afresh once it is more than 60 days old, or when it does not have
 #' the release asked for, so a new release is found without contacting
 #' Zenodo on every load. Loading a release other than the latest says so,
-#' once a session.
+#' once a session. A release downloaded before loads offline however old the
+#' saved list is, with a message that Zenodo could not be reached.
 #'
 #' With `means = TRUE` it loads the release's observed means instead: one row
 #' per taxon and trait, computed from the release's records with
@@ -274,17 +275,20 @@ format_versions <- function(versions) {
 #' Lists the releases of AusTraits with [traits.use::list_versions()], which
 #' lists the releases of any traits.build database from its doi, and saves the
 #' list in the cache folder (see [traits.use::database_cache_dir()]) so it can
-#' be used offline. The saved list is used until it is more than 60 days old.
+#' be used offline. Called directly, they ask Zenodo each time, so the list
+#' and the latest release are current; [load_austraits()] uses the saved list
+#' until it is more than 60 days old or lacks the release asked for.
 #'
 #' @param path a folder to also save the list in, as for [load_austraits()].
 #'   A list saved there before (e.g. by an earlier version of austraits) is
 #'   used when the cache folder has none and Zenodo cannot be reached, or with
 #'   `update = FALSE`.
-#' @param update whether to fetch the list from Zenodo afresh: `NULL` (the
-#'   default) when the saved copy is more than 60 days old
-#'   (`options(traits.use.update_after_days = )` changes this), `TRUE` always,
-#'   `FALSE` never if there is a saved copy. If fetching fails (e.g. offline),
-#'   the saved copy is used.
+#' @param update whether to fetch the list from Zenodo afresh: `TRUE` (the
+#'   default) always, `FALSE` never if there is a saved copy, and `NULL` only
+#'   when the saved copy is more than 60 days old
+#'   (`options(traits.use.update_after_days = )` changes this), as
+#'   [load_austraits()] does. If fetching fails (e.g. offline), the saved copy
+#'   is used, with a message.
 #'
 #' @return A tibble of the releases, newest first: `publication_date`, `doi`,
 #'   `version` (e.g. "7.0.0") and `id` (the Zenodo record id). Pass a version to
@@ -296,7 +300,7 @@ format_versions <- function(versions) {
 #' }
 #' @export
 
-get_versions <- function(path = NULL, update = NULL){
+get_versions <- function(path = NULL, update = TRUE){
   check_path(path)
   check_update(update)
   if(is.null(path)) {
@@ -359,6 +363,6 @@ save_versions <- function(versions, path) {
 #' @export
 #' @return character string of latest version
 
-get_version_latest <- function(path = NULL, update = NULL){
+get_version_latest <- function(path = NULL, update = TRUE){
   get_versions(path = path, update = update)$version[1]
 }

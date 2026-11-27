@@ -4,7 +4,7 @@
 \alias{get_versions}
 \title{Print out AusTraits versions}
 \usage{
-get_versions(path = NULL, update = NULL)
+get_versions(path = NULL, update = TRUE)
 }
 \arguments{
 \item{path}{a folder to also save the list in, as for \code{\link[=load_austraits]{load_austraits()}}.
@@ -12,11 +12,12 @@ A list saved there before (e.g. by an earlier version of austraits) is
 used when the cache folder has none and Zenodo cannot be reached, or with
 \code{update = FALSE}.}
 
-\item{update}{whether to fetch the list from Zenodo afresh: \code{NULL} (the
-default) when the saved copy is more than 60 days old
-(\code{options(traits.use.update_after_days = )} changes this), \code{TRUE} always,
-\code{FALSE} never if there is a saved copy. If fetching fails (e.g. offline),
-the saved copy is used.}
+\item{update}{whether to fetch the list from Zenodo afresh: \code{TRUE} (the
+default) always, \code{FALSE} never if there is a saved copy, and \code{NULL} only
+when the saved copy is more than 60 days old
+(\code{options(traits.use.update_after_days = )} changes this), as
+\code{\link[=load_austraits]{load_austraits()}} does. If fetching fails (e.g. offline), the saved copy
+is used, with a message.}
 }
 \value{
 A tibble of the releases, newest first: \code{publication_date}, \code{doi},
@@ -27,7 +28,9 @@ A tibble of the releases, newest first: \code{publication_date}, \code{doi},
 Lists the releases of AusTraits with \code{\link[traits.use:list_versions]{traits.use::list_versions()}}, which
 lists the releases of any traits.build database from its doi, and saves the
 list in the cache folder (see \code{\link[traits.use:database_cache_dir]{traits.use::database_cache_dir()}}) so it can
-be used offline. The saved list is used until it is more than 60 days old.
+be used offline. Called directly, they ask Zenodo each time, so the list
+and the latest release are current; \code{\link[=load_austraits]{load_austraits()}} uses the saved list
+until it is more than 60 days old or lacks the release asked for.
 }
 \examples{
 \dontrun{

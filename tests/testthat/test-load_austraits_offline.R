@@ -263,3 +263,31 @@ test_that("A release newer than the saved list is found, and loading an older on
   expect_error(load_austraits(version = "9.9.11", update = FALSE), "try `update = TRUE`")
   expect_identical(n, 3)
 })
+
+test_that("A release downloaded before loads offline, however old the saved list and record", {
+  x <- local_cache_and_release()
+  db <- suppressMessages(load_austraits(version = "9.9.9"))
+
+  # A year later, and offline
+  old <- Sys.time() - 365 * 86400
+  Sys.setFileTime(file.path(x$cache, c("austraits_versions.json", "10.5281_zenodo.99999997.json", x$file)), old)
+  local_mocked_bindings(
+    list_versions = function(...) stop("tried to reach Zenodo"),
+    resolve_doi_files = function(...) stop("tried to reach Zenodo"),
+    download_database = function(...) stop("tried to download"),
+    .package = "traits.use"
+  )
+  msgs <- testthat::capture_messages(offline <- load_austraits(version = "9.9.9"))
+  expect_equal(offline, db)
+  # saying that Zenodo could not be reached, for the list and the record
+  expect_true(any(grepl("Could not list the releases of AusTraits.*using the list saved", msgs)))
+  expect_true(any(grepl("Could not update the record.*using the copy saved", msgs)))
+
+  # update = FALSE loads it without trying, so without the messages
+  msgs <- testthat::capture_messages(offline <- load_austraits(version = "9.9.9", update = FALSE))
+  expect_equal(offline, db)
+  expect_false(any(grepl("Could not", msgs)))
+
+  # as do get_versions() and get_version_latest(), from the saved list
+  expect_message(expect_equal(get_version_latest(), "9.9.9"), "using the list saved")
+})

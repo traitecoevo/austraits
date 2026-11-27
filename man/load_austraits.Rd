@@ -62,7 +62,8 @@ The list of releases (see \code{\link[=get_versions]{get_versions()}}) is saved 
 fetched afresh once it is more than 60 days old, or when it does not have
 the release asked for, so a new release is found without contacting
 Zenodo on every load. Loading a release other than the latest says so,
-once a session.
+once a session. A release downloaded before loads offline however old the
+saved list is, with a message that Zenodo could not be reached.
 
 With \code{means = TRUE} it loads the release's observed means instead: one row
 per taxon and trait, computed from the release's records with

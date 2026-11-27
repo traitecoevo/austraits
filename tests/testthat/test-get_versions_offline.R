@@ -63,37 +63,40 @@ test_that("get_versions(update = FALSE) reads the austraits.json saved by austra
   expect_equal(x$doi[1], "10.5281/zenodo.15718081")
 })
 
-test_that("The saved list is fetched afresh once it is 60 days old", {
+test_that("get_versions() asks Zenodo by default; update = NULL only once the saved list is 60 days old", {
   cache <- local_test_cache()
   n <- 0
   local_mocked_bindings(list_versions = function(doi) { n <<- n + 1; zenodo_listing() }, .package = "traits.use")
   saved <- file.path(cache, "austraits_versions.json")
 
+  # Called directly, the list and the latest release are current
   x <- get_versions()
-  expect_identical(n, 1)
   expect_true(file.exists(saved))
   expect_identical(get_versions(), x)
-  expect_identical(n, 1)
+  expect_equal(get_version_latest(), "7.0.0")
+  expect_identical(n, 3)
 
+  # update = NULL, as load_austraits() calls it, uses the saved list until it is old
+  n <- 1
+  expect_identical(get_versions(update = NULL), x)
+  expect_identical(n, 1)
   Sys.setFileTime(saved, Sys.time() - 59 * 86400)
-  get_version_latest()
+  get_version_latest(update = NULL)
   expect_identical(n, 1)
   Sys.setFileTime(saved, Sys.time() - 61 * 86400)
-  expect_identical(get_versions(), x)
+  expect_identical(get_versions(update = NULL), x)
   expect_identical(n, 2)
 
-  # update = TRUE always fetches, update = FALSE never does if a list is saved
-  get_versions(update = TRUE)
-  expect_identical(n, 3)
+  # update = FALSE never fetches if a list is saved
   Sys.setFileTime(saved, Sys.time() - 400 * 86400)
   get_versions(update = FALSE)
-  expect_identical(n, 3)
+  expect_identical(n, 2)
 
   # The number of days is traits.use's option
   Sys.setFileTime(saved, Sys.time())
   withr::local_options(traits.use.update_after_days = 0)
-  get_versions()
-  expect_identical(n, 4)
+  get_versions(update = NULL)
+  expect_identical(n, 3)
 
   expect_error(get_versions(update = NA), "TRUE, FALSE or NULL")
   expect_error(get_versions(update = "yes"), "TRUE, FALSE or NULL")
